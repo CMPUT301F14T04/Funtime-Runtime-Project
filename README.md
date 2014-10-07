@@ -12,4 +12,4 @@ Team members for this project are:
   
 Check out our [wiki](/wiki) for more information.
 
-This project is licensed under GNU GENERAL PUBLIC LICENSE Version 3. See the License file for more info. 
+This project is licensed under GNU GENERAL PUBLIC LICENSE Version 3. See [LICENSE](/LICENSE) for more info. 
