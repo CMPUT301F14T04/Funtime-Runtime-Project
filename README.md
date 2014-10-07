@@ -2,7 +2,7 @@ Funtime-Runtime-Project
 =======================
 
 Welcome to Funtime-Runtime, CMPUT 301 Team Project!   
-Team members for this project are:
+Developers for this project are:
 
   -Benjamin Holmwood  
   -Brandon Smolley  
