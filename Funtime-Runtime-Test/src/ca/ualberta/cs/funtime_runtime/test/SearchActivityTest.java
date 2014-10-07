@@ -2,11 +2,11 @@ package ca.ualberta.cs.funtime_runtime.test;
 
 
 import android.test.ActivityInstrumentationTestCase2;
-import ca.ualberta.cs.funtime_runtime.HistoryActivity;
+import ca.ualberta.cs.funtime_runtime.SearchActivity;
 
 
-public class SearchActivityTest extends ActivityInstrumentationTestCase2<HistoryActivity> {
+public class SearchActivityTest extends ActivityInstrumentationTestCase2<SearchActivity> {
 	public SearchActivityTest() {
-		super(HistoryActivity.class);
+		super(SearchActivity.class);
 	}
 }
