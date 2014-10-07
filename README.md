@@ -10,6 +10,6 @@ Team members for this project are:
   -Pranjali Pokharel  
   -Steven Cherfan  
   
-Check out our [wiki](wiki) for more information.
+Check out our [wiki](https://github.com/CMPUT301F14T04/Funtime-Runtime-Project/wiki) for more information.
 
 This project is licensed under GNU GENERAL PUBLIC LICENSE Version 3. See [LICENSE](/LICENSE) for more info. 
