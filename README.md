@@ -6,7 +6,7 @@ Team members for this project are:
 
   -Benjamin Holmwood  
   -Brandon Smolley  
-  -Deborsi Hazarika 
+  -Deborsi Hazarika
   -Kieran Boyle  
   -Pranjali Pokharel  
   -Steven Cherfan  
