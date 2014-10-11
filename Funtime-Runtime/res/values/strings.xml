@@ -19,5 +19,7 @@
     <string name="title_activity_my_favourites">MyFavouritesActivity</string>
     <string name="title_activity_reading_list">ReadingListActivity</string>
     <string name="title_activity_history">HistoryActivity</string>
+    
+    <string name= "askQuestion">Ask Question</string>
 
 </resources>
