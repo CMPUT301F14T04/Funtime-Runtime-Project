@@ -11,15 +11,18 @@
     <string name="title_activity_reply_page">ReplyPageActivity</string>
     <string name="title_activity_">Activity</string>
     <string name="title_activity_author_answer">AuthorAnswerActivity</string>
-    <string name="title_activity_search">SearchActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_create_account">CreateAccountActivity</string>
     <string name="title_activity_my_questions">MyQuestionsActivity</string>
     <string name="title_activity_my_answers">MyAnswersActivity</string>
     <string name="title_activity_my_favourites">MyFavouritesActivity</string>
     <string name="title_activity_reading_list">ReadingListActivity</string>
-    <string name="title_activity_history">HistoryActivity</string>
-    
+    <string name="title_activity_history">HistoryActivity</string>    
     <string name= "askQuestion">Ask Question</string>
+    
+    <!-- Search Page Strings -->
+    <string name="title_activity_search">Search Questions</string>
+    <string name="search_text_field"><i>Search query</i></string>
+    <string name="search_button_text">Search</string>
 
 </resources>
