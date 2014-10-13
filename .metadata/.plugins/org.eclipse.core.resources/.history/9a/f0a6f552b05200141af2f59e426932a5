@@ -7,7 +7,6 @@
     <string name="title_activity_question_page">QuestionPageActivity</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_author_question">AuthorQuestionActivity</string>
-    <string name="title_activity_author_reply">AuthorReplyActivity</string>
     <string name="title_activity_reply_page">ReplyPageActivity</string>
     <string name="title_activity_">Activity</string>
     <string name="title_activity_author_answer">AuthorAnswerActivity</string>

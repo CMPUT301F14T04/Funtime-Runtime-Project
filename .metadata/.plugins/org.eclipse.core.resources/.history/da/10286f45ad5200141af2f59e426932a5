@@ -24,6 +24,6 @@
     <string name="title_activity_search">Search Questions</string>
     <string name="search_text_field"><i>Search query</i></string>
     <string name="search_button_text">Search</string>
-    
+    <string name="title_activity_author_answer"/>
 
 </resources>

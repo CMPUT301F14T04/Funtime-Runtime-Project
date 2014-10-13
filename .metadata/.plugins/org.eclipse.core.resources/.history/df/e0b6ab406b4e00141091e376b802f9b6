@@ -1,0 +1,12 @@
+package ca.ualberta.cs.funtime_runtime.test;
+
+import android.test.InstrumentationTestCase;
+import ca.ualberta.cs.funtime_runtime.MyFavouritesActivity;
+
+public class MyFavouritesActivityTest extends InstrumentationTestCase<MyFavouritesActivity> {
+
+	public MyFavouritesActivityTest(String name) {
+		super(MyFavouritesActivity.class);
+	}
+
+}

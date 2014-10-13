@@ -1,0 +1,7 @@
+package ca.ualberta.cs.funtime_runtime.test;
+
+import android.test.ActivityInstrumentationTestCase2;
+
+public class MyAnswersActivityTest extends ActivityInstrumentationTestCase2{
+
+}

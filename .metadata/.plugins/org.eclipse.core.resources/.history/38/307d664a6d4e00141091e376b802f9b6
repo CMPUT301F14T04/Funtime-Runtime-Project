@@ -1,0 +1,11 @@
+package ca.ualberta.cs.funtime_runtime.test;
+
+import ca.ualberta.cs.funtime_runtime.QuestionPageActivity;
+import android.test.ActivityInstrumentationTestCase2;
+
+public class ReadingListActivityTest extends ActivityInstrumentationTestCase2<QuestionPageActivity>{
+
+	public ReadingListActivityTest() {
+		super(QuestionPageActivity.class);
+	}
+}
