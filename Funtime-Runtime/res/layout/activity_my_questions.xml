@@ -9,7 +9,7 @@
     tools:context=".MyQuestionsActivity" >
 
     <ListView
-        android:id="@+id/myQuestionsList"
+        android:id="@+id/searchQuestionsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
