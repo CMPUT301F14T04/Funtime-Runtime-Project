@@ -26,7 +26,8 @@
             android:name="ca.ualberta.cs.funtime_runtime.QuestionPageActivity"
             android:label="@string/title_activity_question_page" >
         </activity>
-        <activity
+        <!--
+           <activity
             android:name="ca.ualberta.cs.funtime_runtime.HomeActivity"
             android:label="@string/title_activity_home" >
             <intent-filter>
@@ -35,6 +36,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        -->
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.AuthorQuestionActivity"
             android:label="@string/title_activity_author_question" >
