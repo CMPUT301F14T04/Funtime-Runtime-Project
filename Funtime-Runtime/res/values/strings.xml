@@ -25,5 +25,9 @@
     <string name="search_text_field"><i>Search query</i></string>
     <string name="search_button_text">Search</string>
     
+    <!-- Question Page Strings -->
+    <string name="question_title_string">My computer is broken, how do I fix it?</string>
+    <string name="question_description_string">My tower has a hammer lodged in the motherboard and the hard disk won\'t stop turning.</string>
+    <string name="question_button_text">Add Answer</string>
 
 </resources>
