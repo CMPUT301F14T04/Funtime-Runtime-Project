@@ -25,7 +25,8 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="16dp"
         android:layout_weight="0.10"
-        android:text="@string/question_description_string" />
+        android:text="@string/question_description_string"
+        android:textSize="17sp" />
 
     <ListView
         android:id="@+id/listView1"
