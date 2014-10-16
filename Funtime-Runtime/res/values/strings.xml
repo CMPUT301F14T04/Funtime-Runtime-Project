@@ -29,5 +29,9 @@
     <string name="question_title_string">My computer is broken, how do I fix it?</string>
     <string name="question_description_string">My tower has a hammer lodged in the motherboard and the hard disk won\'t stop turning.</string>
     <string name="question_button_text">Add Answer</string>
+    
+    <!-- Login Screen Strings -->
+    <string name="noAccountText">No Account?</string>
+    <string name="createAccount">Create Account</string>
 
 </resources>
