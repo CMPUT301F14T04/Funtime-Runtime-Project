@@ -21,13 +21,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button1"
-        android:layout_below ="@+id/noAccountTxt"
         android:layout_alignLeft="@+id/button1"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="84dp"
         android:ems="10"
-        android:inputType="textMultiLine" 
-        android:hint="                Type Answer"/>
+        android:hint="                Type Answer"
+        android:inputType="textMultiLine" />
 
     <Button
         android:id="@+id/imageButton1"
@@ -38,17 +37,6 @@
         android:layout_alignRight="@+id/button1"
         android:drawableRight="@android:drawable/ic_menu_camera"
         android:text="Add Photo" />
-
-    <TextView
-        android:id="@+id/noAccountTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/editText1"
-        android:text="My computer is broken, how do I fix it?"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="normal|bold" />
     
 
 
