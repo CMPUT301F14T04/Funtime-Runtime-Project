@@ -1,11 +1,11 @@
 package ca.ualberta.cs.funtime_runtime.test;
 
 import android.test.ActivityInstrumentationTestCase2;
-import junit.framework.TestCase;
+import ca.ualberta.cs.funtime_runtime.HomeActivity;
 
 public class MyFavouritesTest extends ActivityInstrumentationTestCase2<HomeActivity> {
 
-	public QuestionListTest() {
+	public MyFavouritesTest() {
 		super(HomeActivity.class);
 	}
 	

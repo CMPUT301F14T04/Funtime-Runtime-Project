@@ -1,7 +1,9 @@
 package ca.ualberta.cs.funtime_runtime.test;
 
 import android.test.ActivityInstrumentationTestCase2;
+import ca.ualberta.cs.funtime_runtime.Answer;
 import ca.ualberta.cs.funtime_runtime.HomeActivity;
+import ca.ualberta.cs.funtime_runtime.Question;
 
 public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity> {
 
@@ -37,62 +39,49 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 		assertEquals(rating, 1);
 		
 		question.downVote();
-		int rating = question.getRating();
+		rating = question.getRating();
 		assertEquals(rating, 0);
 		
 		for (int i = 0; i < 10; i++) {
 				question.upVote();
 		}
-		int rating = question.getRating();
+		rating = question.getRating();
 		assertEquals(rating, 10);
 		
 	}
 	
 	public void testAnswers() {
 		Question question = new Question("Test Question Title", "Test question body", "TestAuthorUsername");
-		Answer answer = new Answer("Test Answer Title", "Test answer body", "TestAuthorUsername");
-		assertNotNull(answerList);
-		question.addAnswer(answer);
-		int answer_count = question.getAnswerCount();
-		assertEquals(answer_count, 1);
-		
-		answerList.remove(0);
-		assertEquals(answer_count, 0);
-		
-		Answer answer0 = new Answer("Test Answer 0 Title", "Test answer 0 body", "TestAuthorUsername0");
-		Answer answer1 = new Answer("Test Answer 1 Title", "Test answer 1 body", "TestAuthorUsername1");
-		Answer answer2 = new Answer("Test Answer 2 Title", "Test answer 2 body", "TestAuthorUsername2");
+		Answer answer0 = new Answer("Test answer body", "TestAuthorUsername");
+		assertNotNull(answer0);
+		question.addAnswer(answer0);
+		Answer answer1 = new Answer("Test answer 0 body", "TestAuthorUsername0");
+		Answer answer2 = new Answer("Test answer 1 body", "TestAuthorUsername1");
+		Answer answer3 = new Answer("Test answer 2 body", "TestAuthorUsername2");
 		
 		question.addAnswer(answer0);
 		question.addAnswer(answer1);
 		question.addAnswer(answer2);
 		
-		assertEquals(question.getAnswerCount(), 3);
+		int answer_count = question.getAnswerCount();
+				
+		assertEquals(answer_count, 4);
 		
-		assertEquals(question.getAnswer(1), answer1);
-		
-		question.removeAnswer(1);
-		
-		assertEquals(question.getAnswerCount, 2);
 		assertEquals(question.getAnswer(0), answer0);
-		assertEquals(question.getAnswer(1), answer2);
-		
-		question.removeAnswer(0);
-		question.removeAnswer(1);
-		
-		assertEquals(question.getAnswerCount(), 0);
-	
+		assertEquals(question.getAnswer(1), answer1);
+		assertEquals(question.getAnswer(2), answer2);
+		assertEquals(question.getAnswer(3), answer3);
 	}
 	
 	
 	public void testAddPhoto() {
-		Question question = new Question("Test Question Title", "Test question body", "TestAuthorUsername");
+//		Question question = new Question("Test Question Title", "Test question body", "TestAuthorUsername");
 		
 		// create bitmap testPhoto
-		//bitmap testPhoto = //implement!
-		question.addPhoto(testPhoto);
-		bitmap retreivedPhoto = question.getPhoto();
-		assertEquals(testPhoto, retreivedPhoto);
+//		bitmap testPhoto = //implement!
+//		question.addPhoto(testPhoto);
+//		bitmap retreivedPhoto = question.getPhoto();
+//		assertEquals(testPhoto, retreivedPhoto);
 	}
 	
 	public void testDeleteQuestion() {

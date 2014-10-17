@@ -2,7 +2,7 @@ package ca.ualberta.cs.funtime_runtime.test;
 
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.funtime_runtime.QuestionPageActivity;
-import junit.framework.TestCase;
+import ca.ualberta.cs.funtime_runtime.Reply;
 
 public class ReplyTest extends ActivityInstrumentationTestCase2<QuestionPageActivity> {
 
