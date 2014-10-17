@@ -1,8 +1,8 @@
 package ca.ualberta.cs.funtime_runtime;
 
-public class Readinglist extends QuestionList {
+public class ReadingList extends QuestionList {
 
-	public Readinglist() {
+	public ReadingList() {
 		// TODO Auto-generated constructor stub
 	}
 

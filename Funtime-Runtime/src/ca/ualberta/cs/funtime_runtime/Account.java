@@ -31,9 +31,9 @@ public class Account {
 
 	public int questionsCount()
 	{
-
 		// TODO Auto-generated method stub
-		return null;
+		int size = 0; // Change to size of question list
+		return size;
 	}
 
 	public Question getQuestion(int i)
@@ -52,12 +52,33 @@ public class Account {
 
 	public int answersCount()
 	{
+		// TODO Auto-generated method stub
+		int size = 0; // Change to size of the answer list
+		return size;
+	}
+
+	public Answer getAnswer(int i)
+	{
 
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Answer getAnswer(int i)
+	public MyFavourites getFavouritesList()
+	{
+
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ReadingList getReadingList()
+	{
+
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public HistoryList getHistoryList()
 	{
 
 		// TODO Auto-generated method stub
