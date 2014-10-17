@@ -9,23 +9,24 @@
     tools:context=".AuthorReplyActivity" >
 
    <TextView
-        android:id="@+id/noAccountTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/editText1"
-        android:text="blah blah blah blah"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="normal|bold" />
+       android:id="@+id/noAccountTxt"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentTop="true"
+       android:layout_alignRight="@+id/editText1"
+       android:text="@string/reply_parent_text"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:textStyle="normal|bold" />
+
      <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="Submit" />
+         android:id="@+id/button1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentRight="true"
+         android:text="@string/submit_button_text" />
 
      <EditText
          android:id="@+id/editText1"

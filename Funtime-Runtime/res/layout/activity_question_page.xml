@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
-        android:text="@string/question_title_string"
+        android:text="@string/answer_parent_title"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="normal|bold" />
 
@@ -25,7 +25,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="16dp"
         android:layout_weight="0.10"
-        android:text="@string/question_description_string"
+        android:text="@string/answer_parent_text"
         android:textSize="17sp" />
 
     <ListView

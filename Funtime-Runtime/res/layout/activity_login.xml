@@ -38,7 +38,7 @@
         android:layout_below="@+id/button1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
-        android:text="@string/noAccountText"
+        android:text="@string/no_account"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
@@ -48,6 +48,6 @@
         android:layout_below="@+id/noAccountTxt"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="@string/createAccount" />
+        android:text="@string/create_account_button_text" />
     
 </RelativeLayout>
