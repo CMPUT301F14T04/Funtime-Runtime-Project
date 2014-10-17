@@ -6,4 +6,10 @@ public class Question {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Question(String title, String body, String username)
+	{
+
+		// TODO Auto-generated constructor stub
+	}
+
 }

@@ -17,29 +17,33 @@ public class AnswerListTest extends ActivityInstrumentationTestCase2<QuestionPag
 	
 	public void testAddAnswer(){
 		AnswerList answerList = new AnswerList();
-		Answer answer = new Answer("Test Answer Title", "Test answer text", "TestAuthorUsername");
+		Answer answer = new Answer("Test answer text", "TestAuthorUsername");
 		assertNotNull(answerList);
+		answerList.add(answer);
 		assertTrue(answerList.size(), 1);
 		assertEquals(answer, answerList.get(0));
 		
-		Answer answer = new Answer("Test Answer 0 Title", "Test answer 0 text", "TestAuthorUsername0");
-		Answer answer = new Answer("Test Answer 1 Title", "Test answer 1 text", "TestAuthorUsername1");
-		Answer answer = new Answer("Test Answer 2 Title", "Test answer 2 text", "TestAuthorUsername2");
-		assertTrue(answerList.size(), 3);
+		Answer answer0 = new Answer("Test answer 0 text", "TestAuthorUsername0");
+		Answer answer1 = new Answer("Test answer 1 text", "TestAuthorUsername1");
+		Answer answer2 = new Answer("Test answer 2 text", "TestAuthorUsername2");
+		answerList.add(answer0);
+		answerList.add(answer1);
+		answerList.add(answer2);
+		assertTrue(answerList.size(), 4);
 	
 	}
 	
 	public void testRemoveAnswer(){
 		AnswerList answerList = new AnswerList();
-		Answer answer = new Answer("Test Answer Title", "Test answer text", "TestAuthorUsername");
+		Answer answer = new Answer("Test answer text", "TestAuthorUsername");
 		assertNotNull(answerList);
 		assertTrue(answerList.size(), 1);
 		answerList.remove(0);
 		assertTrue(answerList.size(), 0);		
 		
-		Answer answer0 = new Answer("Test Answer 0 Title", "Test answer 0 text", "TestAuthorUsername0");
-		Answer answer1 = new Answer("Test Answer 1 Title", "Test answer 1 text", "TestAuthorUsername1");
-		Answer answer2 = new Answer("Test Answer 2 Title", "Test answer 2 text", "TestAuthorUsername2");
+		Answer answer0 = new Answer("Test answer 0 text", "TestAuthorUsername0");
+		Answer answer1 = new Answer("Test answer 1 text", "TestAuthorUsername1");
+		Answer answer2 = new Answer("Test answer 2 text", "TestAuthorUsername2");
 		assertNotNull(answerList);
 		assertTrue(answerList.size(), 3);
 		answerList.remove(1);
@@ -48,4 +52,4 @@ public class AnswerListTest extends ActivityInstrumentationTestCase2<QuestionPag
 		assertEquals(answerList.get(1), answer2);
 		
 	}
-};
+}

@@ -11,17 +11,17 @@ public class AnswerTest extends ActivityInstrumentationTestCase2<QuestionPageAct
 		}
 
 		public void testMakeAnswer(){
-			Answer answer = new Answer("Test Answer Title", "Test answer text", "TestAuthorUsername");
+			Answer answer = new Answer("Test answer body", "TestAuthorUsername");
 			assertNotNull(answer);
 		}
 		
 		public void testAnswerContent() {
-			Answer answer = new Answer("Test Answer Title", "Test answer text", "TestAuthorUsername");
+			Answer answer = new Answer("Test answer body", "TestAuthorUsername");
 			String answerTitle = answer.getTitle();
-			String answerText = answer.getText();
+			String answerBody = answer.getBody();
 			String authorName = answer.getUser();
 			assertEquals(answerTitle, "Test Answser Title");
-			assertEquals(answerText, "Test answer text");
+			assertEquals(answerBody, "Test answer body");
 			assertEquals(authorName, "TestAuthorUsername");
 		}
 		
@@ -31,7 +31,7 @@ public class AnswerTest extends ActivityInstrumentationTestCase2<QuestionPageAct
 		
 		
 		public void testVoting() {
-			Answer answer = new Answer("Test Answer Title", "Test answer text", "TestAuthorUsername");
+			Answer answer = new Answer("Test answer body", "TestAuthorUsername");
 			
 			answer.upVote();
 			int rating = answer.getRating();
@@ -51,7 +51,7 @@ public class AnswerTest extends ActivityInstrumentationTestCase2<QuestionPageAct
 		
 		
 		public void testAddPhoto() {
-			Answer answer = new Answer("Test Answer Title", "Test answer text", "TestAuthorUsername");
+			Answer answer = new Answer("Test answer body", "TestAuthorUsername");
 			
 			// create bitmap testPhoto
 			//bitmap testPhoto = //implement!
@@ -63,7 +63,5 @@ public class AnswerTest extends ActivityInstrumentationTestCase2<QuestionPageAct
 		public void testDeleteAnswer() {
 			// Consider implementing
 		}
-		
-		
 		
 }
