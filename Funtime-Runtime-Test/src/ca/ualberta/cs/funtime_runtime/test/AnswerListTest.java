@@ -12,7 +12,7 @@ public class AnswerListTest extends ActivityInstrumentationTestCase2<AuthorAnswe
 	
 	public void testMakeList(){
 		AnswerList answerList = new AnswerList();
-		assertNull(answerList);
+		assertNotNull(answerList);
 	}
 	
 	public void testAddAnswer(){
@@ -28,7 +28,9 @@ public class AnswerListTest extends ActivityInstrumentationTestCase2<AuthorAnswe
 		answerList.add("test one");
 		assertNotNull(answerList);
 		answerList.remove("test one");
-		assertNull(answerList);
+		int size = answerList.size();
+		if (size == 0)
+			assertNotNull(answerList);
 		
 	}
 };

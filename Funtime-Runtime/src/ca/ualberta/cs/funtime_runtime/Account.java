@@ -6,4 +6,14 @@ public class Account {
 		// TODO Auto-generated constructor stub
 	}
 
+	public void setName(String name1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
