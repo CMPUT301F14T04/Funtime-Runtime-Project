@@ -1,12 +1,13 @@
 package ca.ualberta.cs.funtime_runtime.test;
 
+import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.funtime_runtime.Account;
-import junit.framework.TestCase;
+import ca.ualberta.cs.funtime_runtime.CreateAccountActivity;
 
-public class AccountTest extends TestCase {
+public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountActivity> {
 	
 	public AccountTest(){
-		
+		super(CreateAccountActivity.class);
 	}
 	
 	public void testCreateAccount(){
