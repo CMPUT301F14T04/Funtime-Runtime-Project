@@ -1,22 +1,24 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.util.ArrayList;
+
 public class QuestionList {
+	
+	ArrayList<Question> questionList;
 
 	public QuestionList() {
-		// TODO Auto-generated constructor stub
+		questionList = new ArrayList<Question>();
 	}
 
 	public void add(Question question)
 	{
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	public int size()
 	{
 		// TODO Auto-generated method stub
-		int size = 0; // Change to match the size of the question list
-		return size;
+		return 0;
 	}
 
 	public Question get(int i)
