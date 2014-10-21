@@ -3,6 +3,7 @@ package ca.ualberta.cs.funtime_runtime;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 public class CustomAdapter extends BaseAdapter{
 
@@ -26,7 +27,14 @@ public class CustomAdapter extends BaseAdapter{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
+		
+		//View theView = convertView;
+		
+		//TextView titleTextView = (TextView) theView.findViewById(R.id.question_title);
+		//TextView ratingTextView = (TextView) theView.findViewById();
+		//TextView answersTextView = (TextView) theView.findViewById();
+		
+		
 		return null;
 	}
 

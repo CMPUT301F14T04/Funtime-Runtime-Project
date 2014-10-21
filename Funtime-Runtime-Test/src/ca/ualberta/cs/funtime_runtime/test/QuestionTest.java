@@ -21,7 +21,7 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 		String questionTitle = question.getTitle();
 		String questionBody = question.getBody();
 		String authorName = question.getUser();
-		assertEquals(questionTitle, "Test Answser Title");
+		assertEquals(questionTitle, "Test Question Title");
 		assertEquals(questionBody, "Test question body");
 		assertEquals(authorName, "TestAuthorUsername");
 	}
@@ -43,7 +43,7 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 		assertEquals(rating, 0);
 		
 		for (int i = 0; i < 10; i++) {
-				question.upVote();
+			question.upVote();
 		}
 		rating = question.getRating();
 		assertEquals(rating, 10);

@@ -2,66 +2,57 @@ package ca.ualberta.cs.funtime_runtime;
 
 public class Question {
 
-	public Question() {
-		// TODO Auto-generated constructor stub
+	public AnswerList answerList;
+	private final String TITLE;
+	private final String BODY;
+	private final String USERNAME;
+	private int rating;
+	private int numberOfAnswers;
+	
+	
+	public Question(String title, String body, String username) {
+		this.TITLE = title;
+		this.BODY = body;
+		this.USERNAME = username;
+		this.rating = 0;
+		this.numberOfAnswers = 0;
 	}
 
-	public Question(String title, String body, String username)
-	{
-
-		// TODO Auto-generated constructor stub
+	public String getTitle() {
+		return this.TITLE;
 	}
 
-	public String getTitle()
-	{
-		// TODO Auto-generated method stub
-		return null;
+	public String getBody() {
+		return this.BODY;
 	}
 
-	public String getBody()
-	{
-		// TODO Auto-generated method stub
-		return null;
+	public String getUser() {
+		return this.USERNAME;
 	}
 
-	public String getUser()
-	{
-		// TODO Auto-generated method stub
-		return null;
+	public void upVote() {
+		this.rating++;
 	}
 
-	public void upVote()
-	{
-		// TODO Auto-generated method stub	
+	public int getRating() {
+		return this.rating;
 	}
 
-	public int getRating()
-	{
-		// TODO Auto-generated method stub
-		return 0;
+	public void downVote() {
+		this.rating--;	
 	}
 
-	public void downVote()
-	{
-		// TODO Auto-generated method stub
-		
+	public void addAnswer(Answer answer) {
+		answerList.add(answer);
 	}
 
-	public void addAnswer(Answer answer)
-	{
-		// TODO Auto-generated method stub	
+	public int getAnswerCount() {
+		return this.numberOfAnswers;
 	}
 
-	public int getAnswerCount()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public Answer getAnswer(int i)
-	{
-		// TODO Auto-generated method stub
-		return null;
+	public Answer getAnswer(int i) {
+		Answer answer = answerList.get(i);
+		return answer;
 	}
 
 }
