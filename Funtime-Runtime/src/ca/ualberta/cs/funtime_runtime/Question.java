@@ -2,13 +2,12 @@ package ca.ualberta.cs.funtime_runtime;
 
 public class Question {
 
-	public AnswerList answerList;
 	private final String TITLE;
 	private final String BODY;
 	private final String USERNAME;
+	public AnswerList answerList;
 	private int rating;
 	private int numberOfAnswers;
-	
 	
 	public Question(String title, String body, String username) {
 		this.TITLE = title;
@@ -16,6 +15,7 @@ public class Question {
 		this.USERNAME = username;
 		this.rating = 0;
 		this.numberOfAnswers = 0;
+		this.answerList = new AnswerList();
 	}
 
 	public String getTitle() {
@@ -43,7 +43,7 @@ public class Question {
 	}
 
 	public void addAnswer(Answer answer) {
-		answerList.add(answer);
+		this.answerList.add(answer);
 	}
 
 	public int getAnswerCount() {
@@ -51,7 +51,7 @@ public class Question {
 	}
 
 	public Answer getAnswer(int i) {
-		Answer answer = answerList.get(i);
+		Answer answer = this.answerList.get(i);
 		return answer;
 	}
 

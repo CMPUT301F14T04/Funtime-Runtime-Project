@@ -1,32 +1,31 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.util.ArrayList;
+
 
 public class AnswerList{
+	
+	private ArrayList<Answer> answerList;
 
-	public AnswerList(){
-		
-		// TODO Auto-generated constructor stub
+	public AnswerList(){	
+		this.answerList = new ArrayList<Answer>();
 	}
 
 	public void add(Answer answer) {
-		// TODO Auto-generated method stub
-		
+		this.answerList.add(answer);
 	}
 
 	public void remove(int i) {
-		// Take an index and remove the element with the matching position.
-		
+		this.answerList.remove(i);	
 	}
 
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.answerList.size();
 	}
 
 	public Answer get(int i)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.answerList.get(i);
 	}
 
 }
