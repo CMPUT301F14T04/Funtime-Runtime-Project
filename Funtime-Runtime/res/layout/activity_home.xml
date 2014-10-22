@@ -15,13 +15,25 @@
         android:layout_alignParentLeft="true"
         android:text="@string/ask_question_button_text" />
 
+    <!-- 
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:src="@android:drawable/btn_star_big_on" 
+        android:background="@null" />
+        android:background="?android:attr/selectableItemBackground" 
+	-->
+
     <ListView
-        android:id="@+id/questionsListView"
-        android:layout_width="fill_parent"
+        android:id="@+id/questionListView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/askQuestionButton"
-        android:layout_alignParentRight="true" >
+        android:layout_alignLeft="@+id/askQuestionButton"
+        android:layout_alignParentTop="true" >
+
     </ListView>
-   
 
 </RelativeLayout>

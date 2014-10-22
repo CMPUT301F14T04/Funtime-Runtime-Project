@@ -3,9 +3,13 @@ package ca.ualberta.cs.funtime_runtime;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
-public class CustomAdapter extends BaseAdapter{
+public class CustomAdapter extends BaseAdapter {
+
+
+	public CustomAdapter() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public int getCount() {

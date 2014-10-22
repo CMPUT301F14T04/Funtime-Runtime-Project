@@ -7,30 +7,28 @@ public class QuestionList {
 	ArrayList<Question> questionList;
 
 	public QuestionList() {
-		questionList = new ArrayList<Question>();
+		this.questionList = new ArrayList<Question>();
 	}
 
 	public void add(Question question)
 	{
-		// TODO Auto-generated method stub	
+		this.questionList.add(question);
 	}
 
 	public int size()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return this.questionList.size();
 	}
 
 	public Question get(int i)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Question question = this.questionList.get(i);
+		return question;
 	}
 
 	public void remove(int i)
 	{
-		// TODO Auto-generated method stub
-		
+		this.questionList.remove(i);
 	}
 
 }
