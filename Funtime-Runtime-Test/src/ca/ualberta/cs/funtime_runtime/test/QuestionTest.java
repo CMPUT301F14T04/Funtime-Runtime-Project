@@ -59,9 +59,9 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 		Answer answer2 = new Answer("Test answer 1 body", "TestAuthorUsername1");
 		Answer answer3 = new Answer("Test answer 2 body", "TestAuthorUsername2");
 		
-		question.addAnswer(answer0);
 		question.addAnswer(answer1);
 		question.addAnswer(answer2);
+		question.addAnswer(answer3);
 		
 		int answer_count = question.getAnswerCount();
 				

@@ -44,6 +44,7 @@ public class Question {
 
 	public void addAnswer(Answer answer) {
 		this.answerList.add(answer);
+		this.numberOfAnswers++;
 	}
 
 	public int getAnswerCount() {
