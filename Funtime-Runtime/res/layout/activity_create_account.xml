@@ -9,13 +9,14 @@
     tools:context=".CreateAccountActivity" >
     
         <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp"
-        android:text="Create Account" />
+            android:id="@+id/createAccountButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/createUsernameField"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="38dp"
+            android:text="Create Account" />
+
 <!--  
     <TextView
         android:id="@+id/textView1"
@@ -29,7 +30,7 @@
 -->
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/createUsernameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

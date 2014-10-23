@@ -1,27 +1,25 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.util.ArrayList;
 
 public class AccountList{
 
+	private static ArrayList<Account> accountList;
+	
 	public AccountList(){
-		
-		// TODO Auto-generated constructor stub
+		accountList = new ArrayList<Account>();
 	}
 
-	public void add(Account account) {
-		// TODO Auto-generated method stub
-		
+	public static void add(Account account) {
+		accountList.add(account);
 	}
 
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return accountList.size();
 	}
 
-	public Account get(int i)
-	{
-		// TODO Auto-generated method stub
-		return null;
+	public Account get(int i) {
+		return accountList.get(i);
 	}
 
 }

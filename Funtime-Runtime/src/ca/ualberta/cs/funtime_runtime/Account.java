@@ -2,87 +2,60 @@ package ca.ualberta.cs.funtime_runtime;
 
 public class Account {
 
-	public Account() {
-		// TODO Auto-generated constructor stub
+	private String username;
+	private MyFavourites favourites;
+	private AnswerList answerList;
+	private QuestionList questionList;
+	private ReadingList readingList;
+	private HistoryList history;
+	
+	public Account(String username_) {
+		username = username_;
 	}
 
-	public Account(String username)
-	{
-
-		// TODO Auto-generated constructor stub
-	}
-
-	public void setName(String name1) {
-		// TODO Auto-generated method stub
-		
+	public void setName(String username_) {
+		username = username_;
 	}
 
 	public String getName() {
 		// TODO Auto-generated method stub
-		return null;
+		return username;
 	}
 
-	public void authorQuestion(Question question)
-	{
-
-		// TODO Auto-generated method stub
-		
+	public void authorQuestion(Question question) {
+		questionList.add(question);
 	}
 
-	public int questionsCount()
-	{
-		// TODO Auto-generated method stub
-		int size = 0; // Change to size of question list
-		return size;
+	public int questionsCount() { 
+		return questionList.size();
 	}
 
-	public Question getQuestion(int i)
-	{
-
-		// TODO Auto-generated method stub
-		return null;
+	public Question getQuestion(int i) {
+		return questionList.get(i);
 	}
 
-	public void authorAnswer(Answer answer)
-	{
-
-		// TODO Auto-generated method stub
-		
+	public void authorAnswer(Answer answer) {
+		answerList.add(answer);
 	}
 
-	public int answersCount()
-	{
-		// TODO Auto-generated method stub
-		int size = 0; // Change to size of the answer list
-		return size;
+	public int answersCount() {
+		return answerList.size();
 	}
 
-	public Answer getAnswer(int i)
-	{
-
-		// TODO Auto-generated method stub
-		return null;
+	public Answer getAnswer(int i) {
+		return answerList.get(i);
 	}
 
-	public MyFavourites getFavouritesList()
-	{
-
-		// TODO Auto-generated method stub
-		return null;
+	public MyFavourites getFavouritesList() {
+			return favourites;
 	}
 
-	public ReadingList getReadingList()
-	{
-
-		// TODO Auto-generated method stub
-		return null;
+	public ReadingList getReadingList() {
+		return readingList;
 	}
 
-	public HistoryList getHistoryList()
-	{
-
-		// TODO Auto-generated method stub
-		return null;
+	public HistoryList getHistoryList() {
+		return history;
 	}
 
 }
