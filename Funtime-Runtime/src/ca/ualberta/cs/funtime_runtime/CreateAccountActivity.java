@@ -25,18 +25,19 @@ public class CreateAccountActivity extends Activity
             public void onClick(View v) {
                 EditText createUsernameText = (EditText) findViewById(R.id.loginField);
                 String newUsername = createUsernameText.getText().toString();
-                if (newUsername != "") {
+                if (newUsername.length() > 0) {
+                	
                 	// Get application state and account list
-            	    ApplicationState appState = ((ApplicationState)getApplicationContext());
-            	    
-            	    
+            	    ApplicationState appState = (ApplicationState) getApplicationContext();          	    
                 	AccountList accountList = appState.getAccountList();
+                	
                 	// TODO get accountList from server
                 	
                 	// Create new account and add to AccountList
                 	Account newAccount = new Account(createUsernameText.getText().toString());
                 	accountList.add(newAccount);
                 	createUsernameText.setText("");
+                	
                 	// Login the new account
                 	appState.setAccount(newAccount);
                 	

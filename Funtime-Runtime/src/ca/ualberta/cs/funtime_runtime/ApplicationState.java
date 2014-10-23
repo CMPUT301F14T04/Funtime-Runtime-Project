@@ -5,14 +5,14 @@ import android.app.Application;
 public class ApplicationState extends Application {
 	// adapted from http://stackoverflow.com/questions/708012/how-to-declare-global-variables-in-android - Accessed Oct 22 2014
 	
-	private Account account;
+	private static Account account;
 	private AccountList accountList;
 	
 	public void setAccount(Account newAccount) {
 		account = newAccount;
 	}
 	
-	public Account getAccount() {
+	public static Account getAccount() {
 		return account;
 	}
 	

@@ -9,7 +9,7 @@
     tools:context=".SearchActivity" >
 
     <EditText
-        android:id="@+id/loginField"
+        android:id="@+id/searchField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -22,22 +22,23 @@
     </EditText>
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/searchButton"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignRight="@id/searchField"
         android:text="@string/search_button_text" />
 
     <ListView
         android:id="@+id/searchQuestionsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/loginField"
-        android:layout_alignStart="@+id/loginField"
-        android:layout_below="@+id/loginButton" >
+        android:layout_alignLeft="@+id/searchField"
+        android:layout_alignStart="@+id/searchField"
+        android:layout_below="@+id/searchButton" >
     </ListView>
 
 </RelativeLayout>

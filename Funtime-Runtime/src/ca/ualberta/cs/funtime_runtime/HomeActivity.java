@@ -1,5 +1,8 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,11 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class HomeActivity extends Activity
 {
 	ListView homeListView;
 	QuestionList homeQuestionList;
+	Account account;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -20,8 +25,22 @@ public class HomeActivity extends Activity
 		setContentView(R.layout.activity_home);
 		homeQuestionList = new QuestionList();
 		homeListView =  (ListView) findViewById(R.id.questionListView);	
+		testHome();
 	}
 		
+	private void testHome() {
+		List<Question> questionList = new ArrayList<Question>();
+		QuestionListAdapter adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, questionList);
+		Question question1 = new Question("test 1", "body 1 test", "user1");
+		Question question2 = new Question("test 2", "body 2 test", "user2");
+		Question question3 = new Question("test 3", "body 3 test", "user3");
+		questionList.add(question1);
+		questionList.add(question2);
+		questionList.add(question3);
+		homeListView.setAdapter(adapter);	
+		adapter.notifyDataSetChanged();
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -38,8 +57,7 @@ public class HomeActivity extends Activity
 				return true;
 			default:
 				return true;
-		}
-		
+		}	
 	}
 	
 	public void openSearch() {
@@ -50,7 +68,24 @@ public class HomeActivity extends Activity
 	//start the AuthorQuestionActivity --> Author Question Page to ask a new Question
 	public void askQuestion(View v)
 	{
-		Intent authorQuestion = new Intent(HomeActivity.this, AuthorQuestionActivity.class);
-		startActivity(authorQuestion); 
+		Boolean loggedIn = checkLoggedIn();
+		if (loggedIn) {
+			Intent authorQuestion = new Intent(HomeActivity.this, AuthorQuestionActivity.class);
+			startActivity(authorQuestion); 
+		}
+		else {
+			Toast.makeText(this, "Please login to post a question", Toast.LENGTH_SHORT).show();
+			Intent createAccount = new Intent(this, CreateAccountActivity.class);
+			startActivity(createAccount);
+		}
+	}
+	
+	public Boolean checkLoggedIn() {
+		if (account == null) {
+			return false;
+		}
+		else {
+			return true;
+		}	
 	}
 }

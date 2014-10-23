@@ -8,14 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".CreateAccountActivity" >
     
-        <Button
-            android:id="@+id/createAccountButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/loginField"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="38dp"
-            android:text="Create Account" />
+     <Button
+         android:id="@+id/createAccountButton"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/loginField"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="38dp"
+         android:text="@string/create_account_button" />
 
 <!--  
     <TextView
@@ -37,7 +37,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="152dp"
         android:ems="10"
-        android:hint="Create A Username"
+        android:hint="@string/create_account_username"
         android:inputType="textPersonName" />
     
 </RelativeLayout>

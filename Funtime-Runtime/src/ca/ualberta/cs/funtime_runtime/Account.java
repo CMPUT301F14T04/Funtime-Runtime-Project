@@ -1,5 +1,6 @@
 package ca.ualberta.cs.funtime_runtime;
 
+
 public class Account {
 
 	private String username;
@@ -9,53 +10,57 @@ public class Account {
 	private ReadingList readingList;
 	private HistoryList history;
 	
-	public Account(String username_) {
-		username = username_;
+	public Account(String username) {
+		this.username = username;
+		this.favourites = new MyFavourites();
+		this.answerList = new AnswerList();
+		this.questionList = new QuestionList();
+		this.readingList = new ReadingList();
+		this.history = new HistoryList();
 	}
 
-	public void setName(String username_) {
-		username = username_;
+	public void setName(String username) {
+		this.username = username;
 	}
 
 	public String getName() {
-		// TODO Auto-generated method stub
-		return username;
+		return this.username;
 	}
 
 	public void authorQuestion(Question question) {
-		questionList.add(question);
+		this.questionList.add(question);
 	}
 
 	public int questionsCount() { 
-		return questionList.size();
+		return this.questionList.size();
 	}
 
 	public Question getQuestion(int i) {
-		return questionList.get(i);
+		return this.questionList.get(i);
 	}
 
 	public void authorAnswer(Answer answer) {
-		answerList.add(answer);
+		this.answerList.add(answer);
 	}
 
 	public int answersCount() {
-		return answerList.size();
+		return this.answerList.size();
 	}
 
 	public Answer getAnswer(int i) {
-		return answerList.get(i);
+		return this.answerList.get(i);
 	}
 
 	public MyFavourites getFavouritesList() {
-			return favourites;
+		return this.favourites;
 	}
 
 	public ReadingList getReadingList() {
-		return readingList;
+		return this.readingList;
 	}
 
 	public HistoryList getHistoryList() {
-		return history;
+		return this.history;
 	}
 
 }

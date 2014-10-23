@@ -7,8 +7,7 @@ public class ReplyList {
 	ArrayList<Reply> replyList;
 		
 	public ReplyList() 
-	{
-		
+	{	
 		this.replyList = new ArrayList<Reply>();
 	}
 

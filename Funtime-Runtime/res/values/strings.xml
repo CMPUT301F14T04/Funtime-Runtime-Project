@@ -31,6 +31,8 @@
     
     <!-- Create Account Strings -->
     <string name="title_activity_create_account">Create Account</string>
+    <string name="create_account_username">Create a Username</string>
+    <string name="create_account_button">Create Account</string>
     
     <!-- Login Screen Strings -->
     <string name="title_activity_login">Login</string>
