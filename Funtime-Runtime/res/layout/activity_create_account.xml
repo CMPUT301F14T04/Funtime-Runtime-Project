@@ -12,7 +12,7 @@
             android:id="@+id/createAccountButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/createUsernameField"
+            android:layout_below="@+id/loginField"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="38dp"
             android:text="Create Account" />
@@ -30,7 +30,7 @@
 -->
 
     <EditText
-        android:id="@+id/createUsernameField"
+        android:id="@+id/loginField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

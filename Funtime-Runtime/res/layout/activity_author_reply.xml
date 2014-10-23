@@ -14,13 +14,13 @@
        android:layout_height="wrap_content"
        android:layout_alignParentLeft="true"
        android:layout_alignParentTop="true"
-       android:layout_alignRight="@+id/createUsernameField"
+       android:layout_alignRight="@+id/loginField"
        android:text="@string/reply_parent_text"
        android:textAppearance="?android:attr/textAppearanceMedium"
        android:textStyle="normal|bold" />
 
      <Button
-         android:id="@+id/button1"
+         android:id="@+id/loginButton"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_alignParentBottom="true"
@@ -29,12 +29,12 @@
          android:text="@string/submit_button_text" />
 
      <EditText
-         android:id="@+id/createUsernameField"
+         android:id="@+id/loginField"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_above="@+id/button1"
-         android:layout_alignLeft="@+id/button1"
-         android:layout_alignRight="@+id/button1"
+         android:layout_above="@+id/loginButton"
+         android:layout_alignLeft="@+id/loginButton"
+         android:layout_alignRight="@+id/loginButton"
          android:ems="10"
          android:hint="Comment"
          android:inputType="textMultiLine">

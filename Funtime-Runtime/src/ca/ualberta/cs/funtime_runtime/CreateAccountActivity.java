@@ -23,12 +23,26 @@ public class CreateAccountActivity extends Activity
 		
         OnClickListener createAccountListener = new OnClickListener() {
             public void onClick(View v) {
-                EditText createUsernameText = (EditText) findViewById(R.id.createUsernameField);
+                EditText createUsernameText = (EditText) findViewById(R.id.loginField);
                 String newUsername = createUsernameText.getText().toString();
                 if (newUsername != "") {
+                	// Get application state and account list
+            	    ApplicationState appState = ((ApplicationState)getApplicationContext());
+            	    
+            	    
+                	AccountList accountList = appState.getAccountList();
+                	// TODO get accountList from server
+                	
+                	// Create new account and add to AccountList
                 	Account newAccount = new Account(createUsernameText.getText().toString());
-                	AccountList.add(newAccount);
+                	accountList.add(newAccount);
                 	createUsernameText.setText("");
+                	// Login the new account
+                	appState.setAccount(newAccount);
+                	
+                	// TODO update accountList on server
+                	// TODO return to page before login page
+                	
                 }
                 else {
            		    Toast.makeText(ctx, "Please enter a username to create an account.", Toast.LENGTH_SHORT).show();

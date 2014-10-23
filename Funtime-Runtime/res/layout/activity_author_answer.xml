@@ -9,7 +9,7 @@
     tools:context=".AuthorAnswerActivity" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -18,11 +18,11 @@
         android:text="@string/submit_button_text" />
     
     <EditText
-        android:id="@+id/createUsernameField"
+        android:id="@+id/loginField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
-        android:layout_alignLeft="@+id/button1"
+        android:layout_above="@+id/loginButton"
+        android:layout_alignLeft="@+id/loginButton"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="84dp"
         android:ems="10"
@@ -33,9 +33,9 @@
         android:id="@+id/imageButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignRight="@+id/button1"
+        android:layout_above="@+id/loginButton"
+        android:layout_alignLeft="@+id/loginButton"
+        android:layout_alignRight="@+id/loginButton"
         android:drawableRight="@android:drawable/ic_menu_camera"
         android:text="@string/add_photo_button_text" />
 
@@ -53,9 +53,9 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/createUsernameField"
-        android:layout_alignLeft="@+id/createUsernameField"
-        android:layout_alignRight="@+id/createUsernameField"
+        android:layout_above="@+id/loginField"
+        android:layout_alignLeft="@+id/loginField"
+        android:layout_alignRight="@+id/loginField"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="22dp"
         android:text="@string/answer_parent_text"

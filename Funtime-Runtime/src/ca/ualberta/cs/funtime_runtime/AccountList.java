@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class AccountList{
 
-	private static ArrayList<Account> accountList;
+	private ArrayList<Account> accountList;
 	
 	public AccountList(){
 		accountList = new ArrayList<Account>();
 	}
 
-	public static void add(Account account) {
+	public void add(Account account) {
 		accountList.add(account);
 	}
 

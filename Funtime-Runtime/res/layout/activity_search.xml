@@ -9,7 +9,7 @@
     tools:context=".SearchActivity" >
 
     <EditText
-        android:id="@+id/createUsernameField"
+        android:id="@+id/loginField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -22,7 +22,7 @@
     </EditText>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/loginButton"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,9 +35,9 @@
         android:id="@+id/searchQuestionsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/createUsernameField"
-        android:layout_alignStart="@+id/createUsernameField"
-        android:layout_below="@+id/button1" >
+        android:layout_alignLeft="@+id/loginField"
+        android:layout_alignStart="@+id/loginField"
+        android:layout_below="@+id/loginButton" >
     </ListView>
 
 </RelativeLayout>
