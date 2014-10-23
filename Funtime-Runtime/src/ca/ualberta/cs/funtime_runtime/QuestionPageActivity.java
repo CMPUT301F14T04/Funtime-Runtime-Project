@@ -2,7 +2,9 @@ package ca.ualberta.cs.funtime_runtime;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 
 public class QuestionPageActivity extends Activity
 {
@@ -22,6 +24,13 @@ public class QuestionPageActivity extends Activity
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.question_page, menu);
 		return true;
+	}
+	
+	//start the AuthorAnswerActivity --> Author Answer Page
+	public void addAnswer(View v)
+	{
+		Intent authorAnswer = new Intent(QuestionPageActivity.this, AuthorAnswerActivity.class);
+		startActivity(authorAnswer);
 	}
 
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 public class HomeActivity extends Activity
@@ -46,4 +47,10 @@ public class HomeActivity extends Activity
 		startActivity(intent);
 	}
 
+	//start the AuthorQuestionActivity --> Author Question Page to ask a new Question
+	public void askQuestion(View v)
+	{
+		Intent authorQuestion = new Intent(HomeActivity.this, AuthorQuestionActivity.class);
+		startActivity(authorQuestion); 
+	}
 }

@@ -17,10 +17,10 @@ public class AnswerTest extends ActivityInstrumentationTestCase2<QuestionPageAct
 		
 		public void testAnswerContent() {
 			Answer answer = new Answer("Test answer body", "TestAuthorUsername");
-			String answerTitle = answer.getTitle();
+			//String answerTitle = answer.getTitle();
 			String answerBody = answer.getBody();
 			String authorName = answer.getUser();
-			assertEquals(answerTitle, "Test Answser Title");
+			//assertEquals(answerTitle, "Test Answser Title");
 			assertEquals(answerBody, "Test answer body");
 			assertEquals(authorName, "TestAuthorUsername");
 		}
