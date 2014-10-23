@@ -2,20 +2,22 @@ package ca.ualberta.cs.funtime_runtime;
 
 public class Reply {
 
+	private final String BODY;
+	private final String USERNAME;
+	
 	public Reply(String body, String username) {
-		// TODO Auto-generated constructor stub
+		this.BODY = body;
+		this.USERNAME = username;
 	}
 
 	public String getBody()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.BODY;
 	}
 
 	public String getUser()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.USERNAME;
 	}
 
 }

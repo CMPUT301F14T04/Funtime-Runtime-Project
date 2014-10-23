@@ -2,49 +2,63 @@ package ca.ualberta.cs.funtime_runtime;
 
 
 public class Answer {
-
-	public Answer() {
-		// TODO Auto-generated constructor stub
-	}
+	
+	private final String BODY;
+	private final String USERNAME;
+	public ReplyList replyList;
+	private int rating;
+	private int numberOfReplies;
 
 	public Answer(String body, String username)
 	{
-		// TODO Auto-generated constructor stub
-	}
-
-	public String getTitle()
-	{
-		// TODO Auto-generated method stub
-		return null;
+		this.BODY = body;
+		this.USERNAME = username;
+		this.rating = 0;
+		this.numberOfReplies = 0;
+		this.replyList = new ReplyList();
 	}
 
 	public String getBody()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.BODY;
 	}
 
 	public String getUser()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.USERNAME;
 	}
 
 	public void upVote()
 	{
-		// TODO Auto-generated method stub
+		this.rating++;
 		
 	}
 
 	public int getRating()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return this.rating;
 	}
 
 	public void downVote()
 	{
-		// TODO Auto-generated method stub
+		this.rating--;
+	}
+	
+	public void addReply(Reply reply) 
+	{
+		this.replyList.add(reply);
+		this.numberOfReplies++;
+	}
+
+	public int getReplyCount() 
+	{
+		return this.numberOfReplies;
+	}
+
+	public Reply getReply(int i) 
+	{
+		Reply reply = this.replyList.get(i);
+		return reply;
 	}
 
 //	public bitmap getPhoto()

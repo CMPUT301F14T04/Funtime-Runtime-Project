@@ -48,6 +48,7 @@
         android:layout_below="@+id/noAccountTxt"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="@string/create_account_button_text" />
+        android:text="@string/create_account_button_text" 
+        android:onClick="createAccount"/>
     
 </RelativeLayout>

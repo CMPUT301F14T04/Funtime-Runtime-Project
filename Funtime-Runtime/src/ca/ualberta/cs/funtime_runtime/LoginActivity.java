@@ -2,7 +2,9 @@ package ca.ualberta.cs.funtime_runtime;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 
 public class LoginActivity extends Activity
 {
@@ -24,4 +26,9 @@ public class LoginActivity extends Activity
 		return true;
 	}
 
+	public void createAccount(View v)
+	{
+		Intent createNewAccount = new Intent(LoginActivity.this, CreateAccountActivity.class);
+		startActivity(createNewAccount);
+	}
 }

@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="@string/ask_question_button_text" />
+        android:text="@string/ask_question_button_text"
+        android:onClick = "askQuestion" />
 
     <!-- 
     <ImageButton
