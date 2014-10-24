@@ -30,7 +30,7 @@
         android:inputType="textMultiLine" />
 
     <Button
-        android:id="@+id/imageButton1"
+        android:id="@+id/add_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/loginButton"
