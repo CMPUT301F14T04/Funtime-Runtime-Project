@@ -3,7 +3,6 @@ package ca.ualberta.cs.funtime_runtime;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,13 +23,12 @@ public class QuestionPageActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_page);
 		//Intent intent = getIntent();
-		Question question = (Question) getIntent().getSerializableExtra("Question");
+		//Question question = (Question) intent.getSerializableExtra("Question");
+		//Bundle extras = intent.getExtras();
 		questionAnswerList = new AnswerList();
 		questionListView =  (ListView) findViewById(R.id.listView1);
 		account = ApplicationState.getAccount();
-		testQuestionPage();
-
-	
+		//testQuestionPage();	
 	}
 
 	@Override

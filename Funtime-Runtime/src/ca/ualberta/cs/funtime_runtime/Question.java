@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Question implements Serializable{
 
-	private static final long serialVersionUID = -6697837907262756771L;
+	private static final long serialVersionUID = -5060679300357466161L;
 	private final String TITLE;
 	private final String BODY;
 	private final String USERNAME;
@@ -65,5 +65,6 @@ public class Question implements Serializable{
 		Answer answer = answerList.get(i);
 		return answer;
 	}
+
 
 }

@@ -1,5 +1,6 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 public class HomeActivity extends Activity {
 
+	private static final long serialVersionUID = -2329197146813639252L;
 	ListView homeListView;
 	QuestionList homeQuestionList;
 	QuestionListAdapter adapter;
@@ -33,12 +35,13 @@ public class HomeActivity extends Activity {
 		homeListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Question question = (Question) adapter.getItem(position);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("Question", question);
-				Intent intent = new Intent(HomeActivity.this, QuestionPageActivity.class);
-				intent.putExtras(bundle);
-				startActivity(intent);			
+				Question question = (Question) adapter.getItem(position);				
+//				Bundle bundle = new Bundle();
+//				bundle.putSerializable("Question", question);
+//				Intent intent = new Intent(HomeActivity.this, QuestionPageActivity.class);
+//				intent.putExtra("Question", adapter);
+//				intent.putExtras(bundle);
+//				startActivity(intent);			
 			}
 		});
 
