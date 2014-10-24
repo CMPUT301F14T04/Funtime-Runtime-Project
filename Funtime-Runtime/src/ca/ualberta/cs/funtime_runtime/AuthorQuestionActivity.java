@@ -26,7 +26,7 @@ public class AuthorQuestionActivity extends Activity{
 		addPhotoButton = (Button) findViewById(R.id.add_image_button);
 		questionTitle = (EditText) findViewById(R.id.question_title);
 		questionBody = (EditText) findViewById(R.id.question_body_text);
-		account = ApplicationState.getAccount();
+		//account = ApplicationState.getAccount();
 		username = account.getName();
 	}
 
