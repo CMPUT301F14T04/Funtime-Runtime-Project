@@ -29,10 +29,10 @@ public class CreateAccountActivity extends Activity
                 	
                 	// Get application state and account list
             	    
-                	ApplicationState appState = (ApplicationState) getApplicationContext();          	    
-                	// AccountList accountList = appState.getAccountList();
+                	ApplicationState appState = ((ApplicationState)getApplicationContext());
+                    AccountList accountList = appState.getAccountList();
             	    
-                	AccountList accountList = ApplicationState.getAccountList();
+                	//AccountList accountList = ApplicationState.getAccountList();
                 	
                 	// TODO get accountList from server
                 	
@@ -40,12 +40,14 @@ public class CreateAccountActivity extends Activity
                 	String username = createUsernameText.getText().toString();
                 	Account account;
                 	boolean accountExists = false;
-                	for (int i = 0; i < accountList.size(); ++i) {
-                		account = accountList.get(i);
-                		if (account.getName() == username) {
-                			accountExists = true;
-                			Toast.makeText(ctx, "Account already exists. Please use a unique username.", Toast.LENGTH_SHORT).show();
-                			break;
+                	if (accountList.size() > 0) {
+                		for (int i = 0; i < accountList.size(); ++i) {
+                			account = accountList.get(i);
+                			if (account.getName() == username) {
+                				accountExists = true;
+                				Toast.makeText(ctx, "Account already exists. Please use a unique username.", Toast.LENGTH_SHORT).show();
+                				break;
+                			}
                 		}
                 	}
                 	if (!accountExists) {
