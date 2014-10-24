@@ -12,11 +12,11 @@ public class Account {
 	
 	public Account(String username) {
 		this.username = username;
-		this.favourites = new MyFavourites();
-		this.answerList = new AnswerList();
-		this.questionList = new QuestionList();
-		this.readingList = new ReadingList();
-		this.history = new HistoryList();
+		favourites = new MyFavourites();
+		answerList = new AnswerList();
+		questionList = new QuestionList();
+		readingList = new ReadingList();
+		history = new HistoryList();
 	}
 
 	public void setName(String username) {
@@ -24,43 +24,56 @@ public class Account {
 	}
 
 	public String getName() {
-		return this.username;
+		return username;
 	}
 
 	public void authorQuestion(Question question) {
-		this.questionList.add(question);
+		questionList.add(question);
 	}
 
 	public int questionsCount() { 
-		return this.questionList.size();
+		return questionList.size();
 	}
 
 	public Question getQuestion(int i) {
-		return this.questionList.get(i);
+		return questionList.get(i);
 	}
 
 	public void authorAnswer(Answer answer) {
-		this.answerList.add(answer);
+		answerList.add(answer);
 	}
 
 	public int answersCount() {
-		return this.answerList.size();
+		return answerList.size();
 	}
 
 	public Answer getAnswer(int i) {
-		return this.answerList.get(i);
+		return answerList.get(i);
 	}
 
 	public MyFavourites getFavouritesList() {
-		return this.favourites;
+		return favourites;
+	}
+	
+	public void addFavourite(Question question) {
+		favourites.add(question);
 	}
 
 	public ReadingList getReadingList() {
-		return this.readingList;
+		return readingList;
 	}
 
-	public HistoryList getHistoryList() {
-		return this.history;
+	public void readLater(Question question) {
+		readingList.add(question);
 	}
+	
+	public HistoryList getHistoryList() {
+		return history;
+	}
+	
+	public void addToHistory(Question question) {
+		history.add(question);
+	}
+	
 
 }

@@ -29,8 +29,11 @@ public class LoginActivity extends Activity
                 String username = usernameText.getText().toString();
                 if (username != "") {
                 	// Get application state and account list
-            	    ApplicationState appState = ((ApplicationState)getApplicationContext());
-                	AccountList accountList = appState.getAccountList();
+            	    
+                	ApplicationState appState = (ApplicationState) getApplicationContext();
+                	// AccountList accountList = appState.getAccountList();
+                	
+                	AccountList accountList = ApplicationState.getAccountList();
                 	// Check if username matches existing account
                 	boolean accountExists = false;
                 	Account account = null;
