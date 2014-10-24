@@ -89,6 +89,10 @@
             android:name="ca.ualberta.cs.funtime_runtime.HistoryActivity"
             android:label="@string/title_activity_history" >
         </activity>
+        <activity
+            android:name="ca.ualberta.cs.funtime_runtime.QuestionPageActivity"
+            android:label="@string/title_activity_question_page" >
+        </activity>
     </application>
 
 </manifest>

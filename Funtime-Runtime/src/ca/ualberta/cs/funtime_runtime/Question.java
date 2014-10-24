@@ -1,9 +1,11 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Question {
+public class Question implements Serializable{
 
+	private static final long serialVersionUID = -6697837907262756771L;
 	private final String TITLE;
 	private final String BODY;
 	private final String USERNAME;

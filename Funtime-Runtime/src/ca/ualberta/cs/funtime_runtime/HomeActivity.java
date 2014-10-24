@@ -9,13 +9,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
-public class HomeActivity extends Activity
-{
+public class HomeActivity extends Activity {
+
 	ListView homeListView;
 	QuestionList homeQuestionList;
+	QuestionListAdapter adapter;
 	Account account;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -25,17 +30,31 @@ public class HomeActivity extends Activity
 		homeQuestionList = new QuestionList();
 		homeListView = (ListView) findViewById(R.id.questionListView);	
 		testHome();
+		homeListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Question question = (Question) adapter.getItem(position);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("Question", question);
+				Intent intent = new Intent(HomeActivity.this, QuestionPageActivity.class);
+				intent.putExtras(bundle);
+				startActivity(intent);			
+			}
+		});
+
 	}
+	
 		
 	private void testHome() {
 		List<Question> questionList = new ArrayList<Question>();
-		QuestionListAdapter adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, questionList);
+		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, questionList);
 		Question question1 = new Question("What is the meaning of life?", "body 1 test", "user1");
 		Question question2 = new Question("Why does Computing Science homework take so long to do?", "body 2 test", "user2");
 		Question question3 = new Question("In what world does gravity push you away at a faster rate than it pulls you in?", "body 3 test", "user3");
 		questionList.add(question1);
 		questionList.add(question2);
 		questionList.add(question3);
+		question1.downVote();
 		homeListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();
 	}
@@ -165,4 +184,5 @@ public class HomeActivity extends Activity
 			return true;
 		}	
 	}
+
 }
