@@ -21,12 +21,9 @@ public class AuthorQuestionActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_author_question);
 		submitButton = (Button) findViewById(R.id.submit_question_button);
-<<<<<<< HEAD
 		//addPhotoButton = (Button) findViewById(R.id.add_question_image);
-=======
 		cancelButton = (Button) findViewById(R.id.cancel_button);
 		addPhotoButton = (Button) findViewById(R.id.add_image_button);
->>>>>>> 3d4fcf9feae7aced3b32df1d701fe52fbe01b96c
 		questionTitle = (EditText) findViewById(R.id.question_title);
 		questionBody = (EditText) findViewById(R.id.question_body_text);
 		account = ApplicationState.getAccount();

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -70,7 +71,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		String authorString = authorTextView.getText().toString();
 		authorTextView.setText(authorString + " " +question.getUser());
 		
-		//ImageButton star = (ImageButton) theView.findViewById(R.id.question_star);
+		ImageButton star = (ImageButton) theView.findViewById(R.id.fav_star);
 		
 		return theView;
 	}
