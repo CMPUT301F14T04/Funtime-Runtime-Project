@@ -8,8 +8,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text=""
-        android:textStyle="bold" />
+        android:text="@string/question_adapter_title"
+        android:textStyle="bold"
+        android:textSize="16sp" />
 
 
     <TextView
@@ -18,7 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/question_title_textview"
-        android:text="" />
+        android:text="@string/question_adapter_rating"
+        android:textStyle="italic"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/question_answer_textview"
@@ -27,6 +30,19 @@
         android:layout_below="@+id/question_title_textview"
         android:layout_marginLeft="18dp"
         android:layout_toRightOf="@+id/question_rating_textview"
-        android:text="" />
+        android:text="@string/question_adapter_answer"
+        android:textStyle="italic"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/author_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/question_title_textview"
+        android:layout_marginLeft="21dp"
+        android:layout_toRightOf="@+id/question_answer_textview"
+        android:text="@string/question_adapter_author"
+        android:textStyle="italic"
+        android:textSize="12sp" />
 
 </RelativeLayout>

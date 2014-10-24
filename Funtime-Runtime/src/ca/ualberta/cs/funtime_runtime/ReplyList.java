@@ -8,27 +8,27 @@ public class ReplyList {
 		
 	public ReplyList() 
 	{	
-		this.replyList = new ArrayList<Reply>();
+		replyList = new ArrayList<Reply>();
 	}
 
 	public void add(Reply reply)
 	{
-		this.replyList.add(reply);
+		replyList.add(reply);
 	}
 
 	public int size()
 	{
-		return this.replyList.size();
+		return replyList.size();
 	}
 
 	public Reply get(int i)
 	{
-		Reply reply = this.replyList.get(i);
+		Reply reply = replyList.get(i);
 		return reply;
 	}
 
 	public void remove(Reply reply)
 	{
-		this.replyList.remove(reply);
+		replyList.remove(reply);
 	}
 }

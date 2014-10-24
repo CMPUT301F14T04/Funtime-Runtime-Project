@@ -6,18 +6,18 @@ public class Reply {
 	private final String USERNAME;
 	
 	public Reply(String body, String username) {
-		this.BODY = body;
-		this.USERNAME = username;
+		BODY = body;
+		USERNAME = username;
 	}
 
 	public String getBody()
 	{
-		return this.BODY;
+		return BODY;
 	}
 
 	public String getUser()
 	{
-		return this.USERNAME;
+		return USERNAME;
 	}
 
 }

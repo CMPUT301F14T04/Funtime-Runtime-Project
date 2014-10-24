@@ -70,7 +70,13 @@
     <!-- History Strings -->
     <string name="title_activity_history">My History</string>
     <string name="cancel_action">enables a user to cancel an activity</string>
-    <string name="camera_action">Thiws is the button when you wwant to choose a picture or somthing</string> 
+    <string name="camera_action">This is the button when you wwant to choose a picture or somthing</string> 
+    
+    <!-- Question Adapter XML -->
+    <string name="question_adapter_title">Title</string>
+    <string name="question_adapter_author">Author: </string>
+    <string name="question_adapter_rating">Rating: </string>
+    <string name="question_adapter_answer">Answers: </string>
     
 
 </resources>

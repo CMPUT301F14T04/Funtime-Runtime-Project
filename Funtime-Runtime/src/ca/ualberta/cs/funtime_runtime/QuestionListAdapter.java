@@ -12,17 +12,17 @@ import android.widget.TextView;
 
 public class QuestionListAdapter extends ArrayAdapter<Question> {
 
-	Context context;
+	Context ctx;
 	List<Question> questionList;
-	private int resource;
+	int res;
 	LayoutInflater inflater;
 
 	public QuestionListAdapter(Context context, int resource, List<Question> objects) {
 		super(context, resource, objects);
-		this.context = context;
-		this.resource = resource;
-		this.questionList = objects;
-		this.inflater = LayoutInflater.from(context);
+		ctx = context;
+		res = resource;
+		questionList = objects;
+		inflater = LayoutInflater.from(context);
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		View theView = convertView;
 		
 		if (theView == null) {
-			theView = (RelativeLayout) inflater.inflate(resource, null);
+			theView = (RelativeLayout) inflater.inflate(res, null);
 		}
 		
 		Question question = questionList.get(position);
@@ -59,10 +59,16 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		titleTextView.setText(question.getTitle());
 		
 		TextView ratingTextView = (TextView) theView.findViewById(R.id.question_rating_textview);
-		ratingTextView.setText("Rating: " + question.getRating());
+		String ratingString = ratingTextView.getText().toString();
+		ratingTextView.setText(ratingString + " " + question.getRating());
 		
-		TextView answersTextView = (TextView) theView.findViewById(R.id.question_answer_textview);
-		answersTextView.setText("Answers: " + question.getAnswerCount());
+		TextView answerTextView = (TextView) theView.findViewById(R.id.question_answer_textview);
+		String answerString = answerTextView.getText().toString();
+		answerTextView.setText(answerString + " " + question.getAnswerCount());
+		
+		TextView authorTextView = (TextView) theView.findViewById(R.id.author_textview);
+		String authorString = authorTextView.getText().toString();
+		authorTextView.setText(authorString + " " +question.getUser());
 		
 		//ImageButton star = (ImageButton) theView.findViewById(R.id.question_star);
 		

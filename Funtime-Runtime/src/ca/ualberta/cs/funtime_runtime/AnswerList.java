@@ -8,24 +8,24 @@ public class AnswerList{
 	private ArrayList<Answer> answerList;
 
 	public AnswerList(){	
-		this.answerList = new ArrayList<Answer>();
+		answerList = new ArrayList<Answer>();
 	}
 
 	public void add(Answer answer) {
-		this.answerList.add(answer);
+		answerList.add(answer);
 	}
 
 	public void remove(int i) {
-		this.answerList.remove(i);	
+		answerList.remove(i);	
 	}
 
 	public int size() {
-		return this.answerList.size();
+		return answerList.size();
 	}
 
 	public Answer get(int i)
 	{
-		return this.answerList.get(i);
+		return answerList.get(i);
 	}
 
 }

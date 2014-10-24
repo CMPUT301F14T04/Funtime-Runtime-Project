@@ -13,54 +13,54 @@ public class Question {
 	private int numberOfAnswers;
 	
 	public Question(String title, String body, String username) {
-		this.TITLE = title;
-		this.BODY = body;
-		this.USERNAME = username;
-		this.DATE = new Date();
-		this.rating = 0;
-		this.numberOfAnswers = 0;
-		this.answerList = new AnswerList();
+		TITLE = title;
+		BODY = body;
+		USERNAME = username;
+		DATE = new Date();
+		rating = 0;
+		numberOfAnswers = 0;
+		answerList = new AnswerList();
 	}
 
 	public String getTitle() {
-		return this.TITLE;
+		return TITLE;
 	}
 
 	public String getBody() {
-		return this.BODY;
+		return BODY;
 	}
 
 	public String getUser() {
-		return this.USERNAME;
+		return USERNAME;
 	}
 	
 	public Date getDate() {
-		return this.DATE;
+		return DATE;
 	}
 
 	public void upVote() {
-		this.rating++;
+		rating++;
 	}
 
 	public int getRating() {
-		return this.rating;
+		return rating;
 	}
 
 	public void downVote() {
-		this.rating--;	
+		rating--;	
 	}
 
 	public void addAnswer(Answer answer) {
-		this.answerList.add(answer);
-		this.numberOfAnswers++;
+		answerList.add(answer);
+		numberOfAnswers++;
 	}
 
 	public int getAnswerCount() {
-		return this.numberOfAnswers;
+		return numberOfAnswers;
 	}
 
 	public Answer getAnswer(int i) {
-		Answer answer = this.answerList.get(i);
+		Answer answer = answerList.get(i);
 		return answer;
 	}
 

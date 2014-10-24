@@ -11,53 +11,53 @@ public class Answer {
 
 	public Answer(String body, String username)
 	{
-		this.BODY = body;
-		this.USERNAME = username;
-		this.rating = 0;
-		this.numberOfReplies = 0;
-		this.replyList = new ReplyList();
+		BODY = body;
+		USERNAME = username;
+		rating = 0;
+		numberOfReplies = 0;
+		replyList = new ReplyList();
 	}
 
 	public String getBody()
 	{
-		return this.BODY;
+		return BODY;
 	}
 
 	public String getUser()
 	{
-		return this.USERNAME;
+		return USERNAME;
 	}
 
 	public void upVote()
 	{
-		this.rating++;
+		rating++;
 		
 	}
 
 	public int getRating()
 	{
-		return this.rating;
+		return rating;
 	}
 
 	public void downVote()
 	{
-		this.rating--;
+		rating--;
 	}
 	
 	public void addReply(Reply reply) 
 	{
-		this.replyList.add(reply);
-		this.numberOfReplies++;
+		replyList.add(reply);
+		numberOfReplies++;
 	}
 
 	public int getReplyCount() 
 	{
-		return this.numberOfReplies;
+		return numberOfReplies;
 	}
 
 	public Reply getReply(int i) 
 	{
-		Reply reply = this.replyList.get(i);
+		Reply reply = replyList.get(i);
 		return reply;
 	}
 

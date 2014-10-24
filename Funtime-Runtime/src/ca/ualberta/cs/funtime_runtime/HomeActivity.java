@@ -31,9 +31,9 @@ public class HomeActivity extends Activity
 	private void testHome() {
 		List<Question> questionList = new ArrayList<Question>();
 		QuestionListAdapter adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, questionList);
-		Question question1 = new Question("test 1", "body 1 test", "user1");
-		Question question2 = new Question("test 2", "body 2 test", "user2");
-		Question question3 = new Question("test 3", "body 3 test", "user3");
+		Question question1 = new Question("What is the meaning of life?", "body 1 test", "user1");
+		Question question2 = new Question("Why does Computing Science homework take so long to do?", "body 2 test", "user2");
+		Question question3 = new Question("In what world does gravity push you away at a faster rate than it pulls you in?", "body 3 test", "user3");
 		questionList.add(question1);
 		questionList.add(question2);
 		questionList.add(question3);

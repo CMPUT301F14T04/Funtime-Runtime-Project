@@ -7,28 +7,28 @@ public class QuestionList {
 	ArrayList<Question> questionList;
 
 	public QuestionList() {
-		this.questionList = new ArrayList<Question>();
+		questionList = new ArrayList<Question>();
 	}
 
 	public void add(Question question)
 	{
-		this.questionList.add(question);
+		questionList.add(question);
 	}
 
 	public int size()
 	{
-		return this.questionList.size();
+		return questionList.size();
 	}
 
 	public Question get(int i)
 	{
-		Question question = this.questionList.get(i);
+		Question question = questionList.get(i);
 		return question;
 	}
 
 	public void remove(int i)
 	{
-		this.questionList.remove(i);
+		questionList.remove(i);
 	}
 
 }
