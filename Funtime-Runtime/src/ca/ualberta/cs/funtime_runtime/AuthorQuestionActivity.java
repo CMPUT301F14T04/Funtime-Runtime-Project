@@ -10,6 +10,7 @@ public class AuthorQuestionActivity extends Activity{
 	
 	Button submitButton;
 	Button addPhotoButton;
+	Button cancelButton;
 	EditText questionTitle;
 	EditText questionBody;
 	Account account;
@@ -20,7 +21,8 @@ public class AuthorQuestionActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_author_question);
 		submitButton = (Button) findViewById(R.id.submit_question_button);
-		addPhotoButton = (Button) findViewById(R.id.add_question_image);
+		cancelButton = (Button) findViewById(R.id.cancel_button);
+		addPhotoButton = (Button) findViewById(R.id.add_image_button);
 		questionTitle = (EditText) findViewById(R.id.question_title);
 		questionBody = (EditText) findViewById(R.id.question_body_text);
 		account = ApplicationState.getAccount();
