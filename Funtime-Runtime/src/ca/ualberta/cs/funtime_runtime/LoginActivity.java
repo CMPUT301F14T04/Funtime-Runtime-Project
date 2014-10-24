@@ -28,30 +28,27 @@ public class LoginActivity extends Activity
                 EditText usernameText = (EditText) findViewById(R.id.loginField);
                 String username = usernameText.getText().toString();
                 if (username != "") {
-                	// Get application state and account list
-            	    
-                	ApplicationState appState = (ApplicationState) getApplicationContext();
-                	AccountList accountList = appState.getAccountList();
+                	// Get account list
+                	AccountList accountList = ApplicationState.getAccountList();
                 	
-                	//AccountList accountList = ApplicationState.getAccountList();
                 	// Check if username matches existing account
                 	boolean accountExists = false;
                 	Account account = null;
                 	for (int i = 0; i < accountList.size(); ++i) {
                 		account = accountList.get(i);
-                		if (account.getName() == username) {
+                		if (account.getName().equals(username)) {
                 			accountExists = true;
                 			break;
                 		}
                 	}
                 	if (accountExists) {
-                		appState.setAccount(account);
+                		// Login the user and return to previous screen
+                		ApplicationState.setAccount(account);
+                		finish();
                 	} else {
                 		Toast.makeText(ctx, "Account does not exist. Please login to an existing account or create a a new one.", Toast.LENGTH_LONG).show();
                 	}
-                	usernameText.setText("");
-                	
-                	// TODO return to page before login page	
+                	usernameText.setText(""); 
 
                 }
                 else {
@@ -74,5 +71,6 @@ public class LoginActivity extends Activity
 	public void createAccount(View v)	{
 		Intent createNewAccount = new Intent(LoginActivity.this, CreateAccountActivity.class);
 		startActivity(createNewAccount);
+		finish();
 	}
 }

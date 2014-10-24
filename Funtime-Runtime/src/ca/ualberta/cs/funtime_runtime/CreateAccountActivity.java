@@ -26,16 +26,9 @@ public class CreateAccountActivity extends Activity
                 EditText createUsernameText = (EditText) findViewById(R.id.loginField);
                 String newUsername = createUsernameText.getText().toString();
                 if (newUsername.length() > 0) {
-                	
-                	// Get application state and account list
-            	    
-                	ApplicationState appState = ((ApplicationState)getApplicationContext());
-                    AccountList accountList = appState.getAccountList();
-            	    
-                	//AccountList accountList = ApplicationState.getAccountList();
-                	
-                	// TODO get accountList from server
-                	
+                	// Get account list
+                    AccountList accountList = ApplicationState.getAccountList();
+                    
                 	// Check if account already exists
                 	String username = createUsernameText.getText().toString();
                 	Account account;
@@ -43,23 +36,28 @@ public class CreateAccountActivity extends Activity
                 	if (accountList.size() > 0) {
                 		for (int i = 0; i < accountList.size(); ++i) {
                 			account = accountList.get(i);
-                			if (account.getName() == username) {
+                            String check = account.getName();
+                			if (check.equals(username)) {
                 				accountExists = true;
                 				Toast.makeText(ctx, "Account already exists. Please use a unique username.", Toast.LENGTH_SHORT).show();
                 				break;
                 			}
                 		}
                 	}
+                	
                 	if (!accountExists) {
                 		// Create new account and add to AccountList
                 		Account newAccount = new Account(createUsernameText.getText().toString());
-                		accountList.add(newAccount);
+                		ApplicationState.addAccount(newAccount);
 
                     	// Login the new account
-                    	appState.setAccount(newAccount);
+                    	ApplicationState.setAccount(newAccount);
                     	
                     	// TODO update accountList on server
-                    	// TODO return to page before login page
+                    	
+                    	// Return to previous activity
+                    	finish();
+                    	
                 	}
                 	createUsernameText.setText("");
                 	
@@ -69,7 +67,7 @@ public class CreateAccountActivity extends Activity
                 }
             }
         };
-        
+
         createAccountButton.setOnClickListener(createAccountListener);
 	}
 
