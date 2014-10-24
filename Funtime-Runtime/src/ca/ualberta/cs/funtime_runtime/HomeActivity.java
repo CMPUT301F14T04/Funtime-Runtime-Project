@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -48,98 +49,85 @@ public class HomeActivity extends Activity
 		getMenuInflater().inflate(R.menu.home, menu);
 		return true;
 	}
-	
-	/*public void loginOptionsMenuFlash(MenuItem menu){
-		Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-		startActivity(intent);
-	}*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		// switch case to choose an item from the menu
 		switch (item.getItemId()) {
 			case R.id.searchQuestionsList:
-				openSearch();
+				openSearch(this);
 				return true;
 			case R.id.login_menu_item:
-				openLogin();
+				openLogin(this);
 				return true;
 			case R.id.my_questions_menu_item:
-				openMyQuestions();
+				openMyQuestions(this);
 				return true;
 			case R.id.my_answers_menu_item:
-				openMyAnswers();
+				openMyAnswers(this);
 				return true;
 			case R.id.my_favorites_menu_item:
-				openMyFavourites();
+				openMyFavourites(this);
 				return true;
 			case R.id.my_reading_list_item:
-				openMyReadingList();
+				openMyReadingList(this);
 				return true;
 			case R.id.my_history_list_item:
-				openMyHistory();
+				openMyHistory(this);
 				return true;
 			case R.id.sort_list_item:
-				openSortList();
+				openSortList(this);
 				return true;
 			default:
 				return true;
 		}	
 	}
 	
-	public void openSearch() {
-		Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(this, SearchActivity.class);
+	public void openSearch(Context context) {
+		Toast.makeText(context, "Search", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(context, SearchActivity.class);
 		startActivity(intent);
 	}
 	
-	public void openLogin(){
-		Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+	public void openLogin(Context context){
+		Toast.makeText(context, "Login", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(context, LoginActivity.class);
 		startActivity(intent);
 	}
 	
-	public void openMyQuestions() {
-		Toast.makeText(this, "My Questions", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, MyQuestionsActivity.class);
+	public void openMyQuestions(Context context) {
+		Toast.makeText(context, "My Questions", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(context, MyQuestionsActivity.class);
 		startActivity(intent);
 	}
 	
-	public void openMyAnswers() {
-		Toast.makeText(this, "My Answers", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, MyAnswersActivity.class);
+	public void openMyAnswers(Context context) {
+		Toast.makeText(context, "My Answers", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(context, MyAnswersActivity.class);
 		startActivity(intent);
 	}
 	
-	public void openMyFavourites() {
-		Toast.makeText(this, "My Favourites", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, MyFavouritesActivity.class);
+	public void openMyFavourites(Context context) {
+		Toast.makeText(context, "My Favourites", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(context, MyFavouritesActivity.class);
 		startActivity(intent);
 	}
 	
-	public void openMyReadingList() {
-		Toast.makeText(this, "My Reading List", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, ReadingListActivity.class);
+	public void openMyReadingList(Context context) {
+		Toast.makeText(context, "My Reading List", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(context, ReadingListActivity.class);
 		startActivity(intent);
 	}
 	
-	public void openMyHistory() {
-		Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, HistoryActivity.class);
+	public void openMyHistory(Context context) {
+		Toast.makeText(context, "My History", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(context, HistoryActivity.class);
 		startActivity(intent);
 	}
 
-	public void openSortList() {
-		Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, Sort.class);
+	public void openSortList(Context context) {
+		Toast.makeText(context, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(context, Sort.class);
 		startActivity(intent);
 	}
 	
