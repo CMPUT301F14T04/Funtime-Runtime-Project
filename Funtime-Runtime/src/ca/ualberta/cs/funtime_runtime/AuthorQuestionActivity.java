@@ -20,14 +20,14 @@ public class AuthorQuestionActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_author_question);
-		submitButton = (Button) findViewById(R.id.submit_question_button);
+//		submitButton = (Button) findViewById(R.id.submit_question_button);
 		//addPhotoButton = (Button) findViewById(R.id.add_question_image);
-		cancelButton = (Button) findViewById(R.id.cancel_button);
-		addPhotoButton = (Button) findViewById(R.id.add_image_button);
-		questionTitle = (EditText) findViewById(R.id.question_title);
-		questionBody = (EditText) findViewById(R.id.question_body_text);
+//		cancelButton = (Button) findViewById(R.id.cancel_button);
+//		addPhotoButton = (Button) findViewById(R.id.add_image_button);
+//		questionTitle = (EditText) findViewById(R.id.question_title);
+//		questionBody = (EditText) findViewById(R.id.question_body_text);
 		//account = ApplicationState.getAccount();
-		username = account.getName();
+		//username = account.getName();
 	}
 
 	@Override

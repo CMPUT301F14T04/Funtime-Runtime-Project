@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class HomeActivity extends Activity
 {
@@ -24,7 +23,7 @@ public class HomeActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		homeQuestionList = new QuestionList();
-		homeListView =  (ListView) findViewById(R.id.questionListView);	
+		homeListView = (ListView) findViewById(R.id.questionListView);	
 		testHome();
 	}
 		
@@ -68,16 +67,19 @@ public class HomeActivity extends Activity
 	//start the AuthorQuestionActivity --> Author Question Page to ask a new Question
 	public void askQuestion(View v)
 	{
-		Boolean loggedIn = checkLoggedIn();
-		if (loggedIn) {
-			Intent authorQuestion = new Intent(HomeActivity.this, AuthorQuestionActivity.class);
-			startActivity(authorQuestion); 
-		}
-		else {
-			Toast.makeText(this, "Please login to post a question", Toast.LENGTH_SHORT).show();
-			Intent createAccount = new Intent(this, CreateAccountActivity.class);
-			startActivity(createAccount);
-		}
+		Intent authorQuestion = new Intent(HomeActivity.this, AuthorQuestionActivity.class);
+		startActivity(authorQuestion); 
+		
+//		Boolean loggedIn = checkLoggedIn();
+//		if (loggedIn) {
+//			Intent authorQuestion = new Intent(HomeActivity.this, AuthorQuestionActivity.class);
+//			startActivity(authorQuestion); 
+//		}
+//		else {
+//			Toast.makeText(this, "Please login to post a question", Toast.LENGTH_SHORT).show();
+//			//Intent createAccount = new Intent(this, LoginActivity.class);
+//			//startActivity(createAccount);
+//		}
 	}
 	
 	public Boolean checkLoggedIn() {
