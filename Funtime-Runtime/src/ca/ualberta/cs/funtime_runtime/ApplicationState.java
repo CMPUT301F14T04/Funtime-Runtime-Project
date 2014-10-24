@@ -5,28 +5,34 @@ import android.app.Application;
 public class ApplicationState extends Application {
 	// adapted from http://stackoverflow.com/questions/708012/how-to-declare-global-variables-in-android - Accessed Oct 22 2014
 	
-	private Account account;
-	private AccountList accountList = new AccountList();
-	private boolean loggedIn = false;
+	private static Account account;
 	
-	public void setAccount(Account newAccount) {
+	// TODO pull accountList from server
+	private static AccountList accountList = new AccountList();
+	private static boolean loggedIn = false;
+	
+	public static void setAccount(Account newAccount) {
 		account = newAccount;
 		loggedIn = true;
 	}
 	
-	public Account getAccount() {
+	public static Account getAccount() {
 		return account;
 	}
 	
-	public void setAccountList(AccountList newList) {
+	public static void setAccountList(AccountList newList) {
 		accountList = newList;
 	}
 	
-	public AccountList getAccountList() {
+	public static AccountList getAccountList() {
 		return accountList;
 	}
 	
-	public boolean isLoggedIn() {
+	public static void addAccount(Account newAccount) {
+		accountList.add(newAccount);
+	}
+	
+	public static boolean isLoggedIn() {
 		return loggedIn;
 	}
 }
