@@ -68,7 +68,9 @@
     <string name="title_activity_reading_list">My Reading List</string>
     
     <!-- History Strings -->
-    <string name="title_activity_history">My History</string> 
+    <string name="title_activity_history">My History</string>
+    <string name="cancel_action">enables a user to cancel an activity</string>
+    <string name="camera_action">Thiws is the button when you wwant to choose a picture or somthing</string> 
     
 
 </resources>

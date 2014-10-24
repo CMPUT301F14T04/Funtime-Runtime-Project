@@ -6,7 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".AuthorQuestionActivity" >
+    tools:context=".AuthorQuestionActivity" 
+    android:background="@color/black">
 
     <Button
         android:id="@+id/submit_question_button"
@@ -17,7 +18,7 @@
         android:layout_alignParentRight="true"
         android:text="@string/submit_button_text"
         android:onClick="submitQuestion" />
-   
+   <!-- - 
     <Button
         android:id="@+id/add_question_image"
         android:layout_width="wrap_content"
@@ -27,6 +28,7 @@
         android:layout_alignRight="@+id/submit_question_button"
         android:drawableRight="@android:drawable/ic_menu_camera"
         android:text="@string/add_photo_button_text" />
+-->
 
     <EditText
         android:id="@+id/question_body_text"
@@ -50,5 +52,27 @@
         android:ems="10"
         android:hint="@string/write_title_hint_text"
         android:inputType="textPersonName" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/question_body_text"
+        android:layout_marginRight="14dp"
+        android:background="@drawable/cancel_button"
+        android:contentDescription="@string/cancel_action"
+        android:src="@android:drawable/ic_delete" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/submit_question_button"
+        android:layout_alignRight="@+id/question_body_text"
+        android:layout_marginBottom="52dp"
+        android:background="@drawable/camera_button"
+        android:contentDescription="@string/camera_action"
+        android:src="@android:drawable/ic_menu_camera" />
 
 </RelativeLayout>
