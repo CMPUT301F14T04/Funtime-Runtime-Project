@@ -70,6 +70,11 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		String answerReplyString = answerReplyTextView.getText().toString();
 		answerReplyTextView.setText(answerReplyString + " " +answer.getReplyCount());
 		
+		TextView answerDateTextView = (TextView) theView.findViewById(R.id.answer_date);
+		String answerDateString = answerDateTextView.getText().toString();
+		answerDateTextView.setText(answerDateString + " " +answer.getDate());
+		
+		
 		return theView;
 	}
 

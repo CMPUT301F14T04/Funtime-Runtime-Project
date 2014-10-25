@@ -44,7 +44,15 @@
         android:textStyle="italic"
         android:textSize="12sp" />
 
-
+    <TextView
+        android:id="@+id/answer_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/answer_rating_textview"
+        android:text="@string/question_adapter_date"
+        android:textSize="12sp"
+        android:textStyle="italic" />
 
 </RelativeLayout>
 

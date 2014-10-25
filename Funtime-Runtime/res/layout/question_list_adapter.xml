@@ -55,4 +55,14 @@
         android:textSize="12sp"
         android:textStyle="italic" />
 
+    <TextView
+        android:id="@+id/question_date_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/question_rating_textview"
+        android:layout_below="@+id/question_rating_textview"
+        android:text="@string/question_adapter_date"
+        android:textSize="12sp"
+        android:textStyle="italic" />
+
 </RelativeLayout>

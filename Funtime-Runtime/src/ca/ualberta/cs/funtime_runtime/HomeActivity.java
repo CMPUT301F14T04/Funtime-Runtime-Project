@@ -84,7 +84,7 @@ public class HomeActivity extends Activity {
 				openSearch();
 				return true;
 			case R.id.login_menu_item:
-				//switcher.openLogin();
+				//switchigner.openLogin();
 				openLogin();
 				return true;
 			case R.id.my_questions_menu_item:
