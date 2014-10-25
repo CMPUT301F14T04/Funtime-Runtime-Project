@@ -65,6 +65,10 @@ public class Question implements Serializable{
 		Answer answer = answerList.get(i);
 		return answer;
 	}
+	
+	public AnswerList getAnswerList() {
+		return answerList;
+	}
 
 
 }

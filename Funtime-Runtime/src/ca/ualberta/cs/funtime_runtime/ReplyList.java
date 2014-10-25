@@ -1,9 +1,14 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ReplyList {
+public class ReplyList implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3619450391434064548L;
 	ArrayList<Reply> replyList;
 		
 	public ReplyList() 

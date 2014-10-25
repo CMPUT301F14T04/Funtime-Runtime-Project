@@ -1,7 +1,10 @@
 package ca.ualberta.cs.funtime_runtime;
 
-public class Reply {
+import java.io.Serializable;
 
+public class Reply implements Serializable {
+
+	private static final long serialVersionUID = 4346891943333516504L;
 	private final String BODY;
 	private final String USERNAME;
 	

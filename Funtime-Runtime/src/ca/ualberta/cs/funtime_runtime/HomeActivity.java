@@ -1,6 +1,5 @@
 package ca.ualberta.cs.funtime_runtime;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class HomeActivity extends Activity {
-
-	private static final long serialVersionUID = -2329197146813639252L;
+	
 	ListView homeListView;
 	QuestionList homeQuestionList;
 	QuestionListAdapter adapter;
@@ -36,12 +34,13 @@ public class HomeActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Question question = (Question) adapter.getItem(position);				
-//				Bundle bundle = new Bundle();
-//				bundle.putSerializable("Question", question);
-//				Intent intent = new Intent(HomeActivity.this, QuestionPageActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("Question", question);
+				Intent intent = new Intent(HomeActivity.this, QuestionPageActivity.class);
 //				intent.putExtra("Question", adapter);
-//				intent.putExtras(bundle);
-//				startActivity(intent);			
+				intent.putExtras(bundle);
+//				intent.putExtra("Question", bundle);
+				startActivity(intent);			
 			}
 		});
 
@@ -58,6 +57,12 @@ public class HomeActivity extends Activity {
 		questionList.add(question2);
 		questionList.add(question3);
 		question1.downVote();
+		Answer answer1 = new Answer("Sweet", "user1");
+		Answer answer2 = new Answer("Question", "user2");
+		Answer answer3 = new Answer("Bro do you even lift????????????????????????????????????????", "user3");
+		question1.addAnswer(answer1);
+		question1.addAnswer(answer2);
+		question1.addAnswer(answer3);
 		homeListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();
 	}

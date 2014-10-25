@@ -22,12 +22,17 @@ public class QuestionPageActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_page);
-		//Intent intent = getIntent();
+		Intent intent = getIntent();
 		//Question question = (Question) intent.getSerializableExtra("Question");
-		//Bundle extras = intent.getExtras();
+		Bundle extras = intent.getExtras();
+		Question question = (Question) extras.getSerializable("Question");
 		questionAnswerList = new AnswerList();
 		questionListView =  (ListView) findViewById(R.id.listView1);
 		account = ApplicationState.getAccount();
+		questionAnswerList = question.getAnswerList();
+		AnswerListAdapter adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, questionAnswerList.getAnswerList());
+		questionListView.setAdapter(adapter);
+		adapter.notifyDataSetChanged();
 		//testQuestionPage();	
 	}
 
