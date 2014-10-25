@@ -62,15 +62,15 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		titleTextView.setText(question.getTitle());
 		
 		TextView ratingTextView = (TextView) theView.findViewById(R.id.question_rating_textview);
-		String ratingString = ratingTextView.getText().toString();
+		String ratingString = "Rating:";
 		ratingTextView.setText(ratingString + " " + question.getRating());
 		
 		TextView answerTextView = (TextView) theView.findViewById(R.id.question_answer_textview);
-		String answerString = answerTextView.getText().toString();
+		String answerString = "Answers:";
 		answerTextView.setText(answerString + " " + question.getAnswerCount());
 		
 		TextView authorTextView = (TextView) theView.findViewById(R.id.question_author_textview);
-		String authorString = authorTextView.getText().toString();
+		String authorString = "Author:";
 		authorTextView.setText(authorString + " " + question.getUser());
 		
 		

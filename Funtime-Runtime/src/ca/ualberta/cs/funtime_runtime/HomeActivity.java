@@ -37,9 +37,7 @@ public class HomeActivity extends Activity {
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("Question", question);
 				Intent intent = new Intent(HomeActivity.this, QuestionPageActivity.class);
-//				intent.putExtra("Question", adapter);
 				intent.putExtras(bundle);
-//				intent.putExtra("Question", bundle);
 				startActivity(intent);			
 			}
 		});
