@@ -154,7 +154,7 @@ public class HomeActivity extends Activity {
 	
 	public void openMyHistory() {
 		Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, HistoryActivity.class);
+		Intent intent = new Intent(HomeActivity.this, MyHistoryActivity.class);
 		startActivity(intent);
 	}
 

@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class HistoryActivity extends Activity
+public class MyHistoryActivity extends Activity
 {
 
     @Override
@@ -72,21 +72,21 @@ public class HistoryActivity extends Activity
     public void openSearch()
     {
         Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(HistoryActivity.this, SearchActivity.class);
+        Intent intent = new Intent(MyHistoryActivity.this, SearchActivity.class);
         startActivity(intent);
     }
 
     public void openLogin()
     {
         Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(HistoryActivity.this, LoginActivity.class);
+        Intent intent = new Intent(MyHistoryActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 
     public void openMyQuestions()
     {
         Toast.makeText(this, "My Questions", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(HistoryActivity.this,
+        Intent intent = new Intent(MyHistoryActivity.this,
                 MyQuestionsActivity.class);
         startActivity(intent);
     }
@@ -94,7 +94,7 @@ public class HistoryActivity extends Activity
     public void openMyAnswers()
     {
         Toast.makeText(this, "My Answers", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(HistoryActivity.this,
+        Intent intent = new Intent(MyHistoryActivity.this,
                 MyAnswersActivity.class);
         startActivity(intent);
     }
@@ -102,7 +102,7 @@ public class HistoryActivity extends Activity
     public void openMyFavourites()
     {
         Toast.makeText(this, "My Favourites", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(HistoryActivity.this,
+        Intent intent = new Intent(MyHistoryActivity.this,
                 MyFavouritesActivity.class);
         startActivity(intent);
     }
@@ -110,7 +110,7 @@ public class HistoryActivity extends Activity
     public void openMyReadingList()
     {
         Toast.makeText(this, "My Reading List", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(HistoryActivity.this,
+        Intent intent = new Intent(MyHistoryActivity.this,
                 ReadingListActivity.class);
         startActivity(intent);
     }
@@ -119,7 +119,7 @@ public class HistoryActivity extends Activity
     {
         Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT)
                 .show();
-        Intent intent = new Intent(HistoryActivity.this, Sort.class);
+        Intent intent = new Intent(MyHistoryActivity.this, Sort.class);
         startActivity(intent);
     }
 
