@@ -1,9 +1,16 @@
+
 package ca.ualberta.cs.funtime_runtime;
 
-public class HistoryList extends QuestionList {
+import java.util.ArrayList;
 
-	public HistoryList() {
-		// TODO Auto-generated constructor stub
-	}
+public class HistoryList extends QuestionList
+{
+
+    ArrayList<Question> myHistoryList;
+
+    public HistoryList()
+    {
+        myHistoryList = new ArrayList<Question>();
+    }
 
 }
