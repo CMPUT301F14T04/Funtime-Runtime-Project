@@ -83,17 +83,17 @@ public class AuthorAnswerActivity extends Activity
 		startActivity(intent);
 	}
 		
-	public void openMyHistory() {
-		Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(AuthorAnswerActivity.this, MyHistoryActivity.class);
-		startActivity(intent);
-	}
+		public void openMyHistory() {
+			Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(HomeActivity.this, MyHistoryActivity.class);
+			startActivity(intent);
+		}
 
-	public void openSortList() {
-		Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(AuthorAnswerActivity.this, Sort.class);
-		startActivity(intent);
-	}
+		public void openSortList() {
+			Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(HomeActivity.this, Sort.class);
+			startActivity(intent);
+		}
 //-------------------------------------------
 //-------------------------------------------	
 
