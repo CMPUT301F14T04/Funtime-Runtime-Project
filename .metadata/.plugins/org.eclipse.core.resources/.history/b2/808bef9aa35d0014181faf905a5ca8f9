@@ -57,6 +57,7 @@ public class QuestionPageActivity extends Activity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// switch case to choose an item from the menu
+		//IntentSwitcher switcher = new IntentSwitcher(HomeActivity.this);
 		
 //-------------------------------------------
 // Menu Items Switch Case

@@ -67,7 +67,90 @@ public class LoginActivity extends Activity
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
-	}	
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// switch case to choose an item from the menu
+		//IntentSwitcher switcher = new IntentSwitcher(HomeActivity.this);
+	
+//-------------------------------------------
+// Menu Items Switch Case
+//-------------------------------------------
+			
+	switch (item.getItemId()) {
+		case R.id.my_questions_menu_item:
+			openMyQuestions();
+			return true;
+		case R.id.my_answers_menu_item:
+			openMyAnswers();
+			return true;
+		case R.id.my_favorites_menu_item:
+			openMyFavourites();
+			return true;
+		case R.id.my_reading_list_item:
+			openMyReadingList();
+			return true;
+		case R.id.my_history_list_item:
+			openMyHistory();
+			return true;
+		case R.id.sort_list_item:
+			openSortList();
+			return true;
+		default:
+			return true;
+		}	
+	}
+		
+	public void openSearch() {
+		Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(LoginActivity.this, SearchActivity.class);
+		startActivity(intent);
+	}
+		
+	public void openLogin(){
+		Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+		startActivity(intent);
+	}
+		
+	public void openMyQuestions() {
+		Toast.makeText(this, "My Questions", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(LoginActivity.this, MyQuestionsActivity.class);
+		startActivity(intent);
+	}
+		
+	public void openMyAnswers() {
+		Toast.makeText(this, "My Answers", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(LoginActivity.this, MyAnswersActivity.class);
+		startActivity(intent);
+	}
+		
+	public void openMyFavourites() {
+		Toast.makeText(this, "My Favourites", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(LoginActivity.this, MyFavouritesActivity.class);
+		startActivity(intent);
+	}
+		
+	public void openMyReadingList() {
+		Toast.makeText(this, "My Reading List", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(LoginActivity.this, ReadingListActivity.class);
+		startActivity(intent);
+	}
+		
+	public void openMyHistory() {
+		Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(LoginActivity.this, MyHistoryActivity.class);
+		startActivity(intent);
+	}
+
+	public void openSortList() {
+		Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(LoginActivity.this, Sort.class);
+		startActivity(intent);
+	}
+//-------------------------------------------
+//-------------------------------------------	
 			
 	public void createAccount(View v)	{
 		Intent createNewAccount = new Intent(LoginActivity.this, CreateAccountActivity.class);

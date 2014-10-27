@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -67,8 +66,8 @@ public class LoginActivity extends Activity
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
-	}	
-			
+	}
+
 	public void createAccount(View v)	{
 		Intent createNewAccount = new Intent(LoginActivity.this, CreateAccountActivity.class);
 		startActivity(createNewAccount);
