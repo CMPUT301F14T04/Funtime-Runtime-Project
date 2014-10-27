@@ -115,31 +115,31 @@ public class MyFavouritesActivity extends Activity
 	
 	public void openMyQuestions() {
 		Toast.makeText(this, "My Questions", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(MyFavouritesActivity.this, MyQuestionsActivity.class);
+		Intent intent = new Intent(HomeActivity.this, MyQuestionsActivity.class);
 		startActivity(intent);
 	}
 	
 	public void openMyAnswers() {
 		Toast.makeText(this, "My Answers", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(MyFavouritesActivity.this, MyAnswersActivity.class);
+		Intent intent = new Intent(HomeActivity.this, MyAnswersActivity.class);
 		startActivity(intent);
 	}
 	
 	public void openMyReadingList() {
 		Toast.makeText(this, "My Reading List", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(MyFavouritesActivity.this, ReadingListActivity.class);
+		Intent intent = new Intent(HomeActivity.this, ReadingListActivity.class);
 		startActivity(intent);
 	}
 	
 	public void openMyHistory() {
 		Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(MyFavouritesActivity.this, MyHistoryActivity.class);
+		Intent intent = new Intent(HomeActivity.this, MyHistoryActivity.class);
 		startActivity(intent);
 	}
 
 	public void openSortList() {
 		Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(MyFavouritesActivity.this, Sort.class);
+		Intent intent = new Intent(HomeActivity.this, Sort.class);
 		startActivity(intent);
 	}
 //-------------------------------------------
