@@ -31,4 +31,8 @@ public class QuestionList {
 		questionList.remove(i);
 	}
 
+	public ArrayList<Question> getList() {
+		return questionList;
+	}
+
 }

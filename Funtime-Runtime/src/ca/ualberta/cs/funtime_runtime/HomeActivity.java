@@ -28,8 +28,18 @@ public class HomeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		homeQuestionList = new QuestionList();
-		homeListView = (ListView) findViewById(R.id.questionListView);	
-		testHome();
+		homeListView = (ListView) findViewById(R.id.questionListView);
+		
+		// TODO: retrieve homeQuestionList from server
+		testHome();  // temporary test code
+		
+		List<Question> questionList = homeQuestionList.getList();
+		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, questionList);
+		
+		
+		homeListView.setAdapter(adapter);	
+		adapter.notifyDataSetChanged();
+		
 		homeListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -46,14 +56,19 @@ public class HomeActivity extends Activity {
 	
 		
 	private void testHome() {
-		List<Question> questionList = new ArrayList<Question>();
-		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, questionList);
+		account = new Account("TestUser1");
+		ApplicationState.setAccount(account);
+		
 		Question question1 = new Question("What is the meaning of life?", "body 1 test", "user1");
 		Question question2 = new Question("Why does Computing Science homework take so long to do?", "body 2 test", "user2");
 		Question question3 = new Question("In what world does gravity push you away at a faster rate than it pulls you in?", "body 3 test", "user3");
-		questionList.add(question1);
-		questionList.add(question2);
-		questionList.add(question3);
+		homeQuestionList.add(question1);
+		homeQuestionList.add(question2);
+		homeQuestionList.add(question3);
+		account.addFavourite(question1);
+		account.addFavourite(question2);
+		account.readLater(question1);
+		account.readLater(question2);
 		question1.downVote();
 		Answer answer1 = new Answer("Sweet", "user1");
 		Answer answer2 = new Answer("Question", "user2");
@@ -61,8 +76,6 @@ public class HomeActivity extends Activity {
 		question1.addAnswer(answer1);
 		question1.addAnswer(answer2);
 		question1.addAnswer(answer3);
-		homeListView.setAdapter(adapter);	
-		adapter.notifyDataSetChanged();
 	}
 
 	@Override
