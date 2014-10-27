@@ -121,6 +121,12 @@ public class MyHistoryActivity extends Activity
 		Intent intent = new Intent(MyHistoryActivity.this, ReadingListActivity.class);
 		startActivity(intent);
 	}
+	
+	public void openMyHistory() {
+		Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(MyHistoryActivity.this, MyHistoryActivity.class);
+		startActivity(intent);
+	}
 
 	public void openSortList() {
 		Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
@@ -130,6 +136,8 @@ public class MyHistoryActivity extends Activity
 //-------------------------------------------
 //-------------------------------------------	
     
+    
+
     private void myHistoryTest()
     {
         List<Question> questionList = new ArrayList<Question>();
