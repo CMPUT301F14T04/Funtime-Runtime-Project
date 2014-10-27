@@ -40,7 +40,7 @@ public class AuthorQuestionActivity extends Activity{
 		return true;
 	}
 	
-	@Override
+	 @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// switch case to choose an item from the menu
 			
