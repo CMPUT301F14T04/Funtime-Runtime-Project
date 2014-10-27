@@ -2,10 +2,8 @@ package ca.ualberta.cs.funtime_runtime;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -82,31 +80,5 @@ public class CreateAccountActivity extends Activity
 		return true;
 	}
 	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// switch case to choose an item from the menu
-		//IntentSwitcher switcher = new IntentSwitcher(HomeActivity.this);
-		
-//-------------------------------------------
-// Menu Items Switch Case
-//-------------------------------------------
-		
-	switch (item.getItemId()) {
-		case R.id.login_menu_item:
-			openLogin();
-			return true;
-		default:
-			return true;
-		}	
-	}
-	
-	public void openLogin(){
-		Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
-		startActivity(intent);
-	}
-//-------------------------------------------
-//-------------------------------------------	
-
 	
 }

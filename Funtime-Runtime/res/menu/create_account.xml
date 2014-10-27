@@ -8,43 +8,7 @@
 	    android:id="@+id/login_menu_item"
 	    android:orderInCategory="100"
         android:showAsAction="never"
-	    android:title="@string/title_activity_login"/>
-    
-    <item 
-        android:id="@+id/my_questions_menu_item"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-	    android:title="@string/title_activity_my_questions"/> 
-	    
-    <item 
-        android:id="@+id/my_answers_menu_item"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-	    android:title="@string/title_activity_my_answers"/> 
-	    
-    <item 
-        android:id="@+id/my_favorites_menu_item"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-	    android:title="@string/title_activity_my_favourites"/> 
-	    
-    <item 
-        android:id="@+id/my_reading_list_item"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-	    android:title="@string/title_activity_reading_list"/> 
-	    
-    <item 
-        android:id="@+id/my_history_list_item"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-	    android:title="@string/title_activity_history"/> 
-	    
-    <item 
-        android:id="@+id/sort_list_item"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-	    android:title="@string/sort_string"/> 
+	    android:title="@string/title_activity_login"/> 
 	    
 	<!--     
     <item
