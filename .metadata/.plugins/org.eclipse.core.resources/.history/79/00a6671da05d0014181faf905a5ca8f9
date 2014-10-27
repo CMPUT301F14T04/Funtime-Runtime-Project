@@ -91,10 +91,6 @@ public class HomeActivity extends Activity {
 		// switch case to choose an item from the menu
 		//IntentSwitcher switcher = new IntentSwitcher(HomeActivity.this);
 		
-//-------------------------------------------
-// Menu Items Switch Case
-//-------------------------------------------
-		
 		switch (item.getItemId()) {
 			case R.id.searchQuestionsList:
 				//switcher.openSearch(this);
@@ -180,8 +176,6 @@ public class HomeActivity extends Activity {
 		Intent intent = new Intent(HomeActivity.this, Sort.class);
 		startActivity(intent);
 	}
-//-------------------------------------------
-//-------------------------------------------	
 	
 	//start the AuthorQuestionActivity --> Author Question Page to ask a new Question
 	public void askQuestion(View v)

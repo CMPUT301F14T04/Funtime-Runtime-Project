@@ -1,5 +1,0 @@
-package ca.ualberta.cs.funtime_runtime.test;
-
-public class MyAnswersActivityTest extends InstrumentationTestCase{
-
-}
