@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -85,66 +83,5 @@ public class MyQuestionsActivity extends Activity
 		getMenuInflater().inflate(R.menu.my_questions, menu);
 		return true;
 	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// switch case to choose an item from the menu
-		
-//-------------------------------------------
-// Menu Items Switch Case
-//-------------------------------------------
-		
-		switch (item.getItemId()) {
-			case R.id.my_answers_menu_item:
-				openMyAnswers();
-				return true;
-			case R.id.my_favorites_menu_item:
-				openMyFavourites();
-				return true;
-			case R.id.my_reading_list_item:
-				openMyReadingList();
-				return true;
-			case R.id.my_history_list_item:
-				openMyHistory();
-				return true;
-			case R.id.sort_list_item:
-				openSortList();
-				return true;
-			default:
-				return true;
-		}	
-	}
-
-	public void openMyAnswers() {
-		Toast.makeText(this, "My Answers", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(MyQuestionsActivity.this, MyAnswersActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyFavourites() {
-		Toast.makeText(this, "My Favourites", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(MyQuestionsActivity.this, MyFavouritesActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyReadingList() {
-		Toast.makeText(this, "My Reading List", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(MyQuestionsActivity.this, ReadingListActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyHistory() {
-		Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(MyQuestionsActivity.this, MyHistoryActivity.class);
-		startActivity(intent);
-	}
-
-	public void openSortList() {
-		Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(MyQuestionsActivity.this, Sort.class);
-		startActivity(intent);
-	}
-//-------------------------------------------
-//-------------------------------------------		
 
 }
