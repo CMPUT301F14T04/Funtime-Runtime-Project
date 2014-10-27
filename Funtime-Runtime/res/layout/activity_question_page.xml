@@ -10,22 +10,22 @@
     tools:context=".QuestionPageActivity" >
 
     <TextView
-        android:id="@+id/question_title"
+        android:id="@+id/question_title_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
-        android:text="@string/answer_parent_title"
+        android:text="@string/question_title"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="normal|bold" />
 
     <TextView
-        android:id="@+id/question_description"
+        android:id="@+id/question_body_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="16dp"
         android:layout_weight="0.10"
-        android:text="@string/answer_parent_text"
+        android:text="@string/question_body"
         android:textSize="17sp" />
 
     <ListView

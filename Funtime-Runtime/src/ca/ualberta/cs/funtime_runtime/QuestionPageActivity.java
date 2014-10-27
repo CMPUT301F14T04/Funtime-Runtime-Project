@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 public class QuestionPageActivity extends Activity
@@ -16,7 +17,9 @@ public class QuestionPageActivity extends Activity
 	ListView questionListView;
 	AnswerList questionAnswerList;
 	Account account;
-
+	TextView questionTitle;
+	TextView questionBody;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -26,6 +29,11 @@ public class QuestionPageActivity extends Activity
 		//Question question = (Question) intent.getSerializableExtra("Question");
 		Bundle extras = intent.getExtras();
 		Question question = (Question) extras.getSerializable("Question");
+		
+		questionTitle = (TextView) findViewById(R.id.question_title_text);
+		questionTitle.setText(question.getTitle());
+		questionBody = (TextView) findViewById(R.id.question_body_text);
+		questionBody.setText(question.getBody());
 		questionAnswerList = new AnswerList();
 		questionListView =  (ListView) findViewById(R.id.listView1);
 		account = ApplicationState.getAccount();

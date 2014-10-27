@@ -23,7 +23,7 @@
     <string name="write_title_hint_text">Add a title</string>
     <string name="add_details_hint_text">Add Details</string>
     <string name="question_title">[question_title]</string>
-    <string name="question_text">[question_text]</string>
+    <string name="question_body">[question_body]</string>
     <string name="question_button_text">Add Answer</string>
     
     <!-- View Replies Strings -->
