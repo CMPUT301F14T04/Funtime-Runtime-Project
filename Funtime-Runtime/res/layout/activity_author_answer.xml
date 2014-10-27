@@ -9,56 +9,57 @@
     tools:context=".AuthorAnswerActivity" >
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/submitAnswerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:text="@string/submit_button_text" />
-    
-    <EditText
-        android:id="@+id/loginField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/loginButton"
-        android:layout_alignLeft="@+id/loginButton"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="84dp"
-        android:ems="10"
-        android:hint="@string/type_answer_hint_text"
-        android:inputType="textMultiLine" />
 
     <Button
         android:id="@+id/add_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/loginButton"
-        android:layout_alignLeft="@+id/loginButton"
-        android:layout_alignRight="@+id/loginButton"
+        android:layout_above="@+id/submitAnswerButton"
+        android:layout_alignLeft="@+id/submitAnswerButton"
+        android:layout_alignRight="@+id/submitAnswerButton"
         android:drawableRight="@android:drawable/ic_menu_camera"
         android:text="@string/add_photo_button_text" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/questionBodyAA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:text="@string/answer_parent_title"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/loginField"
-        android:layout_alignLeft="@+id/loginField"
-        android:layout_alignRight="@+id/loginField"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/typeAnswerAA"
+        android:layout_alignRight="@+id/typeAnswerAA"
+        android:layout_below="@+id/questionTitleAA"
         android:layout_marginTop="22dp"
         android:text="@string/answer_parent_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/questionTitleAA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/answer_parent_title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+
+    <EditText
+        android:id="@+id/typeAnswerAA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/add_image_button"
+        android:layout_alignLeft="@+id/add_image_button"
+        android:layout_alignRight="@+id/add_image_button"
+        android:ems="10"
+        android:hint="@string/type_answer_hint_text"
+        android:inputType="textMultiLine" >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>

@@ -42,12 +42,7 @@ public class HomeActivity extends Activity {
 		homeListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Question question = (Question) adapter.getItem(position);				
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("Question", question);
-				Intent intent = new Intent(HomeActivity.this, QuestionPageActivity.class);
-				intent.putExtras(bundle);
-				startActivity(intent);			
+				openQuestion(position);		
 			}
 		});
 
@@ -75,6 +70,17 @@ public class HomeActivity extends Activity {
 		question1.addAnswer(answer1);
 		question1.addAnswer(answer2);
 		question1.addAnswer(answer3);
+	}
+	
+
+	private void openQuestion(int position) {
+		Question question = (Question) adapter.getItem(position);				
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("Question", question);
+		Intent intent = new Intent(HomeActivity.this, QuestionPageActivity.class);
+		intent.putExtras(bundle);
+		startActivity(intent);	
+		
 	}
 
 	@Override

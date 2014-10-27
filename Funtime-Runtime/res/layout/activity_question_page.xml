@@ -28,6 +28,7 @@
         android:text="@string/question_body"
         android:textSize="17sp" />
     
+    <!-- http://stackoverflow.com/questions/5289536/android-listview-default-divider-styles-attributes -->
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"

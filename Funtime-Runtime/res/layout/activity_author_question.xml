@@ -26,54 +26,59 @@
         android:id="@+id/question_body_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/submit_question_button"
+        android:layout_above="@+id/add_image_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/question_title_text"
-        android:layout_marginBottom="84dp"
         android:ems="10"
         android:hint="@string/add_details_hint_text"
         android:inputType="textMultiLine" />
 
     <EditText
         android:id="@+id/question_title_text"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/question_body_text"
         android:layout_alignParentTop="true"
         android:ems="10"
         android:hint="@string/write_title_hint_text"
-        android:inputType="textPersonName"
-        android:textColor="@color/white" />
-
-    <ImageButton
-        android:id="@+id/add_image_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/submit_question_button"
-        android:layout_alignRight="@+id/question_body_text"
-        android:layout_marginBottom="52dp"
-        android:background="@drawable/camera_button"
-        android:contentDescription="@string/camera_action"
-        android:src="@android:drawable/ic_menu_camera" />
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/submit_question_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/add_image_button"
-        android:layout_marginBottom="26dp"
-        android:layout_toRightOf="@+id/button1"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/fakeView"
         android:onClick="submitQuestion"
         android:text="@string/submit_button_text" />
 
-    <Button
-        android:id="@+id/button1"
+    <ImageButton
+        android:id="@+id/add_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/submit_question_button"
+        android:layout_alignRight="@+id/submit_question_button"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/camera_button"
+        android:contentDescription="@string/camera_action"
+        android:src="@android:drawable/ic_menu_camera" />
+  
+    <View
+       android:id="@+id/fakeView"
+       android:layout_width="0dp"
+       android:layout_height="0dp" 
+       android:layout_centerInParent="true"/>
+    
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/submit_question_button"
+        android:layout_alignBottom="@+id/submit_question_button"
         android:layout_alignLeft="@+id/question_body_text"
-        android:layout_below="@+id/question_body_text"
+        android:layout_toLeftOf="@+id/fakeView"
         android:text="@string/button_cancel" />
 
 </RelativeLayout>
