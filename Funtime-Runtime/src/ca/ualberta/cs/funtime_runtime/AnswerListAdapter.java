@@ -64,15 +64,15 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		
 		TextView answerAuthorTextView = (TextView) theView.findViewById(R.id.answer_author_textview);
 		String answerAuthorString = answerAuthorTextView.getText().toString();
-		answerAuthorTextView.setText(answerAuthorString + " " +answer.getUser());
+		answerAuthorTextView.setText(answerAuthorString + " " + answer.getUser());
 		
 		TextView answerReplyTextView = (TextView) theView.findViewById(R.id.answer_reply_textview);
 		String answerReplyString = answerReplyTextView.getText().toString();
-		answerReplyTextView.setText(answerReplyString + " " +answer.getReplyCount());
+		answerReplyTextView.setText(answerReplyString + " " + answer.getReplyCount());
 		
 		TextView answerDateTextView = (TextView) theView.findViewById(R.id.answer_date);
 		String answerDateString = answerDateTextView.getText().toString();
-		answerDateTextView.setText(answerDateString + " " +answer.getDate());
+		answerDateTextView.setText(answerDateString + " " + answer.getDate());
 		
 		
 		return theView;

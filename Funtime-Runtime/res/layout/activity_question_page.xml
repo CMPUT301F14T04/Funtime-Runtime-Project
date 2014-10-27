@@ -27,6 +27,11 @@
         android:layout_weight="0.10"
         android:text="@string/question_body"
         android:textSize="17sp" />
+    
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"/>
 
     <ListView
         android:id="@+id/listView1"

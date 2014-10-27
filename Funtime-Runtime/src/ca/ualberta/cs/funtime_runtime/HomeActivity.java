@@ -1,6 +1,5 @@
 package ca.ualberta.cs.funtime_runtime;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;

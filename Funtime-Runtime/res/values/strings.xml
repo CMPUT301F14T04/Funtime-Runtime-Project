@@ -78,7 +78,7 @@
     <string name="question_adapter_rating">Rating: </string>
     <string name="question_adapter_answer">Answers: </string>
     <string name="answer_adapter_reply">Replies: </string>
-    <string name="question_adapter_date">Date Posted:</string>
+    <string name="question_adapter_date">Date Posted: </string>
     
 
 </resources>
