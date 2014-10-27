@@ -64,6 +64,8 @@ public class HomeActivity extends Activity {
 		account.readLater(question1);
 		account.readLater(question2);
 		question1.downVote();
+		for (int i = 0; i < 1000; i++)
+			question2.upVote();
 		Answer answer1 = new Answer("Sweet", "user1");
 		Answer answer2 = new Answer("Question", "user2");
 		Answer answer3 = new Answer("Bro do you even lift????????????????????????????????????????", "user3");
