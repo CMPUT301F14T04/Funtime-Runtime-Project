@@ -11,11 +11,7 @@
 
     <!-- http://stackoverflow.com/questions/5289536/android-listview-default-divider-styles-attributes -->
 
-    <View
-        android:id="@+id/view1"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
+    
 
     <Button
         android:id="@+id/loginButton"
@@ -40,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/question_body_text"
-        android:layout_alignTop="@+id/view1"
+
         android:text="@string/question_title"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="normal|bold" />
@@ -49,7 +45,7 @@
         android:id="@+id/question_body_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/view1"
+
         android:layout_below="@+id/question_title_text"
         android:layout_marginTop="26dp"
         android:text="@string/question_body"
@@ -65,6 +61,7 @@
         android:contentDescription="@string/star_action"
         android:src="@android:drawable/btn_star_big_off" 
         android:onClick="favorited"/>
+    
 
     <Button
         android:id="@+id/button_add_answer"
@@ -74,5 +71,14 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/answer_list"
         android:text="@string/button_add_answer" />
+    
+        <View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        android:layout_below="@+id/question_favorite_button"
+         />
+    
 
 </RelativeLayout>

@@ -27,6 +27,7 @@ public class Question implements Serializable{
 	public String getTitle() {
 		return TITLE;
 	}
+	
 
 	public String getBody() {
 		return BODY;
