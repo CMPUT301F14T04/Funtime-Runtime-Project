@@ -24,7 +24,7 @@ public class QuestionPageActivity extends Activity
 	TextView questionTitle;
 	TextView questionBody;
 	ImageButton favorite_button;
-	
+	Boolean favorited = false;
 	
 	
 	//ImageButton unfavorite_button;
@@ -173,8 +173,18 @@ public class QuestionPageActivity extends Activity
 	
 	public void favorited(View v){
 		//http://stackoverflow.com/questions/12249495/android-imagebutton-change-image-onclick-solved  -Tuesday October 28 2014
-		ImageButton favorite_button = (ImageButton) findViewById(R.id.question_favorite_button);
-		favorite_button.setImageResource(android.R.drawable.btn_star_big_on);
+		if (favorited == false){
+			ImageButton favorite_button = (ImageButton) findViewById(R.id.question_favorite_button);
+			favorite_button.setImageResource(android.R.drawable.btn_star_big_on);
+			favorited = true;
+			
+		}else if (favorited == true){
+			ImageButton favorite_button = (ImageButton) findViewById(R.id.question_favorite_button);
+			favorite_button.setImageResource(android.R.drawable.btn_star_big_off);
+			favorited = false;
+			
+		}
+
 	}
 
 }
