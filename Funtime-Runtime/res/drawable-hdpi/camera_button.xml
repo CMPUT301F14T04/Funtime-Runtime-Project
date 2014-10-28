@@ -6,5 +6,6 @@
     <item android:state_focused="false" android:state_pressed="true" android:drawable="@android:drawable/ic_menu_camera" /> 
     <item android:drawable="@android:drawable/ic_menu_camera" /> 
 </selector>
-
+ <!-- http://stackoverflow.com/questions/6777483/how-to-use-an-image-as-a-button -Friday October 24 2014 -->
+ <!-- The information to create the camera button is from stackoverflow user Nikola Despotoski -->
 </animation-list>

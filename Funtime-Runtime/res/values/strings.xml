@@ -80,6 +80,8 @@
     <string name="answer_adapter_reply">Replies: </string>
     <string name="question_adapter_date">Date Posted:</string>
     <string name="button_cancel">Cancel</string>
+    <string name="star_action">This is involved in favoriting a question</string>
+    <string name="button_add_answer">Add Answer</string>
     
 
 </resources>

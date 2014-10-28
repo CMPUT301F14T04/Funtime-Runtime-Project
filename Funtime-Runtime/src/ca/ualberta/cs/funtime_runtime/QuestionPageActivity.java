@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +23,12 @@ public class QuestionPageActivity extends Activity
 	Account account;
 	TextView questionTitle;
 	TextView questionBody;
+	ImageButton favorite_button;
+	
+	
+	//ImageButton unfavorite_button;
+
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -37,13 +45,16 @@ public class QuestionPageActivity extends Activity
 		questionBody = (TextView) findViewById(R.id.question_body_text);
 		questionBody.setText(question.getBody());
 		questionAnswerList = new AnswerList();
-		questionListView =  (ListView) findViewById(R.id.listView1);
+		questionListView =  (ListView) findViewById(R.id.answer_list);
 		account = ApplicationState.getAccount();
 		questionAnswerList = question.getAnswerList();
 		AnswerListAdapter adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, questionAnswerList.getAnswerList());
 		questionListView.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
 		//testQuestionPage();	
+		favorite_button = (ImageButton) findViewById(R.id.question_favorite_button);
+		
+		
 	}
 
 	@Override
@@ -159,6 +170,10 @@ public class QuestionPageActivity extends Activity
 		startActivity(authorAnswer);
 	}
 	
-	
+	public void favorited(View v){
+		
+		ImageButton favorite_button = (ImageButton) findViewById(R.id.question_favorite_button);
+		favorite_button.setImageResource(android.R.drawable.btn_star_big_on);
+	}
 
 }

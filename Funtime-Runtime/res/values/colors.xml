@@ -17,5 +17,6 @@
  <color name="navy">#000080</color>
  <color name="black">#000000</color>
 </resources>
-
+<!-- http://stackoverflow.com/questions/3769762/android-color-xml-resource-file - Friday October 24 2014 -->
+<!-- This whole file is from the the user Lars -->
 

@@ -72,7 +72,7 @@
        android:layout_centerInParent="true"/>
     
     <Button
-        android:id="@+id/cancelButton"
+        android:id="@+id/cancel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/submit_question_button"
@@ -80,5 +80,8 @@
         android:layout_alignLeft="@+id/question_body_text"
         android:layout_toLeftOf="@+id/fakeView"
         android:text="@string/button_cancel" />
+ <!-- http://stackoverflow.com/questions/6777483/how-to-use-an-image-as-a-button -Friday October 24 2014 -->
+ <!-- The information to create the camera button is from stackoverflow user Nikola Despotoski -->
+ 
 
 </RelativeLayout>
