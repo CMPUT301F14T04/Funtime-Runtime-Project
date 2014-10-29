@@ -1,9 +1,10 @@
 package ca.ualberta.cs.funtime_runtime.test;
 
+import java.util.ArrayList;
+
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.funtime_runtime.QuestionPageActivity;
 import ca.ualberta.cs.funtime_runtime.Reply;
-import ca.ualberta.cs.funtime_runtime.ReplyList;
 
 public class ReplyListTest extends ActivityInstrumentationTestCase2<QuestionPageActivity> {
 
@@ -12,12 +13,12 @@ public class ReplyListTest extends ActivityInstrumentationTestCase2<QuestionPage
 	}
 	
 	public void testMakeList(){
-		ReplyList replyList = new ReplyList();
+		ArrayList<Reply> replyList = new ArrayList<Reply>();
 		assertNotNull(replyList);
 	}
 	
 	public void testAddReply(){
-		ReplyList replyList = new ReplyList();
+		ArrayList<Reply> replyList = new ArrayList<Reply>();
 		Reply reply = new Reply("Test reply body", "TestAuthorUsername");
 		assertNotNull(replyList);
 		replyList.add(reply);

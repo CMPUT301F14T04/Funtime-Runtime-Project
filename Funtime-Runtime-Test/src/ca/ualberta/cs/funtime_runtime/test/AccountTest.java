@@ -1,13 +1,12 @@
 package ca.ualberta.cs.funtime_runtime.test;
 
+import java.util.ArrayList;
+
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.funtime_runtime.Account;
 import ca.ualberta.cs.funtime_runtime.Answer;
 import ca.ualberta.cs.funtime_runtime.CreateAccountActivity;
-import ca.ualberta.cs.funtime_runtime.HistoryList;
 import ca.ualberta.cs.funtime_runtime.Question;
-import ca.ualberta.cs.funtime_runtime.QuestionList;
-import ca.ualberta.cs.funtime_runtime.ReadingList;
 
 public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountActivity> {
 	
@@ -64,21 +63,21 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 	
 	public void testGetFavorites() {
 		Account account = new Account("TestAccountUsername");
-		QuestionList testList;
+		ArrayList<Question> testList;
 		testList = account.getFavouritesList();
 		assertNotNull(testList);
 	}
 	
 	public void testGetReadingList() {
 		Account account = new Account("TestAccountUsername");
-		ReadingList testList;
+		ArrayList<Question> testList;
 		testList = account.getReadingList();
 		assertNotNull(testList);
 	}
 	
 	public void testGetHistory() {
 		Account account = new Account("TestAccountUsername");
-		HistoryList testList;
+		ArrayList<Question> testList;
 		testList = account.getHistoryList();
 		assertNotNull(testList);
 	}

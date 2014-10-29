@@ -1,7 +1,8 @@
 package ca.ualberta.cs.funtime_runtime.test;
+import java.util.ArrayList;
+
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.funtime_runtime.Answer;
-import ca.ualberta.cs.funtime_runtime.AnswerList;
 import ca.ualberta.cs.funtime_runtime.CreateAccountActivity;
 
 
@@ -13,12 +14,12 @@ public class AccountListTest extends ActivityInstrumentationTestCase2<CreateAcco
 	}
 	
 	public void testMakeList(){
-		AnswerList answerList = new AnswerList();
+		ArrayList<Answer> answerList = new ArrayList<Answer>();
 		assertNotNull(answerList);
 	}
 	
 	public void testAddAnswer(){
-		AnswerList answerList = new AnswerList();
+		ArrayList<Answer> answerList = new ArrayList<Answer>();
 		Answer answer = new Answer("Test answer text", "TestAuthorUsername");
 		assertNotNull(answerList);
 		answerList.add(answer);
@@ -36,7 +37,7 @@ public class AccountListTest extends ActivityInstrumentationTestCase2<CreateAcco
 	}
 	
 	public void testRemoveAnswer(){
-		AnswerList answerList = new AnswerList();
+		ArrayList<Answer> answerList = new ArrayList<Answer>();
 		Answer answer = new Answer("Test answer text", "TestAuthorUsername");
 		assertNotNull(answerList);
 		answerList.add(answer);

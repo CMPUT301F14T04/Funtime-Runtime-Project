@@ -1,9 +1,10 @@
 package ca.ualberta.cs.funtime_runtime.test;
 
+import java.util.ArrayList;
+
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.funtime_runtime.HomeActivity;
 import ca.ualberta.cs.funtime_runtime.Question;
-import ca.ualberta.cs.funtime_runtime.QuestionList;
 
 public class QuestionListTest extends ActivityInstrumentationTestCase2<HomeActivity> {
 
@@ -12,12 +13,12 @@ public class QuestionListTest extends ActivityInstrumentationTestCase2<HomeActiv
 	}
 	
 	public void testMakeList(){
-		QuestionList questionList = new QuestionList();
+		ArrayList<Question> questionList = new ArrayList<Question>();
 		assertNotNull(questionList);
 	}
 	
 	public void testAddQuestion(){
-		QuestionList questionList = new QuestionList();
+		ArrayList<Question> questionList = new ArrayList<Question>();
 		Question question = new Question("Test Question Title", "Test question body", "TestAuthorUsername");
 		assertNotNull(questionList);
 		questionList.add(question);
@@ -35,7 +36,7 @@ public class QuestionListTest extends ActivityInstrumentationTestCase2<HomeActiv
 	}
 	
 	public void testRemoveQuestion(){
-		QuestionList questionList = new QuestionList();
+		ArrayList<Question> questionList = new ArrayList<Question>();
 		Question question = new Question("Test Question Title", "Test question body", "TestAuthorUsername");
 		assertNotNull(questionList);
 		questionList.add(question);
