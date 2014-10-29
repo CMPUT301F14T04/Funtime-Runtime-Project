@@ -18,7 +18,7 @@ import java.util.List;
 public class MyQuestionsActivity extends Activity
 {
 	ListView myQuestionsListView;
-	QuestionList myQuestionList;
+	ArrayList<Question> myQuestionList;
 	QuestionListAdapter adapter;
 	Account account;
 
@@ -28,7 +28,7 @@ public class MyQuestionsActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_questions);
 	
-		myQuestionList = new QuestionList();
+		myQuestionList = new ArrayList<Question>();
 		myQuestionsListView = (ListView) findViewById(R.id.listView1);
 		myQuestionsExample();
 		myQuestionsListView.setOnItemClickListener(new OnItemClickListener()
@@ -50,7 +50,7 @@ public class MyQuestionsActivity extends Activity
 	
 	private void myQuestionsExample()
 	{
-		List<Question> questionList = new ArrayList<Question>();
+		ArrayList<Question> questionList = new ArrayList<Question>();
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, questionList);
 		
 		//Example 1

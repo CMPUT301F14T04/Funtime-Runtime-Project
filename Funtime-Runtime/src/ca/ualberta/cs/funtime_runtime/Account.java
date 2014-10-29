@@ -1,22 +1,24 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.util.ArrayList;
+
 
 public class Account {
 
 	private String username;
-	private MyFavourites favourites;
-	private AnswerList answerList;
-	private QuestionList questionList;
-	private ReadingList readingList;
-	private HistoryList history;
+	private ArrayList<Question> favourites;
+	private ArrayList<Answer> answerList;
+	private ArrayList<Question> questionList;
+	private ArrayList<Question> readingList;
+	private ArrayList<Question> history;
 	
 	public Account(String username) {
 		this.username = username;
-		favourites = new MyFavourites();
-		answerList = new AnswerList();
-		questionList = new QuestionList();
-		readingList = new ReadingList();
-		history = new HistoryList();
+		favourites = new ArrayList<Question>();
+		answerList = new ArrayList<Answer>();
+		questionList = new ArrayList<Question>();
+		readingList = new ArrayList<Question>();
+		history = new ArrayList<Question>();
 	}
 
 	public void setName(String username) {
@@ -51,7 +53,7 @@ public class Account {
 		return answerList.get(i);
 	}
 
-	public MyFavourites getFavouritesList() {
+	public ArrayList<Question> getFavouritesList() {
 		return favourites;
 	}
 	
@@ -63,7 +65,7 @@ public class Account {
 		favourites.remove(question);
 	}
 
-	public ReadingList getReadingList() {
+	public ArrayList<Question> getReadingList() {
 		return readingList;
 	}
 
@@ -71,7 +73,7 @@ public class Account {
 		readingList.add(question);
 	}
 	
-	public HistoryList getHistoryList() {
+	public ArrayList<Question> getHistoryList() {
 		return history;
 	}
 	

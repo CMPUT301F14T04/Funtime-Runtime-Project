@@ -1,5 +1,7 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.util.ArrayList;
+
 import android.app.Application;
 
 public class ApplicationState extends Application {
@@ -8,7 +10,7 @@ public class ApplicationState extends Application {
 	private static Account account;
 	
 	// TODO pull accountList from server
-	private static AccountList accountList = new AccountList();
+	private static ArrayList<Account> accountList = new ArrayList<Account>();
 	private static boolean loggedIn = false;
 	
 	public static void setAccount(Account newAccount) {
@@ -20,11 +22,11 @@ public class ApplicationState extends Application {
 		return account;
 	}
 	
-	public static void setAccountList(AccountList newList) {
+	public static void setAccountList(ArrayList<Account> newList) {
 		accountList = newList;
 	}
 	
-	public static AccountList getAccountList() {
+	public static ArrayList<Account> getAccountList() {
 		return accountList;
 	}
 	

@@ -18,7 +18,7 @@ public class ReadingListActivity extends Activity
 {
 
 	ListView readingListView;
-	QuestionList readingList;
+	ArrayList<Question> readingList;
 	QuestionListAdapter adapter;
 	Account account;
 	
@@ -38,7 +38,7 @@ public class ReadingListActivity extends Activity
 		readingList = account.getFavouritesList();
 
 		ArrayList<Question> favouritesAList = new ArrayList<Question>();
-		favouritesAList = readingList.getList();
+		favouritesAList = readingList;
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, favouritesAList);
 		readingListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();

@@ -1,5 +1,6 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -18,7 +19,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	int res;
 	LayoutInflater inflater;
 
-	public QuestionListAdapter(Context context, int resource, List<Question> objects) {
+	public QuestionListAdapter(Context context, int resource, ArrayList<Question> objects) {
 		super(context, resource, objects);
 		ctx = context;
 		res = resource;

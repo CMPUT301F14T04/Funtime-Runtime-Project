@@ -17,7 +17,7 @@ public class MyFavouritesActivity extends Activity
 {
 
 	ListView favouritesListView;
-	QuestionList myFavouritesList;
+	ArrayList<Question> myFavouritesList;
 	QuestionListAdapter adapter;
 	Account account;
 	
@@ -37,7 +37,7 @@ public class MyFavouritesActivity extends Activity
 		myFavouritesList = account.getFavouritesList();
 		
 		ArrayList<Question> favouritesList = new ArrayList<Question>();
-		favouritesList = myFavouritesList.getList();
+		favouritesList = myFavouritesList;
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, favouritesList);
 		favouritesListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();

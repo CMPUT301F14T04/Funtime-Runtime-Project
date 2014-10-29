@@ -132,7 +132,7 @@ public class MyHistoryActivity extends Activity
     
     private void myHistoryTest()
     {
-        List<Question> questionList = new ArrayList<Question>();
+        ArrayList<Question> questionList = new ArrayList<Question>();
         adapter = new QuestionListAdapter(this, R.layout.question_list_adapter,
                 questionList);
         // Example 1

@@ -1,5 +1,6 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -16,7 +17,7 @@ import android.widget.Toast;
 public class HomeActivity extends Activity {
 	
 	ListView homeListView;
-	QuestionList homeQuestionList;
+	ArrayList<Question> homeQuestionList;
 	QuestionListAdapter adapter;
 	Account account;
 	
@@ -26,14 +27,13 @@ public class HomeActivity extends Activity {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
-		homeQuestionList = new QuestionList();
+		homeQuestionList = new ArrayList<Question>();
 		homeListView = (ListView) findViewById(R.id.questionListView);
 		
 		// TODO: retrieve homeQuestionList from server
 		testHome();  // temporary test code
-		
-		List<Question> questionList = homeQuestionList.getList();
-		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, questionList);
+
+		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, homeQuestionList);
 		
 		
 		homeListView.setAdapter(adapter);	

@@ -17,7 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class MyAnswersActivity extends Activity
 {
 	ListView myAnswersListView;
-	QuestionList myAnswersQuestionList;
+	ArrayList<Question> myAnswersQuestionList;
 	QuestionListAdapter adapter;
 	Account account;
 
@@ -26,7 +26,7 @@ public class MyAnswersActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_answers);
-		myAnswersQuestionList = new QuestionList();
+		myAnswersQuestionList = new ArrayList<Question>();
 		myAnswersListView = (ListView) findViewById(R.id.listView1);
 		testMyAnswers();
 		myAnswersListView.setOnItemClickListener(new OnItemClickListener() {
@@ -47,7 +47,7 @@ public class MyAnswersActivity extends Activity
 	
 	
 	private void testMyAnswers() {
-		List<Question> questionList = new ArrayList<Question>();
+		ArrayList<Question> questionList = new ArrayList<Question>();
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, questionList);
 		Question question1 = new Question("What is the meaning of life?", "body 1 test", "user1");
 		questionList.add(question1);

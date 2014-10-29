@@ -19,7 +19,7 @@ import android.widget.Toast;
 public class QuestionPageActivity extends Activity
 {
 	ListView questionListView;
-	AnswerList questionAnswerList;
+	ArrayList<Answer> questionAnswerList;
 	Account account;
 	TextView questionTitle;
 	TextView questionBody;
@@ -46,11 +46,11 @@ public class QuestionPageActivity extends Activity
 		questionTitle.setText(question.getTitle());
 		questionBody = (TextView) findViewById(R.id.question_body_text);
 		questionBody.setText(question.getBody());
-		questionAnswerList = new AnswerList();
+		questionAnswerList = new ArrayList<Answer>();
 		questionListView =  (ListView) findViewById(R.id.answer_list);
 		account = ApplicationState.getAccount();
 		questionAnswerList = question.getAnswerList();
-		AnswerListAdapter adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, questionAnswerList.getAnswerList());
+		AnswerListAdapter adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, questionAnswerList);
 		questionListView.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
 		//testQuestionPage();	

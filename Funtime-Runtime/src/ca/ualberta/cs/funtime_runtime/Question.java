@@ -1,6 +1,7 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Question implements Serializable{
@@ -10,7 +11,7 @@ public class Question implements Serializable{
 	private final String BODY;
 	private final String USERNAME;
 	private final Date DATE;
-	public AnswerList answerList;
+	public ArrayList<Answer> answerList;
 	private int rating;
 	private int numberOfAnswers;
 	
@@ -21,7 +22,7 @@ public class Question implements Serializable{
 		DATE = new Date();
 		rating = 0;
 		numberOfAnswers = 0;
-		answerList = new AnswerList();
+		answerList = new ArrayList<Answer>();
 	}
 
 	public String getTitle() {
@@ -67,7 +68,7 @@ public class Question implements Serializable{
 		return answer;
 	}
 	
-	public AnswerList getAnswerList() {
+	public ArrayList<Answer> getAnswerList() {
 		return answerList;
 	}
 

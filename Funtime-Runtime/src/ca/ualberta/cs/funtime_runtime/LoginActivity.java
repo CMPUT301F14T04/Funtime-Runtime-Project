@@ -1,5 +1,7 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +31,7 @@ public class LoginActivity extends Activity
                 String username = usernameText.getText().toString();
                 if (username != "") {
                 	// Get account list
-                	AccountList accountList = ApplicationState.getAccountList();
+                	ArrayList<Account> accountList = ApplicationState.getAccountList();
                 	
                 	// Check if username matches existing account
                 	boolean accountExists = false;
