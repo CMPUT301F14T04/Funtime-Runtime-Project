@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class QuestionPageActivity extends Activity
+public class QuestionPageActivity extends IntentSwitcher
 {
 	ListView questionListView;
 	ArrayList<Answer> questionAnswerList;
@@ -94,6 +94,9 @@ public class QuestionPageActivity extends Activity
 // Menu Items Switch Case
 //-------------------------------------------
 		switch (item.getItemId()) {
+			case R.id.searchQuestionsList:
+				openSearch();
+				return true;
 			case R.id.login_menu_item:
 				openLogin();
 				return true;

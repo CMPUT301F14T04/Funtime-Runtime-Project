@@ -14,7 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class HomeActivity extends Activity {
+public class HomeActivity extends IntentSwitcher {
 	
 	ListView homeListView;
 	ArrayList<Question> homeQuestionList;
@@ -76,7 +76,8 @@ public class HomeActivity extends Activity {
 	
 
 	private void openQuestion(int position) {
-		Question question = (Question) adapter.getItem(position);				
+		Question question = (Question) adapter.getItem(position);
+		account.addToHistory(question); // Add question clicked to history
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("Question", question);
 		Intent intent = new Intent(HomeActivity.this, QuestionPageActivity.class);

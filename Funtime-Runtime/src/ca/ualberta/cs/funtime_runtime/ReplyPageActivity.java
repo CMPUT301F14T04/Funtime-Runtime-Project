@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class ReplyPageActivity extends Activity{
+public class ReplyPageActivity extends IntentSwitcher{
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
