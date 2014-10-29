@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class SearchActivity extends Activity
+public class SearchActivity extends IntentSwitcher
 {
 
 	@Override

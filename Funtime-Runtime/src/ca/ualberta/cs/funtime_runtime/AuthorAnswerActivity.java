@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AuthorAnswerActivity extends Activity{
+public class AuthorAnswerActivity extends IntentSwitcher{
 	
 	Question question;
 

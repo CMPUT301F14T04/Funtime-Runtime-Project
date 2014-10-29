@@ -14,7 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class HomeActivity extends Activity {
+public class HomeActivity extends IntentSwitcher {
 	
 	ListView homeListView;
 	ArrayList<Question> homeQuestionList;

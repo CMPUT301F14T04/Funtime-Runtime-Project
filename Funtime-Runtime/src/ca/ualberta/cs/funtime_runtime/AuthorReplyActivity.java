@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class AuthorReplyActivity extends Activity
+public class AuthorReplyActivity extends IntentSwitcher
 {
 
 	@Override
