@@ -5,11 +5,12 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Address;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,31 +24,37 @@ public class QuestionPageActivity extends Activity
 	Account account;
 	TextView questionTitle;
 	TextView questionBody;
+	//TextView questionUpvote;
+	Button addAnswerBtn;
 	ImageButton favorite_button;
 	Question question;
 	Boolean favorited = false;
-	
-	
+		
 	//ImageButton unfavorite_button;
-
-
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_page);
-		Intent intent = getIntent();
-		//Question question = (Question) intent.getSerializableExtra("Question");
-		Bundle extras = intent.getExtras();
-		question = (Question) extras.getSerializable("Question");
 		
+		Intent intent = getIntent();
+		Bundle extras = intent.getExtras();
+		//Question question = (Question) intent.getSerializableExtra("Question");
+			
 		questionTitle = (TextView) findViewById(R.id.question_title);
-		questionTitle.setText(question.getTitle());
 		questionBody = (TextView) findViewById(R.id.question_body);
-		questionBody.setText(question.getBody());
-		questionAnswerList = new ArrayList<Answer>();
+		//questionUpvote = (TextView) findViewById(R.id.question_upvote_text);
+		question = (Question) extras.getSerializable("Question");
 		questionListView =  (ListView) findViewById(R.id.answer_list);
+		addAnswerBtn = (Button) findViewById(R.id.button_add_answer);
+		
+		questionTitle.setText(question.getTitle());		
+		questionBody.setText(question.getBody());
+		//questionUpvote.setText(question.getRating());
+		
+		questionAnswerList = new ArrayList<Answer>();
+		
 		account = ApplicationState.getAccount();
 		questionAnswerList = question.getAnswerList();
 		AnswerListAdapter adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, questionAnswerList);
@@ -55,6 +62,16 @@ public class QuestionPageActivity extends Activity
 		adapter.notifyDataSetChanged();
 		//testQuestionPage();	
 		favorite_button = (ImageButton) findViewById(R.id.question_favorite_button);
+		
+		addAnswerBtn.setOnClickListener(new View.OnClickListener() {		
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(QuestionPageActivity.this, AuthorAnswerActivity.class);
+				startActivity(intent);
+				
+			}
+		});
 		
 		
 	}

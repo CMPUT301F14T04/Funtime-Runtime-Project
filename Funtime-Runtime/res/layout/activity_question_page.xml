@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="151dp"
         android:layout_above="@+id/button_add_answer"
-        android:layout_alignLeft="@+id/question_body_text"
         android:layout_below="@+id/view1" >
 
     </ListView>
@@ -60,7 +59,7 @@
 		android:lines="2"
         android:scrollbars="vertical"
         android:layout_above="@+id/question_body"
-        android:text="Question Title"
+        android:text="@string/question_title"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold" />
 
@@ -83,7 +82,7 @@
         android:layout_below="@+id/imageButton2"
         android:layout_toLeftOf="@+id/button_add_answer"
         android:gravity="center"
-        android:text="0"
+        android:text="@string/question_upvotes"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold" />
 
@@ -113,7 +112,7 @@
         android:layout_alignLeft="@+id/question_title"
         android:layout_alignRight="@+id/view1"
         android:layout_alignTop="@+id/imageButton2"
-        android:text="Small Text"
+        android:text="@string/question_body"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
