@@ -51,7 +51,7 @@
         android:layout_alignRight="@+id/view1"
         android:layout_alignTop="@+id/view_photo_button"
         android:background="@null"
-        android:contentDescription="@string/"
+        android:contentDescription="@string/info_button_description"
         android:onClick="show_info"
         android:src="@drawable/info" />
 
@@ -76,7 +76,7 @@
         android:layout_below="@+id/question_body"
         android:layout_marginTop="14dp"
         android:background="@null"
-        android:contentDescription="@string/upvote-description"
+        android:contentDescription="@string/view_photo_description"
         android:onClick="upvote_question"
         android:src="@drawable/arrow_up_float" />
 
@@ -88,7 +88,7 @@
         android:layout_marginRight="51dp"
         android:layout_toLeftOf="@+id/button_info"
         android:background="@null"
-        android:contentDescription="@string/"
+        android:contentDescription="@string/view_photo_description"
         android:onClick="show_photo"
         android:src="@android:drawable/ic_menu_gallery" />
 
@@ -99,7 +99,7 @@
         android:layout_alignLeft="@+id/question_body"
         android:layout_below="@+id/button_upvote"
         android:background="@null"
-        android:contentDescription="@string/"
+        android:contentDescription="@string/view_photo_description"
         android:onClick="favorited"
         android:src="@android:drawable/btn_star" />
 
