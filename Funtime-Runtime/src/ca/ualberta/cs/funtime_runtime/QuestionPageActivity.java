@@ -24,6 +24,7 @@ public class QuestionPageActivity extends Activity
 	TextView questionTitle;
 	TextView questionBody;
 	ImageButton favorite_button;
+	Question question;
 	Boolean favorited = false;
 	
 	
@@ -39,7 +40,7 @@ public class QuestionPageActivity extends Activity
 		Intent intent = getIntent();
 		//Question question = (Question) intent.getSerializableExtra("Question");
 		Bundle extras = intent.getExtras();
-		Question question = (Question) extras.getSerializable("Question");
+		question = (Question) extras.getSerializable("Question");
 		
 		questionTitle = (TextView) findViewById(R.id.question_title_text);
 		questionTitle.setText(question.getTitle());
@@ -176,11 +177,13 @@ public class QuestionPageActivity extends Activity
 		if (favorited == false){
 			ImageButton favorite_button = (ImageButton) findViewById(R.id.question_favorite_button);
 			favorite_button.setImageResource(android.R.drawable.btn_star_big_on);
+			account.addFavourite(question);
 			favorited = true;
 			
 		}else if (favorited == true){
 			ImageButton favorite_button = (ImageButton) findViewById(R.id.question_favorite_button);
 			favorite_button.setImageResource(android.R.drawable.btn_star_big_off);
+			account.removeFavourite(question);
 			favorited = false;
 			
 		}

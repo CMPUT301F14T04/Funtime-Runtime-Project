@@ -58,6 +58,10 @@ public class Account {
 	public void addFavourite(Question question) {
 		favourites.add(question);
 	}
+	
+	public void removeFavourite(Question question) {
+		favourites.remove(question);
+	}
 
 	public ReadingList getReadingList() {
 		return readingList;

@@ -14,6 +14,10 @@ public class QuestionList {
 	{
 		questionList.add(question);
 	}
+	
+	public void remove(Question question) {
+		questionList.remove(question);
+	}
 
 	public int size()
 	{
