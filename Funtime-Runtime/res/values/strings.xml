@@ -82,6 +82,8 @@
     <string name="button_cancel">Cancel</string>
     <string name="star_action">This is involved in favoriting a question</string>
     <string name="button_add_answer">Add Answer</string>
+    <string name="rating ">0</string>
+    <string name="question_rating">0</string>
     
 
 </resources>

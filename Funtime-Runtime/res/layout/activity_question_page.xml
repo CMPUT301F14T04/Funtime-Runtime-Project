@@ -11,74 +11,104 @@
 
     <!-- http://stackoverflow.com/questions/5289536/android-listview-default-divider-styles-attributes -->
 
-    
-
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="0dp"
-        android:onClick="addAnswer"
-        android:text="@string/question_button_text" />
-
     <ListView
         android:id="@+id/answer_list"
         android:layout_width="match_parent"
         android:layout_height="151dp"
         android:layout_above="@+id/button_add_answer"
         android:layout_alignLeft="@+id/question_body_text"
-        android:layout_below="@+id/question_favorite_button" >
+        android:layout_below="@+id/view1" >
 
     </ListView>
-
-    <TextView
-        android:id="@+id/question_title_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/question_body_text"
-
-        android:text="@string/question_title"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="normal|bold" />
-
-    <TextView
-        android:id="@+id/question_body_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_below="@+id/question_title_text"
-        android:layout_marginTop="26dp"
-        android:text="@string/question_body"
-        android:textSize="17sp" />
-
-    <ImageButton
-        android:id="@+id/question_favorite_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/question_body_text"
-        android:layout_below="@+id/question_body_text"
-        android:background="@null"
-        android:contentDescription="@string/star_action"
-        android:src="@android:drawable/btn_star_big_off" 
-        android:onClick="favorited"/>
-    
 
     <Button
         android:id="@+id/button_add_answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/answer_list"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/answer_list"
+        android:layout_toRightOf="@+id/view_photo_button"
         android:text="@string/button_add_answer" />
-    
-        <View
+
+    <ImageButton
+        android:id="@+id/view_photo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button_add_answer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/button_add_answer"
+        android:background="@null"
+        android:src="@android:drawable/ic_menu_gallery" />
+
+    <ImageButton
+        android:id="@+id/question_favorite_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@null"
+        android:src="@android:drawable/btn_star" />
+
+    <TextView
+        android:id="@+id/question_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/question_favorite_button"
+        android:layout_alignLeft="@+id/button_add_answer"
+        android:layout_alignRight="@+id/view1"
+        android:text="Question Title"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/question_favorite_button"
+        android:layout_below="@+id/question_favorite_button"
+        android:layout_marginTop="22dp"
+        android:layout_toLeftOf="@+id/button_add_answer"
+        android:background="@null"
+        android:src="@drawable/arrow_up_float" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/imageButton2"
+        android:layout_toLeftOf="@+id/button_add_answer"
+        android:gravity="center"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/question_title"
+        android:layout_alignRight="@+id/question_title"
+        android:layout_below="@+id/question_title"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <View
         android:id="@+id/view1"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        android:layout_below="@+id/question_favorite_button"
-         />
-    
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="68dp"
+        android:background="?android:attr/listDivider" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="18dp"
+        android:src="@android:drawable/ic_input_get" />
 
 </RelativeLayout>
