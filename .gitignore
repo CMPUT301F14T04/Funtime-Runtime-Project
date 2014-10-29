@@ -19,3 +19,5 @@ local.properties
 proguard/
 # Log Files
 *.log
+# metadata Files
+*.metadata
