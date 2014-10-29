@@ -42,9 +42,9 @@ public class QuestionPageActivity extends Activity
 		Bundle extras = intent.getExtras();
 		question = (Question) extras.getSerializable("Question");
 		
-		questionTitle = (TextView) findViewById(R.id.question_title_text);
+		questionTitle = (TextView) findViewById(R.id.question_title);
 		questionTitle.setText(question.getTitle());
-		questionBody = (TextView) findViewById(R.id.question_body_text);
+		questionBody = (TextView) findViewById(R.id.question_body);
 		questionBody.setText(question.getBody());
 		questionAnswerList = new ArrayList<Answer>();
 		questionListView =  (ListView) findViewById(R.id.answer_list);

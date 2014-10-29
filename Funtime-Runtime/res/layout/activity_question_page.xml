@@ -53,9 +53,13 @@
         android:id="@+id/question_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/question_favorite_button"
         android:layout_alignLeft="@+id/button_add_answer"
+        android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/view1"
+        android:layout_marginLeft="10dp"
+		android:lines="2"
+        android:scrollbars="vertical"
+        android:layout_above="@+id/question_body"
         android:text="Question Title"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold" />
@@ -83,16 +87,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/question_title"
-        android:layout_alignRight="@+id/question_title"
-        android:layout_below="@+id/question_title"
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
     <View
         android:id="@+id/view1"
         android:layout_width="fill_parent"
@@ -110,5 +104,16 @@
         android:layout_below="@+id/textView2"
         android:layout_marginTop="18dp"
         android:src="@android:drawable/ic_input_get" />
+
+    <TextView
+        android:id="@+id/question_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/view1"
+        android:layout_alignLeft="@+id/question_title"
+        android:layout_alignRight="@+id/view1"
+        android:layout_alignTop="@+id/imageButton2"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
