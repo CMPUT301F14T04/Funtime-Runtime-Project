@@ -85,6 +85,10 @@
     <string name="button_add_answer">Add Answer</string>
     <string name="rating ">0</string>
     <string name="question_rating">0</string>
+    <string name="upvote_description">upvotes the current rating</string>
+    <string name="view_photo_description">launches the photo viewer</string>
+    <string name="info_button_description">brings up the sub menu with all the info</string>
+    <string name="favorite_button_description">favorites the current question without question</string>
     
 
 </resources>
