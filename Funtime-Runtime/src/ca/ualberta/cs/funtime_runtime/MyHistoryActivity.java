@@ -150,38 +150,4 @@ public class MyHistoryActivity extends IntentSwitcher
 
     // -------------------------------------------
     // -------------------------------------------
-
-    private void myHistoryTest()
-    {
-        ArrayList<Question> questionList = new ArrayList<Question>();
-        adapter = new QuestionListAdapter(this, R.layout.question_list_adapter,
-                questionList);
-        // Example 1
-        Question question1 = new Question("Why are there animals in my van?",
-                "Test: there are animals in my van etc", "user1");
-        questionList.add(question1);
-        question1.upVote();
-        Answer answer1 = new Answer("Because the devil put it there", "user2");
-        Answer answer2 = new Answer(
-                "Maybe you left the door open? Sometimes animals can also get in through the window",
-                "user5");
-        question1.addAnswer(answer1);
-        question1.addAnswer(answer2);
-
-        // Example 2
-        Question question2 = new Question(
-                "How many colors can the people see?",
-                "Test: like when it comes to skin color what if someone is color blind??",
-                "user1");
-        questionList.add(question2);
-        question2.downVote();
-        question2.downVote();
-        Answer answer3 = new Answer("Wow you're not very smart are you?",
-                "user2");
-        answer3.upVote();
-        question2.addAnswer(answer3);
-
-        myHistoryListView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
 }
