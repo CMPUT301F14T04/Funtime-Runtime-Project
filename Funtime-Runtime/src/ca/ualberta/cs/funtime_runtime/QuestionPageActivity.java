@@ -29,6 +29,8 @@ public class QuestionPageActivity extends IntentSwitcher
 	ImageButton favorite_button;
 	Question question;
 	Boolean favorited = false;
+	Integer rating;
+	
 		
 	//ImageButton unfavorite_button;
 	
@@ -209,5 +211,18 @@ public class QuestionPageActivity extends IntentSwitcher
 		}
 
 	}
+	
+	public void show_info(View v){
+		
+	}
+	
+	public void show_photo(View v){
+		
+	}
+	public void upvote_question(View v){
+		
+		
+	}
+	
 
 }
