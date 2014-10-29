@@ -10,6 +10,7 @@
 # Generated files
 bin/
 gen/
+.metadata/
 # Gradle files
 .gradle/
 build/
@@ -19,5 +20,3 @@ local.properties
 proguard/
 # Log Files
 *.log
-# metadata Files
-.metadata

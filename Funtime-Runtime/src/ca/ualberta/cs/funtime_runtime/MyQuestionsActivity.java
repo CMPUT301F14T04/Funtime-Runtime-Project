@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyQuestionsActivity extends Activity
+public class MyQuestionsActivity extends IntentSwitcher
 {
 	ListView myQuestionsListView;
 	ArrayList<Question> myQuestionList;

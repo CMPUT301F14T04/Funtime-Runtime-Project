@@ -13,7 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MyFavouritesActivity extends Activity
+public class MyFavouritesActivity extends IntentSwitcher
 {
 
 	ListView favouritesListView;

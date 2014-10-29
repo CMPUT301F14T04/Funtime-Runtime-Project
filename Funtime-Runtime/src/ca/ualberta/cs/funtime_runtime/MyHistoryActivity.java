@@ -13,7 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MyHistoryActivity extends Activity
+public class MyHistoryActivity extends IntentSwitcher
 {
 
     ArrayList<Question> myHistoryList;

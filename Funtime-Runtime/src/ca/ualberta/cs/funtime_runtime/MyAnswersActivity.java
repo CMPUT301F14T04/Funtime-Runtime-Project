@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class MyAnswersActivity extends Activity
+public class MyAnswersActivity extends IntentSwitcher
 {
 	ListView myAnswersListView;
 	ArrayList<Question> myAnswersQuestionList;

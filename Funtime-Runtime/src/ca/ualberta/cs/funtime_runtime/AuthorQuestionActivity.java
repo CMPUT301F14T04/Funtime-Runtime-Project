@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class AuthorQuestionActivity extends Activity{
+public class AuthorQuestionActivity extends IntentSwitcher{
 	
 	Button submitButton;
 	Button addPhotoButton;
