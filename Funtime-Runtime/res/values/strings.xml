@@ -103,5 +103,6 @@
     <string name="toggle_view_question_dialog">Show Question:</string>
     <string name="info_favorited">Favorited?:</string>
     <string name="title_activity_info_popup">Info</string>
+    <string name="reply_comment">Comment</string>
 
 </resources>

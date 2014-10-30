@@ -23,8 +23,8 @@
          android:id="@+id/loginButton"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
+         android:layout_alignLeft="@+id/fakeView"
          android:layout_alignParentBottom="true"
-         android:layout_alignParentLeft="true"
          android:layout_alignParentRight="true"
          android:text="@string/submit_button_text" />
 
@@ -33,11 +33,29 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_above="@+id/loginButton"
-         android:layout_alignLeft="@+id/loginButton"
+         android:layout_alignParentLeft="true"
          android:layout_alignRight="@+id/loginButton"
+         android:layout_below="@+id/noAccountTxt"
          android:ems="10"
-         android:hint="Comment"
-         android:inputType="textMultiLine">
+         android:hint="@string/reply_comment"
+         android:inputType="textMultiLine" >
+
      </EditText>
+     
+     <View
+       android:id="@+id/fakeView"
+       android:layout_width="0dp"
+       android:layout_height="0dp" 
+       android:layout_centerInParent="true"/>
+
+     <Button
+         android:id="@+id/button1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignBaseline="@+id/loginButton"
+         android:layout_alignBottom="@+id/loginButton"
+         android:layout_alignLeft="@+id/loginField"
+         android:layout_alignRight="@+id/fakeView"
+         android:text="@string/button_cancel" />
 
 </RelativeLayout>
