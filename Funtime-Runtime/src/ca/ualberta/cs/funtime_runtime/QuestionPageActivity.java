@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.location.Address;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -207,6 +208,9 @@ public class QuestionPageActivity extends IntentSwitcher
 	}
 	
 	public void show_info(View v){
+		
+		
+		
 		
 	}
 	
