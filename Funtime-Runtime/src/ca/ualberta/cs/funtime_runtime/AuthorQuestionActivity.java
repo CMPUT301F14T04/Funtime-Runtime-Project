@@ -1,6 +1,5 @@
 package ca.ualberta.cs.funtime_runtime;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class AuthorQuestionActivity extends IntentSwitcher{
+public class AuthorQuestionActivity extends CustomActivity {
 	
 	Button submitButton;
 	Button addPhotoButton;
@@ -69,42 +68,6 @@ public class AuthorQuestionActivity extends IntentSwitcher{
 			default:
 				return true;
 			}	
-		}
-		
-		public void openMyQuestions() {
-			Toast.makeText(this, "My Questions", Toast.LENGTH_SHORT).show();
-			Intent intent = new Intent(AuthorQuestionActivity.this, MyQuestionsActivity.class);
-			startActivity(intent);
-		}
-		
-		public void openMyAnswers() {
-			Toast.makeText(this, "My Answers", Toast.LENGTH_SHORT).show();
-			Intent intent = new Intent(AuthorQuestionActivity.this, MyAnswersActivity.class);
-			startActivity(intent);
-		}
-		
-		public void openMyFavourites() {
-			Toast.makeText(this, "My Favourites", Toast.LENGTH_SHORT).show();
-			Intent intent = new Intent(AuthorQuestionActivity.this, MyFavouritesActivity.class);
-			startActivity(intent);
-		}
-		
-		public void openMyReadingList() {
-			Toast.makeText(this, "My Reading List", Toast.LENGTH_SHORT).show();
-			Intent intent = new Intent(AuthorQuestionActivity.this, ReadingListActivity.class);
-			startActivity(intent);
-		}
-		
-		public void openMyHistory() {
-			Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
-			Intent intent = new Intent(AuthorQuestionActivity.this, MyHistoryActivity.class);
-			startActivity(intent);
-		}
-
-		public void openSortList() {
-			Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
-			Intent intent = new Intent(AuthorQuestionActivity.this, Sort.class);
-			startActivity(intent);
 		}
 //-------------------------------------------
 //-------------------------------------------

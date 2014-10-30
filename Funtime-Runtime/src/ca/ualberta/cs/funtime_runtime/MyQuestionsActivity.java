@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyQuestionsActivity extends IntentSwitcher
-{
+public class MyQuestionsActivity extends CustomActivity {
 	ListView myQuestionsListView;
 	ArrayList<Question> myQuestionList;
 	QuestionListAdapter adapter;
@@ -115,35 +114,6 @@ public class MyQuestionsActivity extends IntentSwitcher
 		}	
 	}
 
-	public void openMyAnswers() {
-		Toast.makeText(this, "My Answers", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(MyQuestionsActivity.this, MyAnswersActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyFavourites() {
-		Toast.makeText(this, "My Favourites", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(MyQuestionsActivity.this, MyFavouritesActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyReadingList() {
-		Toast.makeText(this, "My Reading List", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(MyQuestionsActivity.this, ReadingListActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyHistory() {
-		Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(MyQuestionsActivity.this, MyHistoryActivity.class);
-		startActivity(intent);
-	}
-
-	public void openSortList() {
-		Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(MyQuestionsActivity.this, Sort.class);
-		startActivity(intent);
-	}
 //-------------------------------------------
 //-------------------------------------------		
 

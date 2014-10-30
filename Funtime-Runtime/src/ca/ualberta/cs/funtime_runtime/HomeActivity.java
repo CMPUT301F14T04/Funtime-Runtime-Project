@@ -14,7 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class HomeActivity extends IntentSwitcher {
+public class HomeActivity extends CustomActivity {
 	
 	ListView homeListView;
 	ArrayList<Question> homeQuestionList;
@@ -141,53 +141,6 @@ public class HomeActivity extends IntentSwitcher {
 		}	
 	}
 	
-	public void openSearch() {
-		Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openLogin(){
-		Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyQuestions() {
-		Toast.makeText(this, "My Questions", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, MyQuestionsActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyAnswers() {
-		Toast.makeText(this, "My Answers", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, MyAnswersActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyFavourites() {
-		Toast.makeText(this, "My Favourites", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, MyFavouritesActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyReadingList() {
-		Toast.makeText(this, "My Reading List", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, ReadingListActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyHistory() {
-		Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, MyHistoryActivity.class);
-		startActivity(intent);
-	}
-
-	public void openSortList() {
-		Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(HomeActivity.this, Sort.class);
-		startActivity(intent);
-	}
 //-------------------------------------------
 //-------------------------------------------	
 	
