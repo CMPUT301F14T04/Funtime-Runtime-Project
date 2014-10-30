@@ -26,6 +26,9 @@
     <string name="question_body">[question_body]</string>
     <string name="question_button_text">Add Answer</string>
     <string name="question_upvotes">0</string>
+    <string name="question_author">[question_author]</string>
+    <string name="question_date">[question_date]</string>
+    <string name="answers_title">Answers</string>
 
     <!-- View Replies Strings -->
     <string name="title_activity_reply_page">Reply Page</string>
