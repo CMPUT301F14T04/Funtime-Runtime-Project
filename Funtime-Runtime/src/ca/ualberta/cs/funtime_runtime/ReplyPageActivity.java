@@ -1,12 +1,11 @@
 package ca.ualberta.cs.funtime_runtime;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class ReplyPageActivity extends IntentSwitcher{
+public class ReplyPageActivity extends CustomActivity {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -49,54 +48,7 @@ public class ReplyPageActivity extends IntentSwitcher{
 				return true;
 		}	
 	}
-			
-	public void openSearch() {
-		Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(ReplyPageActivity.this, SearchActivity.class);
-		startActivity(intent);
-	}
-			
-	public void openLogin(){
-		Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(ReplyPageActivity.this, LoginActivity.class);
-		startActivity(intent);
-	}
-			
-	public void openMyQuestions() {
-		Toast.makeText(this, "My Questions", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(ReplyPageActivity.this, MyQuestionsActivity.class);
-		startActivity(intent);
-	}
-			
-	public void openMyAnswers() {
-		Toast.makeText(this, "My Answers", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(ReplyPageActivity.this, MyAnswersActivity.class);
-		startActivity(intent);
-	}
-			
-	public void openMyFavourites() {
-		Toast.makeText(this, "My Favourites", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(ReplyPageActivity.this, MyFavouritesActivity.class);
-		startActivity(intent);
-	}
-			
-	public void openMyReadingList() {
-		Toast.makeText(this, "My Reading List", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(ReplyPageActivity.this, ReadingListActivity.class);
-		startActivity(intent);
-	}
-			
-	public void openMyHistory() {
-		Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(ReplyPageActivity.this, MyHistoryActivity.class);
-		startActivity(intent);
-	}
 
-	public void openSortList() {
-		Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(ReplyPageActivity.this, Sort.class);
-		startActivity(intent);
-	}
 //-------------------------------------------
 //-------------------------------------------
 }

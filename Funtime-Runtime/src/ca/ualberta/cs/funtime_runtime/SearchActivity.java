@@ -7,8 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class SearchActivity extends IntentSwitcher
-{
+public class SearchActivity extends CustomActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,47 +58,6 @@ public class SearchActivity extends IntentSwitcher
 		}	
 	}
 	
-	public void openLogin(){
-		Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(SearchActivity.this, LoginActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyQuestions() {
-		Toast.makeText(this, "My Questions", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(SearchActivity.this, MyQuestionsActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyAnswers() {
-		Toast.makeText(this, "My Answers", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(SearchActivity.this, MyAnswersActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyFavourites() {
-		Toast.makeText(this, "My Favourites", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(SearchActivity.this, MyFavouritesActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyReadingList() {
-		Toast.makeText(this, "My Reading List", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(SearchActivity.this, ReadingListActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyHistory() {
-		Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(SearchActivity.this, MyHistoryActivity.class);
-		startActivity(intent);
-	}
-
-	public void openSortList() {
-		Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(SearchActivity.this, Sort.class);
-		startActivity(intent);
-	}
 //-------------------------------------------
 //-------------------------------------------
 

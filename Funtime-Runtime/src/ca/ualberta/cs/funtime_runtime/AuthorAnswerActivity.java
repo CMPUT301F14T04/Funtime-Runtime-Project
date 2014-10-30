@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AuthorAnswerActivity extends IntentSwitcher{
+public class AuthorAnswerActivity extends CustomActivity {
 	
 	Question question;
 
@@ -80,42 +80,6 @@ public class AuthorAnswerActivity extends IntentSwitcher{
 				return true;
 			}	
 		}
-	 
-	 public void openMyQuestions() {
-		 Toast.makeText(this, "My Questions", Toast.LENGTH_SHORT).show();
-		 Intent intent = new Intent(AuthorAnswerActivity.this, MyQuestionsActivity.class);
-		 startActivity(intent);
-	}
-		
-	public void openMyAnswers() {
-		Toast.makeText(this, "My Answers", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(AuthorAnswerActivity.this, MyAnswersActivity.class);
-		startActivity(intent);
-	}
-		
-	public void openMyFavourites() {
-		Toast.makeText(this, "My Favourites", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(AuthorAnswerActivity.this, MyFavouritesActivity.class);
-		startActivity(intent);
-	}
-		
-	public void openMyReadingList() {
-		Toast.makeText(this, "My Reading List", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(AuthorAnswerActivity.this, ReadingListActivity.class);
-		startActivity(intent);
-	}
-		
-	public void openMyHistory() {
-		Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(AuthorAnswerActivity.this, MyHistoryActivity.class);
-		startActivity(intent);
-	}
-
-	public void openSortList() {
-		Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(AuthorAnswerActivity.this, Sort.class);
-		startActivity(intent);
-	}
 //-------------------------------------------
 //-------------------------------------------	
 

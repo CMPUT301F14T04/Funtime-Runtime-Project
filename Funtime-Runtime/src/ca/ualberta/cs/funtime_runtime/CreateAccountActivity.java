@@ -14,8 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class CreateAccountActivity extends IntentSwitcher
-{
+public class CreateAccountActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState) 	{
 
 		super.onCreate(savedInstanceState);
@@ -102,12 +101,7 @@ public class CreateAccountActivity extends IntentSwitcher
 		}	
 	}
 	
-	public void openLogin(){
-		Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
-		startActivity(intent);
-	}
-//-------------------------------------------
+//------------------------------------
 //-------------------------------------------	
 
 	

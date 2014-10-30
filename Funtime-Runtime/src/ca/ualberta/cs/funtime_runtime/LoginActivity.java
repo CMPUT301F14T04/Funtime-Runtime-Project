@@ -2,7 +2,6 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class LoginActivity extends IntentSwitcher
-{
+public class LoginActivity extends CustomActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -14,8 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ReadingListActivity extends IntentSwitcher
-{
+public class ReadingListActivity extends CustomActivity {
 
 	ListView readingListView;
 	ArrayList<Question> readingList;
@@ -97,37 +96,7 @@ public class ReadingListActivity extends IntentSwitcher
 				return true;
 		}	
 	}
-	
-	public void openMyQuestions() {
-		Toast.makeText(this, "My Questions", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(ReadingListActivity.this, MyQuestionsActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyAnswers() {
-		Toast.makeText(this, "My Answers", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(ReadingListActivity.this, MyAnswersActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyFavourites() {
-		Toast.makeText(this, "My Favourites", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(ReadingListActivity.this, MyFavouritesActivity.class);
-		startActivity(intent);
-	}
-	
-	public void openMyHistory() {
-		Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(ReadingListActivity.this, MyHistoryActivity.class);
-		startActivity(intent);
-	}
-
-	public void openSortList() {
-		Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(ReadingListActivity.this, Sort.class);
-		startActivity(intent);
-	}
-//-------------------------------------------
+//-----------------------------
 //-------------------------------------------	
 	
 
