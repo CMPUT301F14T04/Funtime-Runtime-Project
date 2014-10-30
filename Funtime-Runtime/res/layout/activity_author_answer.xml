@@ -8,31 +8,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AuthorAnswerActivity" >
 
-    <Button
-        android:id="@+id/submitAnswerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/submit_button_text" />
-
-    <Button
-        android:id="@+id/add_image_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/submitAnswerButton"
-        android:layout_alignLeft="@+id/submitAnswerButton"
-        android:layout_alignRight="@+id/submitAnswerButton"
-        android:drawableRight="@android:drawable/ic_menu_camera"
-        android:text="@string/add_photo_button_text" />
-
     <TextView
         android:id="@+id/questionBodyAA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/typeAnswerAA"
-        android:layout_alignRight="@+id/typeAnswerAA"
+        android:layout_alignLeft="@+id/questionTitleAA"
+        android:layout_alignRight="@+id/submitAnswerButton"
         android:layout_below="@+id/questionTitleAA"
         android:layout_marginTop="22dp"
         android:text="@string/answer_parent_text"
@@ -46,20 +27,52 @@
         android:layout_alignParentTop="true"
         android:text="@string/answer_parent_title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+
+    <Button
+        android:id="@+id/add_image_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/submitAnswerButton"
+        android:layout_alignRight="@+id/typeAnswerAA"
+        android:layout_toRightOf="@+id/questionTitleAA"
+        android:background="@null"
+        android:drawableRight="@android:drawable/ic_menu_camera" />
 
     <EditText
         android:id="@+id/typeAnswerAA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/add_image_button"
-        android:layout_alignLeft="@+id/add_image_button"
-        android:layout_alignRight="@+id/add_image_button"
+        android:layout_alignLeft="@+id/questionBodyAA"
+        android:layout_alignRight="@+id/questionBodyAA"
+        android:layout_below="@+id/questionBodyAA"
         android:ems="10"
         android:hint="@string/type_answer_hint_text"
-        android:inputType="textMultiLine" >
+        android:inputType="textMultiLine" />
 
-        <requestFocus />
-    </EditText>
+    <Button
+        android:id="@+id/answer_cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/submitAnswerButton"
+        android:layout_alignBottom="@+id/submitAnswerButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/fakeView_answer"
+        android:text="@string/button_cancel" />
+
+    <Button
+        android:id="@+id/submitAnswerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/fakeView_answer"
+        android:text="@string/submit_button_text" />
+
+        <View
+       android:id="@+id/fakeView_answer"
+       android:layout_width="0dp"
+       android:layout_height="0dp" 
+       android:layout_centerInParent="true"/>
 
 </RelativeLayout>
