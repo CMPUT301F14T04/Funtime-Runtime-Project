@@ -40,7 +40,7 @@
         android:lines="2"
         android:scrollbars="vertical"
         android:text="@string/question_title"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textStyle="bold" />
 
     <ImageButton
@@ -116,8 +116,8 @@
         android:id="@+id/button_add_answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/answer_list"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/answer_list"
         android:text="@string/button_add_answer" />
 

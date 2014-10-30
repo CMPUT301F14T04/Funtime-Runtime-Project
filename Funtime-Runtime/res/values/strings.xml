@@ -3,21 +3,21 @@
 
     <!-- General Strings -->
     <string name="app_name">Funtime-Runtime</string>
-    <string name="action_settings">Settings</string>  
-    <string name="title_activity_">Activity</string>  
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_">Activity</string>
     <string name="sort_string">Sort</string>
-      
+
     <!-- Home/Browse Questions Strings -->
     <string name="title_activity_home">Browse Questions</string>
     <string name="ask_question_button_text">Ask Question</string>
     <string name="home_rating_text">Rating: </string>
     <string name="home_answer_text">Answers: </string>
-    
+
     <!-- Search Page Strings -->
     <string name="title_activity_search">Search Questions</string>
     <string name="search_text_field"><i>Search query</i></string>
     <string name="search_button_text">Search</string>
-    
+
     <!-- Question Page Strings -->
     <string name="title_activity_question_page">Question Page</string>
     <string name="write_title_hint_text">Add a title</string>
@@ -26,53 +26,53 @@
     <string name="question_body">[question_body]</string>
     <string name="question_button_text">Add Answer</string>
     <string name="question_upvotes">0</string>
-    
+
     <!-- View Replies Strings -->
     <string name="title_activity_reply_page">Reply Page</string>
-    
+
     <!-- Create Account Strings -->
     <string name="title_activity_create_account">Create Account</string>
     <string name="create_account_username">Create a Username</string>
     <string name="create_account_button">Create Account</string>
-    
+
     <!-- Login Screen Strings -->
     <string name="title_activity_login">Login</string>
     <string name="login">Login</string>
     <string name="no_account">No Account?</string>
     <string name="create_account_button_text">Create Account</string>
-    
-	<!-- Author Question Strings -->
+
+    <!-- Author Question Strings -->
     <string name="title_activity_author_question">Author Question</string>
-    
-   	<!-- Author Answer Strings -->
+
+    <!-- Author Answer Strings -->
     <string name="title_activity_author_answer">Author Answer</string>
     <string name="type_answer_hint_text">Type Answer</string>
     <string name="add_photo_button_text">Add Photo</string>
     <string name="submit_button_text">Submit</string>
     <string name="answer_parent_title">[answer_parent_title]</string>
     <string name="answer_parent_text">[answer_parent_text]</string>
-    
+
     <!-- Author Reply Strings -->
     <string name="title_activity_author_reply">Author Reply</string>
     <string name="reply_parent_text">[reply_parent_text]</string>
-    
+
     <!-- My Questions String -->
     <string name="title_activity_my_questions">My Questions</string>
-    
+
     <!-- My Answers Strings -->
     <string name="title_activity_my_answers">My Answers</string>
-    
+
     <!-- My Favorites Strings -->
     <string name="title_activity_my_favourites">My Favourites</string>
-    
+
     <!-- Reading List Strings -->
     <string name="title_activity_reading_list">My Reading List</string>
-    
+
     <!-- History Strings -->
     <string name="title_activity_history">My History</string>
     <string name="cancel_action">enables a user to cancel an activity</string>
-    <string name="camera_action">This is the button when you wwant to choose a picture or somthing</string> 
-    
+    <string name="camera_action">This is the button when you wwant to choose a picture or somthing</string>
+
     <!-- Question Adapter XML -->
     <string name="question_adapter_title">Title</string>
     <string name="question_adapter_author">Author: </string>
@@ -89,6 +89,19 @@
     <string name="view_photo_description">launches the photo viewer</string>
     <string name="info_button_description">brings up the sub menu with all the info</string>
     <string name="favorite_button_description">favorites the current question without question</string>
-    
+    <string name="title_activity_question_attributes">Question_attributes</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="info_title">Info</string>
+    <string name="setup_answer_count">Number of Answers:</string>
+    <string name="setup_reply_count">Number of Replies:</string>
+    <string name="setup_photo_status">Photo?:</string>
+    <string name="status_bookmarked">Bookmark?:</string>
+    <string name="toggle_yes">YES</string>
+    <string name="toggle_no">NO</string>
+    <string name="toggle_answers">ANSWERS</string>
+    <string name="toggle_replies">REPLIES</string>
+    <string name="toggle_view_question_dialog">Show Question:</string>
+    <string name="info_favorited">Favorited?:</string>
+    <string name="title_activity_info_popup">Info</string>
 
 </resources>
