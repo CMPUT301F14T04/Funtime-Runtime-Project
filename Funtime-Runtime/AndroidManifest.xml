@@ -79,6 +79,14 @@
             android:name="ca.ualberta.cs.funtime_runtime.QuestionPageActivity"
             android:label="@string/title_activity_question_page" >
         </activity>
+        <activity
+            android:name="ca.ualberta.cs.funtime_runtime.Question_attributes"
+            android:label="@string/title_activity_question_attributes" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cs.funtime_runtime.InfoPopup"
+            android:label="@string/title_activity_info_popup" >
+        </activity>
     </application>
 
 </manifest>

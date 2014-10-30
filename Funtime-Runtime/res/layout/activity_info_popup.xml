@@ -1,0 +1,119 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".InfoPopup" >
+
+    <TextView
+        android:id="@+id/popup_info_activity_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/info_title"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/popup_info_activity_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/popup_info_activity_title"
+        android:layout_marginTop="46dp"
+        android:text="@string/question_adapter_date" />
+
+    <TextView
+        android:id="@+id/popup_info_activity_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/popup_info_activity_date"
+        android:layout_alignLeft="@+id/popup_info_activity_date"
+        android:layout_marginBottom="18dp"
+        android:text="@string/question_adapter_author" />
+
+    <TextView
+        android:id="@+id/popup_info_activity_bookmark_stauts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/info_page_divider"
+        android:layout_below="@+id/info_page_divider"
+        android:layout_marginTop="28dp"
+        android:text="@string/status_bookmarked" />
+
+    <TextView
+        android:id="@+id/popup_info_activity_answer_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/popup_info_activity_date"
+        android:layout_below="@+id/popup_info_activity_date"
+        android:text="@string/setup_answer_count" />
+
+    <TextView
+        android:id="@+id/tpopup_info_activity_reply_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/popup_info_activity_answer_count"
+        android:layout_below="@+id/popup_info_activity_answer_count"
+        android:text="@string/setup_reply_count" />
+
+    <TextView
+        android:id="@+id/popup_info_activity_photo_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tpopup_info_activity_reply_count"
+        android:layout_below="@+id/tpopup_info_activity_reply_count"
+        android:text="@string/setup_photo_status" />
+
+    <ToggleButton
+        android:id="@+id/make_bookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/popup_info_activity_bookmark_stauts"
+        android:layout_alignBottom="@+id/popup_info_activity_bookmark_stauts"
+        android:layout_alignRight="@+id/info_page_divider"
+        android:layout_toRightOf="@+id/replyOrAnswer"
+        android:textOff="@string/toggle_no"
+        android:textOn="@string/toggle_yes" />
+
+    <TextView
+        android:id="@+id/replyOrAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/popup_info_activity_bookmark_stauts"
+        android:layout_below="@+id/make_bookmark"
+        android:layout_marginTop="42dp"
+        android:text="@string/toggle_view_question_dialog" />
+
+    <ToggleButton
+        android:id="@+id/show_answrReply_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/replyOrAnswer"
+        android:layout_alignBottom="@+id/replyOrAnswer"
+        android:layout_alignRight="@+id/make_bookmark"
+        android:layout_toRightOf="@+id/replyOrAnswer"
+        android:textOff="@string/toggle_answers"
+        android:textOn="@string/toggle_replies" />
+
+    <TextView
+        android:id="@+id/info_favorited"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/popup_info_activity_photo_status"
+        android:layout_below="@+id/popup_info_activity_photo_status"
+        android:text="@string/info_favorited" />
+
+    <View
+        android:id="@+id/info_page_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignLeft="@+id/info_favorited"
+        android:layout_below="@+id/info_favorited"
+        android:layout_marginTop="19dp"
+        android:background="?android:attr/listDivider" />
+
+</RelativeLayout>

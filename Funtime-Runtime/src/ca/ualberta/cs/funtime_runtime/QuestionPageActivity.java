@@ -23,12 +23,14 @@ public class QuestionPageActivity extends CustomActivity {
 	Account account;
 	TextView questionTitle;
 	TextView questionBody;
+	TextView question_rating_value;
 	//TextView questionUpvote;
 	Button addAnswerBtn;
 	ImageButton favorite_button;
 	Question question;
 	Boolean favorited = false;
 	Integer rating;
+	
 	
 		
 	//ImageButton unfavorite_button;
@@ -38,24 +40,20 @@ public class QuestionPageActivity extends CustomActivity {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_page);
-		
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
 		//Question question = (Question) intent.getSerializableExtra("Question");
-			
 		questionTitle = (TextView) findViewById(R.id.question_title);
 		questionBody = (TextView) findViewById(R.id.question_body);
 		//questionUpvote = (TextView) findViewById(R.id.question_upvote_text);
 		question = (Question) extras.getSerializable("Question");
 		questionListView =  (ListView) findViewById(R.id.answer_list);
 		addAnswerBtn = (Button) findViewById(R.id.button_add_answer);
-		
+		question_rating_value = (TextView) findViewById(R.id.overallRating);
 		questionTitle.setText(question.getTitle());		
 		questionBody.setText(question.getBody());
 		//questionUpvote.setText(question.getRating());
-		
 		questionAnswerList = new ArrayList<Answer>();
-		
 		account = ApplicationState.getAccount();
 		questionAnswerList = question.getAnswerList();
 		AnswerListAdapter adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, questionAnswerList);
@@ -63,19 +61,15 @@ public class QuestionPageActivity extends CustomActivity {
 		adapter.notifyDataSetChanged();
 		//testQuestionPage();	
 		favorite_button = (ImageButton) findViewById(R.id.question_favorite_button);
-		
 		addAnswerBtn.setOnClickListener(new View.OnClickListener() {		
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(QuestionPageActivity.this, AuthorAnswerActivity.class);
 				startActivity(intent);
-				
-			}
-		});
-		
-		
-	}
+				}
+			});
+		}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -172,6 +166,7 @@ public class QuestionPageActivity extends CustomActivity {
 		
 	}
 	public void upvote_question(View v){
+		
 		
 		
 	}
