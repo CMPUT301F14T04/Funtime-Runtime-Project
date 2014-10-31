@@ -15,10 +15,11 @@
         android:id="@+id/question_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="25dp"
-        android:ems="25"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/view_photo_button"
+        android:ems="25"
+        android:minHeight="25dp"
         android:text="@string/question_title"
         android:textStyle="bold" />
 
@@ -26,14 +27,14 @@
         android:id="@+id/question_body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/question_title"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:layout_toLeftOf="@+id/view_photo_button"
         android:layout_toRightOf="@+id/overallRating"
+        android:maxLines="8"
         android:minHeight="50dp"
-        android:maxLines = "8"
-		android:scrollbars = "vertical"
+        android:scrollbars="vertical"
         android:text="@string/question_body" />
 
     <Button
@@ -121,17 +122,6 @@
         android:background="?android:attr/listDivider" />
 
     <ImageButton
-        android:id="@+id/view_photo_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/question_title"
-        android:layout_alignTop="@+id/question_body"
-        android:background="@null"
-        android:contentDescription="@string/view_photo_description"
-        android:onClick="show_photo"
-        android:src="@android:drawable/ic_menu_gallery" />
-
-    <ImageButton
         android:id="@+id/question_favorite_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -141,5 +131,16 @@
         android:contentDescription="@string/view_photo_description"
         android:onClick="favorited"
         android:src="@android:drawable/btn_star" />
+
+    <ImageButton
+        android:id="@+id/view_photo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@null"
+        android:contentDescription="@string/view_photo_description"
+        android:onClick="show_photo"
+        android:src="@android:drawable/ic_menu_gallery" />
 
 </RelativeLayout>
