@@ -5,9 +5,11 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -20,12 +22,15 @@ public class QuestionPageActivity extends CustomActivity {
 	Account account;
 	TextView questionTitle;
 	TextView questionBody;
+	TextView questionAuthor;
+	TextView questionDate;
 	TextView question_rating_value;
 	//TextView questionUpvote;
 	Button addAnswerBtn;
 	ImageButton favorite_button;
 	Question question;
 	Boolean favorited = false;
+	Boolean upvoted = false;
 	Integer rating;
 	
 	
@@ -42,14 +47,30 @@ public class QuestionPageActivity extends CustomActivity {
 		//Question question = (Question) intent.getSerializableExtra("Question");
 		questionTitle = (TextView) findViewById(R.id.question_title);
 		questionBody = (TextView) findViewById(R.id.question_body);
+		questionBody.setMovementMethod(new ScrollingMovementMethod());
 		//questionUpvote = (TextView) findViewById(R.id.question_upvote_text);
 		question = (Question) extras.getSerializable("Question");
 		questionListView =  (ListView) findViewById(R.id.answer_list);
 		addAnswerBtn = (Button) findViewById(R.id.button_add_answer);
 		question_rating_value = (TextView) findViewById(R.id.overallRating);
+		
+		//TODO: Proposed
+		//questionAuthor = (TextView) findViewById(R.id.question_author_text);
+		//questionDate = (TextView) findViewById(R.id.question_date_text);
+		
+		
 		questionTitle.setText(question.getTitle());		
 		questionBody.setText(question.getBody());
-		//questionUpvote.setText(question.getRating());
+		
+		//TODO: Proposed
+		//questionAuthor.setText("Author: " + question.getUser());
+		//questionDate.setText("Date Posted: " + question.getDate().toString());
+		
+		rating = question.getRating();
+		question_rating_value.setText(Integer.toString(rating));
+		
+		question_rating_value.setOnTouchListener(new UpvoteTouchListener());
+		
 		questionAnswerList = new ArrayList<Answer>();
 		account = ApplicationState.getAccount();
 		questionAnswerList = question.getAnswerList();
@@ -66,7 +87,28 @@ public class QuestionPageActivity extends CustomActivity {
 				startActivity(intent);
 				}
 			});
-		}
+
+		/*
+		question_rating_value.setOnClickListener(new View.OnClickListener() {		
+			@SuppressLint("ResourceAsColor")
+			@Override
+			public void onClick(View v) {
+				if (upvoted == false) {
+					question.upVote();
+					TextView rating_value = (TextView) findViewById(R.id.overallRating);
+					rating_value.setTextColor(R.color.blue);
+					upvoted = true;
+				} else {
+					question.downVote();
+					TextView rating_value = (TextView) findViewById(R.id.overallRating);
+					rating_value.setTextColor(R.color.blue);
+					upvoted = false;
+				}
+			}
+		});
+		*/
+		
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)

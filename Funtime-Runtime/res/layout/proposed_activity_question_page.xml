@@ -15,22 +15,26 @@
         android:id="@+id/question_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minHeight="25dp"
+        android:ems="25"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/view1"
-        android:lines="2"
-        android:scrollbars="vertical"
         android:text="@string/question_title"
         android:textStyle="bold" />
 
-    <View
-        android:id="@+id/view1"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_alignLeft="@+id/question_favorite_button"
-        android:layout_alignTop="@+id/view_photo_button"
-        android:layout_marginTop="23dp"
-        android:background="?android:attr/listDivider" />
+    <TextView
+        android:id="@+id/question_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/question_title"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_toLeftOf="@+id/view_photo_button"
+        android:layout_toRightOf="@+id/overallRating"
+        android:minHeight="50dp"
+        android:maxLines = "8"
+		android:scrollbars = "vertical"
+        android:text="@string/question_body" />
 
     <Button
         android:id="@+id/button_add_answer"
@@ -52,12 +56,47 @@
     </ListView>
 
     <TextView
+        android:id="@+id/question_date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@+id/question_author_text"
+        android:layout_below="@+id/question_author_text"
+        android:text="@string/question_date"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/overallRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/question_title"
+        android:layout_alignTop="@+id/question_body"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="@string/question_upvotes"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" 
+        android:drawableTop="@drawable/arrow_up_float"/>	
+	<!-- 
+    <ImageButton
+        android:id="@+id/button_upvote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/question_title"
+        android:layout_alignTop="@+id/question_body"
+        android:layout_marginTop="12dp"
+        android:background="@null"
+        android:contentDescription="@string/view_photo_description"
+        android:onClick="upvote_question"
+        android:src="@drawable/arrow_up_float" />
+	-->
+	
+    <TextView
         android:id="@+id/answers_title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/question_date_text"
-        android:layout_below="@+id/question_date_text"
-        android:layout_marginTop="14dp"
+        android:layout_below="@+id/answer_divider"
         android:text="@string/answers_title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -66,17 +105,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/overallRating"
-        android:layout_alignTop="@+id/question_favorite_button"
-        android:text="@string/question_author" />
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/question_body"
+        android:text="@string/question_author" 
+        android:textStyle="italic"
+                />
 
-    <TextView
-        android:id="@+id/question_date_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/question_author_text"
-        android:layout_below="@+id/question_author_text"
-        android:text="@string/question_date"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <View
+        android:id="@+id/answer_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_alignLeft="@+id/answers_title_text"
+        android:layout_below="@+id/question_date_text"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider" />
 
     <ImageButton
         android:id="@+id/view_photo_button"
@@ -93,43 +135,11 @@
         android:id="@+id/question_favorite_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/answer_list"
-        android:layout_below="@+id/view_photo_button"
-        android:layout_marginTop="26dp"
+        android:layout_alignRight="@+id/answer_divider"
+        android:layout_alignTop="@+id/question_author_text"
         android:background="@null"
         android:contentDescription="@string/view_photo_description"
         android:onClick="favorited"
         android:src="@android:drawable/btn_star" />
-
-    <TextView
-        android:id="@+id/overallRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/question_title"
-        android:layout_below="@+id/question_body"
-        android:gravity="center"
-        android:text="@string/question_upvotes"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
-
-    <ImageButton
-        android:id="@+id/button_upvote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/question_title"
-        android:layout_alignTop="@+id/question_body"
-        android:background="@null"
-        android:contentDescription="@string/view_photo_description"
-        android:onClick="upvote_question"
-        android:src="@drawable/arrow_up_float" />
-
-    <TextView
-        android:id="@+id/question_body"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/question_title"
-        android:layout_marginLeft="16dp"
-        android:layout_toRightOf="@+id/button_upvote"
-        android:text="@string/question_body" />
 
 </RelativeLayout>

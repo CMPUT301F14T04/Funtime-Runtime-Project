@@ -48,14 +48,16 @@ public class HomeActivity extends CustomActivity {
 		
 	private void testHome() {
 		account = new Account("TestUser1");
-		ApplicationState.setAccount(account);
-		
+		ApplicationState.setAccount(account);		
 		Question question1 = new Question("What is the meaning of life?", "body 1 test", "user1");
 		Question question2 = new Question("Why does Computing Science homework take so long to do?", "body 2 test", "user2");
 		Question question3 = new Question("In what world does gravity push you away at a faster rate than it pulls you in?", "body 3 test", "user3");
+		Question question4 = new Question("Why is this question so long? How it is going to look? What should the character count restriction be on question titles?", 
+					"This is a really really really really really really really really really really long question. It's going to take up a whooooooooooooooooooooooooooooooooooooooooooooole lot of space. What should the character limit be on question bodies? Right now I'm testing with a maximum of 8 lines of text before the textview becomes scrollable. Is that bad? I feel like question descriptions should be allowed to be pretty long, but we can't take up the whole screen or else the answers will be basically unviewable. Well let's see how this looks.", "LongQuestionAsker");
 		homeQuestionList.add(question1);
 		homeQuestionList.add(question2);
 		homeQuestionList.add(question3);
+		homeQuestionList.add(question4);
 		account.addFavourite(question1);
 		account.addFavourite(question2);
 		account.readLater(question1);
@@ -63,12 +65,18 @@ public class HomeActivity extends CustomActivity {
 		question1.downVote();
 		for (int i = 0; i < 1000; i++)
 			question2.upVote();
+		for (int i = 0; i < 999; i++) {
+			question4.upVote();
+		}
 		Answer answer1 = new Answer("Sweet", "user1");
 		Answer answer2 = new Answer("Question", "user2");
 		Answer answer3 = new Answer("Bro do you even lift????????????????????????????????????????", "user3");
 		question1.addAnswer(answer1);
 		question1.addAnswer(answer2);
 		question1.addAnswer(answer3);
+		for (int i = 0; i < 15; i++) {
+			question4.addAnswer(new Answer("This is answer " + i, "user " + i));
+		}
 	}
 	
 
