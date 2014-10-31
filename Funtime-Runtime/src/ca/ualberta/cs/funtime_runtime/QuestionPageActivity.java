@@ -9,7 +9,6 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -25,6 +24,7 @@ public class QuestionPageActivity extends CustomActivity {
 	TextView questionAuthor;
 	TextView questionDate;
 	TextView question_rating_value;
+	TextView answersTitle;
 	//TextView questionUpvote;
 	Button addAnswerBtn;
 	ImageButton favorite_button;
@@ -44,7 +44,7 @@ public class QuestionPageActivity extends CustomActivity {
 		setContentView(R.layout.activity_question_page);
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
-		//Question question = (Question) intent.getSerializableExtra("Question");
+		//Question question 		answersTitle.setText()= (Question) intent.getSerializableExtra("Question");
 		questionTitle = (TextView) findViewById(R.id.question_title);
 		questionBody = (TextView) findViewById(R.id.question_body);
 		questionBody.setMovementMethod(new ScrollingMovementMethod());
@@ -57,6 +57,7 @@ public class QuestionPageActivity extends CustomActivity {
 		//TODO: Proposed
 		//questionAuthor = (TextView) findViewById(R.id.question_author_text);
 		//questionDate = (TextView) findViewById(R.id.question_date_text);
+		//answersTitle = (TextView) findViewById(R.id.answers_title_text);
 		
 		
 		questionTitle.setText(question.getTitle());		
@@ -74,6 +75,10 @@ public class QuestionPageActivity extends CustomActivity {
 		questionAnswerList = new ArrayList<Answer>();
 		account = ApplicationState.getAccount();
 		questionAnswerList = question.getAnswerList();
+		
+		//TODO: Proposed
+		//answersTitle.setText(questionAnswerList.size() + " Answers");
+		
 		AnswerListAdapter adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, questionAnswerList);
 		questionListView.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
