@@ -64,6 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:drawableTop="@drawable/arrow_up_float"
         android:text="1000" 
         android:textStyle="bold"/>
 

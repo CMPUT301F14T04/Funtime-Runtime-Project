@@ -41,7 +41,7 @@ public class QuestionPageActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_question_page);
+		setContentView(R.layout.proposed_activity_question_page);
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
 		//Question question 		answersTitle.setText()= (Question) intent.getSerializableExtra("Question");
@@ -55,17 +55,17 @@ public class QuestionPageActivity extends CustomActivity {
 		question_rating_value = (TextView) findViewById(R.id.overallRating);
 		
 		//TODO: Proposed
-		//questionAuthor = (TextView) findViewById(R.id.question_author_text);
-		//questionDate = (TextView) findViewById(R.id.question_date_text);
-		//answersTitle = (TextView) findViewById(R.id.answers_title_text);
+		questionAuthor = (TextView) findViewById(R.id.question_author_text);
+		questionDate = (TextView) findViewById(R.id.question_date_text);
+		answersTitle = (TextView) findViewById(R.id.answers_title_text);
 		
 		
 		questionTitle.setText(question.getTitle());		
 		questionBody.setText(question.getBody());
 		
 		//TODO: Proposed
-		//questionAuthor.setText("Author: " + question.getUser());
-		//questionDate.setText("Date Posted: " + question.getDate().toString());
+		questionAuthor.setText("Author: " + question.getUser());
+		questionDate.setText("Date Posted: " + question.getDate().toString());
 		
 		rating = question.getRating();
 		question_rating_value.setText(Integer.toString(rating));
@@ -77,7 +77,7 @@ public class QuestionPageActivity extends CustomActivity {
 		questionAnswerList = question.getAnswerList();
 		
 		//TODO: Proposed
-		//answersTitle.setText(questionAnswerList.size() + " Answers");
+		answersTitle.setText("Answers (" + questionAnswerList.size() + ")");
 		
 		AnswerListAdapter adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, questionAnswerList);
 		questionListView.setAdapter(adapter);
@@ -87,7 +87,6 @@ public class QuestionPageActivity extends CustomActivity {
 		addAnswerBtn.setOnClickListener(new View.OnClickListener() {		
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent(QuestionPageActivity.this, AuthorAnswerActivity.class);
 				startActivity(intent);
 				}

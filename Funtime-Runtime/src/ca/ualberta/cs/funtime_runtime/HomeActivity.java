@@ -75,9 +75,12 @@ public class HomeActivity extends CustomActivity {
 		question1.addAnswer(answer1);
 		question1.addAnswer(answer2);
 		question1.addAnswer(answer3);
+		Answer answer0 = new Answer("This is a really long anser jkdslf;j;dsklfjkdls;ajfklds;ajfklds;jafkld;sjaklf;djskalf;jdskla;fjdskla;jfklds;ajfkld;sjafkl;dsjaklf;djsakfjds", "blaman");
+		question4.addAnswer(answer0);
 		for (int i = 0; i < 15; i++) {
 			question4.addAnswer(new Answer("This is answer " + i, "user " + i));
 		}
+		
 	}
 	
 

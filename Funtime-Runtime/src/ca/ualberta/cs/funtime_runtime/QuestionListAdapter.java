@@ -69,7 +69,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		TextView ratingTextView = (TextView) theView.findViewById(R.id.adapterRating);
 		//String ratingString = "Rating:";
 		//ratingTextView.setText(ratingString + " " + question.getRating());
-		ratingTextView.setText("10000");
+		ratingTextView.setText("1000");
 		
 		//TextView answerTextView = (TextView) theView.findViewById(R.id.question_answer_textview);
 		TextView answerTextView = (TextView) theView.findViewById(R.id.adapterAnswers);
