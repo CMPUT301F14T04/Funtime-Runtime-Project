@@ -2,7 +2,6 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class MyFavouritesActivity extends CustomActivity {
 
@@ -91,6 +89,9 @@ public class MyFavouritesActivity extends CustomActivity {
 //-------------------------------------------
 		
 		switch (item.getItemId()) {
+			case R.id.home_menu_item:
+				openMyHome();
+				return true;
 			case R.id.my_questions_menu_item:
 				openMyQuestions();
 				return true;

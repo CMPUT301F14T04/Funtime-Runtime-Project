@@ -107,5 +107,6 @@
     <string name="info_favorited">Favorited?:</string>
     <string name="title_activity_info_popup">Info</string>
     <string name="reply_comment">Comment</string>
+    <string name="title_activity_return">Home</string>
 
 </resources>

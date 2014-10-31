@@ -4,6 +4,12 @@
     
     
     <!-- Settings Menu Options --> 
+    
+	<item 
+        android:id="@+id/home_menu_item"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+	    android:title="@string/title_activity_return"/>     
 	    
 	<!--     
     <item

@@ -1,14 +1,11 @@
 package ca.ualberta.cs.funtime_runtime;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class AuthorAnswerActivity extends CustomActivity {
 	
@@ -58,6 +55,9 @@ public class AuthorAnswerActivity extends CustomActivity {
 //-------------------------------------------
 			
 		switch (item.getItemId()) {
+			case R.id.home_menu_item:
+				openMyHome();
+				return true;
 			case R.id.my_questions_menu_item:
 				openMyQuestions();
 				return true;

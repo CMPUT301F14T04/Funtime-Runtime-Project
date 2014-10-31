@@ -1,11 +1,8 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class AuthorReplyActivity extends CustomActivity {
 
@@ -34,6 +31,9 @@ public class AuthorReplyActivity extends CustomActivity {
 	// Menu Items Switch Case
 	//-------------------------------------------
 		 switch (item.getItemId()) {
+		 	case R.id.home_menu_item:
+				openMyHome();
+				return true;
 		 	case R.id.my_questions_menu_item:
 		 		openMyQuestions();
 		 		return true;

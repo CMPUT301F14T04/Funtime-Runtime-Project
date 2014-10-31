@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -67,6 +68,26 @@ public class LoginActivity extends CustomActivity {
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
 	}	
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// switch case to choose an item from the menu
+		//IntentSwitcher switcher = new IntentSwitcher(HomeActivity.this);
+		
+//-------------------------------------------
+// Menu Items Switch Case
+//-------------------------------------------
+		switch (item.getItemId()) {
+			case R.id.home_menu_item:
+				openMyHome();
+				return true;
+			default:
+				return true;
+			}	
+		}
+	
+//------------------------------------
+//-------------------------------------------	
 			
 	public void createAccount(View v)	{
 		Intent createNewAccount = new Intent(LoginActivity.this, CreateAccountActivity.class);

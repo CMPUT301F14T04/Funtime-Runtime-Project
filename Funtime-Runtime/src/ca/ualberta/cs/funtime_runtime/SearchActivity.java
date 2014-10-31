@@ -1,11 +1,8 @@
 package ca.ualberta.cs.funtime_runtime;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class SearchActivity extends CustomActivity {
 
@@ -32,6 +29,9 @@ public class SearchActivity extends CustomActivity {
 //-------------------------------------------
 		
 		switch (item.getItemId()) {
+			case R.id.home_menu_item:
+				openMyHome();
+				return true;
 			case R.id.login_menu_item:
 				openLogin();
 				return true;
