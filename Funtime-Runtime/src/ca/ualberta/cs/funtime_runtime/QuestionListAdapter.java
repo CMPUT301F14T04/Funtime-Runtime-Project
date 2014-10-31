@@ -1,5 +1,6 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,26 +58,34 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		
 		Question question = questionList.get(position);
 		
-		ImageView star = (ImageView) theView.findViewById(R.id.fav_star);
+		//ImageView star = (ImageView) theView.findViewById(R.id.fav_star);
+		ImageView star = (ImageView) theView.findViewById(R.id.adapterStar);
 
-		TextView titleTextView = (TextView) theView.findViewById(R.id.question_title_textview);
+		//TextView titleTextView = (TextView) theView.findViewById(R.id.question_title_textview);
+		TextView titleTextView = (TextView) theView.findViewById(R.id.adapterTitle);
 		titleTextView.setText(question.getTitle());
 		
-		TextView ratingTextView = (TextView) theView.findViewById(R.id.question_rating_textview);
-		String ratingString = "Rating:";
-		ratingTextView.setText(ratingString + " " + question.getRating());
+		//TextView ratingTextView = (TextView) theView.findViewById(R.id.question_rating_textview);
+		TextView ratingTextView = (TextView) theView.findViewById(R.id.adapterRating);
+		//String ratingString = "Rating:";
+		//ratingTextView.setText(ratingString + " " + question.getRating());
+		ratingTextView.setText("10000");
 		
-		TextView answerTextView = (TextView) theView.findViewById(R.id.question_answer_textview);
+		//TextView answerTextView = (TextView) theView.findViewById(R.id.question_answer_textview);
+		TextView answerTextView = (TextView) theView.findViewById(R.id.adapterAnswers);
 		String answerString = "Answers:";
 		answerTextView.setText(answerString + " " + question.getAnswerCount());
 		
-		TextView authorTextView = (TextView) theView.findViewById(R.id.question_author_textview);
+		//TextView authorTextView = (TextView) theView.findViewById(R.id.question_author_textview);
+		TextView authorTextView = (TextView) theView.findViewById(R.id.adapterAuthor);
 		String authorString = "Author:";
 		authorTextView.setText(authorString + " " + question.getUser());
 		
-		TextView questionDateTextView = (TextView) theView.findViewById(R.id.question_date_textview);
-		String questionDateString = "Date Posted: ";
-		questionDateTextView.setText(questionDateString + " " +question.getDate());
+		//TextView questionDateTextView = (TextView) theView.findViewById(R.id.question_date_textview);
+		TextView questionDateTextView = (TextView) theView.findViewById(R.id.adapterDate);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy  HH:mm");
+		String questionDateString = dateFormat.format(question.getDate());
+		questionDateTextView.setText("Date Posted: " + questionDateString);
 		
 		
 		return theView;

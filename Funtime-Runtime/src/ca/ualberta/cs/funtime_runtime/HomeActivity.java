@@ -30,7 +30,8 @@ public class HomeActivity extends CustomActivity {
 		// TODO: retrieve homeQuestionList from server
 		testHome();  // temporary test code
 
-		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, homeQuestionList);
+		//adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, homeQuestionList);
+		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter2, homeQuestionList);
 		
 		
 		homeListView.setAdapter(adapter);	
@@ -39,7 +40,7 @@ public class HomeActivity extends CustomActivity {
 		homeListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				openQuestion(position);		
+				openQuestion(position);	
 			}
 		});
 
