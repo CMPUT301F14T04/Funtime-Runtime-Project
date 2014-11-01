@@ -3,9 +3,11 @@ package ca.ualberta.cs.funtime_runtime;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +18,7 @@ import android.widget.TextView;
 
 
 public class QuestionPageActivity extends CustomActivity {
-	ListView questionListView;
+	ListView answerListView;
 	ArrayList<Answer> questionAnswerList;
 	Account account;
 	TextView questionTitle;
@@ -32,6 +34,8 @@ public class QuestionPageActivity extends CustomActivity {
 	Boolean favorited = false;
 	Boolean upvoted = false;
 	Integer rating;
+	LayoutInflater inflater;
+	View questionHeader;
 	
 	
 		
@@ -41,18 +45,24 @@ public class QuestionPageActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.proposed_activity_question_page);
+		setContentView(R.layout.activity_question_page);
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
+		
+		answerListView =  (ListView) findViewById(R.id.answer_list);
+		inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		questionHeader = (View)inflater.inflate(R.layout.question_page_header, null, false);
+		answerListView.addHeaderView(questionHeader);
+		
 		//Question question 		answersTitle.setText()= (Question) intent.getSerializableExtra("Question");
 		questionTitle = (TextView) findViewById(R.id.question_title);
 		questionBody = (TextView) findViewById(R.id.question_body);
 		questionBody.setMovementMethod(new ScrollingMovementMethod());
 		//questionUpvote = (TextView) findViewById(R.id.question_upvote_text);
 		question = (Question) extras.getSerializable("Question");
-		questionListView =  (ListView) findViewById(R.id.answer_list);
 		addAnswerBtn = (Button) findViewById(R.id.button_add_answer);
 		question_rating_value = (TextView) findViewById(R.id.overallRating);
+		
 		
 		//TODO: Proposed
 		questionAuthor = (TextView) findViewById(R.id.question_author_text);
@@ -80,7 +90,7 @@ public class QuestionPageActivity extends CustomActivity {
 		answersTitle.setText("Answers (" + questionAnswerList.size() + ")");
 		
 		AnswerListAdapter adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, questionAnswerList);
-		questionListView.setAdapter(adapter);
+		answerListView.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
 		//testQuestionPage();	
 		favorite_button = (ImageButton) findViewById(R.id.question_favorite_button);
@@ -174,7 +184,7 @@ public class QuestionPageActivity extends CustomActivity {
 		answerList.add(answer1);
 		answerList.add(answer2);
 		answerList.add(answer3);
-		questionListView.setAdapter(adapter);	
+		answerListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();
 	}
 
