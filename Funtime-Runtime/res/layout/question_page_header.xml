@@ -120,6 +120,7 @@
         android:layout_alignParentTop="true"
         android:background="@null"
         android:src="@android:drawable/ic_input_get"
+        android:onClick="bookmark_question"
        />
 
     <Button
@@ -134,7 +135,8 @@
         android:text="@string/replies_text"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/blue"
-        android:textStyle="italic" />
+        android:textStyle="italic" 
+        android:onClick="view_replies"/>
 
     <ImageButton
         android:id="@+id/question_favorite_button"

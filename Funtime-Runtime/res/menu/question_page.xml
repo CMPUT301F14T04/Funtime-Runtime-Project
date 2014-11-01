@@ -9,8 +9,8 @@
 	    android:title="@string/title_activity_return"/> 
     
     <item
-        android:id="@+id/bookmarkQuestion"
-        android:icon="@android:drawable/ic_input_get"
+        android:id="@+id/refresh"
+        android:icon="@android:drawable/ic_popup_sync"
         android:title="@string/title_activity_reading_list"
         android:showAsAction="ifRoom" />
                

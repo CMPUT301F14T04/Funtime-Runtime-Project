@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -32,13 +33,18 @@ public class QuestionPageActivity extends CustomActivity {
 	Button addAnswerBtn;
 	ImageButton favorite_button;
 	ImageButton bookmark_button;
+	ImageButton photo_button;
 	Question question;
 	Boolean favorited = false;
 	Boolean upvoted = false;
+	Boolean bookmarked = false;
+	Boolean has_photo = false;
 	Integer rating;
 	LayoutInflater inflater;
 	View questionHeader;
-	
+	int bookmarked_color = Color.parseColor("#cc0000");
+	int not_bookmarked_color = Color.parseColor("#cecece");
+	int has_photo_color =Color.parseColor("#228b22");
 	
 		
 	//ImageButton unfavorite_button;
@@ -67,9 +73,18 @@ public class QuestionPageActivity extends CustomActivity {
 		addAnswerBtn = (Button) findViewById(R.id.button_add_answer);
 		question_rating_value = (TextView) findViewById(R.id.overallRating);
 		bookmark_button = (ImageButton) findViewById(R.id.question_bookmark_button);
+		photo_button = (ImageButton) findViewById(R.id.view_photo_button);
+		//TODO: change bookmark color based on whether it is in their bookmarks
+		if (bookmarked == false){
+			bookmark_button.setColorFilter(not_bookmarked_color);
+			}
+		else{
+			bookmark_button.setColorFilter(bookmarked_color);
+			}
 		
-		//TODO: change bookmark color based on wether it is in their bookmarks
-		bookmark_button.setColorFilter( R.color.gray, Mode.MULTIPLY );
+		if (has_photo == true){
+			photo_button.setColorFilter(has_photo_color);
+		}
 		
 		
 		questionAuthor = (TextView) findViewById(R.id.question_author_text);
@@ -235,5 +250,18 @@ public class QuestionPageActivity extends CustomActivity {
 		
 	}
 	
+	
+	public void bookmark_question(View v){
+		//bookmark_button.setColorFilter( R.color.red, Mode.MULTIPLY );
+		if (bookmarked == false){
+		
+		bookmark_button.setColorFilter(bookmarked_color);
+		bookmarked = true;
+		}else if (bookmarked == true){
+			bookmark_button.setColorFilter(not_bookmarked_color);
+			bookmarked = false;
+			
+		}
+	}
 
 }
