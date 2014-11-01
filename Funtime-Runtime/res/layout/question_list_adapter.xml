@@ -1,68 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="match_parent" >
 
     <ImageView
-        android:id="@+id/fav_star"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:src="@android:drawable/btn_star_big_off" />
-
-    <TextView
-        android:id="@+id/question_title_textview"
+        android:id="@+id/adapterStar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="18dp"
-        android:layout_toRightOf="@+id/fav_star"
-        android:text="@string/question_adapter_title"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent"
+        android:src="@android:drawable/btn_star_big_off" />
 
     <TextView
-        android:id="@+id/question_rating_textview"
+        android:id="@+id/adapterTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/question_title_textview"
-        android:layout_below="@+id/question_title_textview"
-        android:text="@string/question_adapter_rating" 
-        android:textStyle="italic"
-        android:textSize="12sp"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_toLeftOf="@+id/adapterStar"
+        android:text="Title" 
+        android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/question_answer_textview"
+        android:id="@+id/adapterAnswers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="28dp"
-        android:layout_toRightOf="@+id/question_rating_textview"
-        android:layout_below="@+id/question_title_textview"
-        android:text="@string/question_adapter_answer"
+        android:layout_alignLeft="@+id/adapterTitle"
+        android:layout_below="@+id/adapterTitle"
+        android:text="Answers: "
         android:textSize="12sp"
         android:textStyle="italic" />
 
     <TextView
-        android:id="@+id/question_author_textview"
+        android:id="@+id/adapterAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_toRightOf="@+id/question_answer_textview"
-        android:layout_below="@+id/question_title_textview"
-        android:text="@string/question_adapter_author"
+        android:layout_above="@+id/adapterDate"
+        android:layout_alignTop="@+id/adapterAnswers"
+        android:layout_marginLeft="38dp"
+        android:layout_toLeftOf="@+id/adapterStar"
+        android:layout_toRightOf="@+id/adapterAnswers"
+        android:text="Author: "
         android:textSize="12sp"
         android:textStyle="italic" />
 
     <TextView
-        android:id="@+id/question_date_textview"
+        android:id="@+id/adapterDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/question_rating_textview"
-        android:layout_below="@+id/question_rating_textview"
-        android:text="@string/question_adapter_date"
+        android:layout_alignLeft="@+id/adapterAnswers"
+        android:layout_alignRight="@+id/adapterAuthor"
+        android:layout_below="@+id/adapterAnswers"
+        android:text="Date: "
         android:textSize="12sp"
         android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/adapterRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:drawableTop="@drawable/arrow_up_float"
+        android:text="1000" 
+        android:textStyle="bold"/>
 
 </RelativeLayout>

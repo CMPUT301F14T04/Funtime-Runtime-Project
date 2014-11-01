@@ -12,7 +12,8 @@
     <string name="ask_question_button_text">Ask Question</string>
     <string name="home_rating_text">Rating: </string>
     <string name="home_answer_text">Answers: </string>
-
+    <string name="home_date_text">Date Posted: </string>
+    
     <!-- Search Page Strings -->
     <string name="title_activity_search">Search Questions</string>
     <string name="search_text_field"><i>Search query</i></string>
