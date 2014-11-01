@@ -49,6 +49,8 @@ public class QuestionPageActivity extends CustomActivity {
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
 		
+		// adapted from http://stackoverflow.com/questions/8275669/how-do-i-use-listview-addheaderview - accessed Nov 1 2014
+		
 		answerListView =  (ListView) findViewById(R.id.answer_list);
 		inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		questionHeader = (View)inflater.inflate(R.layout.question_page_header, null, false);
@@ -75,7 +77,7 @@ public class QuestionPageActivity extends CustomActivity {
 		
 		//TODO: Proposed
 		questionAuthor.setText("Author: " + question.getUser());
-		questionDate.setText("Date Posted: " + question.getDate().toString());
+		questionDate.setText(question.getDate().toString());
 		
 		rating = question.getRating();
 		question_rating_value.setText(Integer.toString(rating));
