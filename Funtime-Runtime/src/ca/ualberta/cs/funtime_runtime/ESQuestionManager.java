@@ -1,6 +1,7 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
+import java.util.List;
 
 //import com.google.gson.Gson;
 
@@ -19,6 +20,9 @@ public class ESQuestionManager implements IQuestionManager
 	public ArrayList<Question> searchQuestions(String searchString, String field)
 	{
 
+		ArrayList<Question> result = new ArrayList<Question>();
+
+		
 		// TODO Auto-generated method stub
 		return null;
 	}
