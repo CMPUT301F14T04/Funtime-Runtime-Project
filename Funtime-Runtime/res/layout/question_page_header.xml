@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/question_title"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginTop="8dp"
         android:layout_toRightOf="@+id/overallRating"
         android:minHeight="90dp"
@@ -79,24 +79,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/replies_text"
+        android:layout_below="@+id/question_body"
         android:text="@string/question_author"
-        android:textStyle="italic" />
+        android:textStyle="italic"
+        android:layout_marginTop="8dp" />
 
-    <ImageButton
-        android:id="@+id/question_favorite_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/overallRating"
-        android:layout_toLeftOf="@+id/question_body"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="12dp"
-        android:background="@null"
-        android:contentDescription="@string/view_photo_description"
-        android:onClick="favorited"
-        android:src="@android:drawable/btn_star" />
-
-    <TextView
+    <Button
         android:id="@+id/overallRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -108,7 +96,9 @@
         android:gravity="center"
         android:text="@string/question_upvotes"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:background="@null" 
+        android:onClick="upvote_question"/>
 
     <ImageButton
         android:id="@+id/view_photo_button"
@@ -120,17 +110,7 @@
         android:contentDescription="@string/view_photo_description"
         android:onClick="show_photo"
         android:src="@android:drawable/ic_menu_gallery" />
-
-    <TextView
-        android:id="@+id/replies_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/question_body"
-        android:layout_toLeftOf="@+id/view_photo_button"
-        android:layout_marginTop="4dp"
-        android:text="@string/replies_text"
-        android:textColor="@color/blue"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
 
     <ImageButton
         android:id="@+id/question_bookmark_button"
@@ -139,6 +119,33 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:background="@null"
-        android:src="@android:drawable/ic_input_get" />
+        android:src="@android:drawable/ic_input_get"
+       />
+
+    <Button
+        android:id="@+id/replies_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/question_author_text"
+        android:layout_alignBottom="@+id/question_author_text"
+        android:layout_alignRight="@+id/question_title"
+        android:layout_marginRight="33dp"
+        android:background="@null"
+        android:text="@string/replies_text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/blue"
+        android:textStyle="italic" />
+
+    <ImageButton
+        android:id="@+id/question_favorite_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/overallRating"
+        android:layout_marginLeft="15dp"
+        android:background="@null"
+        android:contentDescription="@string/view_photo_description"
+        android:onClick="favorited"
+        android:src="@android:drawable/btn_star" />
 
 </RelativeLayout>

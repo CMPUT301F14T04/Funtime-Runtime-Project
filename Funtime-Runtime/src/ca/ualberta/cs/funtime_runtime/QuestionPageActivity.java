@@ -86,7 +86,7 @@ public class QuestionPageActivity extends CustomActivity {
 		rating = question.getRating();
 		question_rating_value.setText(Integer.toString(rating));
 		
-		question_rating_value.setOnTouchListener(new UpvoteTouchListener());
+//		question_rating_value.setOnTouchListener(new UpvoteTouchListener());
 		
 		questionAnswerList = new ArrayList<Answer>();
 		account = ApplicationState.getAccount();
