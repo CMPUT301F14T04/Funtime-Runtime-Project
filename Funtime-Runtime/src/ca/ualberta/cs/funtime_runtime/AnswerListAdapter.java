@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ImageButton;
 
 public class AnswerListAdapter extends ArrayAdapter<Answer> {
 
@@ -58,10 +59,9 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		TextView answerTextView = (TextView) theView.findViewById(R.id.answer_textview);
 		answerTextView.setText(answer.getBody());
 		
-		TextView answerRatingTextView = (TextView) theView.findViewById(R.id.answer_rating_textview);
+		TextView answerRatingTextView = (TextView) theView.findViewById(R.id.answerAdapterRating);
 		//String answerRatingString = answerRatingTextView.getText().toString();
-		String answerRatingString = "Rating:";
-		answerRatingTextView.setText(answerRatingString + " " + answer.getRating());
+		answerRatingTextView.setText(" " + answer.getRating());
 		
 		TextView answerAuthorTextView = (TextView) theView.findViewById(R.id.answer_author_textview);
 		//String answerAuthorString = answerAuthorTextView.getText().toString();
@@ -77,6 +77,8 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		//String answerDateString = answerDateTextView.getText().toString();
 		String answerDateString = "Date Posted:";
 		answerDateTextView.setText(answerDateString + " " + answer.getDate());
+		
+		ImageButton answerViewPhotoButton = (ImageButton) theView.findViewById(R.id.answer_view_photo_button);
 		
 		
 		return theView;
