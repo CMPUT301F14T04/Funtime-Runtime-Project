@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff.Mode;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ public class QuestionPageActivity extends CustomActivity {
 	//TextView questionUpvote;
 	Button addAnswerBtn;
 	ImageButton favorite_button;
+	ImageButton bookmark_button;
 	Question question;
 	Boolean favorited = false;
 	Boolean upvoted = false;
@@ -64,9 +66,12 @@ public class QuestionPageActivity extends CustomActivity {
 		question = (Question) extras.getSerializable("Question");
 		addAnswerBtn = (Button) findViewById(R.id.button_add_answer);
 		question_rating_value = (TextView) findViewById(R.id.overallRating);
+		bookmark_button = (ImageButton) findViewById(R.id.question_bookmark_button);
+		
+		//TODO: change bookmark color based on wether it is in their bookmarks
+		bookmark_button.setColorFilter( R.color.gray, Mode.MULTIPLY );
 		
 		
-		//TODO: Proposed
 		questionAuthor = (TextView) findViewById(R.id.question_author_text);
 		questionDate = (TextView) findViewById(R.id.question_date_text);
 		answersTitle = (TextView) findViewById(R.id.answers_title_text);
@@ -75,7 +80,6 @@ public class QuestionPageActivity extends CustomActivity {
 		questionTitle.setText(question.getTitle());		
 		questionBody.setText(question.getBody());
 		
-		//TODO: Proposed
 		questionAuthor.setText("Author: " + question.getUser());
 		questionDate.setText(question.getDate().toString());
 		
@@ -88,7 +92,6 @@ public class QuestionPageActivity extends CustomActivity {
 		account = ApplicationState.getAccount();
 		questionAnswerList = question.getAnswerList();
 		
-		//TODO: Proposed
 		answersTitle.setText("Answers (" + questionAnswerList.size() + ")");
 		
 		AnswerListAdapter adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, questionAnswerList);
