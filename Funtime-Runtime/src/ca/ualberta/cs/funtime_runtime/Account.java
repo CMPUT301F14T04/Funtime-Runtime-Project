@@ -11,6 +11,8 @@ public class Account {
 	private ArrayList<Question> questionList;
 	private ArrayList<Question> readingList;
 	private ArrayList<Question> history;
+	private ArrayList<Question> upvotedQuestions;
+	private ArrayList<Answer> upvotedAnswers;
 	
 	public Account(String username) {
 		this.username = username;
@@ -19,6 +21,8 @@ public class Account {
 		questionList = new ArrayList<Question>();
 		readingList = new ArrayList<Question>();
 		history = new ArrayList<Question>();
+		upvotedQuestions = new ArrayList<Question>();
+		upvotedAnswers = new ArrayList<Answer>();
 	}
 
 	public void setName(String username) {
@@ -73,6 +77,10 @@ public class Account {
 		readingList.add(question);
 	}
 	
+	public void removeReadLater(Question question) {
+		readingList.remove(question);
+	}
+	
 	public ArrayList<Question> getHistoryList() {
 		return history;
 	}
@@ -81,5 +89,28 @@ public class Account {
 		history.add(question);
 	}
 	
+	public ArrayList<Question> getUpvotedQuestions() {
+		return upvotedQuestions;
+	}
+	
+	public void upvoteQuestion(Question question) {
+		upvotedQuestions.add(question);
+	}
+	
+	public void downvoteQuestion(Question question) {
+		upvotedQuestions.remove(question);
+	}
+
+	public ArrayList<Answer> getUpvotedAnswers() {
+		return upvotedAnswers;
+	}
+	
+	public void upvoteAnswer(Answer answer) {
+		upvotedAnswers.add(answer);
+	}
+	
+	public void downvoteAnswer(Answer answer) {
+		upvotedAnswers.remove(answer);
+	}
 
 }
