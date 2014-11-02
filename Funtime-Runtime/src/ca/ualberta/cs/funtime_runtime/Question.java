@@ -12,7 +12,7 @@ public class Question implements Serializable{
 	private final String username;
 	private final Date date;
 	public ArrayList<Answer> answerList;
-	private static int rating;
+	private int rating;
 	private int numberOfAnswers;
 	
 	public Question(String title, String body, String username) {
