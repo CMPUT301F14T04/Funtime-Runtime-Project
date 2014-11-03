@@ -1,5 +1,6 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -13,11 +14,11 @@ import android.widget.TextView;
 public class ReplyListAdapter extends ArrayAdapter<Reply> {
 
 	Context ctx;
-	List<Reply> replyList;
+	ArrayList<Reply> replyList;
 	int res;
 	LayoutInflater inflater;
 
-	public ReplyListAdapter(Context context, int resource, List<Reply> objects) {
+	public ReplyListAdapter(Context context, int resource, ArrayList<Reply> objects) {
 		super(context, resource, objects);
 		ctx = context;
 		res = resource;
@@ -25,9 +26,10 @@ public class ReplyListAdapter extends ArrayAdapter<Reply> {
 		inflater = LayoutInflater.from(context);
 	}
 
+	/*
 	@Override
 	public int getCount() {
-		return this.replyList.size();
+		return replyList.size();
 	}
 
 	@Override
@@ -41,6 +43,8 @@ public class ReplyListAdapter extends ArrayAdapter<Reply> {
 		return 0;
 	}
 
+	*/
+	
 	// Adapted from http://www.survivingwithandroid.com/2013/02/android-listview-adapter-imageview.html -- Accessed Oct 23, 2014
 	// Adapted from http://www.framentos.com/en/android-tutorial/2012/07/16/listview-in-android-using-custom-listadapter-and-viewcache/ 
 	//    -- Accessed Oct 23, 2014

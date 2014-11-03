@@ -6,29 +6,29 @@ import java.util.Date;
 public class Reply implements Serializable {
 
 	private static final long serialVersionUID = 4346891943333516504L;
-	private final String BODY;
-	private final String USERNAME;
-	private final Date DATE;
+	private final String body;
+	private final String username;
+	private final Date date;
 	
 	public Reply(String body, String username) {
-		BODY = body;
-		USERNAME = username;
-		DATE = new Date();
+		this.body = body;
+		this.username = username;
+		this.date= new Date();
 	}
 
 	public String getBody()
 	{
-		return BODY;
+		return body;
 	}
 
 	public String getUser()
 	{
-		return USERNAME;
+		return username;
 	}
 	
 	
 	public Date getDate() {
-		return DATE;
+		return date;
 	}
 
 }

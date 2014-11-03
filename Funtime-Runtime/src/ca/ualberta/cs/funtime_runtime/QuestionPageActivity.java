@@ -3,7 +3,6 @@ package ca.ualberta.cs.funtime_runtime;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -226,15 +225,23 @@ public class QuestionPageActivity extends CustomActivity {
 		}
 
 	}
-	
-	public void show_info(View v){
+
+	public void view_replies(View v) {
+		Bundle bundle = new Bundle();
 		
+		//bundle.putSerializable("Question", question);
 		
-		
-		
+		bundle.putString("Username", question.getUser());
+		bundle.putString("Title", question.getTitle());
+		bundle.putString("Body", question.getBody());
+		bundle.putString("Date", question.getDate().toString());
+		bundle.putSerializable("Replies", question.getReplyList());
+		Intent intent = new Intent(QuestionPageActivity.this, ReplyPageActivity.class);
+		intent.putExtras(bundle);
+		startActivity(intent);	
 	}
 	
-	public void show_photo(View v){
+	public void show_photo(View v) {
 		
 	}
 	

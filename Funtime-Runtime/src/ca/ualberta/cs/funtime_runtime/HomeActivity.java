@@ -59,6 +59,9 @@ public class HomeActivity extends CustomActivity {
 		homeQuestionList.add(question2);
 		homeQuestionList.add(question3);
 		homeQuestionList.add(question4);
+		question4.addReply(new Reply("This is a test reply", "testuser1"));
+		question4.addReply(new Reply("This is another test reply", "testuser2"));
+		question4.addReply(new Reply("This is also a test reply", "testuser3"));
 		account.addFavourite(question1);
 		account.addFavourite(question2);
 		account.readLater(question1);

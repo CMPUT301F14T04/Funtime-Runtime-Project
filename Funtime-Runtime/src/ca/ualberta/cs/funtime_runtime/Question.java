@@ -12,6 +12,7 @@ public class Question implements Serializable{
 	private final String username;
 	private final Date date;
 	public ArrayList<Answer> answerList;
+	public ArrayList<Reply> replyList;
 	private int rating;
 	private int numberOfAnswers;
 	
@@ -23,6 +24,7 @@ public class Question implements Serializable{
 		rating = 0;
 		numberOfAnswers = 0;
 		answerList = new ArrayList<Answer>();
+		replyList = new ArrayList<Reply>();
 	}
 
 	public String getTitle() {
@@ -72,6 +74,19 @@ public class Question implements Serializable{
 		return answerList;
 	}
 
+	public void addReply(Reply reply) {
+		replyList.add(reply);
+	}
+	
+	public Reply getReply(int i) {
+		Reply reply = replyList.get(i);
+		return reply;
+	}
+	
+	public ArrayList<Reply> getReplyList() {
+		return replyList;
+	}
+	
 	public boolean equals(Object o) {
 	    // Adapted from http://stackoverflow.com/questions/10943836/if-arraylist-contains-doesnt-work - accessed 2 nov 2014
 		if (o instanceof Question) {

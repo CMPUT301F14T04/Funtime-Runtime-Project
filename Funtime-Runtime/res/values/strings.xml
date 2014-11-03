@@ -36,6 +36,7 @@
 
     <!-- View Replies Strings -->
     <string name="title_activity_reply_page">Reply Page</string>
+    <string name="add_reply_text">Add Reply</string>
 
     <!-- Create Account Strings -->
     <string name="title_activity_create_account">Create Account</string>
@@ -59,6 +60,9 @@
     <string name="answer_parent_title">[answer_parent_title]</string>
     <string name="answer_parent_text">[answer_parent_text]</string>
 
+    <!--  Reply Page Strings -->
+    <string name="add_reply">Add Reply</string>
+    
     <!-- Author Reply Strings -->
     <string name="title_activity_author_reply">Author Reply</string>
     <string name="reply_parent_text">[reply_parent_text]</string>
