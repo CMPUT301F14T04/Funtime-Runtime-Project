@@ -147,7 +147,7 @@
         android:layout_marginLeft="15dp"
         android:background="@null"
         android:contentDescription="@string/view_photo_description"
-        android:onClick="favorited"
+        android:onClick="favourited"
         android:src="@android:drawable/btn_star" />
 
 </RelativeLayout>
