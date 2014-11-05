@@ -3,6 +3,7 @@ package ca.ualberta.cs.funtime_runtime;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -63,6 +64,8 @@ public class QuestionPageActivity extends CustomActivity {
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
 		
+		ActionBar actionbar = getActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
 		// adapted from http://stackoverflow.com/questions/8275669/how-do-i-use-listview-addheaderview - accessed Nov 1 2014
 		
 		answerListView =  (ListView) findViewById(R.id.answer_list);

@@ -2,6 +2,7 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,6 +27,9 @@ public class ReadingListActivity extends CustomActivity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reading_list);
+		
+		ActionBar actionbar = getActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
 		
 		readingListView = (ListView) findViewById(R.id.readingListView);	
 		account = ApplicationState.getAccount();
