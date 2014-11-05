@@ -28,9 +28,9 @@ public class HomeActivity extends CustomActivity {
 		setContentView(R.layout.activity_home);
 		homeQuestionList = ApplicationState.getQuestionList();
 		homeListView = (ListView) findViewById(R.id.questionListView);
-		
 		// TODO: retrieve homeQuestionList from server
 		testHome();  // temporary test code
+		account = ApplicationState.getAccount();
 
 		//adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, homeQuestionList);
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter2, homeQuestionList);
