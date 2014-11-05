@@ -31,7 +31,7 @@ public class Reply implements Serializable {
 	
 	@SuppressLint("SimpleDateFormat")
 	public String getDate() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy  HH:mm");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy  HH:mm");
 		String replyDateString = dateFormat.format(date);
 		return replyDateString;
 	}
