@@ -71,7 +71,8 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		//TextView answerRatingTextView = (TextView) theView.findViewById(R.id.answerAdapterRating);
 		//String answerRatingString = answerRatingTextView.getText().toString();
 		Button answerRating = (Button) theView.findViewById(R.id.answerAdapterRating);
-		answerRating.setText(" " + answer.getRating());
+		String ratingText = Integer.toString(answer.getRating());
+		answerRating.setText(ratingText);
 		
 		TextView answerAuthorTextView = (TextView) theView.findViewById(R.id.answer_author_textview);
 		//String answerAuthorString = answerAuthorTextView.getText().toString();
