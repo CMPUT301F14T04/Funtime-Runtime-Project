@@ -95,6 +95,9 @@ public class CreateAccountActivity extends CustomActivity {
 //-------------------------------------------
 		
 	switch (item.getItemId()) {
+		case android.R.id.home:
+			openMyHome();
+			return true;
 		case R.id.home_menu_item:
 			openMyHome();
 			return true;
