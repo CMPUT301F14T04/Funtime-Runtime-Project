@@ -1,5 +1,7 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,19 +18,21 @@ public class AuthorQuestionActivity extends CustomActivity {
 	EditText questionBody;
 	Account account;
 	String username;
+	ArrayList<Question> questionList;
+	ArrayList<Question> userQuestionList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_author_question);
-//		submitButton = (Button) findViewById(R.id.submit_question_button);
+		submitButton = (Button) findViewById(R.id.submit_question_button);
 		//addPhotoButton = (Button) findViewById(R.id.add_question_image);
-//		cancelButton = (Button) findViewById(R.id.cancel_button);
-//		addPhotoButton = (Button) findViewById(R.id.add_image_button);
-//		questionTitle = (EditText) findViewById(R.id.question_title);
-//		questionBody = (EditText) findViewById(R.id.question_body_text);
-		//account = ApplicationState.getAccount();
-		//username = account.getName();
+		cancelButton = (Button) findViewById(R.id.cancel_button);
+		//addPhotoButton = (Button) findViewById(R.id.add_image_button);
+		questionTitle = (EditText) findViewById(R.id.question_title);
+		questionBody = (EditText) findViewById(R.id.question_body_text);
+		account = ApplicationState.getAccount();
+		username = account.getName();
 	}
 
 	@Override
@@ -74,10 +78,15 @@ public class AuthorQuestionActivity extends CustomActivity {
 //-------------------------------------------
 //-------------------------------------------
 	
-	public Question submitQuestion() {
+	public void submitQuestion() {
 		//Question question = new Question(questionTitle, questionBody, "username");
+		//Question question1 = new Question("What is the meaning of life?", "body 1 test", "user1");
+		Question query = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
+		questionList = ApplicationState.getQuestionList();
+		userQuestionList = account.getMyQuestions();
+		questionList.add(0,query);
+		userQuestionList.add(0,query);
 		
-		return null;
 		
 	}
 	 public void cancel_question(View v){

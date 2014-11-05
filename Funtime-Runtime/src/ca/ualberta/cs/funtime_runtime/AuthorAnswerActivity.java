@@ -11,16 +11,25 @@ import android.widget.TextView;
 public class AuthorAnswerActivity extends CustomActivity {
 	
 	Question question;
+	Button submitBtn;
+	EditText answerBody;
+	TextView questionTitle;
+	TextView questionBody;
+	Account account;
+	String username;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_author_answer);
-//		TextView questionTitle = (TextView) findViewById(R.id.questionTitleAA);
-//		TextView questionBody = (TextView) findViewById(R.id.questionBodyAA);
-//		EditText answerBody = (EditText) findViewById(R.id.typeAnswerAA);
-//		Button submitBtn = (Button) findViewById(R.id.submitAnswerButton);
-		testAuthorAnswer();
+		questionTitle = (TextView) findViewById(R.id.questionTitleAA);
+		questionBody = (TextView) findViewById(R.id.questionBodyAA);
+		answerBody = (EditText) findViewById(R.id.typeAnswerAA);
+		submitBtn = (Button) findViewById(R.id.submitAnswerButton);
+		account = ApplicationState.getAccount();
+		username = account.getName();
+		//testAuthorAnswer();
 	}
 
 	private void testAuthorAnswer() {
@@ -83,6 +92,11 @@ public class AuthorAnswerActivity extends CustomActivity {
 		}
 //-------------------------------------------
 //-------------------------------------------	
+	 public void answer_question(){
+		 //Answer (String text, String user)
+		 Answer new_answer = new Answer(answerBody.getText().toString(),username);
+		 
+	 }
 	 public void answer_cancel(View v){
 		 finish();
 	 }

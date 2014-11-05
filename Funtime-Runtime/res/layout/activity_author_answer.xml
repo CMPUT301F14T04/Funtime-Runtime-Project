@@ -68,7 +68,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/fakeView_answer"
-        android:text="@string/submit_button_text" />
+        android:text="@string/submit_button_text" 
+        android:onClick="answer_question"/>
 
         <View
        android:id="@+id/fakeView_answer"
