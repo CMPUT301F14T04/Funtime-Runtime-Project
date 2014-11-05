@@ -58,7 +58,8 @@
         android:layout_alignBottom="@+id/submitAnswerButton"
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/fakeView_answer"
-        android:text="@string/button_cancel" />
+        android:text="@string/button_cancel" 
+        android:onClick="answer_cancel"/>
 
     <Button
         android:id="@+id/submitAnswerButton"
