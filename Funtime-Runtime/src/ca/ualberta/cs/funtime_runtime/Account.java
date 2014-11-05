@@ -44,6 +44,10 @@ public class Account {
 	public Question getQuestion(int i) {
 		return questionList.get(i);
 	}
+	
+	public ArrayList<Question> getQuestionList() {
+		return questionList;
+	}
 
 	public void authorAnswer(Answer answer) {
 		answerList.add(answer);
