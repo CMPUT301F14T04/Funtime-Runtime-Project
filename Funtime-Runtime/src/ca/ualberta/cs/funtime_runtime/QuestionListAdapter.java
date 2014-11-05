@@ -103,8 +103,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		
 		//TextView questionDateTextView = (TextView) theView.findViewById(R.id.question_date_textview);
 		TextView questionDateTextView = (TextView) theView.findViewById(R.id.adapterDate);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy  HH:mm");
-		String questionDateString = dateFormat.format(question.getDate());
+		String questionDateString = question.getDate();
 		questionDateTextView.setText("Posted: " + questionDateString);
 		
 		

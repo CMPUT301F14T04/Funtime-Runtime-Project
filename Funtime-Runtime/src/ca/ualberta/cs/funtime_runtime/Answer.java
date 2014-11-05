@@ -1,6 +1,8 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import android.annotation.SuppressLint;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -74,8 +76,11 @@ public class Answer implements Serializable {
 		return replyList;
 	}
 	
-	public Date getDate() {
-		return date;
+	@SuppressLint("SimpleDateFormat")
+	public String getDate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy  HH:mm");
+		String answerDateString = dateFormat.format(date);
+		return answerDateString;
 	}
 	
 	public void setId(int num) {

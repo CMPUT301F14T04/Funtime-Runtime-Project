@@ -26,49 +26,48 @@
         android:textStyle="italic" />
 
     <TextView
-        android:id="@+id/answer_author_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/answer_textview"
-        android:layout_marginLeft="80dp"
-        android:layout_toRightOf="@+id/answer_reply_textview"
-        android:text="@string/question_adapter_author"
-        android:textSize="12sp"
-        android:textStyle="italic" />
-
-    <TextView
         android:id="@+id/answer_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/answer_reply_textview"
+        android:layout_toLeftOf="@+id/answer_view_photo_button"
         android:layout_toRightOf="@+id/answerAdapterRating"
         android:text="@string/question_adapter_date"
         android:textSize="12sp"
         android:textStyle="italic" />
-
-
     
     <Button
         android:id="@+id/answerAdapterRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/question_body"
-        android:layout_marginRight="8dp"
-        android:minEms="2"
+        android:layout_centerVertical="true"
         android:drawableTop="@drawable/arrow_up_float"
         android:gravity="center"
-        android:text="@string/question_upvotes"
-        android:textStyle="bold"
-        android:background="@null" />
-    
+        android:paddingRight="10dp"
+        android:background="@android:color/transparent"
+        android:text="100"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/answer_author_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/answer_date"
+        android:layout_marginLeft="29dp"
+        android:layout_toLeftOf="@+id/answer_view_photo_button"
+        android:layout_toRightOf="@+id/answer_date"
+        android:text="@string/question_adapter_author"
+        android:textSize="12sp"
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/answer_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/answer_reply_textview"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/answerAdapterRating"
+        android:layout_alignRight="@+id/answer_author_textview"
         android:text="@string/question_adapter_title"
         android:textSize="14sp" />
 
