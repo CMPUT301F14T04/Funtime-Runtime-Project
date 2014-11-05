@@ -55,10 +55,10 @@ public class HomeActivity extends CustomActivity {
 		Question question3 = new Question("In what world does gravity push you away at a faster rate than it pulls you in?", "body 3 test", "user3");
 		Question question4 = new Question("Why is this question so long? How it is going to look? What should the character count restriction be on question titles?", 
 					"This is a really really really really really really really really really really long question. It's going to take up a whooooooooooooooooooooooooooooooooooooooooooooole lot of space. What should the character limit be on question bodies? Right now I'm testing with a maximum of 8 lines of text before the textview becomes scrollable. Is that bad? I feel like question descriptions should be allowed to be pretty long, but we can't take up the whole screen or else the answers will be basically unviewable. Well let's see how this looks.", "LongQuestionAsker");
-		homeQuestionList.add(question1);
-		homeQuestionList.add(question2);
-		homeQuestionList.add(question3);
-		homeQuestionList.add(question4);
+		homeQuestionList.add(0, question1);
+		homeQuestionList.add(0, question2);
+		homeQuestionList.add(0, question3);
+		homeQuestionList.add(0, question4);
 		question4.addReply(new Reply("This is a test reply", "testuser1"));
 		question4.addReply(new Reply("This is another test reply", "testuser2"));
 		question4.addReply(new Reply("This is also a test reply", "testuser3"));

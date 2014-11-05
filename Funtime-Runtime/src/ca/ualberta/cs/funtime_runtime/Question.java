@@ -57,7 +57,7 @@ public class Question implements Serializable{
 	}
 
 	public void addAnswer(Answer answer) {
-		answerList.add(answer);
+		answerList.add(0, answer);
 		numberOfAnswers++;
 	}
 
@@ -75,7 +75,7 @@ public class Question implements Serializable{
 	}
 
 	public void addReply(Reply reply) {
-		replyList.add(reply);
+		replyList.add(0, reply);
 	}
 	
 	public Reply getReply(int i) {
