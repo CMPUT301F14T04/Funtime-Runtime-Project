@@ -12,6 +12,7 @@ public class ApplicationState extends Application {
 	private static ArrayList<Question> questionList = new ArrayList<Question>();
 	
 	private static Question passableQuestion;
+	private static Answer passableAnswer;
 	
 	// TODO pull accountList from server
 	private static ArrayList<Account> accountList = new ArrayList<Account>();
@@ -44,6 +45,14 @@ public class ApplicationState extends Application {
 	
 	public static Question getPassableQuestion() {
 		return passableQuestion;
+	}
+	
+	public static void setPassableAnswer(Answer answer) {
+		passableAnswer = answer;
+	}
+	
+	public static Answer getPassableAnswer() {
+		return passableAnswer;
 	}
 	
 	public static ArrayList<Question> getQuestionList() {

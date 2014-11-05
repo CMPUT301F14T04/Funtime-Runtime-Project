@@ -33,7 +33,7 @@
         android:layout_alignBottom="@+id/submitReplyButton"
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/fakeView_reply"
-        android:onClick="reply_cancel"
+        android:onClick="replyCancel"
         android:text="@string/button_cancel" />
 
     <Button
@@ -43,7 +43,8 @@
         android:layout_alignLeft="@+id/fakeView_reply"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="@string/submit_button_text" />
+        android:text="@string/submit_button_text" 
+        android:onClick="addReply"/>
 
      <View
        android:id="@+id/fakeView_reply"

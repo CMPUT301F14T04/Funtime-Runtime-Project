@@ -113,7 +113,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 		finish();
 				
 				
-			}
+	}
 	 public void answer_cancel(View v){
 		 finish();
 	 }

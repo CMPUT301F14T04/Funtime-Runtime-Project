@@ -1,17 +1,70 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.util.ArrayList;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class AuthorReplyActivity extends CustomActivity {
 
+	Question question;
+	Answer answer;
+	Button submitButton;
+	EditText typeReply;
+	TextView parentTitleView;
+	TextView parentBodyView;
+	String parentTitle;
+	String parentBody;
+	String parentDate;
+	Account account;
+	String username;
+	String parentUsername;
+	ArrayList<Reply> replyList;
+	String replyType;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_author_reply);
+		
+		Intent intent = getIntent();
+		Bundle extras = intent.getExtras();
+		
+		replyType = extras.getString("ReplyType");
+		
+		if (replyType.equals("question")) {
+			question = ApplicationState.getPassableQuestion();
+			parentTitle = question.getTitle();
+			parentBody = question.getBody();
+			parentDate = question.getDate().toString();
+			parentUsername = question.getUser();			
+			replyList = question.getReplyList();
+		} else if (replyType.equals("answer")) {
+			answer = ApplicationState.getPassableAnswer();
+			parentTitle = "";
+			parentBody = answer.getBody();
+			parentDate = answer.getDate().toString();
+			parentUsername = answer.getUser();			
+			replyList = answer.getReplyList();
+		}
+		
+		parentTitleView = (TextView) findViewById(R.id.replyParentTitle);
+		parentBodyView = (TextView) findViewById(R.id.replyParentBody);
+		typeReply = (EditText) findViewById(R.id.typeReply);
+		submitButton = (Button) findViewById(R.id.submitReplyButton);
+		account = ApplicationState.getAccount();
+		username = account.getName();
+		parentTitleView.setText(parentTitle);
+		parentBodyView.setText(parentBody);
+		
 	}
 
 	@Override
@@ -59,4 +112,17 @@ public class AuthorReplyActivity extends CustomActivity {
 //-------------------------------------------
 //-------------------------------------------
 
+	 public void addReply(View v){ 
+		Reply reply = new Reply(typeReply.getText().toString(), username.toString());
+		
+		replyList.add(0, reply);
+		
+		finish();
+				
+				
+	}
+	 public void replyCancel(View v){
+		 finish();
+	 }
+	
 }

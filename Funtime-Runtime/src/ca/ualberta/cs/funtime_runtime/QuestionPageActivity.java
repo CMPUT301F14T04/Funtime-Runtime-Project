@@ -150,17 +150,18 @@ public class QuestionPageActivity extends CustomActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				//Needs to be position + 1. Why? I have no idea..
-				Answer answer = adapter.getItem(position - 1);
+				Answer answer = adapter.getItem(position - 1);	
 				
 				Bundle bundle = new Bundle();
-				bundle.putString("Username", answer.getUser());
-				bundle.putString("Title", "");
-				bundle.putString("Body", answer.getBody());
-				bundle.putString("Date", answer.getDate().toString());
-				bundle.putSerializable("Replies", answer.getReplyList());
+				
+				ApplicationState.setPassableAnswer(answer);
+				
+				bundle.putString("ReplyType", "answer");
+								
 				Intent intent = new Intent(QuestionPageActivity.this, ReplyPageActivity.class);
 				intent.putExtras(bundle);
-				startActivity(intent);		
+				startActivity(intent);	
+				
 			}
 		});
 		
@@ -293,13 +294,10 @@ public class QuestionPageActivity extends CustomActivity {
 	public void view_replies(View v) {
 		Bundle bundle = new Bundle();
 		
-		//bundle.putSerializable("Question", question);
+		ApplicationState.setPassableQuestion(question);
 		
-		bundle.putString("Username", question.getUser());
-		bundle.putString("Title", question.getTitle());
-		bundle.putString("Body", question.getBody());
-		bundle.putString("Date", question.getDate().toString());
-		bundle.putSerializable("Replies", question.getReplyList());
+		bundle.putString("ReplyType", "question");
+		
 		Intent intent = new Intent(QuestionPageActivity.this, ReplyPageActivity.class);
 		intent.putExtras(bundle);
 		startActivity(intent);	

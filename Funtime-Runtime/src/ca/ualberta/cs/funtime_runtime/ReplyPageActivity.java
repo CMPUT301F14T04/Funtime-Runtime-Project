@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,10 +30,14 @@ public class ReplyPageActivity extends CustomActivity {
 	
 	ReplyListAdapter adapter;
 	
-	Question parentQuestion;
+	String replyType;
+	Question question;
+	Answer answer;
 	
 	LayoutInflater inflater;
 	View header;
+	
+	Button addReply;
 	
 	
 	@Override
@@ -42,15 +47,23 @@ public class ReplyPageActivity extends CustomActivity {
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
 		
-		parentTitle = extras.getString("Title");
-		parentBody = extras.getString("Body");
-		parentDate = extras.getString("Date");
-		parentUsername = extras.getString("Username");
+		replyType = extras.getString("ReplyType");
 		
-		//parentQuestion = (Question) extras.getSerializable("Question");
-		//repliesList = parentQuestion.getReplyList();
-		
-		repliesList = (ArrayList<Reply>) extras.getSerializable("Replies");
+		if (replyType.equals("question")) {
+			question = ApplicationState.getPassableQuestion();
+			parentTitle = question.getTitle();
+			parentBody = question.getBody();
+			parentDate = question.getDate();
+			parentUsername = question.getUser();			
+			repliesList = question.getReplyList();
+		} else if (replyType.equals("answer")) {
+			answer = ApplicationState.getPassableAnswer();
+			parentTitle = "";
+			parentBody = answer.getBody();
+			parentDate = answer.getDate();
+			parentUsername = answer.getUser();			
+			repliesList = answer.getReplyList();
+		}
 		
 		replyListView = (ListView) findViewById(R.id.reply_list_view);
 		
@@ -62,6 +75,8 @@ public class ReplyPageActivity extends CustomActivity {
 		parentBodyText = (TextView) findViewById(R.id.reply_parent_body);
 		parentDateText = (TextView) findViewById(R.id.reply_parent_date);
 		parentUserText = (TextView) findViewById(R.id.reply_parent_user);
+		
+		addReply = (Button) findViewById(R.id.add_reply_button);
 		
 		parentTitleText.setText(parentTitle);
 		parentBodyText.setText(parentBody);
@@ -128,4 +143,16 @@ public class ReplyPageActivity extends CustomActivity {
 
 //-------------------------------------------
 //-------------------------------------------
+
+	public void addReply(View v) {
+		
+		Bundle bundle = new Bundle();
+		
+		bundle.putString("ReplyType", replyType);
+	
+		Intent intent = new Intent(ReplyPageActivity.this, AuthorReplyActivity.class);
+		intent.putExtras(bundle);
+		startActivity(intent);
+	}
+	
 }
