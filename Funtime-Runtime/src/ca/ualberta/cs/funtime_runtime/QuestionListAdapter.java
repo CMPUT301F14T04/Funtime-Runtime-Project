@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +20,20 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	List<Question> questionList;
 	int res;
 	LayoutInflater inflater;
-
+	Account account;
+	ArrayList<Question> favouritesList;
+	ArrayList<Question> upvotedList;
+	
+	
 	public QuestionListAdapter(Context context, int resource, ArrayList<Question> objects) {
 		super(context, resource, objects);
 		ctx = context;
 		res = resource;
 		questionList = objects;
 		inflater = LayoutInflater.from(context);
+		account = ApplicationState.getAccount();
+		favouritesList = account.getFavouritesList();
+		upvotedList = account.getUpvotedQuestions();
 	}
 
 	@Override
@@ -60,6 +68,11 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		
 		//ImageView star = (ImageView) theView.findViewById(R.id.fav_star);
 		ImageView star = (ImageView) theView.findViewById(R.id.adapterStar);
+		if (favouritesList.contains(question)) {
+			star.setImageResource(android.R.drawable.btn_star_big_on);
+		} else {
+			star.setImageResource(android.R.drawable.btn_star_big_off);
+		}
 
 		//TextView titleTextView = (TextView) theView.findViewById(R.id.question_title_textview);
 		TextView titleTextView = (TextView) theView.findViewById(R.id.adapterTitle);
@@ -71,6 +84,12 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		//ratingTextView.setText(ratingString + " " + question.getRating());
 		String rating = Integer.toString(question.getRating());
 		ratingTextView.setText(rating);
+		
+		if (upvotedList.contains(question)) {
+			ratingTextView.setTextColor(Color.parseColor("#e77619"));
+		} else {
+			ratingTextView.setTextColor(Color.parseColor("#000000"));
+		}
 		
 		//TextView answerTextView = (TextView) theView.findViewById(R.id.question_answer_textview);
 		TextView answerTextView = (TextView) theView.findViewById(R.id.adapterAnswers);
