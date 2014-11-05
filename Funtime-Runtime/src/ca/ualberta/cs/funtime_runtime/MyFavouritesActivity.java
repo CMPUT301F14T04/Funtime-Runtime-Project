@@ -48,6 +48,9 @@ public class MyFavouritesActivity extends CustomActivity {
 				bundle.putSerializable("Question", question);
 				Intent intent = new Intent(MyFavouritesActivity.this, QuestionPageActivity.class);
 				intent.putExtras(bundle);
+				
+				ApplicationState.setPassableQuestion(question);
+				
 				startActivity(intent);			
 			}
 		});

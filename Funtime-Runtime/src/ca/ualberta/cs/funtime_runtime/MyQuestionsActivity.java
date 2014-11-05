@@ -37,6 +37,9 @@ public class MyQuestionsActivity extends CustomActivity {
 				bundle.putSerializable("Question", question);
 				Intent intent = new Intent(MyQuestionsActivity.this, QuestionPageActivity.class);
 				intent.putExtras(bundle);
+				
+				ApplicationState.setPassableQuestion(question);
+				
 				startActivity(intent);
 				
 			}

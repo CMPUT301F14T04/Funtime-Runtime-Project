@@ -51,6 +51,9 @@ public class MyHistoryActivity extends CustomActivity {
                 Intent intent = new Intent(MyHistoryActivity.this,
                         QuestionPageActivity.class);
                 intent.putExtras(bundle);
+                
+                ApplicationState.setPassableQuestion(question);
+                
                 startActivity(intent);
 
             }
