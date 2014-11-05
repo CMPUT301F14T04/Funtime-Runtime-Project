@@ -1,6 +1,11 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.util.ArrayList;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -8,15 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+
 public class AuthorAnswerActivity extends CustomActivity {
 	
 	Question question;
-	Button submitBtn;
+	Button submitButton;
 	EditText answerBody;
 	TextView questionTitle;
 	TextView questionBody;
 	Account account;
 	String username;
+	ArrayList<Answer> userAnswerList;
 	
 
 	@Override
@@ -26,10 +33,15 @@ public class AuthorAnswerActivity extends CustomActivity {
 		questionTitle = (TextView) findViewById(R.id.questionTitleAA);
 		questionBody = (TextView) findViewById(R.id.questionBodyAA);
 		answerBody = (EditText) findViewById(R.id.typeAnswerAA);
-		submitBtn = (Button) findViewById(R.id.submitAnswerButton);
+		submitButton = (Button) findViewById(R.id.submitAnswerButton);
 		account = ApplicationState.getAccount();
 		username = account.getName();
-		//testAuthorAnswer();
+		question = ApplicationState.getPassableQuestion();
+		questionTitle.setText(question.getTitle());
+		questionBody.setText(question.getBody());
+		
+		//questionBody.setEllipsize(TextUtils.TruncateAt.END);
+		//questionBody.setMovementMethod(new ScrollingMovementMethod());
 	}
 
 	private void testAuthorAnswer() {
@@ -92,11 +104,16 @@ public class AuthorAnswerActivity extends CustomActivity {
 		}
 //-------------------------------------------
 //-------------------------------------------	
-	 public void answer_question(){
-		 //Answer (String text, String user)
-		 Answer new_answer = new Answer(answerBody.getText().toString(),username);
-		 
-	 }
+	 public void answer_question(View v){ 
+		Answer answer = new Answer(answerBody.getText().toString(), username.toString());
+		userAnswerList = account.getAnswerList();
+		question.addAnswer(answer);
+		userAnswerList.add(0,answer);
+		
+		finish();
+				
+				
+			}
 	 public void answer_cancel(View v){
 		 finish();
 	 }

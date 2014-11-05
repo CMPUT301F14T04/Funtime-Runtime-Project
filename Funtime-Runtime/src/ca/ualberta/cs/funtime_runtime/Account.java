@@ -61,6 +61,10 @@ public class Account {
 		return answerList.get(i);
 	}
 
+	public ArrayList<Answer> getAnswerList() {
+		return answerList;
+	}
+	
 	public ArrayList<Question> getFavouritesList() {
 		return favourites;
 	}

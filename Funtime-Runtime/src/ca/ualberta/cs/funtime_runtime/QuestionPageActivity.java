@@ -267,6 +267,7 @@ public class QuestionPageActivity extends CustomActivity {
 	//start the AuthorAnswerActivity --> Author Answer Page
 	public void addAnswer(View v)
 	{
+		ApplicationState.setPassableQuestion(question);
 		Intent authorAnswer = new Intent(QuestionPageActivity.this, AuthorAnswerActivity.class);
 		startActivity(authorAnswer);
 	}
