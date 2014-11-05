@@ -8,6 +8,8 @@ public class ApplicationState extends Application {
 	// adapted from http://stackoverflow.com/questions/708012/how-to-declare-global-variables-in-android - Accessed Oct 22 2014
 	
 	private static Account account;
+	// TODO pull questionList from server
+	private static ArrayList<Question> questionList = new ArrayList<Question>();
 	
 	private static Question passableQuestion;
 	
@@ -42,6 +44,10 @@ public class ApplicationState extends Application {
 	
 	public static Question getPassableQuestion() {
 		return passableQuestion;
+	}
+	
+	public static ArrayList<Question> getQuestionList() {
+		return questionList;
 	}
 	
 	public static boolean isLoggedIn() {
