@@ -39,7 +39,8 @@ public class ESQuestionManager implements IQuestionManager
 	{
 
 		// TODO Auto-generated method stub
-		// 
+		// push question to server with idTracker
+	    // increment idTracker 
 		
 	}
 
