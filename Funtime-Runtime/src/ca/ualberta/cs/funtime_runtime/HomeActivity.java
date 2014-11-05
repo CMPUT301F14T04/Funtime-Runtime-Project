@@ -94,6 +94,9 @@ public class HomeActivity extends CustomActivity {
 		bundle.putSerializable("Question", question);
 		Intent intent = new Intent(HomeActivity.this, QuestionPageActivity.class);
 		intent.putExtras(bundle);
+		
+		ApplicationState.setPassableQuestion(question);
+		
 		startActivity(intent);	
 		
 	}

@@ -9,6 +9,8 @@ public class ApplicationState extends Application {
 	
 	private static Account account;
 	
+	private static Question passableQuestion;
+	
 	// TODO pull accountList from server
 	private static ArrayList<Account> accountList = new ArrayList<Account>();
 	private static boolean loggedIn = false;
@@ -32,6 +34,14 @@ public class ApplicationState extends Application {
 	
 	public static void addAccount(Account newAccount) {
 		accountList.add(newAccount);
+	}
+	
+	public static void setPassableQuestion(Question question) {
+		passableQuestion = question;
+	}
+	
+	public static Question getPassableQuestion() {
+		return passableQuestion;
 	}
 	
 	public static boolean isLoggedIn() {

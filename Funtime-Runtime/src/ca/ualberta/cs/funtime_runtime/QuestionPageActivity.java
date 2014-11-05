@@ -67,7 +67,10 @@ public class QuestionPageActivity extends CustomActivity {
 		questionTitle = (TextView) findViewById(R.id.question_title);
 		questionBody = (TextView) findViewById(R.id.question_body);
 		questionBody.setMovementMethod(new ScrollingMovementMethod());
-		question = (Question) extras.getSerializable("Question");
+		
+		//question = (Question) extras.getSerializable("Question");
+		question = ApplicationState.getPassableQuestion();
+		
 		addAnswerBtn = (Button) findViewById(R.id.button_add_answer);
 		bookmark_button = (ImageButton) findViewById(R.id.question_bookmark_button);
 		photo_button = (ImageButton) findViewById(R.id.view_photo_button);
