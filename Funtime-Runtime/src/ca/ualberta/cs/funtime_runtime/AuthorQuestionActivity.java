@@ -83,7 +83,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 		//Question question1 = new Question("What is the meaning of life?", "body 1 test", "user1");
 		Question query = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
 		questionList = ApplicationState.getQuestionList();
-		userQuestionList = account.getMyQuestions();
+		//userQuestionList = account.getMyQuestions();
 		questionList.add(0,query);
 		userQuestionList.add(0,query);
 		

@@ -94,7 +94,11 @@ public class HomeActivity extends CustomActivity {
 			Answer answer0 = new Answer("This is a really long anser jkdslf;j;dsklfjkdls;ajfklds;ajfklds;jafkld;sjaklf;djskalf;jdskla;fjdskla;jfklds;ajfkld;sjafkl;dsjaklf;djsakfjds", "blaman");
 			question4.addAnswer(answer0);
 			for (int i = 0; i < 15; i++) {
-				question4.addAnswer(new Answer("This is answer " + i, "user " + i));
+				Answer answer = new Answer("This is answer " + i, "user " + i);
+				for (int j = 0; j < 123; j++){
+					answer.upVote();
+				}	
+				question4.addAnswer(answer);
 			}
 			first = false;
 		}
