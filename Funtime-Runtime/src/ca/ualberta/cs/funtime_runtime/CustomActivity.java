@@ -20,6 +20,7 @@ public class CustomActivity extends Activity
 		Intent intent = new Intent (this, HomeActivity.class);
 		startActivity(intent);
 	}
+	
 	public void openSearch() {
 		//Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(this, SearchActivity.class);
