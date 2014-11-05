@@ -2,6 +2,7 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,6 +27,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_author_question);
+		ActionBar actionbar = getActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
+		
 		submitButton = (Button) findViewById(R.id.submit_question_button);
 		//addPhotoButton = (Button) findViewById(R.id.add_question_image);
 		cancelButton = (Button) findViewById(R.id.cancel_button);

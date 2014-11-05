@@ -2,6 +2,7 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,6 +47,9 @@ public class ReplyPageActivity extends CustomActivity {
 		setContentView(R.layout.activity_reply_page);
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
+		
+		ActionBar actionbar = getActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
 		
 		replyType = extras.getString("ReplyType");
 		

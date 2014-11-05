@@ -2,6 +2,7 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +18,9 @@ public class CreateAccountActivity extends CustomActivity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_account);
+		
+		ActionBar actionbar = getActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
 		
 		Button createAccountButton = (Button) findViewById(R.id.createAccountButton);
 		

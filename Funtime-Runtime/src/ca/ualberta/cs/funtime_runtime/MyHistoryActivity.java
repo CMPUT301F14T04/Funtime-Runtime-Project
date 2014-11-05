@@ -3,6 +3,7 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,6 +27,9 @@ public class MyHistoryActivity extends CustomActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
+        ActionBar actionbar = getActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
+        
         myHistoryListView = (ListView) findViewById(R.id.myHistory_ListView);
         account = ApplicationState.getAccount();
 

@@ -3,6 +3,7 @@ package ca.ualberta.cs.funtime_runtime;
 import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,10 @@ public class MyAnswersActivity extends CustomActivity {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_answers);
+		
+		ActionBar actionbar = getActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
+		
 		myAnswersQuestionList = new ArrayList<Question>();
 		myAnswersListView = (ListView) findViewById(R.id.listView1);
 		testMyAnswers();

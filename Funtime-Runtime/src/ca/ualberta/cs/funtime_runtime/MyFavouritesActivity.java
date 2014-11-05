@@ -2,6 +2,7 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,6 +26,9 @@ public class MyFavouritesActivity extends CustomActivity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_favourites);
+		
+		ActionBar actionbar = getActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
 		
 		favouritesListView = (ListView) findViewById(R.id.myFavouritesListView);	
 		account = ApplicationState.getAccount();

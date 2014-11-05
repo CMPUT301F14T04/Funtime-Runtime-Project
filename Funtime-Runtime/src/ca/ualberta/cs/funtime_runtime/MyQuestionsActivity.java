@@ -1,6 +1,7 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +25,9 @@ public class MyQuestionsActivity extends CustomActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_questions);
 	
+		ActionBar actionbar = getActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
+		
 		myQuestionList = new ArrayList<Question>();
 		myQuestionsListView = (ListView) findViewById(R.id.listView1);
 		myQuestionsExample();
