@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="60dp"
         android:layout_toLeftOf="@+id/adapterStar"
         android:text="Title" 
         android:textStyle="bold"/>
@@ -35,14 +35,24 @@
         android:textStyle="italic" />
 
     <TextView
+        android:id="@+id/adapterRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/adapterDate"
+        android:paddingRight="10dp"
+        android:drawableTop="@drawable/arrow_up_float"
+        android:gravity="center"
+        android:text="0"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/adapterAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/adapterDate"
-        android:layout_alignTop="@+id/adapterAnswers"
-        android:layout_marginLeft="38dp"
-        android:layout_toLeftOf="@+id/adapterStar"
-        android:layout_toRightOf="@+id/adapterAnswers"
+        android:layout_alignLeft="@+id/adapterAnswers"
+        android:layout_below="@+id/adapterAnswers"
         android:text="Author: "
         android:textSize="12sp"
         android:textStyle="italic" />
@@ -51,21 +61,10 @@
         android:id="@+id/adapterDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/adapterAnswers"
-        android:layout_alignRight="@+id/adapterAuthor"
-        android:layout_below="@+id/adapterAnswers"
+        android:layout_alignLeft="@+id/adapterAuthor"
+        android:layout_below="@+id/adapterAuthor"
         android:text="Date: "
         android:textSize="12sp"
         android:textStyle="italic" />
-
-    <TextView
-        android:id="@+id/adapterRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:drawableTop="@drawable/arrow_up_float"
-        android:text="1000" 
-        android:textStyle="bold"/>
 
 </RelativeLayout>

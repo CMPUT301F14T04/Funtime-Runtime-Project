@@ -66,7 +66,7 @@ public class HomeActivity extends CustomActivity {
 		account.addFavourite(question2);
 		account.readLater(question1);
 		account.readLater(question2);
-		question1.downVote();
+		question1.upVote();
 		for (int i = 0; i < 1000; i++)
 			question2.upVote();
 		for (int i = 0; i < 999; i++) {

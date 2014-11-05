@@ -9,6 +9,7 @@ public class ESQuestionManager implements IQuestionManager
 {
 	private static final String URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/";
 	private static final String TAG= "QuestionsSearch";
+	private int idTracker;
 
 	//private Gson gson;
 	
@@ -22,8 +23,6 @@ public class ESQuestionManager implements IQuestionManager
 
 		ArrayList<Question> result = new ArrayList<Question>();
 
-		
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -40,6 +39,7 @@ public class ESQuestionManager implements IQuestionManager
 	{
 
 		// TODO Auto-generated method stub
+		// 
 		
 	}
 
@@ -49,6 +49,14 @@ public class ESQuestionManager implements IQuestionManager
 
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void incrementId() {
+		idTracker++;
+	}
+	
+	public void decrementId() {
+		idTracker--;
 	}
 
 }

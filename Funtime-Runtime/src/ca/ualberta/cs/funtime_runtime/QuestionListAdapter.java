@@ -69,7 +69,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		TextView ratingTextView = (TextView) theView.findViewById(R.id.adapterRating);
 		//String ratingString = "Rating:";
 		//ratingTextView.setText(ratingString + " " + question.getRating());
-		ratingTextView.setText("1000");
+		String rating = Integer.toString(question.getRating());
+		ratingTextView.setText(rating);
 		
 		//TextView answerTextView = (TextView) theView.findViewById(R.id.question_answer_textview);
 		TextView answerTextView = (TextView) theView.findViewById(R.id.adapterAnswers);
@@ -85,7 +86,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		TextView questionDateTextView = (TextView) theView.findViewById(R.id.adapterDate);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy  HH:mm");
 		String questionDateString = dateFormat.format(question.getDate());
-		questionDateTextView.setText("Date Posted: " + questionDateString);
+		questionDateTextView.setText("Posted: " + questionDateString);
 		
 		
 		return theView;
