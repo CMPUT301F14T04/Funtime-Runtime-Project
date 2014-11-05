@@ -69,6 +69,11 @@ public class Answer implements Serializable {
 		return reply;
 	}
 	
+	public ArrayList<Reply> getReplyList() {
+		// TODO Auto-generated method stub
+		return replyList;
+	}
+	
 	public Date getDate() {
 		return date;
 	}

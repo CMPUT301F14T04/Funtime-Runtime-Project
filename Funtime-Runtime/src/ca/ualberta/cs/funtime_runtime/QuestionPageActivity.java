@@ -7,11 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -144,6 +145,24 @@ public class QuestionPageActivity extends CustomActivity {
 				startActivity(intent);
 				}
 			});
+		
+		answerListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				//Needs to be position + 1. Why? I have no idea..
+				Answer answer = adapter.getItem(position - 1);
+				
+				Bundle bundle = new Bundle();
+				bundle.putString("Username", answer.getUser());
+				bundle.putString("Title", "");
+				bundle.putString("Body", answer.getBody());
+				bundle.putString("Date", answer.getDate().toString());
+				bundle.putSerializable("Replies", answer.getReplyList());
+				Intent intent = new Intent(QuestionPageActivity.this, ReplyPageActivity.class);
+				intent.putExtras(bundle);
+				startActivity(intent);		
+			}
+		});
 		
 	}
 	

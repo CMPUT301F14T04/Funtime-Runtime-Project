@@ -81,6 +81,9 @@ public class HomeActivity extends CustomActivity {
 		Answer answer1 = new Answer("Sweet", "user1");
 		Answer answer2 = new Answer("Question", "user2");
 		Answer answer3 = new Answer("Bro do you even lift????????????????????????????????????????", "user3");
+		answer3.addReply(new Reply("This is a test reply on an answer!", "userman"));
+		answer3.addReply(new Reply("This is also a test reply on an answer!", "womanman"));
+		answer3.addReply(new Reply("This is not a test reply on an answer! (Ha! I tricked you, it totally is! I bet you fell for it!", "catman"));
 		question1.addAnswer(answer1);
 		question1.addAnswer(answer2);
 		question1.addAnswer(answer3);
