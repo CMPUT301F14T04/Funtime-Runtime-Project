@@ -50,38 +50,59 @@ public class ReplyPageActivity extends CustomActivity {
 		replyType = extras.getString("ReplyType");
 		
 		if (replyType.equals("question")) {
+			
 			question = ApplicationState.getPassableQuestion();
 			parentTitle = question.getTitle();
 			parentBody = question.getBody();
 			parentDate = question.getDate();
 			parentUsername = question.getUser();			
 			repliesList = question.getReplyList();
-		} else if (replyType.equals("answer")) {
+			
+			
+			replyListView = (ListView) findViewById(R.id.reply_list_view);
+			
+			inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			header = (View)inflater.inflate(R.layout.reply_page_header, null, false);
+			replyListView.addHeaderView(header);
+			
+			parentTitleText = (TextView) findViewById(R.id.reply_parent_title);
+			parentBodyText = (TextView) findViewById(R.id.reply_parent_body);
+			parentDateText = (TextView) findViewById(R.id.reply_parent_date);
+			parentUserText = (TextView) findViewById(R.id.reply_parent_user);
+			
+			addReply = (Button) findViewById(R.id.add_reply_button);
+			
+			parentTitleText.setText(parentTitle);
+			parentBodyText.setText(parentBody);
+			parentDateText.setText(parentDate);
+			parentUserText.setText(parentUsername);
+		} 
+		
+		else if (replyType.equals("answer")) {
+			
 			answer = ApplicationState.getPassableAnswer();
-			parentTitle = "";
 			parentBody = answer.getBody();
 			parentDate = answer.getDate();
 			parentUsername = answer.getUser();			
 			repliesList = answer.getReplyList();
+			
+			replyListView = (ListView) findViewById(R.id.reply_list_view);
+			
+			inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			header = (View)inflater.inflate(R.layout.reply_answers_page_header, null, false);
+			replyListView.addHeaderView(header);
+			
+			parentBodyText = (TextView) findViewById(R.id.reply_parent_body);
+			parentDateText = (TextView) findViewById(R.id.reply_parent_date);
+			parentUserText = (TextView) findViewById(R.id.reply_parent_user);
+			
+			addReply = (Button) findViewById(R.id.add_reply_button);
+			
+			parentBodyText.setText(parentBody);
+			parentDateText.setText(parentDate);
+			parentUserText.setText(parentUsername);
 		}
 		
-		replyListView = (ListView) findViewById(R.id.reply_list_view);
-		
-		inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		header = (View)inflater.inflate(R.layout.reply_page_header, null, false);
-		replyListView.addHeaderView(header);
-		
-		parentTitleText = (TextView) findViewById(R.id.reply_parent_title);
-		parentBodyText = (TextView) findViewById(R.id.reply_parent_body);
-		parentDateText = (TextView) findViewById(R.id.reply_parent_date);
-		parentUserText = (TextView) findViewById(R.id.reply_parent_user);
-		
-		addReply = (Button) findViewById(R.id.add_reply_button);
-		
-		parentTitleText.setText(parentTitle);
-		parentBodyText.setText(parentBody);
-		parentDateText.setText(parentDate);
-		parentUserText.setText(parentUsername);
 				
 		adapter = new ReplyListAdapter(this, R.layout.reply_list_adapter, repliesList);
 		replyListView.setAdapter(adapter);
