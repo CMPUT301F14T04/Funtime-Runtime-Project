@@ -83,9 +83,15 @@ public class Question implements Serializable{
 		return reply;
 	}
 	
+	public int getReplyCount() {
+		return replyList.size();
+	}
+	
 	public ArrayList<Reply> getReplyList() {
 		return replyList;
 	}
+	
+	
 	
 	public boolean equals(Object o) {
 	    // Adapted from http://stackoverflow.com/questions/10943836/if-arraylist-contains-doesnt-work - accessed 2 nov 2014
@@ -99,5 +105,6 @@ public class Question implements Serializable{
 	        return false;
 	    }
 	}
+
 	
 }

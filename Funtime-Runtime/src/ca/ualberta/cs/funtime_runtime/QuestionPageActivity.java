@@ -31,6 +31,7 @@ public class QuestionPageActivity extends CustomActivity {
 	TextView answersTitle;
 	Button questionUpvote;
 	Button addAnswerBtn;
+	Button repliesText;
 	ImageButton favourite_button;
 	ImageButton bookmark_button;
 	ImageButton photo_button;
@@ -80,6 +81,7 @@ public class QuestionPageActivity extends CustomActivity {
 		photo_button = (ImageButton) findViewById(R.id.view_photo_button);
 		questionUpvote = (Button) findViewById(R.id.overallRating);
 		favourite_button = (ImageButton) findViewById(R.id.question_favorite_button);
+		repliesText = (Button) findViewById(R.id.replies_text);
 
 		account = ApplicationState.getAccount();
 		
@@ -130,6 +132,8 @@ public class QuestionPageActivity extends CustomActivity {
 		
 		answersTitle.setText("Answers (" + questionAnswerList.size() + ")");
 		
+		repliesText.setText("Replies: " + question.getReplyCount());
+		
 		adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, questionAnswerList);
 		answerListView.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
@@ -169,6 +173,8 @@ public class QuestionPageActivity extends CustomActivity {
 		} else {
 			bookmark_button.setColorFilter(not_bookmarked_color);
 		}
+		
+		repliesText.setText("Replies: " + question.getReplyCount());
 		
 		adapter.notifyDataSetChanged();
 	
