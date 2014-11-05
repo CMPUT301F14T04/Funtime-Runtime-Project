@@ -16,7 +16,6 @@ public class Question implements Serializable{
 	public ArrayList<Answer> answerList;
 	public ArrayList<Reply> replyList;
 	private int rating;
-	private int numberOfAnswers;
 	
 	public Question(String title, String body, String username) {
 		this.title = title;
@@ -24,7 +23,6 @@ public class Question implements Serializable{
 		this.username = username;
 		date = new Date();
 		rating = 0;
-		numberOfAnswers = 0;
 		answerList = new ArrayList<Answer>();
 		replyList = new ArrayList<Reply>();
 	}
@@ -63,11 +61,10 @@ public class Question implements Serializable{
 
 	public void addAnswer(Answer answer) {
 		answerList.add(0, answer);
-		numberOfAnswers++;
 	}
 
 	public int getAnswerCount() {
-		return numberOfAnswers;
+		return answerList.size();
 	}
 
 	public Answer getAnswer(int i) {

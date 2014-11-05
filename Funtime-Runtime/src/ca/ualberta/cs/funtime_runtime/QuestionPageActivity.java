@@ -8,11 +8,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -152,8 +156,8 @@ public class QuestionPageActivity extends CustomActivity {
 		answerListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				//Needs to be position + 1. Why? I have no idea..
-				Answer answer = adapter.getItem(position - 1);	
+				//Needs to be position - 1. Why? I have no idea..
+				Answer answer = adapter.getItem(position);	
 				
 				Bundle bundle = new Bundle();
 				
@@ -202,7 +206,7 @@ public class QuestionPageActivity extends CustomActivity {
 		adapter.notifyDataSetChanged();
 	
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{

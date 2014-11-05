@@ -4,10 +4,14 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -46,6 +50,7 @@ public class HomeActivity extends CustomActivity {
 			}
 		});
 
+		registerForContextMenu(homeListView);
 	}
 	
 	@Override
@@ -53,6 +58,39 @@ public class HomeActivity extends CustomActivity {
 		super.onRestart();
 		adapter.notifyDataSetChanged();
 	
+	}
+	
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+	    super.onCreateContextMenu(menu, v, menuInfo);
+	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+	    Question selectedQuestion = adapter.getItem(info.position);
+	    
+	    if (account.getReadingList().contains(selectedQuestion)) {
+	    	menu.add("Remove from reading list");
+	    } else {
+	    	menu.add("Add to reading list");
+	    }
+	}
+
+	public boolean onContextItemSelected(MenuItem item) {
+
+	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	    int itemIndex = info.position;
+	    Question selectedQuestion = adapter.getItem(itemIndex);
+	    
+		if (item.getTitle() == "Remove from reading list") {
+		    account.removeReadLater(selectedQuestion);
+		}
+		else if (item.getTitle() == "Add to reading list") {
+		    account.readLater(selectedQuestion);
+            
+	    } 
+		else {
+	        return false;
+	    }
+		
+	    return true;
+
 	}
 		
 	private void testHome() {
