@@ -21,6 +21,7 @@ import android.widget.TextView;
 public class QuestionPageActivity extends CustomActivity {
 	ListView answerListView;
 	ArrayList<Answer> questionAnswerList;
+	AnswerListAdapter adapter;
 	Account account;
 	TextView questionTitle;
 	TextView questionBody;
@@ -34,6 +35,9 @@ public class QuestionPageActivity extends CustomActivity {
 	ImageButton bookmark_button;
 	ImageButton photo_button;
 	Question question;
+	ArrayList<Question> favourited_list;
+	ArrayList<Question> upvoted_list;
+	ArrayList<Question> bookmarked_list;
 	Boolean favourited = false;
 	Boolean upvoted = false;
 	Boolean bookmarked = false;
@@ -79,7 +83,7 @@ public class QuestionPageActivity extends CustomActivity {
 
 		account = ApplicationState.getAccount();
 		
-		ArrayList<Question> favourited_list = account.getFavouritesList();
+		favourited_list = account.getFavouritesList();
 		if (favourited_list.contains(question)) {
 			favourited = true;
 			favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
@@ -87,7 +91,7 @@ public class QuestionPageActivity extends CustomActivity {
 			favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
 		}
 		
-		ArrayList<Question> upvoted_list = account.getUpvotedQuestions();
+		upvoted_list = account.getUpvotedQuestions();
 		if (upvoted_list.contains(question)) {
 			upvoted = true;
 			questionUpvote.setTextColor(upvote_color);
@@ -98,7 +102,7 @@ public class QuestionPageActivity extends CustomActivity {
 		questionUpvote.setText(Integer.toString(rating));
 		
 
-		ArrayList<Question> bookmarked_list = account.getReadingList();
+		bookmarked_list = account.getReadingList();
 		if (bookmarked_list.contains(question)) {
 			bookmarked = true;
 			bookmark_button.setColorFilter(bookmarked_color);
@@ -126,7 +130,7 @@ public class QuestionPageActivity extends CustomActivity {
 		
 		answersTitle.setText("Answers (" + questionAnswerList.size() + ")");
 		
-		AnswerListAdapter adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, questionAnswerList);
+		adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, questionAnswerList);
 		answerListView.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
 		addAnswerBtn.setOnClickListener(new View.OnClickListener() {		
@@ -137,6 +141,37 @@ public class QuestionPageActivity extends CustomActivity {
 				}
 			});
 		
+	}
+	
+	@Override
+	public void onRestart() {
+		super.onRestart();
+		if (favourited_list.contains(question)) {
+			favourited = true;
+			favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
+		} else {
+			favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
+		}
+		
+		if (upvoted_list.contains(question)) {
+			upvoted = true;
+			questionUpvote.setTextColor(upvote_color);
+		} else {
+			questionUpvote.setTextColor(Color.parseColor("#000000"));
+		}
+		rating = question.getRating();
+		questionUpvote.setText(Integer.toString(rating));
+		
+
+		if (bookmarked_list.contains(question)) {
+			bookmarked = true;
+			bookmark_button.setColorFilter(bookmarked_color);
+		} else {
+			bookmark_button.setColorFilter(not_bookmarked_color);
+		}
+		
+		adapter.notifyDataSetChanged();
+	
 	}
 
 	@Override

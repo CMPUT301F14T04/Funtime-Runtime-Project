@@ -59,6 +59,13 @@ public class MyHistoryActivity extends CustomActivity {
             }
         });
     }
+    
+	@Override
+	public void onRestart() {
+		super.onRestart();
+		adapter.notifyDataSetChanged();
+	
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

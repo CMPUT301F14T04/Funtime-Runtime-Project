@@ -45,6 +45,13 @@ public class MyAnswersActivity extends CustomActivity {
 	}
 	
 	
+	@Override
+	public void onRestart() {
+		super.onRestart();
+		adapter.notifyDataSetChanged();
+	
+	}
+	
 	private void testMyAnswers() {
 		ArrayList<Question> questionList = new ArrayList<Question>();
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, questionList);

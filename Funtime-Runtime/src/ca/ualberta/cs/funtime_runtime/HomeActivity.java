@@ -46,6 +46,12 @@ public class HomeActivity extends CustomActivity {
 
 	}
 	
+	@Override
+	public void onRestart() {
+		super.onRestart();
+		adapter.notifyDataSetChanged();
+	
+	}
 		
 	private void testHome() {
 		account = new Account("TestUser1");

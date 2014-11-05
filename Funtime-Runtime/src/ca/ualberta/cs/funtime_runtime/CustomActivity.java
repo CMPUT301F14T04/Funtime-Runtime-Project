@@ -3,9 +3,19 @@ package ca.ualberta.cs.funtime_runtime;
 import android.app.Activity;
 import android.content.Intent;
 //import android.widget.Toast;
+import android.os.Bundle;
 
 public class CustomActivity extends Activity
 {
+	
+	public void onResume(Bundle savedInstanceState) {
+		super.onResume();
+	}
+
+	public void onStart(Bundle savedInstanceState) {
+		super.onStart();
+	}
+	
 	public void openMyHome(){
 		Intent intent = new Intent (this, HomeActivity.class);
 		startActivity(intent);
@@ -57,4 +67,10 @@ public class CustomActivity extends Activity
 		Intent intent = new Intent(this, Sort.class);
 		startActivity(intent);
 	}
+
+	public void onRestart(Bundle savedInstanceState) {
+		super.onRestart();
+		
+	}
+
 }

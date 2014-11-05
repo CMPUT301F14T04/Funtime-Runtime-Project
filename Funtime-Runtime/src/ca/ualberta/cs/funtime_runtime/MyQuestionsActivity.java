@@ -47,6 +47,13 @@ public class MyQuestionsActivity extends CustomActivity {
 		
 	}
 	
+	@Override
+	public void onRestart() {
+		super.onRestart();
+		adapter.notifyDataSetChanged();
+	
+	}
+	
 	private void myQuestionsExample()
 	{
 		ArrayList<Question> questionList = new ArrayList<Question>();

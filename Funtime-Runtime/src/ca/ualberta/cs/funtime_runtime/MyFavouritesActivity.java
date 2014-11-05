@@ -57,6 +57,12 @@ public class MyFavouritesActivity extends CustomActivity {
 
 	}
 	
+	@Override
+	public void onRestart() {
+		super.onRestart();
+		adapter.notifyDataSetChanged();
+	
+	}
 		
 	private void testMyFavourites() {
 		Question question1 = new Question("What is the meaning of life?", "body 1 test", "user1");

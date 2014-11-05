@@ -2,14 +2,15 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
 
-import android.os.Bundle;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+import android.widget.Toast;
 
 public class ReadingListActivity extends CustomActivity {
 
@@ -29,13 +30,11 @@ public class ReadingListActivity extends CustomActivity {
 		readingListView = (ListView) findViewById(R.id.readingListView);	
 		account = ApplicationState.getAccount();
 		
-		//testMyFavourites();
+		//testReadingList();
 
-		readingList = account.getFavouritesList();
+		readingList = account.getReadingList();
 
-		ArrayList<Question> favouritesAList = new ArrayList<Question>();
-		favouritesAList = readingList;
-		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, favouritesAList);
+		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, readingList);
 		readingListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();
 		
@@ -51,10 +50,17 @@ public class ReadingListActivity extends CustomActivity {
 				
 				ApplicationState.setPassableQuestion(question);
 				
-				startActivity(intent);			
+				startActivity(intent);
 			}
 		});
 
+	}
+	
+	@Override
+	public void onRestart() {
+		super.onRestart();
+		adapter.notifyDataSetChanged();
+	
 	}
 	
 	@Override
@@ -66,7 +72,17 @@ public class ReadingListActivity extends CustomActivity {
 		return true;
 	}
 
-	 
+	/*
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Toast.makeText(getApplicationContext(), "onActivityResult", 
+				   Toast.LENGTH_LONG).show();
+
+		readingList = account.getReadingList();
+		adapter.notifyDataSetChanged();
+	}
+	*/
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// switch case to choose an item from the menu

@@ -74,6 +74,12 @@ public class ReplyPageActivity extends CustomActivity {
 		
 		
 	}
+	
+	public void onResume() {
+		super.onResume();
+		adapter.notifyDataSetChanged();
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
