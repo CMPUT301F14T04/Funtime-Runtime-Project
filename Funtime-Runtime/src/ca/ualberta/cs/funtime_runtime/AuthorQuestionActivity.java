@@ -2,6 +2,7 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +30,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 		//addPhotoButton = (Button) findViewById(R.id.add_question_image);
 		cancelButton = (Button) findViewById(R.id.cancel_button);
 		//addPhotoButton = (Button) findViewById(R.id.add_image_button);
-		questionTitle = (EditText) findViewById(R.id.question_title);
+		questionTitle = (EditText) findViewById(R.id.question_title_text);
 		questionBody = (EditText) findViewById(R.id.question_body_text);
 		account = ApplicationState.getAccount();
 		username = account.getName();
@@ -78,14 +79,26 @@ public class AuthorQuestionActivity extends CustomActivity {
 //-------------------------------------------
 //-------------------------------------------
 	
-	public void submitQuestion() {
+	public void submitQuestion(View v) {
 		//Question question = new Question(questionTitle, questionBody, "username");
 		//Question question1 = new Question("What is the meaning of life?", "body 1 test", "user1");
 		Question query = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
 		questionList = ApplicationState.getQuestionList();
-		//userQuestionList = account.getMyQuestions();
+		userQuestionList = account.getQuestionList();
 		questionList.add(0,query);
 		userQuestionList.add(0,query);
+		
+		account.addToHistory(query); // Add question clicked to history
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("Question", query);
+		Intent intent = new Intent(AuthorQuestionActivity.this, QuestionPageActivity.class);
+		intent.putExtras(bundle);
+		
+		ApplicationState.setPassableQuestion(query);
+		
+		startActivity(intent);	
+		
+		finish();
 		
 		
 	}

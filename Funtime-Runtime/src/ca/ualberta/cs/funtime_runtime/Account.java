@@ -44,6 +44,10 @@ public class Account {
 	public Question getQuestion(int i) {
 		return questionList.get(i);
 	}
+	
+	public ArrayList<Question> getQuestionList() {
+		return questionList;
+	}
 
 	public void authorAnswer(Answer answer) {
 		answerList.add(answer);
@@ -57,6 +61,10 @@ public class Account {
 		return answerList.get(i);
 	}
 
+	public ArrayList<Answer> getAnswerList() {
+		return answerList;
+	}
+	
 	public ArrayList<Question> getFavouritesList() {
 		return favourites;
 	}
