@@ -26,7 +26,8 @@
         android:layout_height="151dp"
         android:layout_above="@+id/button_add_answer"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" >
+        android:layout_centerHorizontal="true"
+         >
 
     </ListView>
     <!--

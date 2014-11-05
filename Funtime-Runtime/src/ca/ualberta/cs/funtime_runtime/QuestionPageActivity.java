@@ -71,7 +71,7 @@ public class QuestionPageActivity extends CustomActivity {
 		
 		questionTitle = (TextView) findViewById(R.id.question_title);
 		questionBody = (TextView) findViewById(R.id.question_body);
-		questionBody.setMovementMethod(new ScrollingMovementMethod());
+		//questionBody.setMovementMethod(new ScrollingMovementMethod());
 		
 		//question = (Question) extras.getSerializable("Question");
 		question = ApplicationState.getPassableQuestion();

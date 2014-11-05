@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content" 
+    android:descendantFocusability="blocksDescendants">
 
     <ImageButton
         android:id="@+id/answer_view_photo_button"
@@ -45,16 +46,22 @@
         android:textSize="12sp"
         android:textStyle="italic" />
 
-    <TextView
+
+    
+    <Button
         android:id="@+id/answerAdapterRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
+        android:layout_alignTop="@+id/question_body"
         android:layout_marginRight="8dp"
+        android:minEms="2"
         android:drawableTop="@drawable/arrow_up_float"
-        android:text="10"
-        android:textStyle="bold" />
+        android:gravity="center"
+        android:text="@string/question_upvotes"
+        android:textStyle="bold"
+        android:background="@null" />
+    
 
     <TextView
         android:id="@+id/answer_textview"

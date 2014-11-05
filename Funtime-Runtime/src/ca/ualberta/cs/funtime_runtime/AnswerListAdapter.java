@@ -1,15 +1,20 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class AnswerListAdapter extends ArrayAdapter<Answer> {
 
@@ -17,6 +22,8 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 	List<Answer> answerList;
 	int res;
 	LayoutInflater inflater;
+	Account account;
+	ArrayList<Answer> upvotedList;
 
 	public AnswerListAdapter(Context context, int resource, List<Answer> objects) {
 		super(context, resource, objects);
@@ -24,6 +31,8 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		res = resource;
 		answerList = objects;
 		inflater = LayoutInflater.from(context);
+		account = ApplicationState.getAccount();
+		upvotedList = account.getUpvotedAnswers();
 	}
 
 	@Override
@@ -59,9 +68,10 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		TextView answerTextView = (TextView) theView.findViewById(R.id.answer_textview);
 		answerTextView.setText(answer.getBody());
 		
-		TextView answerRatingTextView = (TextView) theView.findViewById(R.id.answerAdapterRating);
+		//TextView answerRatingTextView = (TextView) theView.findViewById(R.id.answerAdapterRating);
 		//String answerRatingString = answerRatingTextView.getText().toString();
-		answerRatingTextView.setText(" " + answer.getRating());
+		Button answerRating = (Button) theView.findViewById(R.id.answerAdapterRating);
+		answerRating.setText(" " + answer.getRating());
 		
 		TextView answerAuthorTextView = (TextView) theView.findViewById(R.id.answer_author_textview);
 		//String answerAuthorString = answerAuthorTextView.getText().toString();
@@ -79,6 +89,31 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		answerDateTextView.setText(answerDateString + " " + answer.getDate());
 		
 		ImageButton answerViewPhotoButton = (ImageButton) theView.findViewById(R.id.answer_view_photo_button);
+		
+		if (upvotedList.contains(answer)) {
+			answerRating.setTextColor(Color.parseColor("#e77619"));
+		} else {
+			answerRating.setTextColor(Color.parseColor("#000000"));
+		}
+		
+		
+		// adapted from http://syedasaraahmed.wordpress.com/2013/02/08/make-a-custom-listview-row-with-clickable-buttons-in-it-selectable-using-a-custom-cursoradapter/ - accessed Nov 5 2014
+		answerRating.setTag(position);
+		answerRating.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Answer answer = getItem((Integer) v.getTag());
+				Account account = ApplicationState.getAccount();
+				ArrayList<Answer> upvotedAnswers = account.getUpvotedAnswers();
+				if (upvotedAnswers.contains(answer)) {
+					answer.downVote();
+					account.downvoteAnswer(answer);
+				} else {
+					answer.upVote();
+					account.upvoteAnswer(answer);
+				}
+				notifyDataSetChanged();
+			}
+		});
 		
 		
 		return theView;
