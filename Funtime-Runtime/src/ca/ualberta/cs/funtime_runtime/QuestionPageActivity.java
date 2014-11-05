@@ -37,7 +37,7 @@ public class QuestionPageActivity extends CustomActivity {
 	Boolean favourited = false;
 	Boolean upvoted = false;
 	Boolean bookmarked = false;
-	Boolean has_photo = false;
+	Boolean has_photo = true;
 	Integer rating;
 	LayoutInflater inflater;
 	View questionHeader;

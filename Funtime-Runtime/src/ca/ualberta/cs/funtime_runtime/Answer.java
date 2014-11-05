@@ -8,31 +8,32 @@ import java.util.Date;
 public class Answer implements Serializable {
 	
 	private static final long serialVersionUID = 7328501038270376718L;
-	private final String BODY;
-	private final String USERNAME;
+	private final String body;
+	private final String username;
 	public ArrayList<Reply> replyList;
 	private int rating;
 	private int numberOfReplies;
-	private final Date DATE;
+	private final Date date;
+	private int id;
 
-	public Answer(String body, String username)
+	public Answer(String text, String user)
 	{
-		BODY = body;
-		USERNAME = username;
+		body = text;
+		username = user;
 		rating = 0;
 		numberOfReplies = 0;
 		replyList = new ArrayList<Reply>();
-		DATE = new Date();
+		date = new Date();
 	}
 
 	public String getBody()
 	{
-		return BODY;
+		return body;
 	}
 
 	public String getUser()
 	{
-		return USERNAME;
+		return username;
 	}
 
 	public void upVote()
@@ -69,9 +70,16 @@ public class Answer implements Serializable {
 	}
 	
 	public Date getDate() {
-		return DATE;
+		return date;
+	}
+	
+	public void setId(int num) {
+		id = num;
 	}
 
+	public int getId() {
+		return id;
+	}
 //	public bitmap getPhoto()
 //	{
 //		// TODO Auto-generated method stub

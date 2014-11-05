@@ -13,7 +13,7 @@
         android:layout_marginLeft="18dp"
         android:layout_marginTop="18dp"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/reply_parent_body"
@@ -24,7 +24,7 @@
         android:layout_marginLeft="28dp"
         android:layout_marginTop="15dp"
         android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/reply_parent_user"
