@@ -25,15 +25,18 @@
         </activity>
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.AuthorQuestionActivity"
-            android:label="@string/title_activity_author_question" >
+            android:label="@string/title_activity_author_question" 
+            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" >>
         </activity>
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.AuthorReplyActivity"
-            android:label="@string/title_activity_author_reply" >
+            android:label="@string/title_activity_author_reply" 
+            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" >>
         </activity>
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.ReplyPageActivity"
-            android:label="@string/title_activity_reply_page" >
+            android:label="@string/title_activity_reply_page" 
+            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" >>
         </activity>
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.Activity"
@@ -41,43 +44,53 @@
         </activity>
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.AuthorAnswerActivity"
-            android:label="@string/title_activity_author_answer" >
+            android:label="@string/title_activity_author_answer" 
+            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" >>
         </activity>
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.SearchActivity"
-            android:label="@string/title_activity_search" >
+            android:label="@string/title_activity_search" 
+            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" >>
         </activity>
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login" 
+            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" >>
         </activity>
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.CreateAccountActivity"
-            android:label="@string/title_activity_create_account" >
+            android:label="@string/title_activity_create_account" 
+            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" >>
         </activity>
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.MyQuestionsActivity"
-            android:label="@string/title_activity_my_questions" >
+            android:label="@string/title_activity_my_questions" 
+            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" >>
         </activity>
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.MyAnswersActivity"
-            android:label="@string/title_activity_my_answers" >
+            android:label="@string/title_activity_my_answers" 
+            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" >>
         </activity>
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.MyFavouritesActivity"
-            android:label="@string/title_activity_my_favourites" >
+            android:label="@string/title_activity_my_favourites" 
+            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" >>
         </activity>
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.ReadingListActivity"
-            android:label="@string/title_activity_reading_list" >
+            android:label="@string/title_activity_reading_list" 
+            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" >>
         </activity>
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.MyHistoryActivity"
-            android:label="@string/title_activity_history" >
+            android:label="@string/title_activity_history" 
+            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" >>
         </activity>
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.QuestionPageActivity"
-            android:label="@string/title_activity_question_page" >
+            android:label="@string/title_activity_question_page" 
+            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" >
         </activity>
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.Question_attributes"

@@ -219,6 +219,9 @@ public class QuestionPageActivity extends CustomActivity {
 // Menu Items Switch Case
 //-------------------------------------------
 		switch (item.getItemId()) {
+			case android.R.id.home:
+				openMyHome();
+				return true;
 			case R.id.home_menu_item:
 				openMyHome();
 				return true;
