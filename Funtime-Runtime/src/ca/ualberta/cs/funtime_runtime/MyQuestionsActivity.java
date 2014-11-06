@@ -15,6 +15,10 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import java.util.ArrayList;
 
+/**
+ * This class is a view class that displays the questions that the user asked in the application
+ * It contains various menu items options which can be selected from this activity page
+ */
 
 public class MyQuestionsActivity extends CustomActivity {
 	ListView myQuestionsListView;
@@ -65,7 +69,12 @@ public class MyQuestionsActivity extends CustomActivity {
 	
 	}
 	
-	// Adapted from http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/ 2014-09-21
+	/**
+	 * Adapted from http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/ 2014-09-21
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
+	 */
+	
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 	    super.onCreateContextMenu(menu, v, menuInfo);
 	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
@@ -77,7 +86,14 @@ public class MyQuestionsActivity extends CustomActivity {
 	    	menu.add("Add to reading list");
 	    }
 	}
+	
+	
 
+	/**
+	 * Activates menu item which when clicked adds a question item to reading list	(non-Javadoc)
+	 * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
+	 */
+	
 	public boolean onContextItemSelected(MenuItem item) {
 
 	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
@@ -98,6 +114,14 @@ public class MyQuestionsActivity extends CustomActivity {
 	    return true;
 
 	}
+	
+	
+	/***
+	 * 
+	 * Sample Question examples that user1 asked on the app. This method will be removed once Elastic Search is implemented.
+	 * This is needed now because questions are not being saved when the application is exited
+	 * 
+	 ***/
 	
 	private void myQuestionsExample()
 	{
@@ -127,7 +151,14 @@ public class MyQuestionsActivity extends CustomActivity {
 		myQuestionsListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();
 	}
+	
 
+	
+	/**
+	 * menu at the top of the page(non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
