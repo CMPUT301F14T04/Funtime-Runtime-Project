@@ -14,6 +14,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * An activity that allows the user to log in to an account.
+ * 
+ * @author Benjamin Holmwood
+ *
+ */
 public class LoginActivity extends CustomActivity {
 
 	@Override
@@ -28,10 +34,16 @@ public class LoginActivity extends CustomActivity {
 		
 		final Context ctx = this;
 		
+		
         OnClickListener loginListener = new OnClickListener() {
+            /* The on-click listener for the login button.
+             * @see android.view.View.OnClickListener#onClick(android.view.View)
+             */
             public void onClick(View v) {
+            	// Retrieve the username to be logged in from the edit text field
                 EditText usernameText = (EditText) findViewById(R.id.loginField);
                 String username = usernameText.getText().toString();
+                //Make sure the username field is not empty
                 if (username != "") {
                 	// Get account list
                 	ArrayList<Account> accountList = ApplicationState.getAccountList();
@@ -51,6 +63,7 @@ public class LoginActivity extends CustomActivity {
                 		ApplicationState.setAccount(account);
                 		finish();
                 	} else {
+                		// Notify the user that there is no existing account with that username.
                 		Toast.makeText(ctx, "Account does not exist. Please login to an existing account or create a a new one.", Toast.LENGTH_LONG).show();
                 	}
                 	usernameText.setText(""); 
@@ -96,6 +109,10 @@ public class LoginActivity extends CustomActivity {
 //------------------------------------
 //-------------------------------------------	
 			
+	/**
+	 * The onClick function for create account button.
+	 * Takes the user to the create account page. 
+	 */
 	public void createAccount(View v)	{
 		Intent createNewAccount = new Intent(LoginActivity.this, CreateAccountActivity.class);
 		startActivity(createNewAccount);

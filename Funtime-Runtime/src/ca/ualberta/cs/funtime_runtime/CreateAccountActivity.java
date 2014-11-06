@@ -13,6 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * An activity that allows the user to create a new account and log into it.
+ *
+ * @author Benjamin Holmwood
+ *
+ */
 public class CreateAccountActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState) 	{
 
@@ -28,6 +34,9 @@ public class CreateAccountActivity extends CustomActivity {
 		
         OnClickListener createAccountListener = new OnClickListener() {
             public void onClick(View v) {
+                /* The on-click listener for the create account button.
+                 * @see android.view.View.OnClickListener#onClick(android.view.View)
+                 */
                 EditText createUsernameText = (EditText) findViewById(R.id.loginField);
                 String newUsername = createUsernameText.getText().toString();
                 if (newUsername.length() > 0) {
