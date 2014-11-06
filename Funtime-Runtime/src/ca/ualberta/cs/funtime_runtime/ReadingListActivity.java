@@ -15,6 +15,12 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+/**
+ * 
+ * 
+ * @author Benjamin Holmwood
+ *
+ */
 public class ReadingListActivity extends CustomActivity {
 
 	ListView readingListView;
@@ -33,29 +39,37 @@ public class ReadingListActivity extends CustomActivity {
 		ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
+		// Retrieve logged in account
 		readingListView = (ListView) findViewById(R.id.readingListView);	
 		account = ApplicationState.getAccount();
-		
-		//testReadingList();
 
+		// Retrieve account's reading list
 		readingList = account.getReadingList();
 
+		// Set adapter for list
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter2, readingList);
 		readingListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();
 		
 		
 		readingListView.setOnItemClickListener(new OnItemClickListener() {
+			/* The onClick listener for each question in the ListView
+			 * @see android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget.AdapterView, android.view.View, int, long)
+			 */
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// Set the question to be passed
 				Question question = (Question) adapter.getItem(position);				
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("Question", question);
-				Intent intent = new Intent(ReadingListActivity.this, QuestionPageActivity.class);
-				intent.putExtras(bundle);
 				
 				ApplicationState.setPassableQuestion(question);
 				
+				// Set up the intent for QuestionPageActivity
+				Intent intent = new Intent(ReadingListActivity.this, QuestionPageActivity.class);
+				intent.putExtras(bundle);
+				
+				// Start the QuestionPageActivity
 				startActivity(intent);
 			}
 		});
@@ -64,6 +78,9 @@ public class ReadingListActivity extends CustomActivity {
 
 	}
 	
+	/* Refresh the data upon returning from activity.
+	 * @see android.app.Activity#onRestart()
+	 */
 	@Override
 	public void onRestart() {
 		super.onRestart();
@@ -71,12 +88,18 @@ public class ReadingListActivity extends CustomActivity {
 	
 	}
 	
-	// Adapted from http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/ 2014-09-21
+	/* Context menu for onLongClick of question.
+	 * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
+	 * 
+	 * Adapted from http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/ 2014-09-21
+	 * 
+	 */
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 	    super.onCreateContextMenu(menu, v, menuInfo);
 	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
 	    Question selectedQuestion = adapter.getItem(info.position);
 	    
+	    // Check if the question is in the user's reading list and display the appropriate context menu
 	    if (account.getReadingList().contains(selectedQuestion)) {
 	    	menu.add("Remove from reading list");
 	    } else {
@@ -84,6 +107,9 @@ public class ReadingListActivity extends CustomActivity {
 	    }
 	}
 
+	/* Add or remove the selected question from the user's reading list
+	 * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
+	 */
 	public boolean onContextItemSelected(MenuItem item) {
 
 	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
@@ -113,22 +139,10 @@ public class ReadingListActivity extends CustomActivity {
 		getMenuInflater().inflate(R.menu.reading_list, menu);
 		return true;
 	}
-
-	/*
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Toast.makeText(getApplicationContext(), "onActivityResult", 
-				   Toast.LENGTH_LONG).show();
-
-		readingList = account.getReadingList();
-		adapter.notifyDataSetChanged();
-	}
-	*/
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// switch case to choose an item from the menu
-		//IntentSwitcher switcher = new IntentSwitcher(HomeActivity.this);
 		
 //-------------------------------------------
 //Menu Items Switch Case

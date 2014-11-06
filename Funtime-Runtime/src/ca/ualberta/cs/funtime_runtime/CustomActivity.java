@@ -2,76 +2,109 @@ package ca.ualberta.cs.funtime_runtime;
 
 import android.app.Activity;
 import android.content.Intent;
-//import android.widget.Toast;
 import android.os.Bundle;
 
+/**
+ * An activity used as a starting point for all activities within the application.
+ * 
+ * @author Benjamin Holmwood
+ *
+ */
 public class CustomActivity extends Activity
 {
 	
+	/**
+	 * Default Activity onResume()
+	 */
 	public void onResume(Bundle savedInstanceState) {
 		super.onResume();
 	}
 
+	/**
+	 * Default Activity onStart()
+	 */
 	public void onStart(Bundle savedInstanceState) {
 		super.onStart();
 	}
 	
+	/**
+	 * Default Activity onRestart()
+	 */
+	public void onRestart(Bundle savedInstanceState) {
+		super.onRestart();
+		
+	}
+	
+	/**
+	 * Open the home activity
+	 */
 	public void openMyHome(){
 		Intent intent = new Intent (this, HomeActivity.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Open the search activity
+	 */
 	public void openSearch() {
-		//Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(this, SearchActivity.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Open the login activity
+	 */
 	public void openLogin(){
-		//Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Open the MyQuestions activity
+	 */
 	public void openMyQuestions() {
-		//Toast.makeText(this, "My Questions", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(this, MyQuestionsActivity.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Open the MyAnswers activity
+	 */
 	public void openMyAnswers() {
-		//Toast.makeText(this, "My Answers", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(this, MyAnswersActivity.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Open the MyFavourites activity
+	 */
 	public void openMyFavourites() {
-		//Toast.makeText(this, "My Favourites", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(this, MyFavouritesActivity.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Open the MyReadingList activity
+	 */
 	public void openMyReadingList() {
-		//Toast.makeText(this, "My Reading List", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(this, ReadingListActivity.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Open the MyHistory activity
+	 */
 	public void openMyHistory() {
-		//Toast.makeText(this, "My History", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(this, MyHistoryActivity.class);
 		startActivity(intent);
 	}
 
+	/**
+	 * Open the Sort activity
+	 */
 	public void openSortList() {
-		//Toast.makeText(this, "Choose A Sorting Method", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(this, Sort.class);
 		startActivity(intent);
-	}
-
-	public void onRestart(Bundle savedInstanceState) {
-		super.onRestart();
-		
 	}
 
 }
