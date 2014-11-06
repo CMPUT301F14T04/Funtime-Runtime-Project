@@ -157,7 +157,7 @@ public class QuestionPageActivity extends CustomActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				//Needs to be position - 1. Why? I have no idea..
-				Answer answer = adapter.getItem(position);	
+				Answer answer = adapter.getItem(position - 1);	
 				
 				Bundle bundle = new Bundle();
 				

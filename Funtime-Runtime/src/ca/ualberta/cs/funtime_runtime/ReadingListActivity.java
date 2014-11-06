@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class ReadingListActivity extends CustomActivity {
 
@@ -57,6 +59,8 @@ public class ReadingListActivity extends CustomActivity {
 				startActivity(intent);
 			}
 		});
+		
+		registerForContextMenu(readingListView);
 
 	}
 	
@@ -65,6 +69,40 @@ public class ReadingListActivity extends CustomActivity {
 		super.onRestart();
 		adapter.notifyDataSetChanged();
 	
+	}
+	
+	// Adapted from http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/ 2014-09-21
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+	    super.onCreateContextMenu(menu, v, menuInfo);
+	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+	    Question selectedQuestion = adapter.getItem(info.position);
+	    
+	    if (account.getReadingList().contains(selectedQuestion)) {
+	    	menu.add("Remove from reading list");
+	    } else {
+	    	menu.add("Add to reading list");
+	    }
+	}
+
+	public boolean onContextItemSelected(MenuItem item) {
+
+	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	    int itemIndex = info.position;
+	    Question selectedQuestion = adapter.getItem(itemIndex);
+	    
+		if (item.getTitle() == "Remove from reading list") {
+		    account.removeReadLater(selectedQuestion);
+		}
+		else if (item.getTitle() == "Add to reading list") {
+		    account.readLater(selectedQuestion);
+            
+	    } 
+		else {
+	        return false;
+	    }
+		
+	    return true;
+
 	}
 	
 	@Override
