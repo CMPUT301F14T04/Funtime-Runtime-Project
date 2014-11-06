@@ -15,6 +15,12 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+/**
+ * Displays the list of all questions the user has favourited.
+ * 
+ * @author Benjamin Holmwood
+ *
+ */
 public class MyFavouritesActivity extends CustomActivity {
 
 	ListView favouritesListView;
@@ -24,8 +30,7 @@ public class MyFavouritesActivity extends CustomActivity {
 	
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_favourites);
@@ -33,13 +38,14 @@ public class MyFavouritesActivity extends CustomActivity {
 		ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
+		// Retrieve logged in account
 		favouritesListView = (ListView) findViewById(R.id.myFavouritesListView);	
 		account = ApplicationState.getAccount();
-		
-		//testMyFavourites(); // temporary test code
 
+		// Retrieve account's favourited questions list
 		myFavouritesList = account.getFavouritesList();
 		
+		// Set up adapter for list
 		ArrayList<Question> favouritesList = new ArrayList<Question>();
 		favouritesList = myFavouritesList;
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter2, favouritesList);
@@ -48,16 +54,23 @@ public class MyFavouritesActivity extends CustomActivity {
 		
 		
 		favouritesListView.setOnItemClickListener(new OnItemClickListener() {
+			/* The onClick listener for each question in the ListView
+			 * @see android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget.AdapterView, android.view.View, int, long)
+			 */
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// Set the question to be passed
 				Question question = (Question) adapter.getItem(position);				
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("Question", question);
-				Intent intent = new Intent(MyFavouritesActivity.this, QuestionPageActivity.class);
-				intent.putExtras(bundle);
 				
 				ApplicationState.setPassableQuestion(question);
 				
+				// Set up the intent for QuestionPageActivity
+				Intent intent = new Intent(MyFavouritesActivity.this, QuestionPageActivity.class);
+				intent.putExtras(bundle);
+				
+				// Start the QuestionPageActivity
 				startActivity(intent);			
 			}
 		});
@@ -66,35 +79,29 @@ public class MyFavouritesActivity extends CustomActivity {
 
 	}
 	
+	/* Refresh the data upon returning from activity.
+	 * @see android.app.Activity#onRestart()
+	 */
 	@Override
 	public void onRestart() {
 		super.onRestart();
 		adapter.notifyDataSetChanged();
 	
 	}
-		
-	private void testMyFavourites() {
-		Question question1 = new Question("What is the meaning of life?", "body 1 test", "user1");
-		Question question2 = new Question("Why does Computing Science homework take so long to do?", "body 2 test", "user2");
-		Question question3 = new Question("In what world does gravity push you away at a faster rate than it pulls you in?", "body 3 test", "user3");
-		account.addFavourite(question1);
-		account.addFavourite(question2);
-		account.addFavourite(question3);
-		question1.downVote();
-		Answer answer1 = new Answer("Sweet", "user1");
-		Answer answer2 = new Answer("Question", "user2");
-		Answer answer3 = new Answer("Bro do you even lift????????????????????????????????????????", "user3");
-		question1.addAnswer(answer1);
-		question1.addAnswer(answer2);
-		question1.addAnswer(answer3);
-	}
 	
-	// Adapted from http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/ 2014-09-21
+	// 
+	/* Context menu for onLongClick of question.
+	 * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
+	 * 
+	 * Adapted from http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/ 2014-09-21
+	 * 
+	 */
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 	    super.onCreateContextMenu(menu, v, menuInfo);
 	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
 	    Question selectedQuestion = adapter.getItem(info.position);
 	    
+	    // Check if the question is in the user's reading list and display the appropriate context menu
 	    if (account.getReadingList().contains(selectedQuestion)) {
 	    	menu.add("Remove from reading list");
 	    } else {
@@ -102,6 +109,9 @@ public class MyFavouritesActivity extends CustomActivity {
 	    }
 	}
 
+	/* Add or remove the selected question from the user's reading list
+	 * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
+	 */
 	public boolean onContextItemSelected(MenuItem item) {
 
 	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
