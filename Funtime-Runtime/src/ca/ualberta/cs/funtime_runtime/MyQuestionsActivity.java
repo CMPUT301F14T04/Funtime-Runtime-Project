@@ -72,6 +72,7 @@ public class MyQuestionsActivity extends CustomActivity {
 	/**
 	 * Adapted from http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/ 2014-09-21
 	 * (non-Javadoc)
+	 * @param ContextMenu, View, ContextMenuInfo
 	 * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
 	 */
 	
@@ -91,6 +92,7 @@ public class MyQuestionsActivity extends CustomActivity {
 
 	/**
 	 * Activates menu item which when clicked adds a question item to reading list	(non-Javadoc)
+	 * @param MenuItem- an item in the menu
 	 * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
 	 */
 	
