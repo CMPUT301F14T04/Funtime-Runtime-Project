@@ -123,21 +123,6 @@
         android:onClick="bookmark_question"
        />
 
-    <Button
-        android:id="@+id/replies_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/question_author_text"
-        android:layout_alignBottom="@+id/question_author_text"
-        android:layout_alignRight="@+id/question_title"
-        android:layout_marginRight="33dp"
-        android:background="@null"
-        android:text="@string/replies_text"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/blue"
-        android:textStyle="italic" 
-        android:onClick="view_replies"/>
-
     <ImageButton
         android:id="@+id/question_favorite_button"
         android:layout_width="wrap_content"
@@ -149,5 +134,20 @@
         android:contentDescription="@string/view_photo_description"
         android:onClick="favourited"
         android:src="@android:drawable/btn_star" />
+
+    <Button
+        android:id="@+id/replies_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/question_date_text"
+        android:layout_alignBottom="@+id/question_date_text"
+        android:layout_alignRight="@+id/question_title"
+        android:layout_marginRight="46dp"
+        android:background="@null"
+        android:onClick="view_replies"
+        android:text="@string/replies_text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/blue"
+        android:textStyle="italic" />
 
 </RelativeLayout>
