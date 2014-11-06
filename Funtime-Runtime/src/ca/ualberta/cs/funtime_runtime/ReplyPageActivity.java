@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 public class ReplyPageActivity extends CustomActivity {
 	
+	int parentReply;
 	String parentTitle;
 	String parentBody;
 	String parentDate;
@@ -26,6 +27,7 @@ public class ReplyPageActivity extends CustomActivity {
 	TextView parentBodyText;
 	TextView parentDateText;
 	TextView parentUserText;
+	TextView parentReplyText;
 	
 	ListView replyListView;
 	
@@ -59,7 +61,8 @@ public class ReplyPageActivity extends CustomActivity {
 			parentTitle = question.getTitle();
 			parentBody = question.getBody();
 			parentDate = question.getDate();
-			parentUsername = question.getUser();			
+			parentUsername = question.getUser();
+			parentReply = question.getReplyCount();
 			repliesList = question.getReplyList();
 			
 			
@@ -73,6 +76,7 @@ public class ReplyPageActivity extends CustomActivity {
 			parentBodyText = (TextView) findViewById(R.id.reply_parent_body);
 			parentDateText = (TextView) findViewById(R.id.reply_parent_date);
 			parentUserText = (TextView) findViewById(R.id.reply_parent_user);
+			parentReplyText = (TextView) findViewById(R.id.reply_seperator);
 			
 			addReply = (Button) findViewById(R.id.add_reply_button);
 			
@@ -80,6 +84,7 @@ public class ReplyPageActivity extends CustomActivity {
 			parentBodyText.setText(parentBody);
 			parentDateText.setText(parentDate);
 			parentUserText.setText(parentUsername);
+			parentReplyText.setText("Replies " + "(" + parentReply + ")");
 		} 
 		
 		else if (replyType.equals("answer")) {
