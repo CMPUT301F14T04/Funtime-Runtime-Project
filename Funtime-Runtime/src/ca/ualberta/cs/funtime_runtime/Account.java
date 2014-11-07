@@ -227,4 +227,10 @@ public class Account {
 		return upvotedAnswers;
 	}
 
+	/**
+	 * Adds an answer that the user made to a list of their created answers
+	 * @param answer
+	 */
+
+
 }
