@@ -12,6 +12,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * A view class that allows a user to edit text
+ * and submit it as a reply to a question or answer.
+ * The user can also cancel the creation of
+ * an answer. The question body and title or the answer are displayed above
+ * the edit text segment. 
+ * 
+ * @author Kieran Boyle
+ *
+ */
 public class AuthorReplyActivity extends CustomActivity {
 
 	Question question;
@@ -28,7 +38,13 @@ public class AuthorReplyActivity extends CustomActivity {
 	String parentUsername;
 	ArrayList<Reply> replyList;
 	String replyType;
-	
+	/**
+	 * This is a standard onCreate method
+	 * In this method we link this java file with the xml.
+	 * 
+	 * @param savedInstanceState a bundle which maps string values to parceleable
+	 * types
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -70,7 +86,12 @@ public class AuthorReplyActivity extends CustomActivity {
 		parentBodyView.setText(parentBody);
 		
 	}
-
+	
+	/**
+	 * this function adds items to the action bar if it present
+	 * 
+	 * @param menu  an interface for managing menu items
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -80,6 +101,14 @@ public class AuthorReplyActivity extends CustomActivity {
 		return true;
 	}
 	
+	/**
+	 * This function simply redirects to another activity when a certain menu 
+	 * item is selected by the user. It operates a switch statement to transtion 
+	 * between different activities
+	 * 
+	 * @param item is a menuItem signifying location within the menu that users 
+	 * wish to visit
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// switch case to choose an item from the menu
@@ -118,6 +147,11 @@ public class AuthorReplyActivity extends CustomActivity {
 		}
 //-------------------------------------------
 //-------------------------------------------
+	/**
+	 * this onClick listener for a button simply submits whatever has been entered into the text field.
+     *this button also leaves the activity after the reply is submitted
+	 * @param v is a button within the view
+	 */
 
 	 public void addReply(View v){ 
 		Reply reply = new Reply(typeReply.getText().toString(), username.toString());
@@ -128,6 +162,12 @@ public class AuthorReplyActivity extends CustomActivity {
 				
 				
 	}
+	 
+	 
+	 /**
+	  * This onClick listener leaves the activity after the "cancel button is clicked
+	  * @param v is a button within the view
+	  */
 	 public void replyCancel(View v){
 		 finish();
 	 }
