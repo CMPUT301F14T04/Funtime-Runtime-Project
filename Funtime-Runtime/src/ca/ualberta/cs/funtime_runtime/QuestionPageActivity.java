@@ -33,7 +33,7 @@ import android.widget.TextView;
  * This page also allows users to upvote answers to questions.
  * This page also links to the view reply pages for both questions and answers. 
  * 
- * @author kboyle
+ * @author Kieran Boyle
  *
  */
 
@@ -193,7 +193,10 @@ public class QuestionPageActivity extends CustomActivity {
 	}
 	/**
 	 * When the activity moves into the foreground
-	 * whenever the  activity is resumed 
+	 * the function runs through an does a number of checks.
+	 * The checks try to determine whether the current question 
+	 * is in the bookmarks, favorites, or upvoted lists. 
+	 * the rating for the question is also retrieved
 	 * 
 	 */
 	
@@ -230,14 +233,27 @@ public class QuestionPageActivity extends CustomActivity {
 	
 	}
 	
+	/**
+	 * this function adds items to the action bar if it present
+	 * 
+	 * @param menu  an interface for managing menu items
+	 */
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.question_page, menu);
 		return true;
 	}
 	
+	/**
+	 * This function simply redirects to another activity when a certain menu 
+	 * item is selected by the user. It operates a switch statement to transtion 
+	 * between different activities
+	 * 
+	 * @param item is a menuItem signifying location within the menu that users 
+	 * wish to visit
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// switch case to choose an item from the menu
@@ -283,7 +299,11 @@ public class QuestionPageActivity extends CustomActivity {
 
 //-------------------------------------------
 //-------------------------------------------
-	
+	/**
+	 * test question page is simply a test that populates
+	 * our question page with hard coded answers.
+	 * 
+	 */
 	private void testQuestionPage() {
 		List<Answer> answerList = new ArrayList<Answer>();
 		AnswerListAdapter adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, answerList);
@@ -299,12 +319,29 @@ public class QuestionPageActivity extends CustomActivity {
 
 	
 	//start the AuthorAnswerActivity --> Author Answer Page
+	
+	/**
+	 * This is a simple ONclick listener that sends the user to 
+	 * the add answer page
+	 * 
+	 * @param v is a button in the view that when clicked, navigates 
+	 * the user to a different page. 
+	 */
 	public void addAnswer(View v)
 	{
 		ApplicationState.setPassableQuestion(question);
 		Intent authorAnswer = new Intent(QuestionPageActivity.this, AuthorAnswerActivity.class);
 		startActivity(authorAnswer);
 	}
+	
+	/**
+	 * This function adds a specific question to the favorites list
+	 * it also triggers a change in the appearance of the star/favorites button 
+	 * within the app.
+	 * 
+	 * @param v is a button within the view that the user presses to favorite.
+	 * it looks like a star.
+	 */
 	
 	public void favourited(View v){
 		//http://stackoverflow.com/questions/12249495/android-imagebutton-change-image-onclick-solved  -Tuesday October 28 2014
@@ -323,6 +360,12 @@ public class QuestionPageActivity extends CustomActivity {
 		}
 
 	}
+	
+	/**
+	 * this function is linked to a button that sends the user to
+	 * the reply page for a question
+	 * @param v is a button within the view. 
+	 */
 
 	public void view_replies(View v) {
 		Bundle bundle = new Bundle();
@@ -336,10 +379,23 @@ public class QuestionPageActivity extends CustomActivity {
 		startActivity(intent);	
 	}
 	
+	/**
+	 * This function shows a photo attached to the question when it is clicked
+	 * @param v this is another button within the view.
+	 */
+	
 	public void show_photo(View v) {
 		
 	}
 	
+	/**
+	 * this button allows the user to upvote a question once 
+	 * the text changes color upon being clicked. changes the overall rating of
+	 * the question. 
+	 * 
+	 * @param v is a button within the view
+	 * 
+	 */
 	public void upvote_question(View v){
 		if (upvoted) {
 			question.downVote();
@@ -358,7 +414,12 @@ public class QuestionPageActivity extends CustomActivity {
 		}
 	}
 	
-	
+	/**
+	 * this function add a question to the read later page.
+	 * THe button changes color upon being clicked.
+	 * 
+	 * @param v is a button within the view 
+	 */
 	public void bookmark_question(View v){
 		//bookmark_button.setColorFilter( R.color.red, Mode.MULTIPLY );
 		if (bookmarked == false){
