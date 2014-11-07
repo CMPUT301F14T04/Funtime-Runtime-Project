@@ -22,7 +22,20 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-
+/**
+ * A view class that displays the question and
+ * all it's attributes
+ * Allows users to see a question that has been created 
+ * as well as all the answers associated with the question.
+ * The user can favorite, bookmark and upvote questions here.
+ * further releases will allow a user to view photos attached to 
+ * the current question and answers.
+ * This page also allows users to upvote answers to questions.
+ * This page also links to the view reply pages for both questions and answers. 
+ * 
+ * @author kboyle
+ *
+ */
 
 public class QuestionPageActivity extends CustomActivity {
 	ListView answerListView;
@@ -57,9 +70,14 @@ public class QuestionPageActivity extends CustomActivity {
 	int has_photo_color =Color.parseColor("#228b22");
 	int upvote_color = Color.parseColor("#e77619");
 	
-		
-	//ImageButton unfavourite_button;
-	
+	/**
+	 * The function below initializes the view and links the 
+	 * java document with the view. the functionalso tests whether
+	 * a specific question is in the favorites, bookmarks, or upvoted list.
+	 * @param savedInstanceState a bundle which maps string values to parceleable
+	 * types
+	 * 
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -173,6 +191,11 @@ public class QuestionPageActivity extends CustomActivity {
 		});
 		
 	}
+	/**
+	 * When the activity moves into the foreground
+	 * whenever the  activity is resumed 
+	 * 
+	 */
 	
 	@Override
 	public void onRestart() {
