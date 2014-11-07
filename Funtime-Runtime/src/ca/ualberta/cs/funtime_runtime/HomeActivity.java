@@ -38,7 +38,7 @@ public class HomeActivity extends CustomActivity {
 		account = ApplicationState.getAccount();
 
 		//adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, homeQuestionList);
-		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter2, homeQuestionList);
+		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, homeQuestionList);
 		
 		homeListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();

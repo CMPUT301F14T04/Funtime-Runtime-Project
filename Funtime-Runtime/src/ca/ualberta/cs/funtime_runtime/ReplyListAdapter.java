@@ -46,7 +46,9 @@ public class ReplyListAdapter extends ArrayAdapter<Reply> {
 		TextView replyAuthorTextView = (TextView) theView.findViewById(R.id.reply_author_textview);
 		String replyAuthorString = "Author:";
 		replyAuthorTextView.setText(replyAuthorString + " " +reply.getUser());
-		
+
+		TextView replyDateView = (TextView) theView.findViewById(R.id.reply_author_date);
+		replyDateView.setText("Posted: " + reply.getDate());
 		
 		return theView;
 	}

@@ -39,7 +39,7 @@ public class MyHistoryActivity extends CustomActivity {
 	ArrayList<Question> historyList = new ArrayList<Question>();
 	historyList = myHistoryList;
 	adapter = new QuestionListAdapter(this,
-		R.layout.question_list_adapter2, historyList);
+		R.layout.question_list_adapter, historyList);
 	myHistoryListView.setAdapter(adapter);
 	adapter.notifyDataSetChanged();
 

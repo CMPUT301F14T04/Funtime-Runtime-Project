@@ -83,7 +83,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		answerReplyTextView.setText(answerReplyString + " " + answer.getReplyCount());
 		
 		TextView answerDateTextView = (TextView) theView.findViewById(R.id.answer_date);
-		String answerDateString = "Date Posted:";
+		String answerDateString = "Posted:";
 		answerDateTextView.setText(answerDateString + " " + answer.getDate());
 		
 		ImageButton answerViewPhotoButton = (ImageButton) theView.findViewById(R.id.answer_view_photo_button);

@@ -46,7 +46,7 @@ public class ReadingListActivity extends CustomActivity {
 		readingList = account.getReadingList();
 
 		// Set adapter for list
-		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter2, readingList);
+		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, readingList);
 		readingListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();
 		

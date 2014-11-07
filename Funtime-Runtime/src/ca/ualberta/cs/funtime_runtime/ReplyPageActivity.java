@@ -82,8 +82,8 @@ public class ReplyPageActivity extends CustomActivity {
 			
 			parentTitleText.setText(parentTitle);
 			parentBodyText.setText(parentBody);
-			parentDateText.setText(parentDate);
-			parentUserText.setText(parentUsername);
+			parentDateText.setText("Posted: " + parentDate);
+			parentUserText.setText("Author: " + parentUsername);
 			parentReplyText.setText("Replies " + "(" + parentReply + ")");
 		} 
 		
