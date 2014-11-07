@@ -8,6 +8,15 @@ import java.io.ObjectOutputStream;
 
 import android.content.Context;
 
+
+/**
+ * Class not implemented.
+ * 
+ * Used ApplicationState Class instead--For now
+ * 
+ * @author pranjali
+ *
+ */
 public class SaveManager {
 
 	public void save(String FILENAME, Object object, Context ctx) {
