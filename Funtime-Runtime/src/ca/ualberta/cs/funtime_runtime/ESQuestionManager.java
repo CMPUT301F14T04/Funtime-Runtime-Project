@@ -5,6 +5,11 @@ import java.util.List;
 
 //import com.google.gson.Gson;
 
+/**
+ * not implemented yet-- Saved for Part-4
+ * @author pranjali
+ *
+ */
 public class ESQuestionManager implements IQuestionManager {
 	private static final String URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/";
 	private static final String TAG= "QuestionsSearch";
