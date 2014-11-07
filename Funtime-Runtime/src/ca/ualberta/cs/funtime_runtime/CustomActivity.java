@@ -102,8 +102,7 @@ public class CustomActivity extends Activity {
 	 * Open the Sort activity
 	 */
 	public void openSortList() {
-		Intent intent = new Intent(this, Sort.class);
-		startActivity(intent);
+
 	}
 
 }
