@@ -1,7 +1,6 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.app.ActionBar;
 import android.content.Context;
@@ -77,7 +76,6 @@ public class QuestionPageActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_page);
-		//Intent intent = getIntent();
 		
 		ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
@@ -153,17 +151,12 @@ public class QuestionPageActivity extends CustomActivity {
 		adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, questionAnswerList);
 		answerListView.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
-		addAnswerBtn.setOnClickListener(new View.OnClickListener() {		
-			@Override
-			public void onClick(View v) {
-				openAuthorAnswerPage();
-			}
-		});
 		
 		answerListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				//Needs to be position - 1. Why? I have no idea..
+				// Header is the first element in the listview, so
+				//  we need to access ArrayList item at listview position - 1
 				Answer answer = adapter.getItem(position - 1);	
 				
 				Bundle bundle = new Bundle();
@@ -180,15 +173,14 @@ public class QuestionPageActivity extends CustomActivity {
 		});
 		
 	}
+	
 	/**
 	 * When the activity moves into the foreground
-	 * the function runs through an does a number of checks.
+	 * the function runs through and does a number of checks.
 	 * The checks try to determine whether the current question 
 	 * is in the bookmarks, favorites, or upvoted lists. 
-	 * the rating for the question is also retrieved
-	 * 
+	 * The rating for the question is also retrieved.
 	 */
-	
 	@Override
 	public void onRestart() {
 		super.onRestart();
@@ -309,7 +301,6 @@ public class QuestionPageActivity extends CustomActivity {
 	 * @param v is a button within the view that the user presses to favorite.
 	 * it looks like a star.
 	 */
-	
 	public void favourited(View v){
 		//http://stackoverflow.com/questions/12249495/android-imagebutton-change-image-onclick-solved  -Tuesday October 28 2014
 		if (favourited == false) {
@@ -394,6 +385,10 @@ public class QuestionPageActivity extends CustomActivity {
 			bookmark_button.setColorFilter(not_bookmarked_color);
 			bookmarked = false;
 		}
+	}
+	
+	public void authorAnswer(View v) {
+		openAuthorAnswerPage();
 	}
 	
 }

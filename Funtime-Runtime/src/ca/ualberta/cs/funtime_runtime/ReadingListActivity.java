@@ -16,9 +16,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 /**
- * 
- * 
- * @author Benjamin Holmwood
+ * This is a view class that displays all of the questions that a user has added to 
+ * their Reading List (Type: ArrayList<Question>)
+ * The question list displays all of the components associated with a question 
+ * (eg: title, body, rating, number of answers etc)
+ * The user can chose to select a question to view the answers and replies associated with it
+ * @author Pranjali Pokharel
  *
  */
 public class ReadingListActivity extends CustomActivity {
@@ -87,7 +90,7 @@ public class ReadingListActivity extends CustomActivity {
 	
 	}
 	
-	/* Context menu for onLongClick of question.
+	/** Context menu for onLongClick of question.
 	 * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
 	 * 
 	 * Adapted from http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/ 2014-09-21
@@ -106,7 +109,7 @@ public class ReadingListActivity extends CustomActivity {
 	    }
 	}
 
-	/* Add or remove the selected question from the user's reading list
+	/** Add or remove the selected question from the user's reading list
 	 * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
 	 */
 	public boolean onContextItemSelected(MenuItem item) {

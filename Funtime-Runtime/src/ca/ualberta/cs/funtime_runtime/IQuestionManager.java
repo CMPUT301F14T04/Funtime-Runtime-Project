@@ -2,6 +2,12 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
 
+/**
+ * Not implemented yet. 
+ * Will be implemented in Part4 
+ * @author pranjali
+ *
+ */
 
 public interface IQuestionManager {
 	public ArrayList<Question> searchQuestions(String searchString, String field);
