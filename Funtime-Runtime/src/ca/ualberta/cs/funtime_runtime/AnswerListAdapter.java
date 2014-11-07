@@ -20,6 +20,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 
 	Context ctx;
 	List<Answer> answerList;
+	Answer answer;
 	int res;
 	LayoutInflater inflater;
 	Account account;
@@ -31,8 +32,6 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		res = resource;
 		answerList = objects;
 		inflater = LayoutInflater.from(context);
-		account = ApplicationState.getAccount();
-		upvotedList = account.getUpvotedAnswers();
 	}
 
 	@Override
@@ -63,7 +62,10 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 			theView = (RelativeLayout) inflater.inflate(res, null);
 		}
 		
-		Answer answer = answerList.get(position);
+		account = ApplicationState.getAccount();
+		upvotedList = account.getUpvotedAnswers();
+		
+		answer = answerList.get(position);
 		
 		TextView answerTextView = (TextView) theView.findViewById(R.id.answer_textview);
 		answerTextView.setText(answer.getBody());

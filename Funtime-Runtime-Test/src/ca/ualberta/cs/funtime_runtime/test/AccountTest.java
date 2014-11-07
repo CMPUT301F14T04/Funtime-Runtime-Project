@@ -61,25 +61,88 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 		assertEquals(account.answersCount(), 4);
 	}
 	
-	public void testGetFavorites() {
+	public void testFavorites() {
 		Account account = new Account("TestAccountUsername");
 		ArrayList<Question> testList;
 		testList = account.getFavouritesList();
 		assertNotNull(testList);
+		
+		Question question = new Question("Test Question Title", "Test question body", "TestAccountUsername");
+		
+		account.addFavourite(question);
+		
+		assertTrue(testList.contains(question));
+		
+		account.removeFavourite(question);
+		
+		assertFalse(testList.contains(question));
+		
 	}
 	
-	public void testGetReadingList() {
+	public void testReadingList() {
 		Account account = new Account("TestAccountUsername");
 		ArrayList<Question> testList;
 		testList = account.getReadingList();
 		assertNotNull(testList);
+		
+		Question question = new Question("Test Question Title", "Test question body", "TestAccountUsername");
+		
+		account.readLater(question);
+		
+		assertTrue(testList.contains(question));
+		
+		account.removeReadLater(question);
+		
+		assertFalse(testList.contains(question));
 	}
 	
-	public void testGetHistory() {
+	public void testHistory() {
 		Account account = new Account("TestAccountUsername");
 		ArrayList<Question> testList;
 		testList = account.getHistoryList();
 		assertNotNull(testList);
+		
+		Question question = new Question("Test Question Title", "Test question body", "TestAccountUsername");
+		
+		account.addToHistory(question);
+		
+		assertTrue(testList.contains(question));
+	}
+	
+	public void testQuestionVoting() {
+		Account account = new Account("TestAccountUsername");
+		ArrayList<Question> testList;
+		testList = account.getUpvotedQuestions();
+		assertNotNull(testList);
+		
+		Question question = new Question("Test Question Title", "Test question body", "TestAccountUsername");
+		
+		account.upvoteQuestion(question);
+		
+		assertTrue(testList.contains(question));
+		
+		account.downvoteQuestion(question);
+		
+		assertFalse(testList.contains(question));
+		
+	}
+	
+	public void testAnswerVoting() {
+		Account account = new Account("TestAccountUsername");
+		ArrayList<Answer> testList;
+		testList = account.getUpvotedAnswers();
+		assertNotNull(testList);
+		
+		Answer answer = new Answer("Test answer body", "TestAccountUsername");
+		
+		account.upvoteAnswer(answer);
+		
+		assertTrue(testList.contains(answer));
+		
+		account.downvoteAnswer(answer);
+		
+		assertFalse(testList.contains(answer));
+		
 	}
 	
 }

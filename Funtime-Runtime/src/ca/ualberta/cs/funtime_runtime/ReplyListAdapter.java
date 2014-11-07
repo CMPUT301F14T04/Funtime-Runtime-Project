@@ -15,6 +15,7 @@ public class ReplyListAdapter extends ArrayAdapter<Reply> {
 
 	Context ctx;
 	ArrayList<Reply> replyList;
+	Reply reply;
 	int res;
 	LayoutInflater inflater;
 
@@ -57,7 +58,7 @@ public class ReplyListAdapter extends ArrayAdapter<Reply> {
 			theView = (RelativeLayout) inflater.inflate(res, null);
 		}
 		
-		Reply reply = replyList.get(position);
+		reply = replyList.get(position);
 		
 		TextView replyTextView = (TextView) theView.findViewById(R.id.reply_textview);
 		replyTextView.setText(reply.getBody());
