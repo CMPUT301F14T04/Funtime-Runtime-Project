@@ -2,6 +2,7 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
@@ -72,6 +73,7 @@ public class QuestionPageActivity extends CustomActivity {
 	 * types
 	 * 
 	 */
+	@SuppressLint("InflateParams")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,7 +85,7 @@ public class QuestionPageActivity extends CustomActivity {
 		// adapted from http://stackoverflow.com/questions/8275669/how-do-i-use-listview-addheaderview - accessed Nov 1 2014
 		answerListView =  (ListView) findViewById(R.id.answer_list);
 		inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		questionHeader = (View)inflater.inflate(R.layout.question_page_header, null, false);
+		questionHeader = (View)inflater.inflate(R.layout.question_page_header, null);
 		answerListView.addHeaderView(questionHeader);
 		
 		questionTitle = (TextView) findViewById(R.id.question_title);
@@ -120,8 +122,18 @@ public class QuestionPageActivity extends CustomActivity {
 
 		bookmarked_list = account.getReadingList();
 		if (bookmarked_list.contains(question)) {
-			bookmarked = true;
-			bookmark_button.setColorFilter(bookmarked_color);
+			Intent intent = getIntent();
+			Bundle extras = intent.getExtras();
+			
+			String readingCheck = extras.getString("ReadingCheck");
+			if (readingCheck != null) {
+				extras.remove("ReadingCheck");
+				bookmarked_list.remove(question);
+				bookmark_button.setColorFilter(not_bookmarked_color);
+			} else {
+				bookmarked = true;
+				bookmark_button.setColorFilter(bookmarked_color);
+			}
 		} else {
 			bookmark_button.setColorFilter(not_bookmarked_color);
 		}
@@ -172,6 +184,8 @@ public class QuestionPageActivity extends CustomActivity {
 			}
 		});
 		
+		// TODO save reading list locally
+		
 	}
 	
 	/**
@@ -211,6 +225,8 @@ public class QuestionPageActivity extends CustomActivity {
 		repliesText.setText("Replies: " + question.getReplyCount());
 		
 		adapter.notifyDataSetChanged();
+		
+		// TODO save reading list locally
 	
 	}
 	
@@ -321,7 +337,6 @@ public class QuestionPageActivity extends CustomActivity {
 	 * the reply page for a question
 	 * @param v is a button within the view. 
 	 */
-
 	public void view_replies(View v) {
 		Bundle bundle = new Bundle();
 		
@@ -387,6 +402,11 @@ public class QuestionPageActivity extends CustomActivity {
 		}
 	}
 	
+	
+	/**
+	 * Take the user to the author answer activity
+	 * @param v		 the view, unused.
+	 */
 	public void authorAnswer(View v) {
 		openAuthorAnswerPage();
 	}

@@ -64,12 +64,15 @@ public class ReadingListActivity extends CustomActivity {
 				Question question = (Question) adapter.getItem(position);				
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("Question", question);
-				
+				bundle.putString("ReadingCheck", "true");
 				ApplicationState.setPassableQuestion(question);
 				
 				// Set up the intent for QuestionPageActivity
 				Intent intent = new Intent(ReadingListActivity.this, QuestionPageActivity.class);
+				
 				intent.putExtras(bundle);
+				
+				
 				
 				// Start the QuestionPageActivity
 				startActivity(intent);
