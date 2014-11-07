@@ -1,7 +1,5 @@
 package ca.ualberta.cs.funtime_runtime.test;
 
-import android.app.Activity;
-import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.funtime_runtime.Account;
 import ca.ualberta.cs.funtime_runtime.ApplicationState;
