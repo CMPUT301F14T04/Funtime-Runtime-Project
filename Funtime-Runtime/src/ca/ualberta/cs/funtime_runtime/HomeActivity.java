@@ -20,7 +20,7 @@ import android.widget.ListView;
  * displaying questions taken from the server and displaying the button to ask a
  * question.
  * 
- * @author cherfan (authored the comments)
+ * @author Steven Cherfan (authored the comments)
  */
 
 public class HomeActivity extends CustomActivity {
