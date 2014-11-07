@@ -14,6 +14,17 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+
+/**
+ * A view class that displays the replies corresponding to either an answer or a question
+ * It contains various menu items options which can be selected from this activity page
+ * The user can see the reply body, date, and author's username
+ * The user can also see the information associated with an answer or a question,
+ * depending on which parent the replies belong to
+ * 
+ * @author Pranjali Pokharel
+ *
+ */
 public class ReplyPageActivity extends CustomActivity {
 	
 	int parentReply;
@@ -43,6 +54,14 @@ public class ReplyPageActivity extends CustomActivity {
 	Button addReply;
 	
 	
+	/**
+	 * 
+	 * This function displays the layout views depending on whether the reply belongs to a question or an answer
+	 * Question option will display all attributes associated with a Question object (eg: title, body etc)
+	 * Answer option will display all attributes associated with an Answer object (eg: body, username, etc)
+	 * The header of the reply page will look different depending on which one the reply belongs to
+	 * 
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -111,6 +130,10 @@ public class ReplyPageActivity extends CustomActivity {
 		adapter.notifyDataSetChanged();
 	}
 	
+	/**
+	 * menu at the top of the page(non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)	{
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -119,9 +142,11 @@ public class ReplyPageActivity extends CustomActivity {
 		
 	}
 	
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// switch case to choose an item from the menu
+		
+		//switch case to select a certain item from the menu
 		
 //-------------------------------------------
 // Menu Items Switch Case
@@ -162,6 +187,11 @@ public class ReplyPageActivity extends CustomActivity {
 //-------------------------------------------
 //-------------------------------------------
 
+	/**
+	 * When the addReply button is selected this method takes the user to the author reply page
+	 * The user can then add a new reply
+	 * @param v
+	 */
 	public void addReply(View v) {
 		
 		Bundle bundle = new Bundle();
