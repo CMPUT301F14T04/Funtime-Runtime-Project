@@ -69,6 +69,12 @@ public class Answer implements Serializable {
 		rating++;	
 	}
 
+	/**
+	 * This function subtracts from the total number of ratings on an answer 
+	 */
+	public void downVote()	{
+		rating--;
+	}
 	
 	/**
 	 * This function gets the rating on a particular answer
@@ -77,14 +83,6 @@ public class Answer implements Serializable {
 	public int getRating() {
 		return rating;
 	}
-
-	/**
-	 * This function subtracts from the total number of ratings on an answer 
-	 */
-	public void downVote()	{
-		rating--;
-	}
-	
 	
 	/**
 	 * This function adds a reply to a particular answer

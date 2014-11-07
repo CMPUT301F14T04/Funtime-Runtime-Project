@@ -23,12 +23,15 @@ public class ReplyTest extends ActivityInstrumentationTestCase2<QuestionPageActi
 		assertEquals(authorName, "TestAuthorUsername");
 	}
 	
+	/*
 	public void testEditReply() {
 		// Consider implementing
 	}
+	*/
 
+	/*
 	public void testDeleteReply() {
 		// Consider implementing
 	}
-	
+	*/
 }

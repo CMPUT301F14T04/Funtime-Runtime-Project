@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+
 /**
  * A view class that displays the question and
  * all it's attributes
@@ -32,7 +33,6 @@ import android.widget.TextView;
  * @author Kieran Boyle
  *
  */
-
 public class QuestionPageActivity extends CustomActivity {
 	ListView answerListView;
 	ArrayList<Answer> questionAnswerList;
@@ -42,7 +42,6 @@ public class QuestionPageActivity extends CustomActivity {
 	TextView questionBody;
 	TextView questionAuthor;
 	TextView questionDate;
-	//TextView questionUpvote;
 	TextView answersTitle;
 	Button questionUpvote;
 	Button addAnswerBtn;
@@ -78,13 +77,12 @@ public class QuestionPageActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_page);
-		Intent intent = getIntent();
-		Bundle extras = intent.getExtras();
+		//Intent intent = getIntent();
 		
 		ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
-		// adapted from http://stackoverflow.com/questions/8275669/how-do-i-use-listview-addheaderview - accessed Nov 1 2014
 		
+		// adapted from http://stackoverflow.com/questions/8275669/how-do-i-use-listview-addheaderview - accessed Nov 1 2014
 		answerListView =  (ListView) findViewById(R.id.answer_list);
 		inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		questionHeader = (View)inflater.inflate(R.layout.question_page_header, null, false);
@@ -158,10 +156,9 @@ public class QuestionPageActivity extends CustomActivity {
 		addAnswerBtn.setOnClickListener(new View.OnClickListener() {		
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(QuestionPageActivity.this, AuthorAnswerActivity.class);
-				startActivity(intent);
-				}
-			});
+				openAuthorAnswerPage();
+			}
+		});
 		
 		answerListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -365,14 +362,14 @@ public class QuestionPageActivity extends CustomActivity {
 	 */
 	public void upvote_question(View v){
 		if (upvoted) {
-			question.downVote();
+			//question.downVote();
 			account.downvoteQuestion(question);
 			rating = question.getRating();
 			questionUpvote.setText(Integer.toString(rating));
 			questionUpvote.setTextColor(Color.parseColor("#000000"));
 			upvoted = false;
 		} else {
-			question.upVote();
+			//question.upVote();
 			account.upvoteQuestion(question);
 			rating = question.getRating();
 			questionUpvote.setText(Integer.toString(rating));

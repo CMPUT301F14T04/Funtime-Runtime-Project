@@ -98,6 +98,11 @@ public class CustomActivity extends Activity {
 		startActivity(intent);
 	}
 
+	public void openAuthorAnswerPage() {
+		Intent intent = new Intent(this, AuthorAnswerActivity.class);
+		startActivity(intent);
+	}
+	
 	/**
 	 * Open the Sort activity
 	 */

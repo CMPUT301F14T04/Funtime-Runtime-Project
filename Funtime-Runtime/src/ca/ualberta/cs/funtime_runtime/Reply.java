@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 /**
  * This class is our model for replies
  * replies consists of a body, author, and date implemented.
+ * 
  * @author Kieran Boyle
  *
  */
@@ -22,7 +24,6 @@ public class Reply implements Serializable {
 	 * @param body a string that is the content of the reply
 	 * @param username a string that serves as the author of the question.
 	 */
-	
 	public Reply(String body, String username) {
 		this.body = body;
 		this.username = username;
@@ -33,7 +34,6 @@ public class Reply implements Serializable {
 	 * This function returns the body of the text 
 	 * @return returns the string value of a body
 	 */
-
 	public String getBody() {
 		return body;
 	}
@@ -42,7 +42,6 @@ public class Reply implements Serializable {
 	 * this function returns  the author of the username 
 	 * @return a string containing the name of the author
 	 */
-
 	public String getUser() {
 		return username;
 	}

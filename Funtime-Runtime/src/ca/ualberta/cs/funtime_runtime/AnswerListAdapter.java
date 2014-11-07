@@ -18,14 +18,14 @@ import android.widget.TextView;
 public class AnswerListAdapter extends ArrayAdapter<Answer> {
 
 	Context ctx;
-	List<Answer> answerList;
+	ArrayList<Answer> answerList;
 	Answer answer;
 	int res;
 	LayoutInflater inflater;
 	Account account;
 	ArrayList<Answer> upvotedList;
 
-	public AnswerListAdapter(Context context, int resource, List<Answer> objects) {
+	public AnswerListAdapter(Context context, int resource, ArrayList<Answer> objects) {
 		super(context, resource, objects);
 		ctx = context;
 		res = resource;
@@ -35,12 +35,12 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 
 	@Override
 	public int getCount() {
-		return this.answerList.size();
+		return answerList.size();
 	}
 
 	@Override
 	public Answer getItem(int position) {
-		return this.answerList.get(position);
+		return answerList.get(position);
 	}
 
 	@Override
@@ -102,10 +102,10 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 				Account account = ApplicationState.getAccount();
 				ArrayList<Answer> upvotedAnswers = account.getUpvotedAnswers();
 				if (upvotedAnswers.contains(answer)) {
-					answer.downVote();
+					//answer.downVote();
 					account.downvoteAnswer(answer);
 				} else {
-					answer.upVote();
+					//answer.upVote();
 					account.upvoteAnswer(answer);
 				}
 				notifyDataSetChanged();

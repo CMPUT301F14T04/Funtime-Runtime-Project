@@ -11,6 +11,7 @@ import java.util.Date;
  * This is a model class for questions
  * Question consists of a title, body, username, list of replies, list of answers, date and rating
  * Question can also consist of a Photo, if a photo is attached
+ * 
  * @author Pranjali Pokharel
  *
  */
@@ -88,6 +89,13 @@ public class Question implements Serializable {
 		rating++;
 	}
 
+	/**
+	 * This function subtracts from the total number of ratings on an question 
+	 */
+	public void downVote() {
+		rating--;	
+	}
+
 	
 	/**
 	 * This function gets the rating on a particular question
@@ -96,14 +104,6 @@ public class Question implements Serializable {
 	public int getRating() {
 		return rating;
 	}
-
-	/**
-	 * This function subtracts from the total number of ratings on an question 
-	 */
-	public void downVote() {
-		rating--;	
-	}
-
 	
 	/**
 	 * This function adds an answer of type Answer at index 0 for a question 
@@ -179,23 +179,5 @@ public class Question implements Serializable {
 	public ArrayList<Reply> getReplyList() {
 		return replyList;
 	}
-	
-	
-	/**
-	 * Adapted from http://stackoverflow.com/questions/10943836/if-arraylist-contains-doesnt-work - accessed 2 Nov 2014
-	 */
-	public boolean equals(Object o) {
-	    
-		if (o instanceof Question) {
-	    	Question other = (Question) o;
-	    	//TODO: change to check unique ID.
-	        return title.equals(other.title) 
-	             && username.equals(other.username) 
-	             && date.equals(other.date);
-	    } else {
-	        return false;
-	    }
-	}
-
 	
 }

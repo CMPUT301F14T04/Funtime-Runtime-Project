@@ -1,9 +1,13 @@
 package ca.ualberta.cs.funtime_runtime.test;
 
+import java.util.ArrayList;
+
 import android.test.ActivityInstrumentationTestCase2;
+import ca.ualberta.cs.funtime_runtime.Account;
 import ca.ualberta.cs.funtime_runtime.Answer;
 import ca.ualberta.cs.funtime_runtime.HomeActivity;
 import ca.ualberta.cs.funtime_runtime.Question;
+import ca.ualberta.cs.funtime_runtime.Reply;
 
 public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity> {
 
@@ -26,10 +30,11 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 		assertEquals(authorName, "TestAuthorUsername");
 	}
 	
+	/*
 	public void testEditQuestion() {
 		// Consider implementing
 	}
-	
+	*/
 	
 	public void testVoting() {
 		Question question = new Question("Test Question Title", "Test question body", "TestAuthorUsername");
@@ -48,6 +53,11 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 		rating = question.getRating();
 		assertEquals(rating, 10);
 		
+		Account account = new Account("TestUser1");
+		account.upvoteQuestion(question);
+		assertEquals(question.getRating(), 11);
+		ArrayList<Question> upvotedQuestions = account.getUpvotedQuestions();
+		assertTrue(upvotedQuestions.contains(question));
 	}
 	
 	public void testAnswers() {
@@ -67,25 +77,45 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 				
 		assertEquals(answer_count, 4);
 		
-		assertEquals(question.getAnswer(0), answer0);
-		assertEquals(question.getAnswer(1), answer1);
-		assertEquals(question.getAnswer(2), answer2);
-		assertEquals(question.getAnswer(3), answer3);
+		assertEquals(question.getAnswer(0), answer3);
+		assertEquals(question.getAnswer(1), answer2);
+		assertEquals(question.getAnswer(2), answer1);
+		assertEquals(question.getAnswer(3), answer0);
 	}
 	
-	
-	public void testAddPhoto() {
-//		Question question = new Question("Test Question Title", "Test question body", "TestAuthorUsername");
+	public void testReply() {
+		Reply reply = new Reply("Test reply body", "TestReplier1");
 		
-		// create bitmap testPhoto
-//		bitmap testPhoto = //implement!
-//		question.addPhoto(testPhoto);
-//		bitmap retreivedPhoto = question.getPhoto();
-//		assertEquals(testPhoto, retreivedPhoto);
+		Question question = new Question("Is this a test question?", "I think this is a question, but I can't tell. HELP!", "TestAsker");
+		
+		question.addReply(reply);
+		
+		Reply testReply = question.getReply(0);
+		
+		assertEquals(reply, testReply);
+		
+		ArrayList<Reply> replyList = question.getReplyList();
+	
+		assertEquals(question.getReplyCount(), 1);
+		assertTrue(replyList.contains(reply));
+	
 	}
 	
+	/*
+	public void testAddPhoto() {
+		Question question = new Question("Test Question Title", "Test question body", "TestAuthorUsername");
+		
+		//create bitmap testPhoto
+		bitmap testPhoto = //implement!
+		question.addPhoto(testPhoto);
+		bitmap retreivedPhoto = question.getPhoto();
+		assertEquals(testPhoto, retreivedPhoto);
+	}
+	*/
+	
+	/*
 	public void testDeleteQuestion() {
 		// Consider implementing
 	}
-	
+	*/
 }
