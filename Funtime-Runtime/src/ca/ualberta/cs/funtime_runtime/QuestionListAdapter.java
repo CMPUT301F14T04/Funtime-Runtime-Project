@@ -31,14 +31,22 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		inflater = LayoutInflater.from(context);
 	}
 
+	/**
+	 * When called returns the size of the question list
+	 * @return the size of the question list
+	 */
 	@Override
 	public int getCount() {
-		return this.questionList.size();
+		return questionList.size();
 	}
 
+	/**
+	 * Returns a question from a list of questions
+	 * @return Returns the question at the given position
+	 */
 	@Override
 	public Question getItem(int position) {
-		return this.questionList.get(position);
+		return questionList.get(position);
 	}
 
 	@Override
@@ -50,6 +58,10 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	// Adapted from http://www.survivingwithandroid.com/2013/02/android-listview-adapter-imageview.html -- Accessed Oct 23, 2014
 	// Adapted from http://www.framentos.com/en/android-tutorial/2012/07/16/listview-in-android-using-custom-listadapter-and-viewcache/ 
 	//    -- Accessed Oct 23, 2014
+	/**
+	 * Method that when called on a list view object formats the contents
+	 * @return Returns the generated adapter view
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
