@@ -80,6 +80,8 @@ public class MyHistoryActivity extends CustomActivity {
 		});
 
 		registerForContextMenu(myHistoryListView);
+		
+		// TODO save history locally
 
 	}
 
@@ -91,6 +93,8 @@ public class MyHistoryActivity extends CustomActivity {
 	public void onRestart() {
 		super.onRestart();
 		adapter.notifyDataSetChanged();
+		
+		// TODO save history locally
 
 	}
 
