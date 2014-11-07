@@ -10,8 +10,7 @@ import android.os.Bundle;
  * @author Benjamin Holmwood
  *
  */
-public class CustomActivity extends Activity
-{
+public class CustomActivity extends Activity {
 	
 	/**
 	 * Default Activity onResume()
@@ -38,7 +37,7 @@ public class CustomActivity extends Activity
 	/**
 	 * Open the home activity
 	 */
-	public void openMyHome(){
+	public void openMyHome() {
 		Intent intent = new Intent (this, HomeActivity.class);
 		startActivity(intent);
 	}
@@ -54,7 +53,7 @@ public class CustomActivity extends Activity
 	/**
 	 * Open the login activity
 	 */
-	public void openLogin(){
+	public void openLogin() {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 	}
@@ -103,8 +102,7 @@ public class CustomActivity extends Activity
 	 * Open the Sort activity
 	 */
 	public void openSortList() {
-		Intent intent = new Intent(this, Sort.class);
-		startActivity(intent);
+
 	}
 
 }

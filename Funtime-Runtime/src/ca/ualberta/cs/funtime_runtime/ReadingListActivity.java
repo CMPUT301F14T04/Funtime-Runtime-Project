@@ -30,8 +30,7 @@ public class ReadingListActivity extends CustomActivity {
 	
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reading_list);
@@ -47,7 +46,7 @@ public class ReadingListActivity extends CustomActivity {
 		readingList = account.getReadingList();
 
 		// Set adapter for list
-		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter2, readingList);
+		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, readingList);
 		readingListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();
 		
@@ -118,6 +117,7 @@ public class ReadingListActivity extends CustomActivity {
 	    
 		if (item.getTitle() == "Remove from reading list") {
 		    account.removeReadLater(selectedQuestion);
+		    adapter.notifyDataSetChanged();
 		}
 		else if (item.getTitle() == "Add to reading list") {
 		    account.readLater(selectedQuestion);
@@ -132,8 +132,7 @@ public class ReadingListActivity extends CustomActivity {
 	}
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
+	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.reading_list, menu);

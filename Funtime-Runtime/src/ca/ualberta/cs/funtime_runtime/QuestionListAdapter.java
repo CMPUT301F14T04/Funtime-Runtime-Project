@@ -1,6 +1,5 @@
 package ca.ualberta.cs.funtime_runtime;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,15 +14,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class QuestionListAdapter extends ArrayAdapter<Question> {
-
 	Context ctx;
+	Question question;
 	List<Question> questionList;
 	int res;
 	LayoutInflater inflater;
 	Account account;
 	ArrayList<Question> favouritesList;
-	ArrayList<Question> upvotedList;
-	
+	ArrayList<Question> upvotedList;	
 	
 	public QuestionListAdapter(Context context, int resource, ArrayList<Question> objects) {
 		super(context, resource, objects);
@@ -31,9 +29,6 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		res = resource;
 		questionList = objects;
 		inflater = LayoutInflater.from(context);
-		account = ApplicationState.getAccount();
-		favouritesList = account.getFavouritesList();
-		upvotedList = account.getUpvotedQuestions();
 	}
 
 	@Override
@@ -64,9 +59,11 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			theView = (RelativeLayout) inflater.inflate(res, null);
 		}
 		
-		Question question = questionList.get(position);
-		
-		//ImageView star = (ImageView) theView.findViewById(R.id.fav_star);
+		account = ApplicationState.getAccount();
+		favouritesList = account.getFavouritesList();
+		upvotedList = account.getUpvotedQuestions();
+		question = questionList.get(position);
+
 		ImageView star = (ImageView) theView.findViewById(R.id.adapterStar);
 		if (favouritesList.contains(question)) {
 			star.setImageResource(android.R.drawable.btn_star_big_on);
@@ -74,14 +71,10 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			star.setImageResource(android.R.drawable.btn_star_big_off);
 		}
 
-		//TextView titleTextView = (TextView) theView.findViewById(R.id.question_title_textview);
 		TextView titleTextView = (TextView) theView.findViewById(R.id.adapterTitle);
 		titleTextView.setText(question.getTitle());
 		
-		//TextView ratingTextView = (TextView) theView.findViewById(R.id.question_rating_textview);
 		TextView ratingTextView = (TextView) theView.findViewById(R.id.adapterRating);
-		//String ratingString = "Rating:";
-		//ratingTextView.setText(ratingString + " " + question.getRating());
 		String rating = Integer.toString(question.getRating());
 		ratingTextView.setText(rating);
 		
@@ -91,21 +84,17 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			ratingTextView.setTextColor(Color.parseColor("#000000"));
 		}
 		
-		//TextView answerTextView = (TextView) theView.findViewById(R.id.question_answer_textview);
 		TextView answerTextView = (TextView) theView.findViewById(R.id.adapterAnswers);
 		String answerString = "Answers:";
 		answerTextView.setText(answerString + " " + question.getAnswerCount());
 		
-		//TextView authorTextView = (TextView) theView.findViewById(R.id.question_author_textview);
 		TextView authorTextView = (TextView) theView.findViewById(R.id.adapterAuthor);
 		String authorString = "Author:";
 		authorTextView.setText(authorString + " " + question.getUser());
 		
-		//TextView questionDateTextView = (TextView) theView.findViewById(R.id.question_date_textview);
 		TextView questionDateTextView = (TextView) theView.findViewById(R.id.adapterDate);
 		String questionDateString = question.getDate();
 		questionDateTextView.setText("Posted: " + questionDateString);
-		
 		
 		return theView;
 	}

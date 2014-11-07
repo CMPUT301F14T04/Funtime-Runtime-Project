@@ -18,8 +18,7 @@ public class Answer implements Serializable {
 	private final Date date;
 	private int id;
 
-	public Answer(String text, String user)
-	{
+	public Answer(String text, String user) 	{
 		body = text;
 		username = user;
 		rating = 0;
@@ -28,51 +27,41 @@ public class Answer implements Serializable {
 		date = new Date();
 	}
 
-	public String getBody()
-	{
+	public String getBody() {
 		return body;
 	}
 
-	public String getUser()
-	{
+	public String getUser() {
 		return username;
 	}
 
-	public void upVote()
-	{
-		rating++;
-		
+	public void upVote() {
+		rating++;	
 	}
 
-	public int getRating()
-	{
+	public int getRating() {
 		return rating;
 	}
 
-	public void downVote()
-	{
+	public void downVote()	{
 		rating--;
 	}
 	
-	public void addReply(Reply reply) 
-	{
+	public void addReply(Reply reply) {
 		replyList.add(reply);
 		numberOfReplies++;
 	}
 
-	public int getReplyCount() 
-	{
+	public int getReplyCount() {
 		return numberOfReplies;
 	}
 
-	public Reply getReply(int i) 
-	{
+	public Reply getReply(int i) {
 		Reply reply = replyList.get(i);
 		return reply;
 	}
 	
 	public ArrayList<Reply> getReplyList() {
-		// TODO Auto-generated method stub
 		return replyList;
 	}
 	
@@ -90,6 +79,7 @@ public class Answer implements Serializable {
 	public int getId() {
 		return id;
 	}
+	
 //	public bitmap getPhoto()
 //	{
 //		// TODO Auto-generated method stub

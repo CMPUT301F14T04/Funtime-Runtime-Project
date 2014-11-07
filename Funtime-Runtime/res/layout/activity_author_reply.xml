@@ -43,7 +43,6 @@
          android:ems="10"
          android:hint="@string/type_answer_hint_text"
          android:inputType="textMultiLine" >
-
          <requestFocus />
      </EditText>
 
@@ -56,14 +55,16 @@
          android:layout_alignParentTop="true"
          android:layout_marginTop="20dp"
          android:text="@string/answer_parent_title"
-         android:textStyle="bold" />
+         android:textStyle="bold" 
+         android:layout_marginLeft="16dp"
+         android:layout_marginRight="16dp"/>
 
      <TextView
          android:id="@+id/replyParentBody"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_alignLeft="@+id/replyParentTitle"
-         android:layout_alignParentRight="true"
+         android:layout_alignRight="@+id/replyParentTitle"
          android:layout_below="@+id/replyParentTitle"
          android:layout_marginTop="15dp"
          android:ellipsize="end"

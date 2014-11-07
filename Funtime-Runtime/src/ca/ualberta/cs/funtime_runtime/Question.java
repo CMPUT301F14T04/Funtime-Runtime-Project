@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Question implements Serializable{
+public class Question implements Serializable {
 
 	private static final long serialVersionUID = -5060679300357466161L;
 	private final String title;
@@ -100,7 +100,7 @@ public class Question implements Serializable{
 		if (o instanceof Question) {
 	    	Question other = (Question) o;
 	    	//TODO: change to check unique ID.
-	         return title.equals(other.title) 
+	        return title.equals(other.title) 
 	             && username.equals(other.username) 
 	             && date.equals(other.date);
 	    } else {

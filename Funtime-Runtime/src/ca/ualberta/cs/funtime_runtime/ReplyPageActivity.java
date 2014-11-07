@@ -54,6 +54,10 @@ public class ReplyPageActivity extends CustomActivity {
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
 		replyType = extras.getString("ReplyType");
+
+		replyListView = (ListView) findViewById(R.id.reply_list_view);
+		inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
 		
 		if (replyType.equals("question")) {
 			
@@ -65,54 +69,36 @@ public class ReplyPageActivity extends CustomActivity {
 			parentReply = question.getReplyCount();
 			repliesList = question.getReplyList();
 			
-			
-			replyListView = (ListView) findViewById(R.id.reply_list_view);
-			
-			inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			header = (View)inflater.inflate(R.layout.reply_page_header, null, false);
-			replyListView.addHeaderView(header);
+			replyListView.addHeaderView(header);	
 			
 			parentTitleText = (TextView) findViewById(R.id.reply_parent_title);
-			parentBodyText = (TextView) findViewById(R.id.reply_parent_body);
-			parentDateText = (TextView) findViewById(R.id.reply_parent_date);
-			parentUserText = (TextView) findViewById(R.id.reply_parent_user);
-			parentReplyText = (TextView) findViewById(R.id.reply_seperator);
-			
-			addReply = (Button) findViewById(R.id.add_reply_button);
-			
-			parentTitleText.setText(parentTitle);
-			parentBodyText.setText(parentBody);
-			parentDateText.setText(parentDate);
-			parentUserText.setText(parentUsername);
-			parentReplyText.setText("Replies " + "(" + parentReply + ")");
-		} 
-		
-		else if (replyType.equals("answer")) {
+			parentTitleText.setText(parentTitle);			
+		} else if (replyType.equals("answer")) {
 			
 			answer = ApplicationState.getPassableAnswer();
 			parentBody = answer.getBody();
 			parentDate = answer.getDate();
-			parentUsername = answer.getUser();			
+			parentUsername = answer.getUser();		
+			parentReply = answer.getReplyCount();
 			repliesList = answer.getReplyList();
 			
-			replyListView = (ListView) findViewById(R.id.reply_list_view);
-			
-			inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			header = (View)inflater.inflate(R.layout.reply_answers_page_header, null, false);
-			replyListView.addHeaderView(header);
-			
-			parentBodyText = (TextView) findViewById(R.id.reply_parent_body);
-			parentDateText = (TextView) findViewById(R.id.reply_parent_date);
-			parentUserText = (TextView) findViewById(R.id.reply_parent_user);
-			
-			addReply = (Button) findViewById(R.id.add_reply_button);
-			
-			parentBodyText.setText(parentBody);
-			parentDateText.setText(parentDate);
-			parentUserText.setText(parentUsername);
+			replyListView.addHeaderView(header);	
 		}
 		
-				
+		parentBodyText = (TextView) findViewById(R.id.reply_parent_body);
+		parentDateText = (TextView) findViewById(R.id.reply_parent_date);
+		parentUserText = (TextView) findViewById(R.id.reply_parent_user);
+		parentReplyText = (TextView) findViewById(R.id.reply_seperator);
+		
+		addReply = (Button) findViewById(R.id.add_reply_button);
+		
+		parentBodyText.setText(parentBody);
+		parentDateText.setText("Posted: " + parentDate);
+		parentUserText.setText("Author: " + parentUsername);
+		parentReplyText.setText("Replies " + "(" + parentReply + ")");
+		
 		adapter = new ReplyListAdapter(this, R.layout.reply_list_adapter, repliesList);
 		replyListView.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
@@ -126,8 +112,7 @@ public class ReplyPageActivity extends CustomActivity {
 	}
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
+	public boolean onCreateOptionsMenu(Menu menu)	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.reply_page, menu);
 		return true;

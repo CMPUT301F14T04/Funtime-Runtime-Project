@@ -26,19 +26,19 @@ public class HomeActivity extends CustomActivity {
 	
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		homeQuestionList = ApplicationState.getQuestionList();
 		homeListView = (ListView) findViewById(R.id.questionListView);
+		
 		// TODO: retrieve homeQuestionList from server
 		testHome();  // temporary test code
+		
 		account = ApplicationState.getAccount();
 
 		//adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, homeQuestionList);
-		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter2, homeQuestionList);
-		
+		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, homeQuestionList);
 		
 		homeListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();
@@ -139,7 +139,35 @@ public class HomeActivity extends CustomActivity {
 				}	
 				question4.addAnswer(answer);
 			}
+			
+			question1.upVote();
+			question3.upVote();
+			account.upvoteQuestion(question1);
+			account.upvoteQuestion(question3);
+			
+			// test MyQuestions code
+			
+			Question myQuestion1 = new Question("Why are there animals in my van?", "Test: there are animals in my van etc", account.getName());
+			homeQuestionList.add(myQuestion1);
+			account.authorQuestion(myQuestion1);
+			Answer answer4 = new Answer("Because the devil put it there", "user2");
+			Answer answer5 = new Answer("Maybe you left the door open? Sometimes animals can also get in through the window", "user5");
+			myQuestion1.addAnswer(answer4);
+			myQuestion1.addAnswer(answer5);
+
+			Question myQuestion2 = new Question("How many colors can the people see?", "Test: like when it comes to skin color what if someone is color blind??", account.getName());
+			homeQuestionList.add(myQuestion2);
+			account.authorQuestion(myQuestion2);
+			Answer answer6 = new Answer("Wow you're not very smart are you?", "user3");
+			myQuestion2.addAnswer(answer6);
+			
+			// test MyAnsweredQuestions code
+			account.answerQuestion(question1);
+			Answer myAnswer = new Answer("THIS IS AN UNHELPFUL ANSWER!", account.getName());
+			question1.addAnswer(myAnswer);
+			
 			first = false;
+			
 		}
 	}
 	
@@ -155,13 +183,12 @@ public class HomeActivity extends CustomActivity {
 		ApplicationState.setPassableQuestion(question);
 		
 		startActivity(intent);	
-		
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		// Inflate the menu; this adds i		account = ApplicationState.getAccount();tems to the action bar if it is present.
+		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.home, menu);
 		return true;
 	}

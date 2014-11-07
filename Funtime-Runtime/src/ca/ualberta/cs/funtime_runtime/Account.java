@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class Account {
 	private String username;
 	private ArrayList<Question> favourites;
-	private ArrayList<Answer> answerList;
+	private ArrayList<Question> answeredList;
 	private ArrayList<Question> questionList;
 	private ArrayList<Question> readingList;
 	private ArrayList<Question> history;
@@ -33,7 +33,7 @@ public class Account {
 	public Account(String username) {
 		this.username = username;
 		favourites = new ArrayList<Question>();
-		answerList = new ArrayList<Answer>();
+		answeredList = new ArrayList<Question>();
 		questionList = new ArrayList<Question>();
 		readingList = new ArrayList<Question>();
 		history = new ArrayList<Question>();
@@ -94,30 +94,30 @@ public class Account {
 	 * 						been added to the answer list of its 
 	 * 						parent question
 	 */
-	public void authorAnswer(Answer answer) {
-		answerList.add(answer);
+	public void answerQuestion(Question question) {
+		answeredList.add(0, question);
 	}
 
 	/**
 	 * @return		the number of answers the user has authored.
 	 */
-	public int answersCount() {
-		return answerList.size();
+	public int answeredCount() {
+		return answeredList.size();
 	}
 
 	/**
 	 * @param i		the index of the answer to be returned
 	 * @return		the answer at that index
 	 */
-	public Answer getAnswer(int i) {
-		return answerList.get(i);
+	public Question getAnsweredQuestion(int i) {
+		return answeredList.get(i);
 	}
 
 	/**
 	 * @return		the list of answers the question has authored
 	 */
-	public ArrayList<Answer> getAnswerList() {
-		return answerList;
+	public ArrayList<Question> getAnsweredList() {
+		return answeredList;
 	}
 	
 	/**
@@ -125,7 +125,7 @@ public class Account {
 	 * @param question		a question the user has indicated they want to favourite
 	 */
 	public void addFavourite(Question question) {
-		favourites.add(question);
+		favourites.add(0, question);
 	}
 	
 	/**
@@ -148,7 +148,7 @@ public class Account {
 	 * @param question		a question the user has indicated they want to save to read later
 	 */
 	public void readLater(Question question) {
-		readingList.add(question);
+		readingList.add(0, question);
 	}
 	
 	/**
@@ -186,7 +186,7 @@ public class Account {
 	 * @param question		a question the user has upvoted
 	 */
 	public void upvoteQuestion(Question question) {
-		upvotedQuestions.add(question);
+		upvotedQuestions.add(0, question);
 	}
 	
 	/**
@@ -209,7 +209,7 @@ public class Account {
 	 * @param answer	an answer the user has upvoted
 	 */
 	public void upvoteAnswer(Answer answer) {
-		upvotedAnswers.add(answer);
+		upvotedAnswers.add(0, answer);
 	}
 	
 	/**

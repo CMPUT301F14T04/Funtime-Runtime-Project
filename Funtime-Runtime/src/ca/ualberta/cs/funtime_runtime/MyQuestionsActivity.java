@@ -15,6 +15,10 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import java.util.ArrayList;
 
+/**
+ * This class is a view class that displays the questions that the user asked in the application
+ * It contains various menu items options which can be selected from this activity page
+ */
 
 public class MyQuestionsActivity extends CustomActivity {
 	ListView myQuestionsListView;
@@ -23,8 +27,7 @@ public class MyQuestionsActivity extends CustomActivity {
 	Account account;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_questions);
 	
@@ -33,14 +36,16 @@ public class MyQuestionsActivity extends CustomActivity {
 		
 		account = ApplicationState.getAccount();
 		
-		myQuestionList = new ArrayList<Question>();
+		myQuestionList = account.getQuestionList();
 		myQuestionsListView = (ListView) findViewById(R.id.listView1);
-		myQuestionsExample();
-		myQuestionsListView.setOnItemClickListener(new OnItemClickListener()
-		{
+		
+		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myQuestionList);
+		myQuestionsListView.setAdapter(adapter);	
+		adapter.notifyDataSetChanged();
+		
+		myQuestionsListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-			{
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Question question = (Question) adapter.getItem(position);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("Question", question);
@@ -65,7 +70,13 @@ public class MyQuestionsActivity extends CustomActivity {
 	
 	}
 	
-	// Adapted from http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/ 2014-09-21
+	/**
+	 * Adapted from http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/ 2014-09-21
+	 * (non-Javadoc)
+	 * @param ContextMenu, View, ContextMenuInfo
+	 * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
+	 */
+	
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 	    super.onCreateContextMenu(menu, v, menuInfo);
 	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
@@ -77,7 +88,15 @@ public class MyQuestionsActivity extends CustomActivity {
 	    	menu.add("Add to reading list");
 	    }
 	}
+	
+	
 
+	/**
+	 * Activates menu item which when clicked adds a question item to reading list	(non-Javadoc)
+	 * @param MenuItem- an item in the menu
+	 * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
+	 */
+	
 	public boolean onContextItemSelected(MenuItem item) {
 
 	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
@@ -97,41 +116,16 @@ public class MyQuestionsActivity extends CustomActivity {
 		
 	    return true;
 
-	}
+	}	
+
 	
-	private void myQuestionsExample()
-	{
-		ArrayList<Question> questionList = new ArrayList<Question>();
-		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, questionList);
-		
-		//Example 1
-		Question question1 = new Question("Why are there animals in my van?", "Test: there are animals in my van etc", "user1");
-		questionList.add(question1);
-		question1.upVote();
-		Answer answer1 = new Answer("Because the devil put it there", "user2");
-		Answer answer2 = new Answer("Maybe you left the door open? Sometimes animals can also get in through the window", "user5");
-		question1.addAnswer(answer1);
-		question1.addAnswer(answer2);
-		
-		
-		//Example 2
-		Question question2 = new Question("How many colors can the people see?", "Test: like when it comes to skin color what if someone is color blind??", "user1");
-		questionList.add(question2);
-		question2.downVote();
-		question2.downVote();
-		Answer answer3 = new Answer("Wow you're not very smart are you?", "user2");
-		answer3.upVote();
-		question2.addAnswer(answer3);
-		
-		
-		myQuestionsListView.setAdapter(adapter);	
-		adapter.notifyDataSetChanged();
-	}
-
+	/**
+	 * menu at the top of the page(non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
+	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-
+	public boolean onCreateOptionsMenu(Menu menu)	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.my_questions, menu);
 		return true;

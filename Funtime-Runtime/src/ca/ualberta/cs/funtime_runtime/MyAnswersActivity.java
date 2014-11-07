@@ -16,14 +16,13 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class MyAnswersActivity extends CustomActivity {
-	ListView myAnswersListView;
-	ArrayList<Question> myAnswersQuestionList;
+	ListView myAnsweredListView;
+	ArrayList<Question> myAnsweredQuestionsList;
 	QuestionListAdapter adapter;
 	Account account;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_answers);
 		
@@ -32,10 +31,15 @@ public class MyAnswersActivity extends CustomActivity {
 		
 		account = ApplicationState.getAccount();
 		
-		myAnswersQuestionList = new ArrayList<Question>();
-		myAnswersListView = (ListView) findViewById(R.id.listView1);
-		testMyAnswers();
-		myAnswersListView.setOnItemClickListener(new OnItemClickListener() {
+		myAnsweredQuestionsList = account.getAnsweredList();
+		myAnsweredListView = (ListView) findViewById(R.id.listView1);
+		
+		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myAnsweredQuestionsList);
+		
+		myAnsweredListView.setAdapter(adapter);	
+		adapter.notifyDataSetChanged();
+		
+		myAnsweredListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Question question = (Question) adapter.getItem(position);				
@@ -50,7 +54,9 @@ public class MyAnswersActivity extends CustomActivity {
 			}
 		});
 		
-		registerForContextMenu(myAnswersListView);
+		registerForContextMenu(myAnsweredListView);
+		
+		adapter.notifyDataSetChanged();
 		
 	}
 	
@@ -60,18 +66,6 @@ public class MyAnswersActivity extends CustomActivity {
 		super.onRestart();
 		adapter.notifyDataSetChanged();
 	
-	}
-	
-	private void testMyAnswers() {
-		ArrayList<Question> questionList = new ArrayList<Question>();
-		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, questionList);
-		Question question1 = new Question("What is the meaning of life?", "body 1 test", "user1");
-		questionList.add(question1);
-		question1.downVote();
-		Answer answer1 = new Answer("Sweet", "user1");
-		question1.addAnswer(answer1);
-		myAnswersListView.setAdapter(adapter);	
-		adapter.notifyDataSetChanged();
 	}
 	
 	// Adapted from http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/ 2014-09-21
@@ -88,7 +82,6 @@ public class MyAnswersActivity extends CustomActivity {
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
-
 	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 	    int itemIndex = info.position;
 	    Question selectedQuestion = adapter.getItem(itemIndex);
@@ -105,12 +98,10 @@ public class MyAnswersActivity extends CustomActivity {
 	    }
 		
 	    return true;
-
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
+	public boolean onCreateOptionsMenu(Menu menu)	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.my_answers, menu);
 		return true;
