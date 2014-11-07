@@ -158,6 +158,8 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 			}
 		});
 		
+		
+		
 		return theView;
 	}
 
