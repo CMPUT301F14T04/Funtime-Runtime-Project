@@ -15,6 +15,13 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+/**
+ * This class is a controller class that displays the various answer list items in proper format
+ * It displays all the components associated with an Answer object view 
+ * answer body, username of author, rating, and date are displayed in the list for each answer using this adapter
+ * 
+ * @author Pranjali Pokharel
+ */
 public class AnswerListAdapter extends ArrayAdapter<Answer> {
 
 	Context ctx;
@@ -25,6 +32,13 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 	Account account;
 	ArrayList<Answer> upvotedList;
 
+	/**
+	 * This function initializes the adapter. 
+	 * The objects being displayed on screen are Array List Answer objects
+	 * @param context
+	 * @param resource
+	 * @param objects
+	 */
 	public AnswerListAdapter(Context context, int resource, ArrayList<Answer> objects) {
 		super(context, resource, objects);
 		ctx = context;
@@ -33,11 +47,20 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		inflater = LayoutInflater.from(context);
 	}
 
+	/**
+	 * This function gets the size of the answer list
+	 * @return this.answerList.size()
+	 */
 	@Override
 	public int getCount() {
 		return answerList.size();
 	}
 
+	/**
+	 * This function gets an answer item at the specified position
+	 * @param position
+	 * @return this.answerList.get(position)
+	 */
 	@Override
 	public Answer getItem(int position) {
 		return answerList.get(position);
@@ -49,9 +72,24 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		return 0;
 	}
 
-	// Adapted from http://www.survivingwithandroid.com/2013/02/android-listview-adapter-imageview.html -- Accessed Oct 23, 2014
-	// Adapted from http://www.framentos.com/en/android-tutorial/2012/07/16/listview-in-android-using-custom-listadapter-and-viewcache/ 
-	//    -- Accessed Oct 23, 2014
+	
+	/**
+	 * 
+	 * This function gets and displays the view consisting of answer body, username of author, 
+	 * rating, number of replies and date/time of answer
+	 * An answer object of the list is displayed at the position corresponding to its position in the answer list
+	 * It also contains a method for an OnClickListener to take the user to the reply page when an answer object is selected
+	 * 
+	 * @param position
+	 * @param convertView
+	 * @param parent
+	 * 
+	 * @return theView
+	 * 
+	 * Adapted from http://www.survivingwithandroid.com/2013/02/android-listview-adapter-imageview.html -- Accessed Oct 23, 2014
+	 * Adapted from http://www.framentos.com/en/android-tutorial/2012/07/16/listview-in-android-using-custom-listadapter-and-viewcache/ 
+	 * -- Accessed Oct 23, 2014
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
@@ -94,8 +132,16 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		}
 		
 		
-		// adapted from http://syedasaraahmed.wordpress.com/2013/02/08/make-a-custom-listview-row-with-clickable-buttons-in-it-selectable-using-a-custom-cursoradapter/ - accessed Nov 5 2014
+		
 		answerRating.setTag(position);
+		
+		/**
+		 * This function is used to set an OnClickListner on an answer list object which takes the user to replies page if selected
+		 * 
+		 * @see android.view.View.OnClickListener(android.view.ViewGroup)
+		 * adapted from http://syedasaraahmed.wordpress.com/2013/02/08/make-a-custom-listview-row-with-clickable-buttons-in-it-selectable-using-a-custom-cursoradapter/ 
+		 * -- accessed Nov 5 2014
+		 */
 		answerRating.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Answer answer = getItem((Integer) v.getTag());
