@@ -8,6 +8,7 @@ import android.os.Bundle;
  * An activity used as a starting point for all activities within the application.
  * 
  * @author Benjamin Holmwood
+ * @author Deborsi Hazarika
  *
  */
 public class CustomActivity extends Activity {
