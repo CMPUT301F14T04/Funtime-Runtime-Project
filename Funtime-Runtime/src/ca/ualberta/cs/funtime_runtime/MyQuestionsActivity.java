@@ -27,8 +27,7 @@ public class MyQuestionsActivity extends CustomActivity {
 	Account account;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_questions);
 	
@@ -44,15 +43,9 @@ public class MyQuestionsActivity extends CustomActivity {
 		myQuestionsListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();
 		
-		
-		//myQuestionsExample();
-		
-		
-		myQuestionsListView.setOnItemClickListener(new OnItemClickListener()
-		{
+		myQuestionsListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-			{
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Question question = (Question) adapter.getItem(position);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("Question", question);
@@ -132,9 +125,7 @@ public class MyQuestionsActivity extends CustomActivity {
 	 */
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-
+	public boolean onCreateOptionsMenu(Menu menu)	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.my_questions, menu);
 		return true;

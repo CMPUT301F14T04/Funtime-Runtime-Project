@@ -46,8 +46,7 @@ public class AuthorReplyActivity extends CustomActivity {
 	 * types
 	 */
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState)	{
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_author_reply);
@@ -93,9 +92,7 @@ public class AuthorReplyActivity extends CustomActivity {
 	 * @param menu  an interface for managing menu items
 	 */
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-
+	public boolean onCreateOptionsMenu(Menu menu)	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.author_reply, menu);
 		return true;
@@ -147,22 +144,17 @@ public class AuthorReplyActivity extends CustomActivity {
 		}
 //-------------------------------------------
 //-------------------------------------------
+	
 	/**
 	 * this onClick listener for a button simply submits whatever has been entered into the text field.
      *this button also leaves the activity after the reply is submitted
 	 * @param v is a button within the view
 	 */
-
-	 public void addReply(View v){ 
+	 public void addReply(View v) { 
 		Reply reply = new Reply(typeReply.getText().toString(), username.toString());
-		
 		replyList.add(0, reply);
-		
-		finish();
-				
-				
+		finish();				
 	}
-	 
 	 
 	 /**
 	  * This onClick listener leaves the activity after the "cancel button is clicked

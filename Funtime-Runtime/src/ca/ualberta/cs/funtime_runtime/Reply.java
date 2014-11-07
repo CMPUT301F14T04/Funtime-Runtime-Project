@@ -34,8 +34,7 @@ public class Reply implements Serializable {
 	 * @return retursn the string value of a body
 	 */
 
-	public String getBody()
-	{
+	public String getBody() {
 		return body;
 	}
 	
@@ -44,8 +43,7 @@ public class Reply implements Serializable {
 	 * @return a string containing the name of the author
 	 */
 
-	public String getUser()
-	{
+	public String getUser() {
 		return username;
 	}
 	

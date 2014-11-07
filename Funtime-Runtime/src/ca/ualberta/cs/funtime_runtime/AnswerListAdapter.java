@@ -70,24 +70,19 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		TextView answerTextView = (TextView) theView.findViewById(R.id.answer_textview);
 		answerTextView.setText(answer.getBody());
 		
-		//TextView answerRatingTextView = (TextView) theView.findViewById(R.id.answerAdapterRating);
-		//String answerRatingString = answerRatingTextView.getText().toString();
 		Button answerRating = (Button) theView.findViewById(R.id.answerAdapterRating);
 		String ratingText = Integer.toString(answer.getRating());
 		answerRating.setText(ratingText);
 		
 		TextView answerAuthorTextView = (TextView) theView.findViewById(R.id.answer_author_textview);
-		//String answerAuthorString = answerAuthorTextView.getText().toString();
 		String answerAuthorString = "Author:";
 		answerAuthorTextView.setText(answerAuthorString + " " + answer.getUser());
 		
 		TextView answerReplyTextView = (TextView) theView.findViewById(R.id.answer_reply_textview);
-		//String answerReplyString = answerReplyTextView.getText().toString();
 		String answerReplyString = "Replies:";
 		answerReplyTextView.setText(answerReplyString + " " + answer.getReplyCount());
 		
 		TextView answerDateTextView = (TextView) theView.findViewById(R.id.answer_date);
-		//String answerDateString = answerDateTextView.getText().toString();
 		String answerDateString = "Date Posted:";
 		answerDateTextView.setText(answerDateString + " " + answer.getDate());
 		
@@ -117,7 +112,6 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 				notifyDataSetChanged();
 			}
 		});
-		
 		
 		return theView;
 	}

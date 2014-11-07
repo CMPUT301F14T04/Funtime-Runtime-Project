@@ -26,19 +26,19 @@ public class HomeActivity extends CustomActivity {
 	
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		homeQuestionList = ApplicationState.getQuestionList();
 		homeListView = (ListView) findViewById(R.id.questionListView);
+		
 		// TODO: retrieve homeQuestionList from server
 		testHome();  // temporary test code
+		
 		account = ApplicationState.getAccount();
 
 		//adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, homeQuestionList);
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter2, homeQuestionList);
-		
 		
 		homeListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();
@@ -179,13 +179,12 @@ public class HomeActivity extends CustomActivity {
 		ApplicationState.setPassableQuestion(question);
 		
 		startActivity(intent);	
-		
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		// Inflate the menu; this adds i		account = ApplicationState.getAccount();tems to the action bar if it is present.
+		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.home, menu);
 		return true;
 	}

@@ -75,8 +75,7 @@ public class QuestionPageActivity extends CustomActivity {
 	 * 
 	 */
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_page);
 		Intent intent = getIntent();
@@ -93,9 +92,6 @@ public class QuestionPageActivity extends CustomActivity {
 		
 		questionTitle = (TextView) findViewById(R.id.question_title);
 		questionBody = (TextView) findViewById(R.id.question_body);
-		//questionBody.setMovementMethod(new ScrollingMovementMethod());
-		
-		//question = (Question) extras.getSerializable("Question");
 		question = ApplicationState.getPassableQuestion();
 		
 		addAnswerBtn = (Button) findViewById(R.id.button_add_answer);
@@ -236,8 +232,7 @@ public class QuestionPageActivity extends CustomActivity {
 	 */
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
+	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.question_page, menu);
 		return true;
 	}
@@ -295,26 +290,6 @@ public class QuestionPageActivity extends CustomActivity {
 
 //-------------------------------------------
 //-------------------------------------------
-	/**
-	 * test question page is simply a test that populates
-	 * our question page with hard coded answers.
-	 * 
-	 */
-	private void testQuestionPage() {
-		List<Answer> answerList = new ArrayList<Answer>();
-		AnswerListAdapter adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, answerList);
-		Answer answer1 = new Answer("Sweet", "user1");
-		Answer answer2 = new Answer("Question", "user2");
-		Answer answer3 = new Answer("Bro do you even lift????????????????????????????????????????", "user3");
-		answerList.add(answer1);
-		answerList.add(answer2);
-		answerList.add(answer3);
-		answerListView.setAdapter(adapter);	
-		adapter.notifyDataSetChanged();
-	}
-
-	
-	//start the AuthorAnswerActivity --> Author Answer Page
 	
 	/**
 	 * This is a simple ONclick listener that sends the user to 
@@ -323,8 +298,7 @@ public class QuestionPageActivity extends CustomActivity {
 	 * @param v is a button in the view that when clicked, navigates 
 	 * the user to a different page. 
 	 */
-	public void addAnswer(View v)
-	{
+	public void addAnswer(View v)	{
 		ApplicationState.setPassableQuestion(question);
 		Intent authorAnswer = new Intent(QuestionPageActivity.this, AuthorAnswerActivity.class);
 		startActivity(authorAnswer);
@@ -341,20 +315,17 @@ public class QuestionPageActivity extends CustomActivity {
 	
 	public void favourited(View v){
 		//http://stackoverflow.com/questions/12249495/android-imagebutton-change-image-onclick-solved  -Tuesday October 28 2014
-		if (favourited == false){
+		if (favourited == false) {
 			ImageButton favourite_button = (ImageButton) findViewById(R.id.question_favorite_button);
 			favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
 			account.addFavourite(question);
 			favourited = true;
-			
-		}else if (favourited == true){
+		} else if (favourited == true) {
 			ImageButton favourite_button = (ImageButton) findViewById(R.id.question_favorite_button);
 			favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
 			account.removeFavourite(question);
 			favourited = false;
-			
 		}
-
 	}
 	
 	/**
@@ -417,7 +388,6 @@ public class QuestionPageActivity extends CustomActivity {
 	 * @param v is a button within the view 
 	 */
 	public void bookmark_question(View v){
-		//bookmark_button.setColorFilter( R.color.red, Mode.MULTIPLY );
 		if (bookmarked == false){
 			account.readLater(question);
 			bookmark_button.setColorFilter(bookmarked_color);
@@ -428,5 +398,5 @@ public class QuestionPageActivity extends CustomActivity {
 			bookmarked = false;
 		}
 	}
-
+	
 }

@@ -30,6 +30,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	String username;
 	ArrayList<Question> questionList;
 	ArrayList<Question> userQuestionList;
+	
 	/**
 	 * This is a standard onCreate method
 	 * In this method we link this java file with the xml.
@@ -37,7 +38,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 * @param savedInstanceState a bundle which maps string values to parceleable
 	 * types
 	 */
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -123,8 +123,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 * @param v is a button within the activity.
 	 */
 	public void submitQuestion(View v) {
-		//Question question = new Question(questionTitle, questionBody, "username");
-		//Question question1 = new Question("What is the meaning of life?", "body 1 test", "user1");
 		Question query = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
 		questionList = ApplicationState.getQuestionList();
 		userQuestionList = account.getQuestionList();

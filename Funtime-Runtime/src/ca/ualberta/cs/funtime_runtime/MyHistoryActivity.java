@@ -78,80 +78,78 @@ public class MyHistoryActivity extends CustomActivity {
     // 2014-09-21
     public void onCreateContextMenu(ContextMenu menu, View v,
 	    ContextMenuInfo menuInfo) {
-	super.onCreateContextMenu(menu, v, menuInfo);
-	AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
-	Question selectedQuestion = adapter.getItem(info.position);
+    	super.onCreateContextMenu(menu, v, menuInfo);
+    	AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+    	Question selectedQuestion = adapter.getItem(info.position);
 
-	if (account.getReadingList().contains(selectedQuestion)) {
-	    menu.add("Remove from reading list");
-	} else {
-	    menu.add("Add to reading list");
-	}
+    	if (account.getReadingList().contains(selectedQuestion)) {
+    		menu.add("Remove from reading list");
+    	} else {
+    		menu.add("Add to reading list");
+    	}
     }
 
     public boolean onContextItemSelected(MenuItem item) {
 
-	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-		.getMenuInfo();
-	int itemIndex = info.position;
-	Question selectedQuestion = adapter.getItem(itemIndex);
-
-	if (item.getTitle() == "Remove from reading list") {
-	    account.removeReadLater(selectedQuestion);
-	} else if (item.getTitle() == "Add to reading list") {
-	    account.readLater(selectedQuestion);
-
-	} else {
-	    return false;
-	}
-
-	return true;
+    	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+    	int itemIndex = info.position;
+		Question selectedQuestion = adapter.getItem(itemIndex);
+	
+		if (item.getTitle() == "Remove from reading list") {
+		    account.removeReadLater(selectedQuestion);
+		} else if (item.getTitle() == "Add to reading list") {
+		    account.readLater(selectedQuestion);
+	
+		} else {
+		    return false;
+		}
+	
+		return true;
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-	// Inflate the menu; this adds items to the action bar if it is present.
-	getMenuInflater().inflate(R.menu.history, menu);
-	return true;
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.history, menu);
+		return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-	// switch case to choose an item from the menu
-
-	// -------------------------------------------
-	// Menu Items Switch Case
-	// -------------------------------------------
-	switch (item.getItemId()) {
-	case android.R.id.home:
-	    openMyHome();
-	    return true;
-	case R.id.home_menu_item:
-	    openMyHome();
-	    return true;
-	case R.id.login_menu_item:
-	    openLogin();
-	    return true;
-	case R.id.my_questions_menu_item:
-	    openMyQuestions();
-	    return true;
-	case R.id.my_answers_menu_item:
-	    openMyAnswers();
-	    return true;
-	case R.id.my_favorites_menu_item:
-	    openMyFavourites();
-	    return true;
-	case R.id.my_reading_list_item:
-	    openMyReadingList();
-	    return true;
-	case R.id.sort_list_item:
-	    openSortList();
-	    return true;
-	default:
-	    return true;
-	}
+		// switch case to choose an item from the menu
+	
+		// -------------------------------------------
+		// Menu Items Switch Case
+		// -------------------------------------------
+		switch (item.getItemId()) {
+		case android.R.id.home:
+		    openMyHome();
+		    return true;
+		case R.id.home_menu_item:
+		    openMyHome();
+		    return true;
+		case R.id.login_menu_item:
+		    openLogin();
+		    return true;
+		case R.id.my_questions_menu_item:
+		    openMyQuestions();
+		    return true;
+		case R.id.my_answers_menu_item:
+		    openMyAnswers();
+		    return true;
+		case R.id.my_favorites_menu_item:
+		    openMyFavourites();
+		    return true;
+		case R.id.my_reading_list_item:
+		    openMyReadingList();
+		    return true;
+		case R.id.sort_list_item:
+		    openSortList();
+		    return true;
+		default:
+		    return true;
+		}
     }
 
     // -------------------------------------------

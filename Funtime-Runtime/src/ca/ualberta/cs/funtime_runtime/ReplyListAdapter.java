@@ -1,7 +1,6 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -26,25 +25,6 @@ public class ReplyListAdapter extends ArrayAdapter<Reply> {
 		replyList = objects;
 		inflater = LayoutInflater.from(context);
 	}
-
-	/*
-	@Override
-	public int getCount() {
-		return replyList.size();
-	}
-
-	@Override
-	public Reply getItem(int position) {
-		return this.replyList.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	*/
 	
 	// Adapted from http://www.survivingwithandroid.com/2013/02/android-listview-adapter-imageview.html -- Accessed Oct 23, 2014
 	// Adapted from http://www.framentos.com/en/android-tutorial/2012/07/16/listview-in-android-using-custom-listadapter-and-viewcache/ 
@@ -64,7 +44,6 @@ public class ReplyListAdapter extends ArrayAdapter<Reply> {
 		replyTextView.setText(reply.getBody());
 		
 		TextView replyAuthorTextView = (TextView) theView.findViewById(R.id.reply_author_textview);
-		//String replyAuthorString = replyAuthorTextView.getText().toString();
 		String replyAuthorString = "Author:";
 		replyAuthorTextView.setText(replyAuthorString + " " +reply.getUser());
 		

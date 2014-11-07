@@ -11,28 +11,19 @@ import android.content.Context;
 public class SaveManager {
 
 	public void save(String FILENAME, Object object, Context ctx) {
-		{
-			/*	Save an object in the file FILENAME.
-			 */
-			
-			FileOutputStream fos;
-			ObjectOutputStream os;
-
-			try {
-			  fos = ctx.openFileOutput(FILENAME, 0);
-			  os = new ObjectOutputStream(fos);
-			  os.writeObject(object);
-			  os.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
+		FileOutputStream fos;
+		ObjectOutputStream os;
+		try {
+			fos = ctx.openFileOutput(FILENAME, 0);
+			os = new ObjectOutputStream(fos);
+			os.writeObject(object);
+			os.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
-	
+		
 	public Object load(String FILENAME, Context ctx) throws ClassNotFoundException {
-		/*	Load the TODOList from the file FILENAME
-		 */
 		
 		ObjectInputStream ois = null;
 		Object loadedObject = null;

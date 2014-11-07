@@ -22,8 +22,7 @@ public class MyAnswersActivity extends CustomActivity {
 	Account account;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_answers);
 		
@@ -39,8 +38,6 @@ public class MyAnswersActivity extends CustomActivity {
 		
 		myAnsweredListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();
-		
-		//testMyAnswers();
 		
 		myAnsweredListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -71,20 +68,6 @@ public class MyAnswersActivity extends CustomActivity {
 	
 	}
 	
-	private void testMyAnswers() {
-		ArrayList<Question> questionList = new ArrayList<Question>();
-		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, questionList);
-		
-		Question question1 = new Question("What is the meaning of life?", "body 1 test", "user1");
-		questionList.add(question1);
-		question1.downVote();
-		Answer answer1 = new Answer("Sweet", "user1");
-		question1.addAnswer(answer1);
-		
-		myAnsweredListView.setAdapter(adapter);	
-		adapter.notifyDataSetChanged();
-	}
-	
 	// Adapted from http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/ 2014-09-21
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 	    super.onCreateContextMenu(menu, v, menuInfo);
@@ -99,7 +82,6 @@ public class MyAnswersActivity extends CustomActivity {
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
-
 	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 	    int itemIndex = info.position;
 	    Question selectedQuestion = adapter.getItem(itemIndex);
@@ -116,12 +98,10 @@ public class MyAnswersActivity extends CustomActivity {
 	    }
 		
 	    return true;
-
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
+	public boolean onCreateOptionsMenu(Menu menu)	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.my_answers, menu);
 		return true;

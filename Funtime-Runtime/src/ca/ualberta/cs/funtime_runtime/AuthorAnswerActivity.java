@@ -3,10 +3,7 @@ package ca.ualberta.cs.funtime_runtime;
 import java.util.ArrayList;
 
 import android.app.ActionBar;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,31 +58,8 @@ public class AuthorAnswerActivity extends CustomActivity {
 		questionTitle.setText(question.getTitle());
 		questionBody.setText(question.getBody());
 		
-		//questionBody.setEllipsize(TextUtils.TruncateAt.END);
-		//questionBody.setMovementMethod(new ScrollingMovementMethod());
 	}
 	
-	/**
-	 * this function simply tests whether the function is working 
-	 * by hard coding a question that the user can answer. 
-	 */
-
-	private void testAuthorAnswer() {
-		TextView questionTitle = (TextView) findViewById(R.id.questionTitleAA);
-		TextView questionBody = (TextView) findViewById(R.id.questionBodyAA);
-		EditText answerBody = (EditText) findViewById(R.id.typeAnswerAA);
-		Button submitBtn = (Button) findViewById(R.id.submitAnswerButton);
-		
-		question = new Question("Hello", "Goodbye", "troll");
-		
-		String title = question.getTitle();
-		String body = question.getBody();
-		String user = question.getUser();
-		
-		questionTitle.setText(title);
-		questionBody.setText(body);
-		
-	}
 	/**
 	 * this function adds items to the action bar if it present
 	 * 
@@ -158,7 +132,6 @@ public class AuthorAnswerActivity extends CustomActivity {
 		userAnsweredList.add(0,question);
 		
 		finish();
-				
 				
 	}
 	 /**
