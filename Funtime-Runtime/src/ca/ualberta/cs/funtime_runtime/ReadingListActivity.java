@@ -18,7 +18,7 @@ import android.widget.ListView;
 /**
  * 
  * 
- * @author Benjamin Holmwood
+ * @author Pranjali Pokharel
  *
  */
 public class ReadingListActivity extends CustomActivity {
