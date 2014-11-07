@@ -72,7 +72,7 @@ public class QuestionPageActivity extends CustomActivity {
 	
 	/**
 	 * The function below initializes the view and links the 
-	 * java document with the view. the functionalso tests whether
+	 * java document with the view. the functions also tests whether
 	 * a specific question is in the favorites, bookmarks, or upvoted list.
 	 * @param savedInstanceState a bundle which maps string values to parceleable
 	 * types
