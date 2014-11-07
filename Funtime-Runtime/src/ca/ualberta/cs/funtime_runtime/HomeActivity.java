@@ -82,6 +82,10 @@ public class HomeActivity extends CustomActivity {
 	}
 
 	/**
+	 * On a long click if the question item is in the reading list
+	 * it will give the option to remove it or if it is not in the
+	 * reading list it will give the option to add the question to the
+	 * reading list. This is all displayed via a context menu.
 	 * 
 	 * Adapted from
 	 * http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long
@@ -101,7 +105,10 @@ public class HomeActivity extends CustomActivity {
 	}
 
 	/**
-	 * 
+	 * On a long click if the question item is in the reading list
+	 * it will give the option to remove it or if it is not in the
+	 * reading list it will give the option to add the question to the
+	 * reading list. This is all displayed via a context menu.
 	 */
 	public boolean onContextItemSelected(MenuItem item) {
 
@@ -255,6 +262,7 @@ public class HomeActivity extends CustomActivity {
 	}
 
 	/**
+	 * Populates the menu with activities to move to.
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	 */
 	@Override

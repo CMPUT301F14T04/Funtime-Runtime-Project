@@ -84,7 +84,8 @@ public class MyHistoryActivity extends CustomActivity {
 	}
 
 	/**
-	 * 
+	 * Refreshes the adapter when the activity restarts
+	 * in case anything changed. 
 	 */
 	@Override
 	public void onRestart() {
@@ -94,6 +95,11 @@ public class MyHistoryActivity extends CustomActivity {
 	}
 
 	/**
+	 * On a long click if the question item is in the reading list it will give
+	 * the option to remove it or if it is not in the reading list it will give
+	 * the option to add the question to the reading list. This is all displayed
+	 * via a context menu.
+	 * 
 	 * Adapted from
 	 * http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long
 	 * -clicks-in-an-android-listview/ 2014-09-21
@@ -112,7 +118,10 @@ public class MyHistoryActivity extends CustomActivity {
 	}
 
 	/**
-	 * 
+	 * On a long click if the question item is in the reading list it will give
+	 * the option to remove it or if it is not in the reading list it will give
+	 * the option to add the question to the reading list. This is all displayed
+	 * via a context menu.
 	 */
 	public boolean onContextItemSelected(MenuItem item) {
 
@@ -135,7 +144,8 @@ public class MyHistoryActivity extends CustomActivity {
 	}
 
 	/**
-	 * 
+	 * Populates the menu with options to switch activities.
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -145,6 +155,7 @@ public class MyHistoryActivity extends CustomActivity {
 	}
 
 	/**
+	 * Handles the changing of activities when the menu is clicked.
 	 * @see CustomActivity
 	 */
 	@Override
