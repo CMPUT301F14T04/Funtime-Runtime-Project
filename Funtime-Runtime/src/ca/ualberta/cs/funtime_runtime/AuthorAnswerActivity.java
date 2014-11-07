@@ -18,7 +18,8 @@ import android.widget.TextView;
  * and submit it as an answer to a question.
  * The user can also cancel the creation of
  * an answer. The question body and title are displayed above
- * the edit text segment. 
+ * the edit text segment. this class will
+ * eventually allow you to add a photo
  * 
  * @author Kieran Boyle
  *
@@ -145,8 +146,8 @@ public class AuthorAnswerActivity extends CustomActivity {
 //-------------------------------------------	
 	
 	/**
-	 * this button simply submits whatever has been entered into the text field.
-     *this button also leaves the activity after the question is submitted
+	 * this onCLick method linked to a button simply submits whatever has been entered into the text field.
+     *this button also leaves the activity after the answer is submitted
 	 * @param v is a button within the view
 	 */
 	 public void answer_question(View v){ 
