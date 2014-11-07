@@ -117,6 +117,7 @@ public class ReadingListActivity extends CustomActivity {
 	    
 		if (item.getTitle() == "Remove from reading list") {
 		    account.removeReadLater(selectedQuestion);
+		    adapter.notifyDataSetChanged();
 		}
 		else if (item.getTitle() == "Add to reading list") {
 		    account.readLater(selectedQuestion);
