@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 /**
  * This class is a controller class that displays the various reply list items in proper format
- * It displays all the components associated with a Reply object 
+ * It displays all the components associated with a Reply object view
  * Reply, username of author and date are displayed in the list for each reply using this adapter
  * 
  * @author Pranjali Pokharel
