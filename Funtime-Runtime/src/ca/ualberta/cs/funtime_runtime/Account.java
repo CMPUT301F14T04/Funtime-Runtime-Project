@@ -95,7 +95,7 @@ public class Account {
 	 * 						parent question
 	 */
 	public void answerQuestion(Question question) {
-		answeredList.add(question);
+		answeredList.add(0, question);
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class Account {
 	 * @param question		a question the user has indicated they want to favourite
 	 */
 	public void addFavourite(Question question) {
-		favourites.add(question);
+		favourites.add(0, question);
 	}
 	
 	/**
@@ -148,7 +148,7 @@ public class Account {
 	 * @param question		a question the user has indicated they want to save to read later
 	 */
 	public void readLater(Question question) {
-		readingList.add(question);
+		readingList.add(0, question);
 	}
 	
 	/**
@@ -186,7 +186,7 @@ public class Account {
 	 * @param question		a question the user has upvoted
 	 */
 	public void upvoteQuestion(Question question) {
-		upvotedQuestions.add(question);
+		upvotedQuestions.add(0, question);
 	}
 	
 	/**
@@ -209,7 +209,7 @@ public class Account {
 	 * @param answer	an answer the user has upvoted
 	 */
 	public void upvoteAnswer(Answer answer) {
-		upvotedAnswers.add(answer);
+		upvotedAnswers.add(0, answer);
 	}
 	
 	/**

@@ -140,6 +140,10 @@ public class HomeActivity extends CustomActivity {
 				question4.addAnswer(answer);
 			}
 			
+			question1.upVote();
+			question3.upVote();
+			account.upvoteQuestion(question1);
+			account.upvoteQuestion(question3);
 			
 			// test MyQuestions code
 			
