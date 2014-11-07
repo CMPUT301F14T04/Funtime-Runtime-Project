@@ -16,7 +16,7 @@ import android.widget.EditText;
  * that they wish to ask. 
  * The user will be able to add a photo to there question 
  * in the next iteration
- * @authorKieran Boyle
+ * @author Kieran Boyle
  *
  */
 public class AuthorQuestionActivity extends CustomActivity {

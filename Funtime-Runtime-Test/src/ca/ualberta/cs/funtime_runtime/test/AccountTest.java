@@ -20,7 +20,7 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 	}
 	
 	public void testGetAccountName(){
-		String name1 = "Kappa";
+		String name1 = "TestName";
 		String name2;
 		Account account = new Account(name1);
 		account.setName(name1);
@@ -47,18 +47,23 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 	
 	public void testAuthorAnswer() {
 		Account account = new Account("TestAccountUsername");
+		Question question = new Question("test question 1", "test body 1", "iAmTest");
 		Answer answer = new Answer("Test answer body", "TestAccountUsername");
-		account.authorAnswer(answer);
-		assertEquals(account.answersCount(), 1);
-		assertEquals(answer, account.getAnswer(0));
+		question.addAnswer(answer);
+		account.answerQuestion(question);
+		assertEquals(account.answeredCount(), 1);
+		assertEquals(answer, account.getAnsweredQuestion(0));
 		
 		Answer answer0 = new Answer("Test answer 0 body", "TestAccountUsername0");
 		Answer answer1 = new Answer("Test answer 1 body", "TestAccountUsername1");
 		Answer answer2 = new Answer("Test answer 2 body", "TestAccountUsername2");
-		account.authorAnswer(answer0);
-		account.authorAnswer(answer1);
-		account.authorAnswer(answer2);
-		assertEquals(account.answersCount(), 4);
+		question.addAnswer(answer0);
+		account.answerQuestion(question);
+		question.addAnswer(answer1);
+		account.answerQuestion(question);
+		question.addAnswer(answer2);
+		account.answerQuestion(question);
+		assertEquals(account.answeredCount(), 4);
 	}
 	
 	public void testFavorites() {

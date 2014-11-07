@@ -4,6 +4,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ * This is a view class that displays the results of a search that the user initiated
+ * Will be implemented for Project Part-4
+ * 
+ * @author Pranjali Pokharel
+ */
 public class SearchActivity extends CustomActivity {
 
 	@Override
@@ -12,6 +18,10 @@ public class SearchActivity extends CustomActivity {
 		setContentView(R.layout.activity_search);
 	}
 
+	
+	/**
+	 * The methods below are used to inflate and interact with menu objects
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

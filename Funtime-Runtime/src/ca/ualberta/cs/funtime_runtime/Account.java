@@ -186,6 +186,7 @@ public class Account {
 	 * @param question		a question the user has upvoted
 	 */
 	public void upvoteQuestion(Question question) {
+		question.upVote();
 		upvotedQuestions.add(0, question);
 	}
 	
@@ -194,6 +195,7 @@ public class Account {
 	 * @param question		a question the user has un-upvoted
 	 */
 	public void downvoteQuestion(Question question) {
+		question.downVote();
 		upvotedQuestions.remove(question);
 	}
 	
@@ -209,6 +211,7 @@ public class Account {
 	 * @param answer	an answer the user has upvoted
 	 */
 	public void upvoteAnswer(Answer answer) {
+		answer.upVote();
 		upvotedAnswers.add(0, answer);
 	}
 	
@@ -217,6 +220,7 @@ public class Account {
 	 * @param answer	an answer the user has un-upvoted
 	 */
 	public void downvoteAnswer(Answer answer) {
+		answer.downVote();
 		upvotedAnswers.remove(answer);
 	}
 	
@@ -226,5 +230,11 @@ public class Account {
 	public ArrayList<Answer> getUpvotedAnswers() {
 		return upvotedAnswers;
 	}
+
+	/**
+	 * Adds an answer that the user made to a list of their created answers
+	 * @param answer
+	 */
+
 
 }
