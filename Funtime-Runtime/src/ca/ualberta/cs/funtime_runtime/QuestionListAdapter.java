@@ -17,6 +17,7 @@ import android.widget.TextView;
 public class QuestionListAdapter extends ArrayAdapter<Question> {
 
 	Context ctx;
+	Question question;
 	List<Question> questionList;
 	int res;
 	LayoutInflater inflater;
@@ -31,9 +32,12 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		res = resource;
 		questionList = objects;
 		inflater = LayoutInflater.from(context);
+		
+		/*
 		account = ApplicationState.getAccount();
 		favouritesList = account.getFavouritesList();
 		upvotedList = account.getUpvotedQuestions();
+		*/
 	}
 
 	@Override
@@ -64,7 +68,11 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			theView = (RelativeLayout) inflater.inflate(res, null);
 		}
 		
-		Question question = questionList.get(position);
+		account = ApplicationState.getAccount();
+		favouritesList = account.getFavouritesList();
+		upvotedList = account.getUpvotedQuestions();
+		
+		question = questionList.get(position);
 		
 		//ImageView star = (ImageView) theView.findViewById(R.id.fav_star);
 		ImageView star = (ImageView) theView.findViewById(R.id.adapterStar);
