@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
  * This class is our model for replies
- * replies conssts of a body, author, and date implemented.
+ * replies consists of a body, author, and date implemented.
  * @author Kieran Boyle
  *
  */
@@ -18,7 +18,7 @@ public class Reply implements Serializable {
 	private final Date date;
 	
 	/**
-	 * This funtion intializes a reply. 
+	 * This function initializes a reply. 
 	 * @param body a string that is the content of the reply
 	 * @param username a string that serves as the author of the question.
 	 */
@@ -31,7 +31,7 @@ public class Reply implements Serializable {
 	
 	/**
 	 * This function returns the body of the text 
-	 * @return retursn the string value of a body
+	 * @return returns the string value of a body
 	 */
 
 	public String getBody() {

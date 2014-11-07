@@ -18,6 +18,9 @@ import java.util.ArrayList;
 /**
  * This class is a view class that displays the questions that the user asked in the application
  * It contains various menu items options which can be selected from this activity page
+ * The user can select to view each of the answers and replies corresponding to each question in the list
+ * 
+ * @author Pranjali Pokharel
  */
 
 public class MyQuestionsActivity extends CustomActivity {
