@@ -145,7 +145,6 @@ public class ReplyPageActivity extends CustomActivity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
 		//switch case to select a certain item from the menu
 		
 //-------------------------------------------
