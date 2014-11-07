@@ -16,8 +16,8 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class MyAnswersActivity extends CustomActivity {
-	ListView myAnswersListView;
-	ArrayList<Question> myAnswersQuestionList;
+	ListView myAnsweredListView;
+	ArrayList<Question> myAnsweredQuestionsList;
 	QuestionListAdapter adapter;
 	Account account;
 
@@ -32,10 +32,17 @@ public class MyAnswersActivity extends CustomActivity {
 		
 		account = ApplicationState.getAccount();
 		
-		myAnswersQuestionList = new ArrayList<Question>();
-		myAnswersListView = (ListView) findViewById(R.id.listView1);
-		testMyAnswers();
-		myAnswersListView.setOnItemClickListener(new OnItemClickListener() {
+		myAnsweredQuestionsList = account.getAnsweredList();
+		myAnsweredListView = (ListView) findViewById(R.id.listView1);
+		
+		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myAnsweredQuestionsList);
+		
+		myAnsweredListView.setAdapter(adapter);	
+		adapter.notifyDataSetChanged();
+		
+		//testMyAnswers();
+		
+		myAnsweredListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Question question = (Question) adapter.getItem(position);				
@@ -50,7 +57,9 @@ public class MyAnswersActivity extends CustomActivity {
 			}
 		});
 		
-		registerForContextMenu(myAnswersListView);
+		registerForContextMenu(myAnsweredListView);
+		
+		adapter.notifyDataSetChanged();
 		
 	}
 	
@@ -65,12 +74,14 @@ public class MyAnswersActivity extends CustomActivity {
 	private void testMyAnswers() {
 		ArrayList<Question> questionList = new ArrayList<Question>();
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, questionList);
+		
 		Question question1 = new Question("What is the meaning of life?", "body 1 test", "user1");
 		questionList.add(question1);
 		question1.downVote();
 		Answer answer1 = new Answer("Sweet", "user1");
 		question1.addAnswer(answer1);
-		myAnswersListView.setAdapter(adapter);	
+		
+		myAnsweredListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();
 	}
 	

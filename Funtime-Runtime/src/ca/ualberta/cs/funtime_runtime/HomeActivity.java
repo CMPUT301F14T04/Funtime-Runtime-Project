@@ -139,7 +139,31 @@ public class HomeActivity extends CustomActivity {
 				}	
 				question4.addAnswer(answer);
 			}
+			
+			
+			// test MyQuestions code
+			
+			Question myQuestion1 = new Question("Why are there animals in my van?", "Test: there are animals in my van etc", account.getName());
+			homeQuestionList.add(myQuestion1);
+			account.authorQuestion(myQuestion1);
+			Answer answer4 = new Answer("Because the devil put it there", "user2");
+			Answer answer5 = new Answer("Maybe you left the door open? Sometimes animals can also get in through the window", "user5");
+			myQuestion1.addAnswer(answer4);
+			myQuestion1.addAnswer(answer5);
+
+			Question myQuestion2 = new Question("How many colors can the people see?", "Test: like when it comes to skin color what if someone is color blind??", account.getName());
+			homeQuestionList.add(myQuestion2);
+			account.authorQuestion(myQuestion2);
+			Answer answer6 = new Answer("Wow you're not very smart are you?", "user3");
+			myQuestion2.addAnswer(answer6);
+			
+			// test MyAnsweredQuestions code
+			account.answerQuestion(question1);
+			Answer myAnswer = new Answer("THIS IS AN UNHELPFUL ANSWER!", account.getName());
+			question1.addAnswer(myAnswer);
+			
 			first = false;
+			
 		}
 	}
 	

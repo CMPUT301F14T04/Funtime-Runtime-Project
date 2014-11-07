@@ -24,7 +24,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 	TextView questionBody;
 	Account account;
 	String username;
-	ArrayList<Answer> userAnswerList;
+	ArrayList<Question> userAnsweredList;
 	
 
 	@Override
@@ -114,9 +114,9 @@ public class AuthorAnswerActivity extends CustomActivity {
 //-------------------------------------------	
 	 public void answer_question(View v){ 
 		Answer answer = new Answer(answerBody.getText().toString(), username.toString());
-		userAnswerList = account.getAnswerList();
+		userAnsweredList = account.getAnsweredList();
 		question.addAnswer(answer);
-		userAnswerList.add(0,answer);
+		userAnsweredList.add(0,question);
 		
 		finish();
 				

@@ -35,7 +35,8 @@
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.AuthorReplyActivity"
             android:label="@string/title_activity_author_reply" 
-            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" >
+            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" 
+            android:windowSoftInputMode="adjustPan" >
         	<!--  Parent activity meta-data to support 4.0 or lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -57,7 +58,8 @@
         <activity
             android:name="ca.ualberta.cs.funtime_runtime.AuthorAnswerActivity"
             android:label="@string/title_activity_author_answer" 
-            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" >
+            android:parentActivityName="ca.ualberta.cs.funtime_runtime.HomeActivity" 
+            android:windowSoftInputMode="adjustPan" >
         	<!--  Parent activity meta-data to support 4.0 or lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
