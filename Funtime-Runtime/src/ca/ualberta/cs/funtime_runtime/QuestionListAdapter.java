@@ -13,6 +13,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+/**
+ * A class that is an extension of the basic Array Adapter but allows for more specific formatting
+ * inside a list view.
+ * @author bsmolley
+ *
+ */
+
 public class QuestionListAdapter extends ArrayAdapter<Question> {
 	Context ctx;
 	Question question;
