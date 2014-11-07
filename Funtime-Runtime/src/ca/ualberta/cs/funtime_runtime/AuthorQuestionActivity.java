@@ -10,7 +10,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
+/**
+ * This view allows the user to create a question.
+ * They use an edit texts to give a title and a body to the question 
+ * that they wish to ask. 
+ * The user will be able to add a photo to there question 
+ * in the next iteration
+ * @authorKieran Boyle
+ *
+ */
 public class AuthorQuestionActivity extends CustomActivity {
 	
 	Button submitButton;
@@ -22,6 +30,13 @@ public class AuthorQuestionActivity extends CustomActivity {
 	String username;
 	ArrayList<Question> questionList;
 	ArrayList<Question> userQuestionList;
+	/**
+	 * This is a standard onCreate method
+	 * In this method we link this java file with the xml.
+	 * 
+	 * @param savedInstanceState a bundle which maps string values to parceleable
+	 * types
+	 */
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -39,7 +54,12 @@ public class AuthorQuestionActivity extends CustomActivity {
 		account = ApplicationState.getAccount();
 		username = account.getName();
 	}
-
+	
+	/**
+	 * this function adds items to the action bar if it present
+	 * 
+	 * @param menu  an interface for managing menu items
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu){
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -47,6 +67,14 @@ public class AuthorQuestionActivity extends CustomActivity {
 		return true;
 	}
 	
+	/**
+	 * This function simply redirects to another activity when a certain menu 
+	 * item is selected by the user. It operates a switch statement to transtion 
+	 * between different activities
+	 * 
+	 * @param item is a menuItem signifying location within the menu that users 
+	 * wish to visit
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// switch case to choose an item from the menu
@@ -86,6 +114,14 @@ public class AuthorQuestionActivity extends CustomActivity {
 //-------------------------------------------
 //-------------------------------------------
 	
+	/**
+	 * this onCLick listener responds to the button that submits the 
+	 * question. An instance of the question is created and added to the
+	 * various question lists throughout the app. After the button is clicked 
+	 * the user is navigated away from the page.
+	 * 
+	 * @param v is a button within the activity.
+	 */
 	public void submitQuestion(View v) {
 		//Question question = new Question(questionTitle, questionBody, "username");
 		//Question question1 = new Question("What is the meaning of life?", "body 1 test", "user1");
@@ -109,6 +145,12 @@ public class AuthorQuestionActivity extends CustomActivity {
 		
 		
 	}
+	
+	/**
+	 * this onCLick listener is connected to the cancel button and navigates aw
+	 * from the page.
+	 * @param v is a button in the activity.
+	 */
 	 public void cancel_question(View v){
 		 finish();
 	 }

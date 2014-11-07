@@ -13,7 +13,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
+/**
+ * A view class that allows a user to edit text
+ * and submit it as an answer to a question.
+ * The user can also cancel the creation of
+ * an answer. The question body and title are displayed above
+ * the edit text segment. this class will
+ * eventually allow you to add a photo
+ * 
+ * @author Kieran Boyle
+ *
+ */
 
 public class AuthorAnswerActivity extends CustomActivity {
 	
@@ -25,8 +35,14 @@ public class AuthorAnswerActivity extends CustomActivity {
 	Account account;
 	String username;
 	ArrayList<Question> userAnsweredList;
-	
 
+	/**
+	 * This is a standard onCreate method
+	 * In this method we link this java file with the xml.
+	 * 
+	 * @param savedInstanceState a bundle which maps string values to parceleable
+	 * types
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -48,6 +64,11 @@ public class AuthorAnswerActivity extends CustomActivity {
 		//questionBody.setEllipsize(TextUtils.TruncateAt.END);
 		//questionBody.setMovementMethod(new ScrollingMovementMethod());
 	}
+	
+	/**
+	 * this function simply tests whether the function is working 
+	 * by hard coding a question that the user can answer. 
+	 */
 
 	private void testAuthorAnswer() {
 		TextView questionTitle = (TextView) findViewById(R.id.questionTitleAA);
@@ -65,7 +86,11 @@ public class AuthorAnswerActivity extends CustomActivity {
 		questionBody.setText(body);
 		
 	}
-
+	/**
+	 * this function adds items to the action bar if it present
+	 * 
+	 * @param menu  an interface for managing menu items
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)	{
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -73,7 +98,15 @@ public class AuthorAnswerActivity extends CustomActivity {
 		return true;
 	}
 	
-	 @Override
+	/**
+	 * This function simply redirects to another activity when a certain menu 
+	 * item is selected by the user. It operates a switch statement to transtion 
+	 * between different activities
+	 * 
+	 * @param item is a menuItem signifying location within the menu that users 
+	 * wish to visit
+	 */
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// switch case to choose an item from the menu
 			
@@ -112,6 +145,12 @@ public class AuthorAnswerActivity extends CustomActivity {
 		}
 //-------------------------------------------
 //-------------------------------------------	
+	
+	/**
+	 * this onCLick method linked to a button simply submits whatever has been entered into the text field.
+     *this button also leaves the activity after the answer is submitted
+	 * @param v is a button within the view
+	 */
 	 public void answer_question(View v){ 
 		Answer answer = new Answer(answerBody.getText().toString(), username.toString());
 		userAnsweredList = account.getAnsweredList();
@@ -122,6 +161,10 @@ public class AuthorAnswerActivity extends CustomActivity {
 				
 				
 	}
+	 /**
+	  * This onClick listener leaves the activity after the "cancel button is clicked
+	  * @param v is a button within the view
+	  */
 	 public void answer_cancel(View v){
 		 finish();
 	 }
