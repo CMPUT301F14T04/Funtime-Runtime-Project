@@ -222,7 +222,10 @@ public class QuestionPageActivity extends CustomActivity {
 			bookmark_button.setColorFilter(not_bookmarked_color);
 		}
 		
+		answersTitle.setText("Answers (" + questionAnswerList.size() + ")");
+		
 		repliesText.setText("Replies: " + question.getReplyCount());
+		
 		
 		adapter.notifyDataSetChanged();
 		

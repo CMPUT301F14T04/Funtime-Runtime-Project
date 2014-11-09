@@ -21,7 +21,6 @@ public class Answer implements Serializable {
 	private final String username;
 	public ArrayList<Reply> replyList;
 	private int rating;
-	private int numberOfReplies;
 	private final Date date;
 	private int id;
 
@@ -38,7 +37,6 @@ public class Answer implements Serializable {
 		body = text;
 		username = user;
 		rating = 0;
-		numberOfReplies = 0;
 		replyList = new ArrayList<Reply>();
 		date = new Date();
 	}
@@ -90,8 +88,7 @@ public class Answer implements Serializable {
 	 * @param reply of the type Reply
 	 */
 	public void addReply(Reply reply) {
-		replyList.add(reply);
-		numberOfReplies++;
+		replyList.add(0, reply);
 	}
 
 	
@@ -100,7 +97,7 @@ public class Answer implements Serializable {
 	 * @return returns the number of replies
 	 */
 	public int getReplyCount() {
-		return numberOfReplies;
+		return replyList.size();
 	}
 
 	
