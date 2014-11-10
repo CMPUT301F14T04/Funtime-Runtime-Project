@@ -1,6 +1,13 @@
 package ca.ualberta.cs.funtime_runtime;
 
-
+/**
+ * 
+ * Class inherited from CMPUT 301 AndroidElasticSearch lab code
+ * NEED TO ADD CHANGES 
+ * TODO
+ * @author Pranjali Pokharel
+ *
+ */
 
 import java.util.List;
 
