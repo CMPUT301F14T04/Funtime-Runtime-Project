@@ -20,7 +20,9 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 
-//import com.google.gson.reflect.TypeToken;
+/*TODO
+ *  FIGURE OUT WHY GSON LIBRARY WONT IMPORT????? SO CONFUSED???
+ */
 
 
 import android.util.Log;
