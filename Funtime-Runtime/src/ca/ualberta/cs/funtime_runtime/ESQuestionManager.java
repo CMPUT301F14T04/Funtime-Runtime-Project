@@ -112,21 +112,7 @@ public class ESQuestionManager implements IQuestionManager {
 		return null;
 	}
 	
-	/**
-	 * Parses the response of a search
-	 */
-	private SearchResponse<Question> parseSearchResponse(HttpResponse response) throws IOException {
-		String json;
-		json = getEntityContent(response);
-		
-		//Type searchResponseType = new TypeToken<SearchResponse<Question>>() {
-		//}.getType();
-		
-		//SearchResponse<Question> esResponse = gson.fromJson(json, searchResponseType);
 
-		//return esResponse;
-		return null;
-	}
 	
 	
 	/**
