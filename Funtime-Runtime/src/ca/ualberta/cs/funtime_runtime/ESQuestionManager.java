@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -48,12 +48,6 @@ public class ESQuestionManager implements IQuestionManager {
 	}
 	
 	@Override
-	public ArrayList<Question> searchQuestions(String searchString, String field) {
-		ArrayList<Question> result = new ArrayList<Question>();
-		return null;
-	}
-
-	@Override
 	public Question getQuestion(int id) {
 		// TODO Auto-generated method stub
 		
@@ -75,9 +69,49 @@ public class ESQuestionManager implements IQuestionManager {
 		return null;
 	}
 
+	
 	/**
-	 * TODO
-	 * NEED A serachQuestions method to search through all questions
+	 * Get questions with the specified search string. If the search does not
+	 * specify fields, it searches on all the fields.
+	 */
+	public List<Question> searchQuestions(String searchString, String field) {
+		List<Question> result = new ArrayList<Question>();
+
+		// TODO: Implement search questions using ElasticSearch
+		if (searchString == null || "".equals(searchString)) {
+			searchString = "*";
+		}
+		
+		HttpClient httpClient = new DefaultHttpClient();
+		
+		try {
+			HttpPost searchRequest = createSearchRequest(searchString, field);
+			
+			HttpResponse response = httpClient.execute(searchRequest);
+			
+			String status = response.getStatusLine().toString();
+			Log.i(TAG, status);
+			
+			SearchResponse<Question> esResponse = parseSearchResponse(response);
+			Hits<Question> hits = esResponse.getHits();
+			
+			if (hits != null) {
+				if (hits.getHits() != null) {
+					for (SearchHit<Question> sesr : hits.getHits()) {
+						result.add(sesr.getSource());
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+
+		return result;
+	}
+	
+	
+	/**
+	 * Adds a new question
 	 */
 			
 	@Override
