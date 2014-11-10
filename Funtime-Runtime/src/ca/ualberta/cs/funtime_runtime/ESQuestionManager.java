@@ -27,8 +27,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.util.Log;
 
-//import com.google.gson.Gson;
-//import com.google.gson.reflect.TypeToken;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * not implemented yet-- Saved for Part-4
@@ -40,10 +40,10 @@ public class ESQuestionManager implements IQuestionManager {
 	private static final String TAG= "QuestionsSearch";
 	private int idTracker;
 
-	//private Gson gson;
+	private Gson gson;
 	
 	public ESQuestionManager() 	{
-		//gson = new Gson();
+		gson = new Gson();
 	}
 	
 	@Override
@@ -112,6 +112,7 @@ public class ESQuestionManager implements IQuestionManager {
 		return null;
 	}
 	
+
 
 	
 	
