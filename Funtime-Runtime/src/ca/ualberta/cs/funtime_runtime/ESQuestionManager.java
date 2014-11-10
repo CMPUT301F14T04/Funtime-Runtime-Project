@@ -20,6 +20,9 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 
+//import com.google.gson.reflect.TypeToken;
+
+
 import android.util.Log;
 
 //import com.google.gson.Gson;
@@ -27,7 +30,7 @@ import android.util.Log;
 
 /**
  * not implemented yet-- Saved for Part-4
- * @author pranjali
+ * @author Pranjali Pokharel
  *
  */
 public class ESQuestionManager implements IQuestionManager {
@@ -59,11 +62,7 @@ public class ESQuestionManager implements IQuestionManager {
 		try {
 			response = httpClient.execute(httpGet);
 			
-			/*
-			 * NEED TO CREATE A SEARCH HIT CLASS
-			 * CAN IMPORT DIRECTLY FROM EXAMPLE
-			 */
-			//SearchHit<Question> sr = parseMovieHit(response);
+			SearchHit<Question> sr = parseQuestionHit(response);
 			//return sr.getSource();
 
 		} catch (Exception e) {
@@ -83,6 +82,64 @@ public class ESQuestionManager implements IQuestionManager {
 	@Override
 	public void deleteQuestion(int id) 	{
 		// TODO Auto-generated method stub
+	}
+	
+	
+	/**
+	 * Creates a search request from a search string and a field
+	 */
+	private HttpPost createSearchRequest(String searchString, String field)	throws UnsupportedEncodingException {
+		//TODO
+		
+		return null;
+	}
+	
+	private SearchHit<Question> parseQuestionHit(HttpResponse response) {
+		
+		try {
+			String json = getEntityContent(response);
+			//Type searchHitType = new TypeToken<SearchHit<Question>>() {}.getType();
+			
+		//	SearchHit<Question> sr = gson.fromJson(json, searchHitType);
+			//return sr;
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Parses the response of a search
+	 */
+	private SearchResponse<Question> parseSearchResponse(HttpResponse response) throws IOException {
+		String json;
+		json = getEntityContent(response);
+		
+		//Type searchResponseType = new TypeToken<SearchResponse<Question>>() {
+		//}.getType();
+		
+		//SearchResponse<Question> esResponse = gson.fromJson(json, searchResponseType);
+
+		//return esResponse;
+		return null;
+	}
+	
+	
+	/**
+	 * Gets content from an HTTP response
+	 */
+	public String getEntityContent(HttpResponse response) throws IOException {
+		BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+		StringBuffer result = new StringBuffer();
+		String line = "";
+		while ((line = rd.readLine()) != null) {
+			result.append(line);
+		}
+
+		return result.toString();
 	}
 	
 	public void incrementId() {
