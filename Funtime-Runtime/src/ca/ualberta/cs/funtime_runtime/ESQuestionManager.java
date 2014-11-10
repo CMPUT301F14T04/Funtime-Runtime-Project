@@ -20,18 +20,19 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 
-/*TODO
- *  FIGURE OUT WHY GSON LIBRARY WONT IMPORT????? SO CONFUSED???
- */
-
-
 import android.util.Log;
+
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 /**
  * not implemented yet-- Saved for Part-4
+ * NEED TO HAVE SEARCH AND RESOURSE URLS need two not ONE
+ * 
+ * 
+ * TODO Implement same methods for answers or create a new class for answer search
+ * @see createSearchRequest
  * @author Pranjali Pokharel
  *
  */
@@ -65,7 +66,7 @@ public class ESQuestionManager implements IQuestionManager {
 			response = httpClient.execute(httpGet);
 			
 			SearchHit<Question> sr = parseQuestionHit(response);
-			//return sr.getSource();
+			return sr.getSource();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,6 +75,11 @@ public class ESQuestionManager implements IQuestionManager {
 		return null;
 	}
 
+	/**
+	 * TODO
+	 * NEED A serachQuestions method to search through all questions
+	 */
+			
 	@Override
 	public void addQuestion(Question question) {
 		// TODO Auto-generated method stub
@@ -91,19 +97,38 @@ public class ESQuestionManager implements IQuestionManager {
 	 * Creates a search request from a search string and a field
 	 */
 	private HttpPost createSearchRequest(String searchString, String field)	throws UnsupportedEncodingException {
-		//TODO
 		
-		return null;
+		//HTTP POST NEED TO HAVE A SEARCH URL TO IT NOT JUST URL. 
+		HttpPost searchRequest = new HttpPost(URL);
+
+		String[] fields = null;
+		if (field != null) {
+			fields = new String[1];
+			fields[0] = field;
+		}
+		
+		SimpleSearchCommand command = new SimpleSearchCommand(searchString,	fields);
+		
+		String query = command.getJsonCommand();
+		Log.i(TAG, "Json command: " + query);
+
+		StringEntity stringEntity;
+		stringEntity = new StringEntity(query);
+
+		searchRequest.setHeader("Accept", "application/json");
+		searchRequest.setEntity(stringEntity);
+
+		return searchRequest;
 	}
 	
 	private SearchHit<Question> parseQuestionHit(HttpResponse response) {
 		
 		try {
 			String json = getEntityContent(response);
-			//Type searchHitType = new TypeToken<SearchHit<Question>>() {}.getType();
+			Type searchHitType = new TypeToken<SearchHit<Question>>() {}.getType();
 			
-		//	SearchHit<Question> sr = gson.fromJson(json, searchHitType);
-			//return sr;
+			SearchHit<Question> sr = gson.fromJson(json, searchHitType);
+			return sr;
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
@@ -112,9 +137,23 @@ public class ESQuestionManager implements IQuestionManager {
 		return null;
 	}
 	
-
-
 	
+	/**
+	 * Parses the response of a search
+	 */
+	private SearchResponse<Question> parseSearchResponse(HttpResponse response) throws IOException {
+		String json;
+		json = getEntityContent(response);
+		
+		Type searchResponseType = new TypeToken<SearchResponse<Question>>() {
+		}.getType();
+		
+		SearchResponse<Question> esResponse = gson.fromJson(json, searchResponseType);
+
+		return esResponse;
+		
+	}
+
 	
 	/**
 	 * Gets content from an HTTP response
