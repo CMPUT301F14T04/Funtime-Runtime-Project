@@ -47,6 +47,8 @@ public class ESQuestionManager implements IQuestionManager {
 		gson = new Gson();
 	}
 	
+	
+	
 	@Override
 	public Question getQuestion(int id) {
 		// TODO Auto-generated method stub
@@ -69,6 +71,7 @@ public class ESQuestionManager implements IQuestionManager {
 		return null;
 	}
 
+	
 	
 	/**
 	 * Get questions with the specified search string. If the search does not
@@ -117,13 +120,33 @@ public class ESQuestionManager implements IQuestionManager {
 	@Override
 	public void addQuestion(Question question) {
 		// TODO Auto-generated method stub
+		// STILL LEFT TO DO THESE:
 		// push (save) question to server with idTracker
 	    // increment idTracker 
+		//have a getID method in question.java
+		
+		/*HttpClient httpClient = new DefaultHttpClient();
+
+		try {
+			HttpPost addRequest = new HttpPost(URL + question.getId());
+
+			StringEntity stringEntity = new StringEntity(gson.toJson(question));
+			addRequest.setEntity(stringEntity);
+			addRequest.setHeader("Accept", "application/json");
+
+			HttpResponse response = httpClient.execute(addRequest);
+			String status = response.getStatusLine().toString();
+			Log.i(TAG, status);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}*/
 	}
 
 	@Override
 	public void deleteQuestion(int id) 	{
 		// TODO Auto-generated method stub
+		//SAME AS ABOVE NEED a getID method in question.java
 	}
 	
 	
