@@ -1,5 +1,13 @@
 package ca.ualberta.cs.funtime_runtime;
 
+/**
+* 
+* Class inherited from CMPUT 301 AndroidElasticSearch lab code
+* Need to modify to fit funtime_runtime project
+* TODO
+* @author Pranjali Pokharel
+*
+*/
 
 public class SearchResponse<T>
 {
