@@ -143,6 +143,11 @@ public class ESQuestionManager implements IQuestionManager {
 		}*/
 	}
 
+	/**
+	 * Deletes the question with the specified id
+	 * @param id
+	 */
+	
 	@Override
 	public void deleteQuestion(int id) 	{
 		// TODO Auto-generated method stub
@@ -166,6 +171,8 @@ public class ESQuestionManager implements IQuestionManager {
 	
 	/**
 	 * Creates a search request from a search string and a field
+	 * @param searchString
+	 * @param field
 	 */
 	private HttpPost createSearchRequest(String searchString, String field)	throws UnsupportedEncodingException {
 		
