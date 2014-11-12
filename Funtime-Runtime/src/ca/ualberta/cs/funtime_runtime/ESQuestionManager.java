@@ -40,7 +40,8 @@ import com.google.gson.reflect.TypeToken;
  *
  */
 public class ESQuestionManager implements IQuestionManager {
-	private static final String URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/";
+	private static final String RESOURCE_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question";
+	private static final String SEARCH_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question/_search";
 	private static final String TAG= "QuestionsSearch";
 	private int idTracker;
 
@@ -57,7 +58,7 @@ public class ESQuestionManager implements IQuestionManager {
 		// TODO Auto-generated method stub
 		
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(URL + id);
+		HttpGet httpGet = new HttpGet(RESOURCE_URL + id);
 
 		HttpResponse response;
 
@@ -131,7 +132,7 @@ public class ESQuestionManager implements IQuestionManager {
 		HttpClient httpClient = new DefaultHttpClient();
 
 		try {
-			HttpPost addRequest = new HttpPost(URL + question.getId());
+			HttpPost addRequest = new HttpPost(RESOURCE_URL + question.getId());
 
 			StringEntity stringEntity = new StringEntity(gson.toJson(question));
 			addRequest.setEntity(stringEntity);
@@ -160,7 +161,7 @@ public class ESQuestionManager implements IQuestionManager {
 		HttpClient httpClient = new DefaultHttpClient();
 
 		try {
-			HttpDelete deleteRequest = new HttpDelete(URL + questionId);
+			HttpDelete deleteRequest = new HttpDelete(RESOURCE_URL + questionId);
 			deleteRequest.setHeader("Accept", "application/json");
 
 			HttpResponse response = httpClient.execute(deleteRequest);
@@ -181,7 +182,7 @@ public class ESQuestionManager implements IQuestionManager {
 	private HttpPost createSearchRequest(String searchString, String field)	throws UnsupportedEncodingException {
 		
 		// TODO HTTP POST NEED TO HAVE A SEARCH URL TO IT NOT JUST URL. 
-		HttpPost searchRequest = new HttpPost(URL);
+		HttpPost searchRequest = new HttpPost(SEARCH_URL);
 
 		String[] fields = null;
 		if (field != null) {

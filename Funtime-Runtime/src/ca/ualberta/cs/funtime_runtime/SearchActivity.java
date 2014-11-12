@@ -12,6 +12,8 @@ import android.view.MenuItem;
  */
 public class SearchActivity extends CustomActivity {
 
+	private IQuestionManager questionManager;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
