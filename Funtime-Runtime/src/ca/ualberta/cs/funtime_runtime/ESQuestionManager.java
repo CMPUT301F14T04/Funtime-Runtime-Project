@@ -34,6 +34,7 @@ import com.google.gson.reflect.TypeToken;
  * TODO Implement same methods for answers or create a new class for answer search
  * TODO check the search URL and resource URL-- probably will need two urls for this to work
  * TODO test this class to make sure elastic search works for question
+ * TODO write method that returns a list of all questions, to populate home page
  * 
  * @see createSearchRequest
  * @author Pranjali Pokharel
@@ -43,7 +44,7 @@ public class ESQuestionManager implements IQuestionManager {
 	private static final String RESOURCE_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question";
 	private static final String SEARCH_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question/_search";
 	private static final String TAG= "QuestionsSearch";
-	private int idTracker;
+	private int id;
 
 	private Gson gson;
 	
@@ -254,7 +255,7 @@ public class ESQuestionManager implements IQuestionManager {
 	}
 	
 	public void incrementId() {
-		idTracker++;
+		id++;
 	}
 	
 
