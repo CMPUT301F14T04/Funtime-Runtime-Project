@@ -32,6 +32,9 @@ import com.google.gson.reflect.TypeToken;
  * 
  * 
  * TODO Implement same methods for answers or create a new class for answer search
+ * TODO check the search URL and resource URL-- probably will need two urls for this to work
+ * TODO test this class to make sure elastic search works for question
+ * 
  * @see createSearchRequest
  * @author Pranjali Pokharel
  *
@@ -123,9 +126,9 @@ public class ESQuestionManager implements IQuestionManager {
 		// STILL LEFT TO DO THESE:
 		// push (save) question to server with idTracker
 	    // increment idTracker 
-		//have a getID method in question.java
+
 		
-		/*HttpClient httpClient = new DefaultHttpClient();
+		HttpClient httpClient = new DefaultHttpClient();
 
 		try {
 			HttpPost addRequest = new HttpPost(URL + question.getId());
@@ -140,7 +143,7 @@ public class ESQuestionManager implements IQuestionManager {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 
 	/**
@@ -149,14 +152,15 @@ public class ESQuestionManager implements IQuestionManager {
 	 */
 	
 	@Override
-	public void deleteQuestion(int id) 	{
+	public void deleteQuestion(int questionId) 	{
 		// TODO Auto-generated method stub
-		//SAME AS ABOVE NEED a getID method in question.java
+		//SAME AS ABOVE NEED --decrement Id
+		//ALSO CHECK RESOURSE URL AND SEARCH URL
 		
-		/*HttpClient httpClient = new DefaultHttpClient();
+		HttpClient httpClient = new DefaultHttpClient();
 
 		try {
-			HttpDelete deleteRequest = new HttpDelete(RESOURCE_URL + movieId);
+			HttpDelete deleteRequest = new HttpDelete(URL + questionId);
 			deleteRequest.setHeader("Accept", "application/json");
 
 			HttpResponse response = httpClient.execute(deleteRequest);
@@ -165,7 +169,7 @@ public class ESQuestionManager implements IQuestionManager {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 	
 	
@@ -176,7 +180,7 @@ public class ESQuestionManager implements IQuestionManager {
 	 */
 	private HttpPost createSearchRequest(String searchString, String field)	throws UnsupportedEncodingException {
 		
-		//HTTP POST NEED TO HAVE A SEARCH URL TO IT NOT JUST URL. 
+		// TODO HTTP POST NEED TO HAVE A SEARCH URL TO IT NOT JUST URL. 
 		HttpPost searchRequest = new HttpPost(URL);
 
 		String[] fields = null;

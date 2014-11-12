@@ -27,6 +27,7 @@ public class Question implements Serializable {
 	public ArrayList<Reply> replyList;
 	private int rating;
 	
+	public int id; //used for elastic search (see setId and getId methods)
 	/**
 	 * 
 	 * This function initializes a question
@@ -180,4 +181,19 @@ public class Question implements Serializable {
 		return replyList;
 	}
 	
+	/**
+	 * this function gets the ID associated with a certain question
+	 * @return int id
+	 */
+	public int getId(){
+		return id;
+	}
+	
+	/**
+	 * this function sets the ID for a certain question
+	 * @param id
+	 */
+	public void setId(int id){
+		this.id=id;
+	}
 }
