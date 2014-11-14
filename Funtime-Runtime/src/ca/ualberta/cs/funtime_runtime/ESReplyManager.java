@@ -41,7 +41,7 @@ import com.google.gson.reflect.TypeToken;
  *
  */
 public class ESReplyManager implements IReplyManager {
-	private static final String RESOURCE_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/reply";
+	private static final String RESOURCE_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/reply/";
 	private static final String TAG= "AddReply";
 	private int id;
 

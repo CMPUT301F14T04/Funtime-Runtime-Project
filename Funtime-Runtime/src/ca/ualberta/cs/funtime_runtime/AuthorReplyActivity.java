@@ -175,25 +175,25 @@ public class AuthorReplyActivity extends CustomActivity {
 	 }
 
 	 class AddReplyThread extends Thread {
-			private Reply reply;
+		private Reply reply;
 
-			public AddReplyThread(Reply reply) {
-				this.reply = reply;
-			}
+		public AddReplyThread(Reply reply) {
+			this.reply = reply;
+		}
 
-			@Override
-			public void run() {
-				replyManager.addReply(reply);
-				
-				// Give some time to get updated info
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				
-				runOnUiThread(doFinishAdd);
+		@Override
+		public void run() {
+			replyManager.addReply(reply);
+			
+			// Give some time to get updated info
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
+			
+			runOnUiThread(doFinishAdd);
+		}
 	 }
 	 
 	 

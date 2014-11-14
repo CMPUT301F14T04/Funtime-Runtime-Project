@@ -133,9 +133,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 		userQuestionList.add(0,query);
 		
 		// ES test code
-		//query.setId(5);
-		//Thread thread = new AddThread(query);
-		//thread.start();
+		query.setId(5);
+		Thread thread = new AddThread(query);
+		thread.start();
 		// End ES test code
 		
 		account.addToHistory(query); // Add question clicked to history
