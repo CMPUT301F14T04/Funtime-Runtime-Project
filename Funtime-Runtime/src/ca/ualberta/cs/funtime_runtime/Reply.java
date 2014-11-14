@@ -19,6 +19,8 @@ public class Reply implements Serializable {
 	private final String username;
 	private final Date date;
 	
+	public int id; //used to elastic search (see getId and setId methods) 
+	
 	/**
 	 * This function initializes a reply. 
 	 * @param body a string that is the content of the reply
@@ -55,6 +57,23 @@ public class Reply implements Serializable {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy  HH:mm");
 		String replyDateString = dateFormat.format(date);
 		return replyDateString;
+	}
+	
+	
+	/**
+	 * this function gets the ID associated with a certain reply
+	 * @return int id
+	 */
+	public int getId(){
+		return id;
+	}
+	
+	/**
+	 * this function sets the ID for a certain reply
+	 * @param id
+	 */
+	public void setId(int id){
+		this.id=id;
 	}
 
 }

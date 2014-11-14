@@ -54,6 +54,7 @@ public class ReplyPageActivity extends CustomActivity {
 	Button addReply;
 	
 	
+	
 	/**
 	 * 
 	 * This function displays the layout views depending on whether the reply belongs to a question or an answer

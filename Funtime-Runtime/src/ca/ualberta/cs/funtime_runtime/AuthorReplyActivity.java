@@ -39,6 +39,9 @@ public class AuthorReplyActivity extends CustomActivity {
 	String parentUsername;
 	ArrayList<Reply> replyList;
 	String replyType;
+	
+	ESReplyManager replyManager;
+	
 	/**
 	 * This is a standard onCreate method
 	 * In this method we link this java file with the xml.
@@ -58,6 +61,7 @@ public class AuthorReplyActivity extends CustomActivity {
 		ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
+		replyManager = new ESReplyManager();
 		replyType = extras.getString("ReplyType");
 		
 		if (replyType.equals("question")) {
@@ -154,6 +158,11 @@ public class AuthorReplyActivity extends CustomActivity {
 	 public void addReply(View v) { 
 		Reply reply = new Reply(typeReply.getText().toString(), username.toString());
 		replyList.add(0, reply);
+		
+		reply.setId(1);
+		Thread thread = new AddReplyThread(reply);
+		thread.start();
+		
 		finish();				
 	}
 	 
@@ -164,5 +173,34 @@ public class AuthorReplyActivity extends CustomActivity {
 	 public void replyCancel(View v){
 		 finish();
 	 }
-	
+
+	 class AddReplyThread extends Thread {
+			private Reply reply;
+
+			public AddReplyThread(Reply reply) {
+				this.reply = reply;
+			}
+
+			@Override
+			public void run() {
+				replyManager.addReply(reply);
+				
+				// Give some time to get updated info
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				runOnUiThread(doFinishAdd);
+			}
+	 }
+	 
+	 
+	// Thread that close the activity after finishing add
+		private Runnable doFinishAdd = new Runnable() {
+			public void run() {
+				finish();
+			}
+		};
 }

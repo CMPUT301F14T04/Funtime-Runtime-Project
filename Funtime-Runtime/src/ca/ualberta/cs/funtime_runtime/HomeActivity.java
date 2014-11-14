@@ -43,11 +43,13 @@ public class HomeActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+		account = new Account("TestUser1");
+		ApplicationState.setAccount(account);
 		homeQuestionList = ApplicationState.getQuestionList();
 		homeListView = (ListView) findViewById(R.id.questionListView);
 
 		// TODO: retrieve homeQuestionList from server
-		testHome(); // temporary test code
+		//testHome(); // temporary test code
 
 		account = ApplicationState.getAccount();
 
