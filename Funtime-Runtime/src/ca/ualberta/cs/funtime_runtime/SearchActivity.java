@@ -129,6 +129,7 @@ public class SearchActivity extends CustomActivity {
 			List<Question> results = new ArrayList<Question>();
 			questions.clear();
 			results = questionManager.searchQuestions(search, null);
+			// Code to convert results into Question format
 			questions.addAll(results);
 		
 			runOnUiThread(doUpdateGUIList);

@@ -31,6 +31,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	String username;
 	ArrayList<Question> questionList;
 	ArrayList<Question> userQuestionList;
+	ESQuestionManager questionManager;
 	
 	/**
 	 * This is a standard onCreate method
@@ -54,6 +55,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 		questionBody = (EditText) findViewById(R.id.question_body_text);
 		account = ApplicationState.getAccount();
 		username = account.getName();
+		questionManager = new ESQuestionManager();
 	}
 	
 	/**
@@ -130,6 +132,12 @@ public class AuthorQuestionActivity extends CustomActivity {
 		questionList.add(0,query);
 		userQuestionList.add(0,query);
 		
+		// ES test code
+		//query.setId(5);
+		//Thread thread = new AddThread(query);
+		//thread.start();
+		// End ES test code
+		
 		account.addToHistory(query); // Add question clicked to history
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("Question", query);
@@ -153,5 +161,34 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 public void cancel_question(View v){
 		 finish();
 	 }
+	 
+	 class AddThread extends Thread {
+		private Question question;
+
+		public AddThread(Question question) {
+			this.question = question;
+		}
+
+		@Override
+		public void run() {
+			questionManager.addQuestion(question);
+			
+			// Give some time to get updated info
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			runOnUiThread(doFinishAdd);
+		}
+	 }
+	 
+	private Runnable doFinishAdd = new Runnable() {
+		public void run() {
+			finish();
+		}
+	};
+		
 
 }
