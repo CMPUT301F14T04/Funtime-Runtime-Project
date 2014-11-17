@@ -96,7 +96,6 @@ public class ESQuestionManager implements IQuestionManager {
 			HttpPost searchRequest = createSearchRequest(searchString, field);
 			
 			HttpResponse response = httpClient.execute(searchRequest);
-			
 			String status = response.getStatusLine().toString();
 			Log.i(TAG, status);
 			
@@ -113,7 +112,7 @@ public class ESQuestionManager implements IQuestionManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-
+		
 		return result;
 	}
 	
@@ -193,7 +192,8 @@ public class ESQuestionManager implements IQuestionManager {
 		
 		SimpleSearchCommand command = new SimpleSearchCommand(searchString,	fields);
 		
-		String query = command.getJsonCommand();
+		//String query = command.getJsonCommand();
+		String query = command.getAll();
 		Log.i(TAG, "Json command: " + query);
 
 		StringEntity stringEntity;

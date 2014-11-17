@@ -1,6 +1,7 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -126,25 +127,37 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 * @param v is a button within the activity.
 	 */
 	public void submitQuestion(View v) {
-		Question query = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
+		Question question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
 		questionList = ApplicationState.getQuestionList();
 		userQuestionList = account.getQuestionList();
-		questionList.add(0,query);
-		userQuestionList.add(0,query);
+		questionList.add(0,question);
+		userQuestionList.add(0,question);
 		
 		// ES test code
-		query.setId(18);
-		Thread thread = new AddThread(query);
+		//query.setId(18);
+		
+		List<Question> results = questionManager.searchQuestions("*", null);
+
+		int id;
+		
+		if (results.isEmpty()){
+			id = 1;
+		} else {
+			id = results.size();
+		}
+		
+		question.setId(id);
+		Thread thread = new AddThread(question);
 		thread.start();
 		// End ES test code
 		
-		account.addToHistory(query); // Add question clicked to history
+		account.addToHistory(question); // Add question clicked to history
 		Bundle bundle = new Bundle();
-		bundle.putSerializable("Question", query);
+		bundle.putSerializable("Question", question);
 		Intent intent = new Intent(AuthorQuestionActivity.this, QuestionPageActivity.class);
 		intent.putExtras(bundle);
 		
-		ApplicationState.setPassableQuestion(query);
+		ApplicationState.setPassableQuestion(question);
 		
 		startActivity(intent);	
 		
@@ -188,7 +201,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 		public void run() {
 			finish();
 		}
-	};
+	};	
 		
 
 }

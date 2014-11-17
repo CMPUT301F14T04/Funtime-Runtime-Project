@@ -42,4 +42,10 @@ public class SimpleSearchCommand
 
 		return command.toString();
 	}
+	
+	public String getAll() {
+		StringBuffer command = new StringBuffer("{\"query\" : {\"query_string\" : {\"query\" : \"" + "*" + "\"");
+		command.append("}}}");
+		return command.toString();
+	}
 }
