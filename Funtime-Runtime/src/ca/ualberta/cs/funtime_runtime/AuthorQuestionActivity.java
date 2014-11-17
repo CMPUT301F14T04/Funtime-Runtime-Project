@@ -136,14 +136,16 @@ public class AuthorQuestionActivity extends CustomActivity {
 		// ES test code
 		//query.setId(18);
 		
-		List<Question> results = questionManager.searchQuestions("*", null);
+		//List<Question> results = questionManager.searchQuestions("*", null);
+		Thread searchThread = new SearchThread("*");
+		searchThread.start();
 
 		int id;
 		
-		if (results.isEmpty()){
+		if (questionList.isEmpty()){
 			id = 1;
 		} else {
-			id = results.size();
+			id = questionList.size() + 1;
 		}
 		
 		question.setId(id);
@@ -196,6 +198,22 @@ public class AuthorQuestionActivity extends CustomActivity {
 			runOnUiThread(doFinishAdd);
 		}
 	 }
+	 
+	class SearchThread extends Thread {
+		// TODO: Implement search thread
+		private String search;
+		
+		public SearchThread(String s){		
+			search = s;
+		}
+		
+		@Override
+		public void run() {
+			questionList.clear();
+			questionList.addAll(questionManager.searchQuestions(search, null));
+
+		}
+	}
 	 
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
