@@ -157,9 +157,9 @@ public class AuthorReplyActivity extends CustomActivity {
 	 */
 	 public void addReply(View v) { 
 		Reply reply = new Reply(typeReply.getText().toString(), username.toString());
-		replyList.add(0, reply);
+		//replyList.add(0, reply);
 		
-		reply.setId(1);
+		reply.setId(17);
 		Thread thread = new AddReplyThread(reply);
 		thread.start();
 		

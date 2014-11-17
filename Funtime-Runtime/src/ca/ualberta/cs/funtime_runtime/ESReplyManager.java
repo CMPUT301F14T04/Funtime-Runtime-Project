@@ -79,15 +79,14 @@ public class ESReplyManager implements IReplyManager {
 	
 	
 	/**
-	 * Adds a new reply
-	 */
-			
+	 * Adds a new reply to the server
+	 * @param Reply
+	 */			
 	@Override
 	public void addReply(Reply reply) {
 		// TODO Auto-generated method stub
 		// STILL LEFT TO DO THESE:
 	    // increment idTracker 
-
 		
 		HttpClient httpClient = new DefaultHttpClient();
 

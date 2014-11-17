@@ -62,7 +62,7 @@ public class QuestionPageActivity extends CustomActivity {
 	View questionHeader;
 	int bookmarked_color = Color.parseColor("#cc0000");
 	int not_bookmarked_color = Color.parseColor("#cecece");
-	int has_photo_color =Color.parseColor("#228b22");
+	int has_photo_color = Color.parseColor("#228b22");
 	int upvote_color = Color.parseColor("#e77619");
 	
 	/**

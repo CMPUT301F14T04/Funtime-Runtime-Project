@@ -47,6 +47,7 @@ public class ReplyPageActivity extends CustomActivity {
 	String replyType;
 	Question question;
 	Answer answer;
+	ESReplyManager replyManager;
 	
 	LayoutInflater inflater;
 	View header;
@@ -77,7 +78,7 @@ public class ReplyPageActivity extends CustomActivity {
 
 		replyListView = (ListView) findViewById(R.id.reply_list_view);
 		inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+		replyManager = new ESReplyManager();
 		
 		if (replyType.equals("question")) {
 			
@@ -93,7 +94,8 @@ public class ReplyPageActivity extends CustomActivity {
 			replyListView.addHeaderView(header);	
 			
 			parentTitleText = (TextView) findViewById(R.id.reply_parent_title);
-			parentTitleText.setText(parentTitle);			
+			parentTitleText.setText(parentTitle);	
+			
 		} else if (replyType.equals("answer")) {
 			
 			answer = ApplicationState.getPassableAnswer();
