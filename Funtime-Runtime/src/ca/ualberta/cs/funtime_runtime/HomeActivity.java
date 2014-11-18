@@ -341,8 +341,14 @@ public class HomeActivity extends CustomActivity {
 		public void run() {
 			homeQuestionList.clear();
 			homeQuestionList.addAll(questionManager.searchQuestions(search, null));
-			adapter.notifyDataSetChanged();
+			runOnUiThread(updateHomeUI);	
 		}
+		
+		private Runnable updateHomeUI = new Runnable() {
+			public void run() {
+				adapter.notifyDataSetChanged();
+			}
+		};
 	}
 
 }
