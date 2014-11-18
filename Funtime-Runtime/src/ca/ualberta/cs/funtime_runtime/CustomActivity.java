@@ -105,6 +105,11 @@ public class CustomActivity extends Activity {
 		startActivity(intent);
 	}
 	
+	public void refreshPage() {
+		finish();
+		startActivity(getIntent());
+	}
+	
 	/**
 	 * Open the Sort activity
 	 */
@@ -129,6 +134,10 @@ public class CustomActivity extends Activity {
 				
 			case R.id.home_menu_item:
 				openMyHome();
+				return true;
+				
+			case R.id.refresh:
+				//refreshPage();
 				return true;
 				
 			case R.id.searchQuestionsList :
