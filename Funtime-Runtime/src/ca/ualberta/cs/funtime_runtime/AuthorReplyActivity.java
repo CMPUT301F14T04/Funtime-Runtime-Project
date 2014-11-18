@@ -75,14 +75,14 @@ public class AuthorReplyActivity extends CustomActivity {
 			parentBody = question.getBody();
 			parentDate = question.getDate().toString();
 			parentUsername = question.getUser();			
-			replyList = question.getReplyList();
+			//replyList = question.getReplyList();
 		} else if (replyType.equals("answer")) {
 			answer = ApplicationState.getPassableAnswer();
 			parentTitle = "";
 			parentBody = answer.getBody();
 			parentDate = answer.getDate().toString();
 			parentUsername = answer.getUser();			
-			replyList = answer.getReplyList();
+			//replyList = answer.getReplyList();
 		}
 		
 		parentTitleView = (TextView) findViewById(R.id.replyParentTitle);

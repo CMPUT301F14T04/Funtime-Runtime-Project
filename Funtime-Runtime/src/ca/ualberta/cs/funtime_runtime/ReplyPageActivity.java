@@ -93,7 +93,7 @@ public class ReplyPageActivity extends CustomActivity {
 			parentDate = question.getDate();
 			parentUsername = question.getUser();
 			parentReply = question.getReplyCount();
-			repliesList = question.getReplyList();
+			//repliesList = question.getReplyList();
 			
 			header = (View)inflater.inflate(R.layout.reply_page_header, null, false);
 			replyListView.addHeaderView(header);	
@@ -108,7 +108,7 @@ public class ReplyPageActivity extends CustomActivity {
 			parentDate = answer.getDate();
 			parentUsername = answer.getUser();		
 			parentReply = answer.getReplyCount();
-			repliesList = answer.getReplyList();
+			//repliesList = answer.getReplyList();
 			
 			header = (View)inflater.inflate(R.layout.reply_answers_page_header, null, false);
 			replyListView.addHeaderView(header);	
