@@ -3,11 +3,11 @@ package ca.ualberta.cs.funtime_runtime.test;
 import java.util.ArrayList;
 
 import android.test.ActivityInstrumentationTestCase2;
-import ca.ualberta.cs.funtime_runtime.Account;
-import ca.ualberta.cs.funtime_runtime.Answer;
-import ca.ualberta.cs.funtime_runtime.Question;
 import ca.ualberta.cs.funtime_runtime.QuestionPageActivity;
-import ca.ualberta.cs.funtime_runtime.Reply;
+import ca.ualberta.cs.funtime_runtime.classes.Account;
+import ca.ualberta.cs.funtime_runtime.classes.Answer;
+import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.Reply;
 
 public class AnswerTest extends ActivityInstrumentationTestCase2<QuestionPageActivity> {
 

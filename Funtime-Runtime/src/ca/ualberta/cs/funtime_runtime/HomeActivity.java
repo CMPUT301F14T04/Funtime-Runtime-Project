@@ -5,14 +5,20 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
+import ca.ualberta.cs.funtime_runtime.classes.Account;
+import ca.ualberta.cs.funtime_runtime.classes.Answer;
+import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
+import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.Reply;
 
 /**
  * 
@@ -274,61 +280,6 @@ public class HomeActivity extends CustomActivity {
 		return true;
 	}
 
-	/**
-	 * Handles the switching to a different page when it's respective menu item
-	 * is clicked.
-	 * 
-	 * @see CustomActivity
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// switch case to choose an item from the menu
-		// IntentSwitcher switcher = new IntentSwitcher(HomeActivity.this);
-
-		// -------------------------------------------
-		// Menu Items Switch Case
-		// -------------------------------------------
-
-		switch (item.getItemId()) {
-			case R.id.searchQuestionsList :
-				// switcher.openSearch(this);
-				openSearch();
-				return true;
-			case R.id.login_menu_item :
-				// switchigner.openLogin();
-				openLogin();
-				return true;
-			case R.id.my_questions_menu_item :
-				// switcher.openMyQuestions(this);
-				openMyQuestions();
-				return true;
-			case R.id.my_answers_menu_item :
-				// switcher.openMyAnswers(this);
-				openMyAnswers();
-				return true;
-			case R.id.my_favorites_menu_item :
-				// switcher.openMyFavourites(this);
-				openMyFavourites();
-				return true;
-			case R.id.my_reading_list_item :
-				// switcher.openMyReadingList(this);
-				openMyReadingList();
-				return true;
-			case R.id.my_history_list_item :
-				// switcher.openMyHistory(this);
-				openMyHistory();
-				return true;
-			case R.id.sort_list_item :
-				// switcher.openSortList(this);
-				openSortList();
-				return true;
-			default :
-				return true;
-		}
-	}
-
-	// -------------------------------------------
-	// -------------------------------------------
 
 	/**
 	 * Takes in a view to give information to start the AuthorQuestionActivity
@@ -337,8 +288,7 @@ public class HomeActivity extends CustomActivity {
 	 * @param v
 	 */
 	public void askQuestion(View v) {
-		Intent authorQuestion = new Intent(HomeActivity.this,
-				AuthorQuestionActivity.class);
+		Intent authorQuestion = new Intent(HomeActivity.this, AuthorQuestionActivity.class);
 		startActivity(authorQuestion);
 
 		// Boolean loggedIn = checkLoggedIn();

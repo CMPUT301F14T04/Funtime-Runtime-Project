@@ -6,12 +6,13 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import ca.ualberta.cs.funtime_runtime.classes.Account;
+import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 
 /**
  * An activity that allows the user to create a new account and log into it.
@@ -93,33 +94,6 @@ public class CreateAccountActivity extends CustomActivity {
 		getMenuInflater().inflate(R.menu.create_account, menu);
 		return true;
 	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// switch case to choose an item from the menu
-		//IntentSwitcher switcher = new IntentSwitcher(HomeActivity.this);
-		
-//-------------------------------------------
-// Menu Items Switch Case
-//-------------------------------------------
-		
-	switch (item.getItemId()) {
-		case android.R.id.home:
-			openMyHome();
-			return true;
-		case R.id.home_menu_item:
-			openMyHome();
-			return true;
-		case R.id.login_menu_item:
-			openLogin();
-			return true;
-		default:
-			return true;
-		}	
-	}
-	
-//------------------------------------
-//-------------------------------------------	
 
 	
 }

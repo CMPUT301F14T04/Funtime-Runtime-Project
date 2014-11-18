@@ -3,6 +3,7 @@ package ca.ualberta.cs.funtime_runtime;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 /**
  * An activity used as a starting point for all activities within the application.
@@ -109,6 +110,62 @@ public class CustomActivity extends Activity {
 	 */
 	public void openSortList() {
 
+	}
+	
+	/**
+	 * This function simply redirects to another activity when a certain menu 
+	 * item is selected by the user. It operates a switch statement to transition 
+	 * between different activities
+	 * 
+	 * @param item is a menuItem signifying location within the menu that users 
+	 * wish to visit
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {	
+			case android.R.id.home:
+				openMyHome();
+				return true;
+				
+			case R.id.home_menu_item:
+				openMyHome();
+				return true;
+				
+			case R.id.searchQuestionsList :
+				openSearch();
+				return true;
+				
+			case R.id.login_menu_item :
+				openLogin();
+				return true;
+				
+			case R.id.my_questions_menu_item :
+				openMyQuestions();
+				return true;
+				
+			case R.id.my_answers_menu_item :
+				openMyAnswers();
+				return true;
+				
+			case R.id.my_favorites_menu_item :
+				openMyFavourites();
+				return true;
+				
+			case R.id.my_reading_list_item :
+				openMyReadingList();
+				return true;
+				
+			case R.id.my_history_list_item :
+				openMyHistory();
+				return true;
+				
+			case R.id.sort_list_item :
+				openSortList();
+				return true;
+				
+			default :
+				return true;
+		}
 	}
 
 }

@@ -1,4 +1,4 @@
-package ca.ualberta.cs.funtime_runtime;
+package ca.ualberta.cs.funtime_runtime.adapter;
 
 import java.util.ArrayList;
 
@@ -13,6 +13,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import ca.ualberta.cs.funtime_runtime.R;
+import ca.ualberta.cs.funtime_runtime.classes.Account;
+import ca.ualberta.cs.funtime_runtime.classes.Answer;
+import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 
 /**
  * This class is a controller class that displays the various answer list items in proper format

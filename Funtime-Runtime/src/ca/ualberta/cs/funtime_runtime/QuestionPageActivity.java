@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -18,6 +17,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import ca.ualberta.cs.funtime_runtime.adapter.AnswerListAdapter;
+import ca.ualberta.cs.funtime_runtime.classes.Account;
+import ca.ualberta.cs.funtime_runtime.classes.Answer;
+import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
+import ca.ualberta.cs.funtime_runtime.classes.Question;
 
 /**
  * A view class that displays the question and
@@ -244,60 +248,7 @@ public class QuestionPageActivity extends CustomActivity {
 		getMenuInflater().inflate(R.menu.question_page, menu);
 		return true;
 	}
-	
-	/**
-	 * This function simply redirects to another activity when a certain menu 
-	 * item is selected by the user. It operates a switch statement to transtion 
-	 * between different activities
-	 * 
-	 * @param item is a menuItem signifying location within the menu that users 
-	 * wish to visit
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// switch case to choose an item from the menu
-		
-//-------------------------------------------
-// Menu Items Switch Case
-//-------------------------------------------
-		switch (item.getItemId()) {
-			case android.R.id.home:
-				openMyHome();
-				return true;
-			case R.id.home_menu_item:
-				openMyHome();
-				return true;
-			case R.id.searchQuestionsList:
-				openSearch();
-				return true;
-			case R.id.login_menu_item:
-				openLogin();
-				return true;
-			case R.id.my_questions_menu_item:
-				openMyQuestions();
-				return true;
-			case R.id.my_answers_menu_item:
-				openMyAnswers();
-				return true;
-			case R.id.my_favorites_menu_item:
-				openMyFavourites();
-				return true;
-			case R.id.my_reading_list_item:
-				openMyReadingList();
-				return true;
-			case R.id.my_history_list_item:
-				openMyHistory();
-				return true;
-			case R.id.sort_list_item:
-				openSortList();	
-				return true;
-			default:
-				return true;
-		}	
-	}
 
-//-------------------------------------------
-//-------------------------------------------
 	
 	/**
 	 * This is a simple ONclick listener that sends the user to 

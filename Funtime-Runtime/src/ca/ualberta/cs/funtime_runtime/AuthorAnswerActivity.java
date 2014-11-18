@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import ca.ualberta.cs.funtime_runtime.classes.Account;
+import ca.ualberta.cs.funtime_runtime.classes.Answer;
+import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
+import ca.ualberta.cs.funtime_runtime.classes.Question;
 /**
  * A view class that allows a user to edit text
  * and submit it as an answer to a question.
@@ -73,53 +76,6 @@ public class AuthorAnswerActivity extends CustomActivity {
 		return true;
 	}
 	
-	/**
-	 * This function simply redirects to another activity when a certain menu 
-	 * item is selected by the user. It operates a switch statement to transtion 
-	 * between different activities
-	 * 
-	 * @param item is a menuItem signifying location within the menu that users 
-	 * wish to visit
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// switch case to choose an item from the menu
-			
-//-------------------------------------------
-// Menu Items Switch Case
-//-------------------------------------------
-			
-		switch (item.getItemId()) {
-			case android.R.id.home:
-				openMyHome();
-				return true;
-			case R.id.home_menu_item:
-				openMyHome();
-				return true;
-			case R.id.my_questions_menu_item:
-				openMyQuestions();
-				return true;
-			case R.id.my_answers_menu_item:
-				openMyAnswers();
-				return true;
-			case R.id.my_favorites_menu_item:
-				openMyFavourites();
-				return true;
-			case R.id.my_reading_list_item:
-				openMyReadingList();
-				return true;
-			case R.id.my_history_list_item:
-				openMyHistory();
-				return true;
-			case R.id.sort_list_item:
-				openSortList();
-				return true;
-			default:
-				return true;
-			}	
-		}
-//-------------------------------------------
-//-------------------------------------------	
 	
 	/**
 	 * this onCLick method linked to a button simply submits whatever has been entered into the text field.

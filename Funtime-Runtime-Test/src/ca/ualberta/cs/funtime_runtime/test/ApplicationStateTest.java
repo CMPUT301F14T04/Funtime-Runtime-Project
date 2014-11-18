@@ -3,9 +3,9 @@ package ca.ualberta.cs.funtime_runtime.test;
 import java.util.ArrayList;
 
 import android.test.ActivityInstrumentationTestCase2;
-import ca.ualberta.cs.funtime_runtime.Account;
-import ca.ualberta.cs.funtime_runtime.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.HomeActivity;
+import ca.ualberta.cs.funtime_runtime.classes.Account;
+import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 
 
 public class ApplicationStateTest extends ActivityInstrumentationTestCase2<HomeActivity> {

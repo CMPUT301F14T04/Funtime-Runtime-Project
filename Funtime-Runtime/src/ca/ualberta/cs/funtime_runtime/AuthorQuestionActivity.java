@@ -1,17 +1,19 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import ca.ualberta.cs.funtime_runtime.classes.Account;
+import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
+import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 /**
  * This view allows the user to create a question.
  * They use an edit texts to give a title and a body to the question 
@@ -45,6 +47,10 @@ public class AuthorQuestionActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_author_question);
+		setResources();
+	}
+
+	private void setResources() {
 		ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -72,53 +78,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 	}
 	
 	/**
-	 * This function simply redirects to another activity when a certain menu 
-	 * item is selected by the user. It operates a switch statement to transtion 
-	 * between different activities
-	 * 
-	 * @param item is a menuItem signifying location within the menu that users 
-	 * wish to visit
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// switch case to choose an item from the menu
-			
-	//-------------------------------------------
-	// Menu Items Switch Case
-	//-------------------------------------------
-		 switch (item.getItemId()) {
-		 	case android.R.id.home:
-				openMyHome();
-				return true;
-		 	case R.id.home_menu_item:
-				openMyHome();
-				return true;
-		 	case R.id.my_questions_menu_item:
-		 		openMyQuestions();
-		 		return true;
-			case R.id.my_answers_menu_item:
-				openMyAnswers();
-				return true;
-			case R.id.my_favorites_menu_item:
-				openMyFavourites();
-				return true;
-			case R.id.my_reading_list_item:
-				openMyReadingList();
-				return true;
-			case R.id.my_history_list_item:
-				openMyHistory();
-				return true;
-			case R.id.sort_list_item:
-				openSortList();
-				return true;
-			default:
-				return true;
-			}	
-		}
-//-------------------------------------------
-//-------------------------------------------
-	
-	/**
 	 * this onCLick listener responds to the button that submits the 
 	 * question. An instance of the question is created and added to the
 	 * various question lists throughout the app. After the button is clicked 
@@ -133,25 +92,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 		questionList.add(0,question);
 		userQuestionList.add(0,question);
 		
-		// ES test code
-		//query.setId(18);
-		
-		//List<Question> results = questionManager.searchQuestions("*", null);
-		Thread searchThread = new SearchThread("*");
-		searchThread.start();
-
-		int id;
-		
-		if (questionList.isEmpty()){
-			id = 1;
-		} else {
-			id = questionList.size() + 1;
-		}
-		
-		question.setId(id);
-		Thread thread = new AddThread(question);
-		thread.start();
-		// End ES test code
+		// Elastic search code
+		generateId(question);		
+		addServerQuestion(question);
 		
 		account.addToHistory(question); // Add question clicked to history
 		Bundle bundle = new Bundle();
@@ -166,6 +109,26 @@ public class AuthorQuestionActivity extends CustomActivity {
 		finish();
 		
 		
+	}
+
+	private void addServerQuestion(Question question) {
+		Thread thread = new AddThread(question);
+		thread.start();
+	}
+
+	private void generateId(Question question) {
+		Thread searchThread = new SearchThread("*");
+		searchThread.start();
+
+		int id;
+		
+		if (questionList.isEmpty()){
+			id = 1;
+		} else {
+			id = questionList.size() + 1;
+		}
+		
+		question.setId(id);
 	}
 	
 	/**

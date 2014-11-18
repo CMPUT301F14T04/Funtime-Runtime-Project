@@ -1,4 +1,4 @@
-package ca.ualberta.cs.funtime_runtime;
+package ca.ualberta.cs.funtime_runtime.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import ca.ualberta.cs.funtime_runtime.R;
+import ca.ualberta.cs.funtime_runtime.classes.Account;
+import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
+import ca.ualberta.cs.funtime_runtime.classes.Question;
 
 /**
  * A class that is an extension of the basic Array Adapter but allows for more specific formatting

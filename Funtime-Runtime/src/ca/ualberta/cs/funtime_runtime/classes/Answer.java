@@ -1,4 +1,4 @@
-package ca.ualberta.cs.funtime_runtime;
+package ca.ualberta.cs.funtime_runtime.classes;
 
 import android.annotation.SuppressLint;
 import java.io.Serializable;

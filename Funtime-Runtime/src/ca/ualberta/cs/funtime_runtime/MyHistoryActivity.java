@@ -2,6 +2,11 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
 
+import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
+import ca.ualberta.cs.funtime_runtime.classes.Account;
+import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
+import ca.ualberta.cs.funtime_runtime.classes.Question;
+
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
@@ -158,47 +163,4 @@ public class MyHistoryActivity extends CustomActivity {
 		return true;
 	}
 
-	/**
-	 * Handles the changing of activities when the menu is clicked.
-	 * @see CustomActivity
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// switch case to choose an item from the menu
-
-		// -------------------------------------------
-		// Menu Items Switch Case
-		// -------------------------------------------
-		switch (item.getItemId()) {
-			case android.R.id.home :
-				openMyHome();
-				return true;
-			case R.id.home_menu_item :
-				openMyHome();
-				return true;
-			case R.id.login_menu_item :
-				openLogin();
-				return true;
-			case R.id.my_questions_menu_item :
-				openMyQuestions();
-				return true;
-			case R.id.my_answers_menu_item :
-				openMyAnswers();
-				return true;
-			case R.id.my_favorites_menu_item :
-				openMyFavourites();
-				return true;
-			case R.id.my_reading_list_item :
-				openMyReadingList();
-				return true;
-			case R.id.sort_list_item :
-				openSortList();
-				return true;
-			default :
-				return true;
-		}
-	}
-
-	// -------------------------------------------
-	// -------------------------------------------
 }

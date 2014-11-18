@@ -7,12 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import ca.ualberta.cs.funtime_runtime.classes.Account;
+import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 
 /**
  * An activity that allows the user to log in to an account.
@@ -85,30 +86,7 @@ public class LoginActivity extends CustomActivity {
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
 	}	
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// switch case to choose an item from the menu
-		//IntentSwitcher switcher = new IntentSwitcher(HomeActivity.this);
-		
-//-------------------------------------------
-// Menu Items Switch Case
-//-------------------------------------------
-		switch (item.getItemId()) {
-			case android.R.id.home:
-				openMyHome();
-				return true;
-			case R.id.home_menu_item:
-				openMyHome();
-				return true;
-			default:
-				return true;
-			}	
-		}
-	
-//------------------------------------
-//-------------------------------------------	
-			
+
 	/**
 	 * The onClick function for create account button.
 	 * Takes the user to the create account page. 

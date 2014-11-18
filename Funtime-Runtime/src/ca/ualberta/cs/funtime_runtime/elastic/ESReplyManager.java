@@ -1,17 +1,11 @@
-package ca.ualberta.cs.funtime_runtime;
-
-import java.util.ArrayList;
+package ca.ualberta.cs.funtime_runtime.elastic;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-//import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
@@ -19,9 +13,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-
 import android.util.Log;
-
+import ca.ualberta.cs.funtime_runtime.classes.IReplyManager;
+import ca.ualberta.cs.funtime_runtime.classes.Reply;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

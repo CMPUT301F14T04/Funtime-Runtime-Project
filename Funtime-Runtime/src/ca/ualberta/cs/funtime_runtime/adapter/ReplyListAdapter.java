@@ -1,4 +1,4 @@
-package ca.ualberta.cs.funtime_runtime;
+package ca.ualberta.cs.funtime_runtime.adapter;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import ca.ualberta.cs.funtime_runtime.R;
+import ca.ualberta.cs.funtime_runtime.classes.Reply;
 
 /**
  * This class is a controller class that displays the various reply list items in proper format

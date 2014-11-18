@@ -3,10 +3,10 @@ package ca.ualberta.cs.funtime_runtime.test;
 import java.util.ArrayList;
 
 import android.test.ActivityInstrumentationTestCase2;
-import ca.ualberta.cs.funtime_runtime.Account;
-import ca.ualberta.cs.funtime_runtime.Answer;
 import ca.ualberta.cs.funtime_runtime.CreateAccountActivity;
-import ca.ualberta.cs.funtime_runtime.Question;
+import ca.ualberta.cs.funtime_runtime.classes.Account;
+import ca.ualberta.cs.funtime_runtime.classes.Answer;
+import ca.ualberta.cs.funtime_runtime.classes.Question;
 
 public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountActivity> {
 	
