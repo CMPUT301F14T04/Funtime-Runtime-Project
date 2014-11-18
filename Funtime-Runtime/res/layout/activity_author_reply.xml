@@ -41,7 +41,7 @@
          android:layout_below="@+id/replyParentBody"
          android:layout_marginBottom="20dp"
          android:ems="10"
-         android:hint="@string/type_answer_hint_text"
+         android:hint="@string/type_reply_hint_text"
          android:inputType="textMultiLine" >
          <requestFocus />
      </EditText>

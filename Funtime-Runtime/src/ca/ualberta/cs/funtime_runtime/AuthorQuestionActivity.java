@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
@@ -163,7 +164,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 }
 	 
 	class SearchThread extends Thread {
-		// TODO: Implement search thread
 		private String search;
 		
 		public SearchThread(String s){		
@@ -174,7 +174,13 @@ public class AuthorQuestionActivity extends CustomActivity {
 		public void run() {
 			questionList.clear();
 			questionList.addAll(questionManager.searchQuestions(search, null));
-
+			if (!questionList.isEmpty()){
+				Question question = questionList.get(0);
+				Log.i("Title", question.getTitle());
+				Log.i("Body", question.getBody());
+				Log.i("User", question.getUser());
+				Log.i("Upvotes", ""+question.getRating());
+			}
 		}
 	}
 	 
