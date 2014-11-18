@@ -60,7 +60,7 @@ public class HomeActivity extends CustomActivity {
 		homeListView = (ListView) findViewById(R.id.questionListView);
 
 		// TODO: retrieve homeQuestionList from server
-		//loadServerQuestions();
+		loadServerQuestions();
 		//testHome(); // temporary test code
 
 		account = ApplicationState.getAccount();
