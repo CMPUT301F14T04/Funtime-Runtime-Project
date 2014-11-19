@@ -66,6 +66,7 @@
     <!-- Author Reply Strings -->
     <string name="title_activity_author_reply">Author Reply</string>
     <string name="reply_parent_text">[reply_parent_text]</string>
+    <string name="type_reply_hint_text">Type Reply</string>
 
     <!-- My Questions String -->
     <string name="title_activity_my_questions">My Questions</string>

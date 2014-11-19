@@ -8,7 +8,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+
 import android.provider.MediaStore;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -200,7 +202,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 }
 	 
 	class SearchThread extends Thread {
-		// TODO: Implement search thread
 		private String search;
 		
 		public SearchThread(String s){		
@@ -211,7 +212,13 @@ public class AuthorQuestionActivity extends CustomActivity {
 		public void run() {
 			questionList.clear();
 			questionList.addAll(questionManager.searchQuestions(search, null));
-
+			if (!questionList.isEmpty()){
+				Question question = questionList.get(0);
+				Log.i("Title", question.getTitle());
+				Log.i("Body", question.getBody());
+				Log.i("User", question.getUser());
+				Log.i("Upvotes", ""+question.getRating());
+			}
 		}
 	}
 	 

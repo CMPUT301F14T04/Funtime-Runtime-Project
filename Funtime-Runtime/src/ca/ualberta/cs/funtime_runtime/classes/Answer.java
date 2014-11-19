@@ -19,7 +19,7 @@ public class Answer implements Serializable {
 	private static final long serialVersionUID = 7328501038270376718L;
 	private final String body;
 	private final String username;
-	public ArrayList<Reply> replyList;
+	public ArrayList<Integer> replyList;
 	private int rating;
 	private final Date date;
 	private int id;
@@ -37,7 +37,7 @@ public class Answer implements Serializable {
 		body = text;
 		username = user;
 		rating = 0;
-		replyList = new ArrayList<Reply>();
+		replyList = new ArrayList<Integer>();
 		date = new Date();
 	}
 
@@ -88,7 +88,7 @@ public class Answer implements Serializable {
 	 * @param reply of the type Reply
 	 */
 	public void addReply(Reply reply) {
-		replyList.add(0, reply);
+		replyList.add(0, reply.getId());
 	}
 
 	
@@ -106,9 +106,9 @@ public class Answer implements Serializable {
 	 * @param i an index integer
 	 * @return returns a reply of type Reply on an answer 
 	 */
-	public Reply getReply(int i) {
-		Reply reply = replyList.get(i);
-		return reply;
+	public int getReply(int i) {
+		int replyId = replyList.get(i);
+		return replyId;
 	}
 	
 	
@@ -116,7 +116,7 @@ public class Answer implements Serializable {
 	 * This function gets the reply list associated with a particular answer
 	 * @return returns a list of reply
 	 */
-	public ArrayList<Reply> getReplyList() {
+	public ArrayList<Integer> getReplyList() {
 		return replyList;
 	}
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -19,6 +20,7 @@ import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.Reply;
+import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 
 /**
  * 
@@ -35,6 +37,7 @@ public class HomeActivity extends CustomActivity {
 	ArrayList<Question> homeQuestionList;
 	QuestionListAdapter adapter;
 	Account account;
+	ESQuestionManager questionManager;
 
 	static boolean first = true;
 
@@ -51,10 +54,13 @@ public class HomeActivity extends CustomActivity {
 		setContentView(R.layout.activity_home);
 		account = new Account("TestUser1");
 		ApplicationState.setAccount(account);
+		questionManager = new ESQuestionManager();
+		
 		homeQuestionList = ApplicationState.getQuestionList();
 		homeListView = (ListView) findViewById(R.id.questionListView);
 
 		// TODO: retrieve homeQuestionList from server
+		loadServerQuestions();
 		//testHome(); // temporary test code
 
 		account = ApplicationState.getAccount();
@@ -78,6 +84,12 @@ public class HomeActivity extends CustomActivity {
 		registerForContextMenu(homeListView);
 	}
 
+	private void loadServerQuestions() {
+		Thread loadThread = new SearchThread("*");
+		loadThread.start();
+		
+	}
+
 	/**
 	 * Refreshes the adapter when the activity restarts
 	 * in case anything changed.
@@ -86,7 +98,6 @@ public class HomeActivity extends CustomActivity {
 	public void onRestart() {
 		super.onRestart();
 		adapter.notifyDataSetChanged();
-
 	}
 
 	/**
@@ -317,6 +328,27 @@ public class HomeActivity extends CustomActivity {
 		} else {
 			return true;
 		}
+	}
+	
+	class SearchThread extends Thread {
+		private String search;
+		
+		public SearchThread(String s){		
+			search = s;
+		}
+		
+		@Override
+		public void run() {
+			homeQuestionList.clear();
+			homeQuestionList.addAll(questionManager.searchQuestions(search, null));
+			runOnUiThread(updateHomeUI);	
+		}
+		
+		private Runnable updateHomeUI = new Runnable() {
+			public void run() {
+				adapter.notifyDataSetChanged();
+			}
+		};
 	}
 
 }
