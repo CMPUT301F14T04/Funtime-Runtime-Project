@@ -17,7 +17,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.util.Log;
-import ca.ualberta.cs.funtime_runtime.classes.IQuestionManager;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 
 import com.google.gson.Gson;
@@ -40,9 +39,7 @@ import com.google.gson.reflect.TypeToken;
 public class ESQuestionManager implements IQuestionManager {
 	private static final String RESOURCE_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question/";
 	private static final String SEARCH_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question/_search";
-	private static final String UPDATE_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question/_update/";
 	private static final String TAG= "QuestionsSearch";
-	private int id;
 
 	private Gson gson;
 	
@@ -246,10 +243,6 @@ public class ESQuestionManager implements IQuestionManager {
 		}
 
 		return result.toString();
-	}
-	
-	public void incrementId() {
-		id++;
 	}
 	
 

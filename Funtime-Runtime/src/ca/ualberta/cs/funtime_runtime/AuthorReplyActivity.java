@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,8 +16,7 @@ import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.Reply;
-import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
-import ca.ualberta.cs.funtime_runtime.elastic.ESReplyManager;
+import ca.ualberta.cs.funtime_runtime.classes.UpdateQuestionThread;
 
 /**
  * A view class that allows a user to edit text
@@ -47,9 +45,6 @@ public class AuthorReplyActivity extends CustomActivity {
 	ArrayList<Reply> replyList;
 	String replyType;
 	
-	ESQuestionManager questionManager;
-	ESReplyManager replyManager;
-	
 	/**
 	 * This is a standard onCreate method
 	 * In this method we link this java file with the xml.
@@ -69,8 +64,6 @@ public class AuthorReplyActivity extends CustomActivity {
 		ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
-		replyManager = new ESReplyManager();
-		questionManager = new ESQuestionManager();
 		replyType = extras.getString("ReplyType");
 		
 		if (replyType.equals("question")) {
@@ -111,29 +104,7 @@ public class AuthorReplyActivity extends CustomActivity {
 		getMenuInflater().inflate(R.menu.author_reply, menu);
 		return true;
 	}
-	
-	private void addServerReply(Reply reply) {
-		Thread thread = new AddReplyThread(reply);
-		thread.start();
-	}
 
-	private void generateId(Reply reply) {
-		Thread searchThread = new SearchReplyThread("*");
-		searchThread.start();
-		try {
-			searchThread.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		int id;
-		id = replyList.size();
-		//Log.i("Reply size", ""+replyList.size());
-		
-		reply.setId(id);
-	}
-	
 	
 	/**
 	 * this onClick listener for a button simply submits whatever has been entered into the text field.
@@ -143,9 +114,6 @@ public class AuthorReplyActivity extends CustomActivity {
 	 public void addReply(View v) { 
 		Reply reply = new Reply(typeReply.getText().toString(), username.toString());
 		
-		//generateId(reply);		
-		//addServerReply(reply);
-		//Log.i("Q Title", question.getTitle());
 		// Add code to pull question (make sure we have most updated question)
 		question.addReply(reply);
 		Thread updateThread = new UpdateQuestionThread(question);
@@ -167,68 +135,4 @@ public class AuthorReplyActivity extends CustomActivity {
 		 finish();
 	 }
 
-	 class AddReplyThread extends Thread {
-		private Reply reply;
-
-		public AddReplyThread(Reply reply) {
-			this.reply = reply;
-		}
-
-		@Override
-		public void run() {
-			replyManager.addReply(reply);
-			
-			// Give some time to get updated info
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			runOnUiThread(doFinishAdd);
-		}
-	 }
-	 
-	 
-	// Thread that close the activity after finishing add
-		private Runnable doFinishAdd = new Runnable() {
-			public void run() {
-				finish();
-			}
-		};
-		
-	class SearchReplyThread extends Thread {
-		private String search;
-		
-		public SearchReplyThread(String s){		
-			search = s;
-		}
-		
-		@Override
-		public void run() {
-			replyList.clear();
-			replyList.addAll(replyManager.searchReplies(search, null));
-			//Log.i("Size", ""+replyList.size());
-		}
-	}
-	
-	class UpdateQuestionThread extends Thread {
-		private Question question;
-		private ESQuestionManager manager = new ESQuestionManager();
-		
-		public UpdateQuestionThread(Question q){		
-			question = q;
-		}
-		
-		@Override
-		public void run() {
-			updateQuestion(question);
-		}
-
-		private void updateQuestion(Question question) {
-			manager.deleteQuestion(question.getId());
-			manager.addQuestion(question);
-			
-		}
-	}
 }

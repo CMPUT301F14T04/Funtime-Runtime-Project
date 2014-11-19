@@ -1,11 +1,9 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -84,6 +82,7 @@ public class HomeActivity extends CustomActivity {
 
 	private void loadServerQuestions() {
 		Thread loadThread = new SearchThread("*");
+		//Thread loadThread = new LoadHomeThread("*", homeQuestionList, adapter);
 		loadThread.start();	
 	}
 

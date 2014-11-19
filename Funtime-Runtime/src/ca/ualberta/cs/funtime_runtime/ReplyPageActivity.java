@@ -12,13 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import ca.ualberta.cs.funtime_runtime.HomeActivity.SearchThread;
 import ca.ualberta.cs.funtime_runtime.adapter.ReplyListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.Reply;
-import ca.ualberta.cs.funtime_runtime.elastic.ESReplyManager;
 
 
 /**
@@ -54,7 +52,6 @@ public class ReplyPageActivity extends CustomActivity {
 	String replyType;
 	Question question;
 	Answer answer;
-	ESReplyManager replyManager;
 	
 	LayoutInflater inflater;
 	View header;
@@ -85,7 +82,6 @@ public class ReplyPageActivity extends CustomActivity {
 
 		replyListView = (ListView) findViewById(R.id.reply_list_view);
 		inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		replyManager = new ESReplyManager();
 		
 		if (replyType.equals("question")) {
 			
