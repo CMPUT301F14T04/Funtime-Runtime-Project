@@ -38,7 +38,8 @@
         android:layout_above="@+id/submitAnswerButton"
         android:layout_alignRight="@+id/submitAnswerButton"
         android:background="@null"
-        android:drawableRight="@android:drawable/ic_menu_camera" />
+        android:drawableRight="@android:drawable/ic_menu_camera"
+        android:onClick="add_photo" />
 
     <EditText
         android:id="@+id/typeAnswerAA"

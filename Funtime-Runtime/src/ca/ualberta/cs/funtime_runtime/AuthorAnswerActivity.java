@@ -3,7 +3,13 @@ package ca.ualberta.cs.funtime_runtime;
 import java.util.ArrayList;
 
 import android.app.ActionBar;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
@@ -36,6 +42,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 	Account account;
 	String username;
 	ArrayList<Question> userAnsweredList;
+	int camera_color = Color.parseColor("#001110");
 
 	/**
 	 * This is a standard onCreate method
@@ -98,5 +105,33 @@ public class AuthorAnswerActivity extends CustomActivity {
 	 public void answer_cancel(View v){
 		 finish();
 	 }
+	 
+	 public void add_photo(View v){
+			Intent  photoPickerIntent = new Intent(Intent.ACTION_PICK);
+			photoPickerIntent.setType("image/*");
+			startActivityForResult(photoPickerIntent, 1);
+	 }
+	
+	 protected void onActivityResult(int requestCode, int resultCode,
+		        Intent intent) {
+		    super.onActivityResult(requestCode, resultCode, intent);
+
+		    if (resultCode == RESULT_OK) {
+		        Uri photoUri = intent.getData();
+
+		        if (photoUri != null) {
+		            try {
+		                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
+		                int byteCount = bitmap.getByteCount();
+		                if (byteCount > 0)
+		                	Log.i("Image Upload", ""+byteCount);
+		                //your_imgv.setImageBitmap(bitmap);
+		                //profilePicPath = photoUri.toString();
+		            } catch (Exception e) {
+		                e.printStackTrace();
+		            }
+		        }
+		    }
+		}
 
 }
