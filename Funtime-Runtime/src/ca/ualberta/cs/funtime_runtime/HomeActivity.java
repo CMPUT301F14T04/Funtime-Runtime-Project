@@ -38,6 +38,7 @@ public class HomeActivity extends CustomActivity {
 	QuestionListAdapter adapter;
 	Account account;
 	ESQuestionManager questionManager;
+	ArrayList<Question> sortList = new ArrayList<Question>();
 
 	static boolean first = true;
 
@@ -341,6 +342,27 @@ public class HomeActivity extends CustomActivity {
 		public void run() {
 			homeQuestionList.clear();
 			homeQuestionList.addAll(questionManager.searchQuestions(search, null));
+			//Log.i("Size", "" + homeQuestionList.size());
+//			sortList.clear();
+//			//sortList = new ArrayList<Question>();
+//			sortList.addAll(questionManager.searchQuestions(search, null));
+//			int index = sortList.size() - 1;
+//			//Log.i("index", ""+index);
+//			while (homeQuestionList.size() != sortList.size()) {
+//				Question question = sortList.get(index);
+//				if (question.getId() == index){
+//					homeQuestionList.add(question);
+//					sortList.remove(question);	
+//					index = sortList.size();
+//				} else {
+//					index--;;
+//				}
+//				
+//			}
+//			Log.i("End size", ""+sortList.size());
+//			for (Question q : sortList){
+//				Log.i(""+q.getId(), ""+q.getTitle());
+//			}
 			runOnUiThread(updateHomeUI);	
 		}
 		

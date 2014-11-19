@@ -122,12 +122,13 @@ public class AuthorQuestionActivity extends CustomActivity {
 		searchThread.start();
 
 		int id;
+		id = questionList.size();
 		
-		if (questionList.isEmpty()){
-			id = 1;
-		} else {
-			id = questionList.size() + 1;
-		}
+//		if (questionList.isEmpty()){
+//			id = 1;
+//		} else {
+//			id = questionList.size() + 1;
+//		}
 		
 		question.setId(id);
 	}
@@ -173,6 +174,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 		@Override
 		public void run() {
 			questionList.clear();
+			// Make a temporary list to sort the questions by Id
+			//ArrayList<Question> sortList = new ArrayList<Question>();
+			//sortList.addAll(questionManager.searchQuestions(search, null));
 			questionList.addAll(questionManager.searchQuestions(search, null));
 			if (!questionList.isEmpty()){
 				Question question = questionList.get(0);
