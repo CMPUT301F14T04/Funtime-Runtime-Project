@@ -118,11 +118,6 @@ public class AuthorReplyActivity extends CustomActivity {
 		question.addReply(reply);
 		Thread updateThread = new UpdateQuestionThread(question);
 		updateThread.start();
-		try {
-			updateThread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		
 		finish();		
 	}

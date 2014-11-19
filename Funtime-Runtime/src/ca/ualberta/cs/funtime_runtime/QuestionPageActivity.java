@@ -22,6 +22,7 @@ import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.UpdateQuestionThread;
 
 /**
  * A view class that displays the question and
@@ -321,6 +322,7 @@ public class QuestionPageActivity extends CustomActivity {
 	 * 
 	 */
 	public void upvote_question(View v){
+		Thread updateThread = new UpdateQuestionThread(question);
 		if (upvoted) {
 			//question.downVote();
 			account.downvoteQuestion(question);
@@ -328,6 +330,7 @@ public class QuestionPageActivity extends CustomActivity {
 			questionUpvote.setText(Integer.toString(rating));
 			questionUpvote.setTextColor(Color.parseColor("#000000"));
 			upvoted = false;
+			
 		} else {
 			//question.upVote();
 			account.upvoteQuestion(question);
@@ -336,6 +339,7 @@ public class QuestionPageActivity extends CustomActivity {
 			questionUpvote.setTextColor(upvote_color);
 			upvoted = true;
 		}
+		updateThread.start();
 	}
 	
 	/**
