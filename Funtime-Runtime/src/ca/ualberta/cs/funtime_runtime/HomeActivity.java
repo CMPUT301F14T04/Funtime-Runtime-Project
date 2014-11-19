@@ -1,6 +1,7 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -341,28 +342,19 @@ public class HomeActivity extends CustomActivity {
 		@Override
 		public void run() {
 			homeQuestionList.clear();
-			homeQuestionList.addAll(questionManager.searchQuestions(search, null));
-			//Log.i("Size", "" + homeQuestionList.size());
-//			sortList.clear();
-//			//sortList = new ArrayList<Question>();
-//			sortList.addAll(questionManager.searchQuestions(search, null));
-//			int index = sortList.size() - 1;
-//			//Log.i("index", ""+index);
-//			while (homeQuestionList.size() != sortList.size()) {
-//				Question question = sortList.get(index);
-//				if (question.getId() == index){
-//					homeQuestionList.add(question);
-//					sortList.remove(question);	
-//					index = sortList.size();
-//				} else {
-//					index--;;
-//				}
-//				
-//			}
-//			Log.i("End size", ""+sortList.size());
-//			for (Question q : sortList){
-//				Log.i(""+q.getId(), ""+q.getTitle());
-//			}
+			//homeQuestionList.addAll(questionManager.searchQuestions(search, null));
+			sortList.addAll(questionManager.searchQuestions(search, null));
+			int id = 1;
+			while (homeQuestionList.size() != sortList.size()) {
+				for (Question q: sortList) {
+					if (q.getId() == id) {
+						homeQuestionList.add(0, q);
+						id++;
+					}
+				//Log.i("Size", "" + sortList.size() + "" + homeQuestionList.size());
+				}
+			}
+	
 			runOnUiThread(updateHomeUI);	
 		}
 		
