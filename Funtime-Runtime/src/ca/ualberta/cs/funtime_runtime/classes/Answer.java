@@ -1,6 +1,8 @@
 package ca.ualberta.cs.funtime_runtime.classes;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class Answer implements Serializable {
 	private int rating;
 	private final Date date;
 	private int id;
-
+	private  Bitmap answerPhotoBitmap;
 	
 	/**
 	 * This function initializes an answer 
@@ -39,6 +41,7 @@ public class Answer implements Serializable {
 		rating = 0;
 		replyList = new ArrayList<Integer>();
 		date = new Date();
+		answerPhotoBitmap = null;
 	}
 
 	
@@ -152,11 +155,10 @@ public class Answer implements Serializable {
 	
 	/**
 	 * This function will be implemented later to get a photo attached to an answer
-	 */
-//	public bitmap getPhoto()
-//	{
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	 */	
+	
+	public void getPhoto(Bitmap bitmap){
+		answerPhotoBitmap = bitmap;
+	}
 
 }

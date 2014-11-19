@@ -1,6 +1,8 @@
 package ca.ualberta.cs.funtime_runtime.classes;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class Question implements Serializable {
 	public ArrayList<Integer> answerList;
 	public ArrayList<Integer> replyList;
 	private int rating;
+	private  Bitmap photoBitmap;
 	
 	public int id; //used for elastic search (see setId and getId methods)
 	/**
@@ -40,6 +43,7 @@ public class Question implements Serializable {
 		this.title = title;
 		this.body = body;
 		this.username = username;
+		photoBitmap = null;
 		date = new Date();
 		rating = 0;
 		answerList = new ArrayList<Integer>();
@@ -196,4 +200,9 @@ public class Question implements Serializable {
 	public void setId(int id){
 		this.id=id;
 	}
+	
+	public void getPhoto(Bitmap bitmap){
+		photoBitmap = bitmap;
+	}
+
 }
