@@ -322,6 +322,8 @@ public class QuestionPageActivity extends CustomActivity {
 	 * 
 	 */
 	public void upvote_question(View v){
+		// Note: using the back button will save the question status (cannot upvote again)
+		// Note: using the home icon will not save the question status (can upvote many times)
 		Thread updateThread = new UpdateQuestionThread(question);
 		if (upvoted) {
 			//question.downVote();
