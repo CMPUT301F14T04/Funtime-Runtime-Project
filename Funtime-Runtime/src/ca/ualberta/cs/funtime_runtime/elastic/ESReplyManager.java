@@ -3,7 +3,11 @@ package ca.ualberta.cs.funtime_runtime.elastic;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -15,6 +19,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.util.Log;
 import ca.ualberta.cs.funtime_runtime.classes.IReplyManager;
+import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.Reply;
 
 import com.google.gson.Gson;
@@ -36,6 +41,7 @@ import com.google.gson.reflect.TypeToken;
  */
 public class ESReplyManager implements IReplyManager {
 	private static final String RESOURCE_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/reply/";
+	private static final String SEARCH_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/reply/_search";
 	private static final String TAG= "AddReply";
 	private int id;
 
@@ -162,6 +168,80 @@ public class ESReplyManager implements IReplyManager {
 	
 	public void incrementId() {
 		id++;
+	}
+
+
+
+	public List<Reply> searchReplies(String searchString, String field) {
+		List<Reply> result = new ArrayList<Reply>();
+
+		if (searchString == null || "".equals(searchString)) {
+			searchString = "*";
+		}
+		
+		HttpClient httpClient = new DefaultHttpClient();
+		
+		try {
+			HttpPost searchRequest = createSearchRequest(searchString, field);
+			
+			HttpResponse response = httpClient.execute(searchRequest);
+			String status = response.getStatusLine().toString();
+			Log.i(TAG, status);
+			
+			SearchResponse<Reply> esResponse = parseSearchResponse(response);
+			Hits<Reply> hits = esResponse.getHits();
+			
+			if (hits != null) {
+				if (hits.getHits() != null) {
+					for (SearchHit<Reply> sesr : hits.getHits()) {
+						result.add(sesr.getSource());
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		return result;
+	}
+	
+	private HttpPost createSearchRequest(String searchString, String field)	throws UnsupportedEncodingException {
+		
+		// TODO HTTP POST NEED TO HAVE A SEARCH URL TO IT NOT JUST URL. 
+		HttpPost searchRequest = new HttpPost(SEARCH_URL);
+
+		String[] fields = null;
+		if (field != null) {
+			fields = new String[1];
+			fields[0] = field;
+		}
+		
+		SimpleSearchCommand command = new SimpleSearchCommand(searchString,	fields);
+		
+		//String query = command.getJsonCommand();
+		String query = command.getAll();
+		Log.i(TAG, "Json command: " + query);
+
+		StringEntity stringEntity;
+		stringEntity = new StringEntity(query);
+
+		searchRequest.setHeader("Accept", "application/json");
+		searchRequest.setEntity(stringEntity);
+
+		return searchRequest;
+	}
+	
+	private SearchResponse<Reply> parseSearchResponse(HttpResponse response) throws IOException {
+		String json;
+		json = getEntityContent(response);
+		
+		Type searchResponseType = new TypeToken<SearchResponse<Reply>>() {
+		}.getType();
+		
+		SearchResponse<Reply> esResponse = gson.fromJson(json, searchResponseType);
+
+		return esResponse;
+		
 	}
 	
 

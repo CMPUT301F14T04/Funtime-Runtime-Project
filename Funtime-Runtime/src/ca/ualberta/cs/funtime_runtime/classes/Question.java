@@ -23,8 +23,8 @@ public class Question implements Serializable {
 	private final String body;
 	private final String username;
 	private final Date date;
-	public ArrayList<Integer> answerList;
-	public ArrayList<Integer> replyList;
+	public ArrayList<Answer> answerList;
+	public ArrayList<Reply> replyList;
 	private int rating;
 	
 	public int id; //used for elastic search (see setId and getId methods)
@@ -42,8 +42,8 @@ public class Question implements Serializable {
 		this.username = username;
 		date = new Date();
 		rating = 0;
-		answerList = new ArrayList<Integer>();
-		replyList = new ArrayList<Integer>();
+		answerList = new ArrayList<Answer>();
+		replyList = new ArrayList<Reply>();
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class Question implements Serializable {
 	 * @param answer
 	 */
 	public void addAnswer(Answer answer) {
-		answerList.add(0, answer.getId());
+		answerList.add(0, answer);
 	}
 
 	
@@ -130,16 +130,16 @@ public class Question implements Serializable {
 	 * @param i
 	 * @return answer
 	 */
-	public int getAnswer(int i) {
-		int answerId = answerList.get(i);
-		return answerId;
+	public Answer getAnswer(int i) {
+		Answer answer = answerList.get(i);
+		return answer;
 	}
 	
 	/**
 	 * This function gets the array list of answers associated with a question
 	 * @return answer list
 	 */
-	public ArrayList<Integer> getAnswerList() {
+	public ArrayList<Answer> getAnswerList() {
 		return answerList;
 	}
 
@@ -150,7 +150,7 @@ public class Question implements Serializable {
 	 * @param reply
 	 */
 	public void addReply(Reply reply) {
-		replyList.add(0, reply.getId());
+		replyList.add(0, reply);
 	}
 	
 	
@@ -159,9 +159,9 @@ public class Question implements Serializable {
 	 * @param i
 	 * @return reply
 	 */
-	public int getReply(int i) {
-		int replyId = replyList.get(i);
-		return replyId;
+	public Reply getReply(int i) {
+		Reply reply= replyList.get(i);
+		return reply;
 	}
 	
 	
@@ -177,7 +177,7 @@ public class Question implements Serializable {
 	 * This function gets the array list of replies associated with a question
 	 * @return reply list
 	 */
-	public ArrayList<Integer> getReplyList() {
+	public ArrayList<Reply> getReplyList() {
 		return replyList;
 	}
 	

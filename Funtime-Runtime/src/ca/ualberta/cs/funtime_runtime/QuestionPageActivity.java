@@ -158,7 +158,7 @@ public class QuestionPageActivity extends CustomActivity {
 		questionDate.setText("Posted: " + question.getDate().toString());
 		
 		questionAnswerList = new ArrayList<Answer>();
-		//questionAnswerList = question.getAnswerList();
+		questionAnswerList = question.getAnswerList();
 		
 		answersTitle.setText("Answers (" + questionAnswerList.size() + ")");
 		

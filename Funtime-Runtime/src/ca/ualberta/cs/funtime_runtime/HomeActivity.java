@@ -61,14 +61,10 @@ public class HomeActivity extends CustomActivity {
 		homeQuestionList = ApplicationState.getQuestionList();
 		homeListView = (ListView) findViewById(R.id.questionListView);
 
-		// TODO: retrieve homeQuestionList from server
 		loadServerQuestions();
 		//testHome(); // temporary test code
 
 		account = ApplicationState.getAccount();
-
-		// adapter = new QuestionListAdapter(this,
-		// R.layout.question_list_adapter, homeQuestionList);
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter,
 				homeQuestionList);
 
@@ -88,8 +84,7 @@ public class HomeActivity extends CustomActivity {
 
 	private void loadServerQuestions() {
 		Thread loadThread = new SearchThread("*");
-		loadThread.start();
-		
+		loadThread.start();	
 	}
 
 	/**
@@ -332,6 +327,18 @@ public class HomeActivity extends CustomActivity {
 		}
 	}
 	
+	private void loadHomeList() {
+		int id = 0;
+		while (homeQuestionList.size() != sortList.size()) {
+			for (Question q: sortList) {
+				if (q.getId() == id) {
+					homeQuestionList.add(0, q);
+					id++;
+				}
+			}
+		}
+	}
+
 	class SearchThread extends Thread {
 		private String search;
 		
@@ -342,19 +349,9 @@ public class HomeActivity extends CustomActivity {
 		@Override
 		public void run() {
 			homeQuestionList.clear();
-			//homeQuestionList.addAll(questionManager.searchQuestions(search, null));
+			sortList.clear();
 			sortList.addAll(questionManager.searchQuestions(search, null));
-			int id = 1;
-			while (homeQuestionList.size() != sortList.size()) {
-				for (Question q: sortList) {
-					if (q.getId() == id) {
-						homeQuestionList.add(0, q);
-						id++;
-					}
-				//Log.i("Size", "" + sortList.size() + "" + homeQuestionList.size());
-				}
-			}
-	
+			loadHomeList();
 			runOnUiThread(updateHomeUI);	
 		}
 		

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import ca.ualberta.cs.funtime_runtime.HomeActivity.SearchThread;
 import ca.ualberta.cs.funtime_runtime.adapter.ReplyListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
@@ -38,6 +39,7 @@ public class ReplyPageActivity extends CustomActivity {
 	String parentDate;
 	String parentUsername;
 	ArrayList<Reply> repliesList;
+	ArrayList<Reply> sortList = new ArrayList<Reply>();;
 	
 	TextView parentTitleText;
 	TextView parentBodyText;
@@ -93,7 +95,7 @@ public class ReplyPageActivity extends CustomActivity {
 			parentDate = question.getDate();
 			parentUsername = question.getUser();
 			parentReply = question.getReplyCount();
-			//repliesList = question.getReplyList();
+			repliesList = question.getReplyList();
 			
 			header = (View)inflater.inflate(R.layout.reply_page_header, null, false);
 			replyListView.addHeaderView(header);	
@@ -108,7 +110,7 @@ public class ReplyPageActivity extends CustomActivity {
 			parentDate = answer.getDate();
 			parentUsername = answer.getUser();		
 			parentReply = answer.getReplyCount();
-			//repliesList = answer.getReplyList();
+			repliesList = answer.getReplyList();
 			
 			header = (View)inflater.inflate(R.layout.reply_answers_page_header, null, false);
 			replyListView.addHeaderView(header);	
@@ -128,11 +130,13 @@ public class ReplyPageActivity extends CustomActivity {
 		
 		adapter = new ReplyListAdapter(this, R.layout.reply_list_adapter, repliesList);
 		replyListView.setAdapter(adapter);
+		//loadServerReplies();
 		adapter.notifyDataSetChanged();
 		
 		
 	}
 	
+
 	public void onResume() {
 		super.onResume();
 		
@@ -172,5 +176,6 @@ public class ReplyPageActivity extends CustomActivity {
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
+
 	
 }

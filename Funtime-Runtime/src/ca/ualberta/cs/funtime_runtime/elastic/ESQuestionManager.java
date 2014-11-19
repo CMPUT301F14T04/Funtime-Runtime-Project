@@ -40,6 +40,7 @@ import com.google.gson.reflect.TypeToken;
 public class ESQuestionManager implements IQuestionManager {
 	private static final String RESOURCE_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question/";
 	private static final String SEARCH_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question/_search";
+	private static final String UPDATE_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question/_update/";
 	private static final String TAG= "QuestionsSearch";
 	private int id;
 
@@ -49,11 +50,13 @@ public class ESQuestionManager implements IQuestionManager {
 		gson = new Gson();
 	}
 	
-	
+	public void updateQuestion(Question question) {
+		deleteQuestion(question.getId());
+		addQuestion(question);
+	}
 	
 	@Override
 	public Question getQuestion(int id) {
-		// TODO Auto-generated method stub
 		
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(RESOURCE_URL + id);
@@ -82,7 +85,6 @@ public class ESQuestionManager implements IQuestionManager {
 	public List<Question> searchQuestions(String searchString, String field) {
 		List<Question> result = new ArrayList<Question>();
 
-		// TODO: Implement search questions using ElasticSearch
 		if (searchString == null || "".equals(searchString)) {
 			searchString = "*";
 		}
@@ -119,15 +121,10 @@ public class ESQuestionManager implements IQuestionManager {
 	 */
 			
 	@Override
-	public void addQuestion(Question question) {
-		// TODO Auto-generated method stub
-		// STILL LEFT TO DO THESE:
-		// push (save) question to server with idTracker
-	    // increment idTracker 
-
+	public void addQuestion(Question question) {	
 		
 		HttpClient httpClient = new DefaultHttpClient();
-
+		
 		try {
 			HttpPost addRequest = new HttpPost(RESOURCE_URL + question.getId());
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,6 +17,7 @@ import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.Reply;
+import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 import ca.ualberta.cs.funtime_runtime.elastic.ESReplyManager;
 
 /**
@@ -45,6 +47,7 @@ public class AuthorReplyActivity extends CustomActivity {
 	ArrayList<Reply> replyList;
 	String replyType;
 	
+	ESQuestionManager questionManager;
 	ESReplyManager replyManager;
 	
 	/**
@@ -67,6 +70,7 @@ public class AuthorReplyActivity extends CustomActivity {
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
 		replyManager = new ESReplyManager();
+		questionManager = new ESQuestionManager();
 		replyType = extras.getString("ReplyType");
 		
 		if (replyType.equals("question")) {
@@ -75,14 +79,14 @@ public class AuthorReplyActivity extends CustomActivity {
 			parentBody = question.getBody();
 			parentDate = question.getDate().toString();
 			parentUsername = question.getUser();			
-			//replyList = question.getReplyList();
+			replyList = question.getReplyList();
 		} else if (replyType.equals("answer")) {
 			answer = ApplicationState.getPassableAnswer();
 			parentTitle = "";
 			parentBody = answer.getBody();
 			parentDate = answer.getDate().toString();
 			parentUsername = answer.getUser();			
-			//replyList = answer.getReplyList();
+			replyList = answer.getReplyList();
 		}
 		
 		parentTitleView = (TextView) findViewById(R.id.replyParentTitle);
@@ -108,6 +112,28 @@ public class AuthorReplyActivity extends CustomActivity {
 		return true;
 	}
 	
+	private void addServerReply(Reply reply) {
+		Thread thread = new AddReplyThread(reply);
+		thread.start();
+	}
+
+	private void generateId(Reply reply) {
+		Thread searchThread = new SearchReplyThread("*");
+		searchThread.start();
+		try {
+			searchThread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		int id;
+		id = replyList.size();
+		//Log.i("Reply size", ""+replyList.size());
+		
+		reply.setId(id);
+	}
+	
 	
 	/**
 	 * this onClick listener for a button simply submits whatever has been entered into the text field.
@@ -116,13 +142,21 @@ public class AuthorReplyActivity extends CustomActivity {
 	 */
 	 public void addReply(View v) { 
 		Reply reply = new Reply(typeReply.getText().toString(), username.toString());
-		//replyList.add(0, reply);
 		
-		reply.setId(17);
-		Thread thread = new AddReplyThread(reply);
-		thread.start();
+		//generateId(reply);		
+		//addServerReply(reply);
+		//Log.i("Q Title", question.getTitle());
+		// Add code to pull question (make sure we have most updated question)
+		question.addReply(reply);
+		Thread updateThread = new UpdateQuestionThread(question);
+		updateThread.start();
+		try {
+			updateThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		
-		finish();				
+		finish();		
 	}
 	 
 	 /**
@@ -162,4 +196,39 @@ public class AuthorReplyActivity extends CustomActivity {
 				finish();
 			}
 		};
+		
+	class SearchReplyThread extends Thread {
+		private String search;
+		
+		public SearchReplyThread(String s){		
+			search = s;
+		}
+		
+		@Override
+		public void run() {
+			replyList.clear();
+			replyList.addAll(replyManager.searchReplies(search, null));
+			//Log.i("Size", ""+replyList.size());
+		}
+	}
+	
+	class UpdateQuestionThread extends Thread {
+		private Question question;
+		private ESQuestionManager manager = new ESQuestionManager();
+		
+		public UpdateQuestionThread(Question q){		
+			question = q;
+		}
+		
+		@Override
+		public void run() {
+			updateQuestion(question);
+		}
+
+		private void updateQuestion(Question question) {
+			manager.deleteQuestion(question.getId());
+			manager.addQuestion(question);
+			
+		}
+	}
 }
