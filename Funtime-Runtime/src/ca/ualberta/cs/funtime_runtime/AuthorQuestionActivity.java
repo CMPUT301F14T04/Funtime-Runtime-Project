@@ -4,13 +4,20 @@ import java.util.ArrayList;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+
+import android.provider.MediaStore;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
@@ -29,6 +36,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	Button submitButton;
 	Button addPhotoButton;
 	Button cancelButton;
+	ImageButton photoButton;
 	EditText questionTitle;
 	EditText questionBody;
 	Account account;
@@ -36,7 +44,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	ArrayList<Question> questionList;
 	ArrayList<Question> userQuestionList;
 	ESQuestionManager questionManager;
-	
+	int camera_color = Color.parseColor("#001110");
 	/**
 	 * This is a standard onCreate method
 	 * In this method we link this java file with the xml.
@@ -61,6 +69,8 @@ public class AuthorQuestionActivity extends CustomActivity {
 		//addPhotoButton = (Button) findViewById(R.id.add_image_button);
 		questionTitle = (EditText) findViewById(R.id.question_title_text);
 		questionBody = (EditText) findViewById(R.id.question_body_text);
+		photoButton = (ImageButton)  findViewById(R.id.add_image_button);
+		photoButton.setColorFilter(camera_color);
 		account = ApplicationState.getAccount();
 		username = account.getName();
 		questionManager = new ESQuestionManager();
@@ -133,6 +143,34 @@ public class AuthorQuestionActivity extends CustomActivity {
 		question.setId(id);
 	}
 	
+	public void choosePhoto(View v){
+		Intent  photoPickerIntent = new Intent(Intent.ACTION_PICK);
+		photoPickerIntent.setType("image/*");
+		startActivityForResult(photoPickerIntent, 1);
+	
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode,
+	        Intent intent) {
+	    super.onActivityResult(requestCode, resultCode, intent);
+
+	    if (resultCode == RESULT_OK) {
+	        Uri photoUri = intent.getData();
+
+	        if (photoUri != null) {
+	            try {
+	                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
+	                int byteCount = bitmap.getByteCount();
+	                if (byteCount > 0)
+	                	Log.i("Image Upload", ""+byteCount);
+	                //your_imgv.setImageBitmap(bitmap);
+	                //profilePicPath = photoUri.toString();
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+	}
 	/**
 	 * this onCLick listener is connected to the cancel button and navigates aw
 	 * from the page.
@@ -194,5 +232,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 		}
 	};	
 		
+	
+	
 
 }
