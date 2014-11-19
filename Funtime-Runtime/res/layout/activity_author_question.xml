@@ -63,7 +63,8 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/camera_button"
         android:contentDescription="@string/camera_action"
-        android:src="@android:drawable/ic_menu_camera" />
+        android:src="@android:drawable/ic_menu_camera" 
+        android:onClick="choosePhoto"/>
   
     <View
        android:id="@+id/fakeView"
