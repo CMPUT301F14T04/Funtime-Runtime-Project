@@ -41,8 +41,7 @@ public class SearchActivity extends CustomActivity {
 		questions = new ArrayList<Question>();
 		questionAdapter = new QuestionListAdapter(this, R.layout.question_list_adapter, questions);
 		questionManager = new ESQuestionManager();
-		resultList.setAdapter(questionAdapter);
-		
+		resultList.setAdapter(questionAdapter);		
 	}
 
 	
@@ -62,15 +61,12 @@ public class SearchActivity extends CustomActivity {
 	 * the given query
 	 */
 	public void searchForQuery(View v) {
-		//questions.add(new Question("Help", "Me", "please"));
 		questions.clear();
+		questionAdapter.notifyDataSetChanged();
 		SimpleSearchCommand query = new SimpleSearchCommand(queryEdit.getText().toString());
 		String command = query.getJsonCommand();
-		//Toast.makeText(this, command, Toast.LENGTH_LONG).show();
 		Thread thread = new SearchThread(command);
-		thread.start();
-		//Toast.makeText(this, questions.size(), Toast.LENGTH_LONG).show();
-		
+		thread.start();	
 	}
 	
 	class SearchThread extends Thread {

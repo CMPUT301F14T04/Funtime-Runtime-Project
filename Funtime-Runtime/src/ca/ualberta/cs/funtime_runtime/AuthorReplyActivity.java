@@ -70,7 +70,7 @@ public class AuthorReplyActivity extends CustomActivity {
 			question = ApplicationState.getPassableQuestion();
 			parentTitle = question.getTitle();
 			parentBody = question.getBody();
-			parentDate = question.getDate().toString();
+			parentDate = question.getStringDate().toString();
 			parentUsername = question.getUser();			
 			replyList = question.getReplyList();
 		} else if (replyType.equals("answer")) {

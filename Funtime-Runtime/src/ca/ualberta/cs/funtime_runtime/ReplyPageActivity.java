@@ -88,7 +88,7 @@ public class ReplyPageActivity extends CustomActivity {
 			question = ApplicationState.getPassableQuestion();
 			parentTitle = question.getTitle();
 			parentBody = question.getBody();
-			parentDate = question.getDate();
+			parentDate = question.getStringDate();
 			parentUsername = question.getUser();
 			parentReply = question.getReplyCount();
 			repliesList = question.getReplyList();

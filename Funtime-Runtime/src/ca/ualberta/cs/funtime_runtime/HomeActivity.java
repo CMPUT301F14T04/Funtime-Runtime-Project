@@ -1,6 +1,8 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -84,7 +86,14 @@ public class HomeActivity extends CustomActivity {
 		Thread loadThread = new SearchThread("*");
 		//Thread loadThread = new LoadHomeThread("*", homeQuestionList, adapter);
 		loadThread.start();	
+		try {
+			loadThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
+
+	
 
 	/**
 	 * Refreshes the adapter when the activity restarts
@@ -93,6 +102,7 @@ public class HomeActivity extends CustomActivity {
 	@Override
 	public void onRestart() {
 		super.onRestart();
+		loadServerQuestions();
 		adapter.notifyDataSetChanged();
 	}
 
@@ -333,7 +343,7 @@ public class HomeActivity extends CustomActivity {
 				if (q.getId() == id) {
 					homeQuestionList.add(0, q);
 					id++;
-				}
+				} 
 			}
 		}
 	}
@@ -348,9 +358,16 @@ public class HomeActivity extends CustomActivity {
 		@Override
 		public void run() {
 			homeQuestionList.clear();
-			sortList.clear();
-			sortList.addAll(questionManager.searchQuestions(search, null));
-			loadHomeList();
+			//sortList.clear();
+			//sortList.addAll(questionManager.searchQuestions(search, null));
+			
+			homeQuestionList.addAll(questionManager.searchQuestions(search, null));
+			Collections.sort(homeQuestionList, new Comparator<Question>() {
+				  public int compare(Question q1, Question q2) {
+				      return q1.getDate().compareTo(q2.getDate());
+				  }
+			});
+			
 			runOnUiThread(updateHomeUI);	
 		}
 		
@@ -360,5 +377,6 @@ public class HomeActivity extends CustomActivity {
 			}
 		};
 	}
+
 
 }

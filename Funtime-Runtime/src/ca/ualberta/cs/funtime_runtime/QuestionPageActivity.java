@@ -156,7 +156,7 @@ public class QuestionPageActivity extends CustomActivity {
 		questionBody.setText(question.getBody());
 		
 		questionAuthor.setText("Author: " + question.getUser());
-		questionDate.setText("Posted: " + question.getDate().toString());
+		questionDate.setText("Posted: " + question.getStringDate().toString());
 		
 		questionAnswerList = new ArrayList<Answer>();
 		questionAnswerList = question.getAnswerList();

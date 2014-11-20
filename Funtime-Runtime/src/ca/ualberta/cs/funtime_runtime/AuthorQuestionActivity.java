@@ -105,6 +105,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 		
 		// Elastic search code
 		generateId(question);		
+		Log.i("List Size", ""+questionList.size());
 		addServerQuestion(question);
 		
 		account.addToHistory(question); // Add question clicked to history

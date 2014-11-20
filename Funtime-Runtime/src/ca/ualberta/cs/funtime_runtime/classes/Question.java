@@ -76,10 +76,19 @@ public class Question implements Serializable {
 	 * @return date string with the format: "dd/MM/yyyy  HH:mm"
 	 */
 	@SuppressLint("SimpleDateFormat")
-	public String getDate() {
+	public String getStringDate() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy  HH:mm");
 		String questionDateString = dateFormat.format(date);
 		return questionDateString;
+	}
+	
+	/**
+	 * This function gets the date and time at which a particular question was posted
+	 * @return date 
+	 */
+	@SuppressLint("SimpleDateFormat")
+	public Date getDate() {
+		return date;
 	}
 
 	

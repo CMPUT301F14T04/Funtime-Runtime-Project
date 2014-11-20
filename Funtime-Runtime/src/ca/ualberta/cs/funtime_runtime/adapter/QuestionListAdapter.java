@@ -116,7 +116,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		authorTextView.setText(authorString + " " + question.getUser());
 		
 		TextView questionDateTextView = (TextView) theView.findViewById(R.id.adapterDate);
-		String questionDateString = question.getDate();
+		String questionDateString = question.getStringDate();
 		questionDateTextView.setText("Posted: " + questionDateString);
 		
 		return theView;
