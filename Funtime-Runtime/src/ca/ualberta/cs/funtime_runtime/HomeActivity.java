@@ -348,6 +348,7 @@ public class HomeActivity extends CustomActivity {
 		}
 	}
 
+	// Comparator code http://stackoverflow.com/questions/5927109/sort-objects-in-arraylist-by-date  - Nov 20/2014, by Domchi
 	class SearchThread extends Thread {
 		private String search;
 		

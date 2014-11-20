@@ -99,7 +99,7 @@ public class ESQuestionManager implements IQuestionManager {
 			
 			SearchResponse<Question> esResponse = parseSearchResponse(response);
 			Hits<Question> hits = esResponse.getHits();
-			Log.i("Acutal hits", ""+hits.getTotal());
+			//Log.i("Acutal hits", ""+hits.getTotal());
 			
 			if (hits != null) {
 				if (hits.getHits() != null) {
