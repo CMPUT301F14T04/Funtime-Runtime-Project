@@ -11,9 +11,11 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
@@ -39,7 +41,7 @@ public class HomeActivity extends CustomActivity {
 	QuestionListAdapter adapter;
 	Account account;
 	ESQuestionManager questionManager;
-	ArrayList<Question> sortList = new ArrayList<Question>();
+	//ArrayList<Question> sortList = new ArrayList<Question>();
 
 	static boolean first = true;
 
@@ -336,17 +338,17 @@ public class HomeActivity extends CustomActivity {
 		}
 	}
 	
-	private void loadHomeList() {
-		int id = 0;
-		while (homeQuestionList.size() != sortList.size()) {
-			for (Question q: sortList) {
-				if (q.getId() == id) {
-					homeQuestionList.add(0, q);
-					id++;
-				} 
-			}
-		}
-	}
+//	private void loadHomeList() {
+//		int id = 0;
+//		while (homeQuestionList.size() != sortList.size()) {
+//			for (Question q: sortList) {
+//				if (q.getId() == id) {
+//					homeQuestionList.add(0, q);
+//					id++;
+//				} 
+//			}
+//		}
+//	}
 
 	// Comparator code http://stackoverflow.com/questions/5927109/sort-objects-in-arraylist-by-date  - Nov 20/2014, by Domchi
 	class SearchThread extends Thread {

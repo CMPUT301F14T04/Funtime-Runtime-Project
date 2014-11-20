@@ -112,6 +112,11 @@ public class CustomActivity extends Activity {
 
 	}
 	
+	public void refreshPage() {
+		
+	}
+
+
 	/**
 	 * This function simply redirects to another activity when a certain menu 
 	 * item is selected by the user. It operates a switch statement to transition 
@@ -128,7 +133,7 @@ public class CustomActivity extends Activity {
 				return true;
 				
 			case R.id.refresh:
-				//refreshPage();
+				refreshPage();
 				return true;
 				
 			case R.id.home_menu_item:
