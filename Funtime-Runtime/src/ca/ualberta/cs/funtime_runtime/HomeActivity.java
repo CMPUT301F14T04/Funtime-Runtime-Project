@@ -367,6 +367,7 @@ public class HomeActivity extends CustomActivity {
 				      return q1.getDate().compareTo(q2.getDate());
 				  }
 			});
+			Collections.reverse(homeQuestionList);
 			
 			runOnUiThread(updateHomeUI);	
 		}
