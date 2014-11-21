@@ -15,12 +15,15 @@ import java.util.Comparator;
 public class QuestionSorter {
 	
 	private ArrayList<Question> sortList;
+	protected String sortType;
 	
 	public QuestionSorter (ArrayList<Question> sortList) {
 		this.sortList = sortList;
+		sortType = "Date";
 	}
 
 	public ArrayList<Question> sortByDate() {	
+		sortType = "Date";
 		Collections.sort(sortList, new Comparator<Question>() {
 			  public int compare(Question q1, Question q2) {
 			      return q1.getDate().compareTo(q2.getDate());
@@ -31,6 +34,7 @@ public class QuestionSorter {
 	}
 	
 	public ArrayList<Question> sortByVotes() {
+		sortType = "Votes";
 		Collections.sort(sortList, new Comparator<Question>() {
 			  public int compare(Question q1, Question q2) {
 			      return q1.getRating() - q2.getRating();
@@ -41,7 +45,12 @@ public class QuestionSorter {
 	}
 	
 	public ArrayList<Question> sortByPhoto() {
+		sortType = "Photo";
 		return sortList;
+	}
+
+	public String getSortType() {
+		return sortType;
 	}
 	
 	

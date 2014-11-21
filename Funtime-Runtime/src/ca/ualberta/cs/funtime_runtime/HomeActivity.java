@@ -1,8 +1,6 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -58,11 +56,11 @@ public class HomeActivity extends CustomActivity {
 		account = new Account("TestUser1");
 		ApplicationState.setAccount(account);
 		questionManager = new ESQuestionManager();
-		
 		homeQuestionList = ApplicationState.getQuestionList();
 		homeListView = (ListView) findViewById(R.id.questionListView);
 
 		loadServerQuestions();
+		sorter = new QuestionSorter(homeQuestionList);
 		//testHome(); // temporary test code
 
 		account = ApplicationState.getAccount();
@@ -70,6 +68,7 @@ public class HomeActivity extends CustomActivity {
 				homeQuestionList);
 
 		homeListView.setAdapter(adapter);
+		sorter.sortByDate();
 		adapter.notifyDataSetChanged();
 
 		homeListView.setOnItemClickListener(new OnItemClickListener() {
@@ -87,6 +86,7 @@ public class HomeActivity extends CustomActivity {
 		Thread loadThread = new SearchThread("*");
 		//Thread loadThread = new LoadHomeThread("*", homeQuestionList, adapter);
 		loadThread.start();	
+		
 		try {
 			loadThread.join();
 		} catch (InterruptedException e) {
@@ -146,7 +146,7 @@ public class HomeActivity extends CustomActivity {
 				return true;
 				
 			case R.id.refresh:
-				loadServerQuestions();
+				refresh();
 				return true;
 				
 			case R.id.home_menu_item:
@@ -182,8 +182,6 @@ public class HomeActivity extends CustomActivity {
 				return true;
 				
 			case R.id.sort_list_item :
-				//openSortList();
-				sorter = new QuestionSorter(homeQuestionList);
 				return true;
 				
 			case R.id.sort_date_menu:
@@ -203,6 +201,18 @@ public class HomeActivity extends CustomActivity {
 				
 			default :
 				return true;
+		}
+	}
+
+	private void refresh() {
+		String sortType = sorter.getSortType();
+		loadServerQuestions();
+		if (sortType.equals("Date")){
+			sorter.sortByDate();
+		} else if (sortType.equals("Votes")) {
+			sorter.sortByVotes();
+		} else if (sortType.equals("Photo")) {
+			sorter.sortByPhoto();
 		}
 	}
 
@@ -440,12 +450,12 @@ public class HomeActivity extends CustomActivity {
 			//sortList.addAll(questionManager.searchQuestions(search, null));
 			
 			homeQuestionList.addAll(questionManager.searchQuestions(search, null));
-			Collections.sort(homeQuestionList, new Comparator<Question>() {
-				  public int compare(Question q1, Question q2) {
-				      return q1.getDate().compareTo(q2.getDate());
-				  }
-			});
-			Collections.reverse(homeQuestionList);
+//			Collections.sort(homeQuestionList, new Comparator<Question>() {
+//				  public int compare(Question q1, Question q2) {
+//				      return q1.getDate().compareTo(q2.getDate());
+//				  }
+//			});
+//			Collections.reverse(homeQuestionList);
 			
 			runOnUiThread(updateHomeUI);	
 		}

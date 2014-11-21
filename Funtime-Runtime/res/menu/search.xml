@@ -51,7 +51,25 @@
         android:id="@+id/sort_list_item"
         android:orderInCategory="100"
         android:showAsAction="never"
-	    android:title="@string/sort_string"/> 
+	    android:title="@string/sort_string"> 
+	    <menu >
+	        <item 
+			    android:id="@+id/sort_date_menu"
+		        android:orderInCategory="100"
+		        android:showAsAction="never"
+			    android:title="@string/sort_date"/>
+   	        <item 
+			    android:id="@+id/sort_votes_menu"
+		        android:orderInCategory="100"
+		        android:showAsAction="never"
+			    android:title="@string/sort_votes"/>
+   	        <item 
+			    android:id="@+id/sort_photo_menu"
+		        android:orderInCategory="100"
+		        android:showAsAction="never"
+			    android:title="@string/sort_photo"/>
+	    </menu>
+	</item>
 	    
 	<!--     
     <item

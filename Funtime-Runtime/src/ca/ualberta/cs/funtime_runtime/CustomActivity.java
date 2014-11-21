@@ -105,17 +105,6 @@ public class CustomActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	/**
-	 * Open the Sort activity
-	 */
-	public void openSortList() {
-
-	}
-	
-	public void refreshPage() {
-		
-	}
-
 
 	/**
 	 * This function simply redirects to another activity when a certain menu 
@@ -130,10 +119,6 @@ public class CustomActivity extends Activity {
 		switch (item.getItemId()) {	
 			case android.R.id.home:
 				openMyHome();
-				return true;
-				
-			case R.id.refresh:
-				refreshPage();
 				return true;
 				
 			case R.id.home_menu_item:
@@ -166,10 +151,6 @@ public class CustomActivity extends Activity {
 				
 			case R.id.my_history_list_item :
 				openMyHistory();
-				return true;
-				
-			case R.id.sort_list_item :
-				openSortList();
 				return true;
 				
 			default :
