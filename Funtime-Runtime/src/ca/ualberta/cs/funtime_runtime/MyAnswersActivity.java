@@ -2,23 +2,24 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
 
+import android.app.ActionBar;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
-
-import android.os.Bundle;
-import android.app.ActionBar;
-import android.content.Intent;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemClickListener;
 
 
 /**
@@ -35,43 +36,55 @@ public class MyAnswersActivity extends CustomActivity {
 	ArrayList<Question> myAnsweredQuestionsList;
 	QuestionListAdapter adapter;
 	Account account;
+	boolean loggedIn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_answers);
+		loggedIn = ApplicationState.isLoggedIn();
+		//Log.i("Logged in", ""+loggedIn);
+		if (loggedIn) {
+			account = ApplicationState.getAccount();
+			ActionBar actionbar = getActionBar();
+			actionbar.setDisplayHomeAsUpEnabled(true);
+			
+			account = ApplicationState.getAccount();
+			
+			myAnsweredQuestionsList = account.getAnsweredList();
+			myAnsweredListView = (ListView) findViewById(R.id.listView1);
+			
+			adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myAnsweredQuestionsList);
+			
+			myAnsweredListView.setAdapter(adapter);	
+			adapter.notifyDataSetChanged();
+			
+			myAnsweredListView.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					Question question = (Question) adapter.getItem(position);				
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("Question", question);
+					Intent intent = new Intent(MyAnswersActivity.this, QuestionPageActivity.class);
+					intent.putExtras(bundle);
+					
+					ApplicationState.setPassableQuestion(question);
+					
+					startActivity(intent);			
+				}
+			});
+			
+			registerForContextMenu(myAnsweredListView);
+			
+			adapter.notifyDataSetChanged();
+		} else {
+			String msg = ApplicationState.notLoggedIn();
+			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+			finish();
+			//Log.i("got here", "yep");
+		}
 		
-		ActionBar actionbar = getActionBar();
-		actionbar.setDisplayHomeAsUpEnabled(true);
-		
-		account = ApplicationState.getAccount();
-		
-		myAnsweredQuestionsList = account.getAnsweredList();
-		myAnsweredListView = (ListView) findViewById(R.id.listView1);
-		
-		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myAnsweredQuestionsList);
-		
-		myAnsweredListView.setAdapter(adapter);	
-		adapter.notifyDataSetChanged();
-		
-		myAnsweredListView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Question question = (Question) adapter.getItem(position);				
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("Question", question);
-				Intent intent = new Intent(MyAnswersActivity.this, QuestionPageActivity.class);
-				intent.putExtras(bundle);
-				
-				ApplicationState.setPassableQuestion(question);
-				
-				startActivity(intent);			
-			}
-		});
-		
-		registerForContextMenu(myAnsweredListView);
-		
-		adapter.notifyDataSetChanged();
+
 		
 	}
 	

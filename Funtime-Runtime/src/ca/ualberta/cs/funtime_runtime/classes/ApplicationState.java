@@ -110,7 +110,6 @@ public class ApplicationState extends Application {
 	}
 	
 	public static String notLoggedIn() {
-		account = null;
 		String msg = "You are not logged in, please create a new account or login to your account"; 
 		return msg;	
 	}
