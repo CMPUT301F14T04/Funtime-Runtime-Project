@@ -11,11 +11,9 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
@@ -23,6 +21,7 @@ import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.Reply;
+import ca.ualberta.cs.funtime_runtime.classes.Sorter;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 
 /**
@@ -41,7 +40,7 @@ public class HomeActivity extends CustomActivity {
 	QuestionListAdapter adapter;
 	Account account;
 	ESQuestionManager questionManager;
-	//ArrayList<Question> sortList = new ArrayList<Question>();
+	Sorter sorter;
 
 	static boolean first = true;
 
@@ -128,6 +127,76 @@ public class HomeActivity extends CustomActivity {
 			menu.add("Remove from reading list");
 		} else {
 			menu.add("Add to reading list");
+		}
+	}
+	
+	/**
+	 * This function simply redirects to another activity when a certain menu 
+	 * item is selected by the user. It operates a switch statement to transition 
+	 * between different activities
+	 * 
+	 * @param item is a menuItem signifying location within the menu that users 
+	 * wish to visit
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {	
+			case android.R.id.home:
+				openMyHome();
+				return true;
+				
+			case R.id.refresh:
+				refreshPage();
+				return true;
+				
+			case R.id.home_menu_item:
+				openMyHome();
+				return true;
+				
+			case R.id.searchQuestionsList :
+				openSearch();
+				return true;
+				
+			case R.id.login_menu_item :
+				openLogin();
+				return true;
+				
+			case R.id.my_questions_menu_item :
+				openMyQuestions();
+				return true;
+				
+			case R.id.my_answers_menu_item :
+				openMyAnswers();
+				return true;
+				
+			case R.id.my_favorites_menu_item :
+				openMyFavourites();
+				return true;
+				
+			case R.id.my_reading_list_item :
+				openMyReadingList();
+				return true;
+				
+			case R.id.my_history_list_item :
+				openMyHistory();
+				return true;
+				
+			case R.id.sort_list_item :
+				//openSortList();
+				sorter = new Sorter(homeQuestionList);
+				return true;
+				
+			case R.id.sort_date_menu:
+				return true;
+				
+			case R.id.sort_votes_menu:
+				return true;
+				
+			case R.id.sort_photo_menu:
+				return true;
+				
+			default :
+				return true;
 		}
 	}
 
