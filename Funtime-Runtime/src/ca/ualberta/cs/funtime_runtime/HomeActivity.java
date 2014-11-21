@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -41,6 +42,7 @@ public class HomeActivity extends CustomActivity {
 	QuestionSorter sorter;
 
 	static boolean first = true;
+	boolean loggedIn;
 
 	/**
 	 * Initializes the listview, ArrayList that holds the questions, the adapter
@@ -53,8 +55,12 @@ public class HomeActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
-		account = new Account("TestUser1");
-		ApplicationState.setAccount(account);
+		loggedIn = ApplicationState.isLoggedIn();
+		if (loggedIn) {
+			account = ApplicationState.getAccount();
+		} 
+		//account = new Account("TestUser1");
+		//ApplicationState.setAccount(account);
 		questionManager = new ESQuestionManager();
 		homeQuestionList = ApplicationState.getQuestionList();
 		homeListView = (ListView) findViewById(R.id.questionListView);

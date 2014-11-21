@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.R;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
@@ -33,6 +34,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	Account account;
 	ArrayList<Question> favouritesList;
 	ArrayList<Question> upvotedList;	
+	boolean loggedIn;
 	
 	public QuestionListAdapter(Context context, int resource, ArrayList<Question> objects) {
 		super(context, resource, objects);
@@ -82,30 +84,14 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			theView = (RelativeLayout) inflater.inflate(res, null);
 		}
 		
-		account = ApplicationState.getAccount();
-		favouritesList = account.getFavouritesList();
-		upvotedList = account.getUpvotedQuestions();
 		question = questionList.get(position);
-
-		ImageView star = (ImageView) theView.findViewById(R.id.adapterStar);
-		if (favouritesList.contains(question)) {
-			star.setImageResource(android.R.drawable.btn_star_big_on);
-		} else {
-			star.setImageResource(android.R.drawable.btn_star_big_off);
-		}
-
+		
 		TextView titleTextView = (TextView) theView.findViewById(R.id.adapterTitle);
 		titleTextView.setText(question.getTitle());
 		
 		TextView ratingTextView = (TextView) theView.findViewById(R.id.adapterRating);
 		String rating = Integer.toString(question.getRating());
 		ratingTextView.setText(rating);
-		
-		if (upvotedList.contains(question)) {
-			ratingTextView.setTextColor(Color.parseColor("#e77619"));
-		} else {
-			ratingTextView.setTextColor(Color.parseColor("#000000"));
-		}
 		
 		TextView answerTextView = (TextView) theView.findViewById(R.id.adapterAnswers);
 		String answerString = "Answers:";
@@ -118,6 +104,35 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		TextView questionDateTextView = (TextView) theView.findViewById(R.id.adapterDate);
 		String questionDateString = question.getStringDate();
 		questionDateTextView.setText("Posted: " + questionDateString);
+		
+		loggedIn = ApplicationState.isLoggedIn();
+		if (loggedIn) {
+			account = ApplicationState.getAccount();
+			favouritesList = account.getFavouritesList();
+			upvotedList = account.getUpvotedQuestions();
+			
+			
+			ImageView star = (ImageView) theView.findViewById(R.id.adapterStar);
+			if (favouritesList.contains(question)) {
+				star.setImageResource(android.R.drawable.btn_star_big_on);
+			} else {
+				star.setImageResource(android.R.drawable.btn_star_big_off);
+			}
+			
+			if (upvotedList.contains(question)) {
+				ratingTextView.setTextColor(Color.parseColor("#e77619"));
+			} else {
+				ratingTextView.setTextColor(Color.parseColor("#000000"));
+			}
+		}
+
+
+
+
+		
+
+		
+
 		
 		return theView;
 	}

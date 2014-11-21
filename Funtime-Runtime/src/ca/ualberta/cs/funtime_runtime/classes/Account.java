@@ -22,6 +22,7 @@ public class Account {
 	private ArrayList<Question> history;
 	private ArrayList<Question> upvotedQuestions;
 	private ArrayList<Answer> upvotedAnswers;
+	private int id;
 	
 	
 	/**
@@ -229,6 +230,24 @@ public class Account {
 	 */
 	public ArrayList<Answer> getUpvotedAnswers() {
 		return upvotedAnswers;
+	}
+
+	/**
+	 * Returns the server id of the account
+	 * @return id
+	 */
+	public int getId() {
+		// TODO Auto-generated method stub
+		return id;
+	}
+	
+	/**
+	 * Set the account id for the server
+	 * @param id
+	 * @return
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	/**
