@@ -20,8 +20,8 @@ import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
 import ca.ualberta.cs.funtime_runtime.classes.Reply;
-import ca.ualberta.cs.funtime_runtime.classes.Sorter;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 
 /**
@@ -40,7 +40,7 @@ public class HomeActivity extends CustomActivity {
 	QuestionListAdapter adapter;
 	Account account;
 	ESQuestionManager questionManager;
-	Sorter sorter;
+	QuestionSorter sorter;
 
 	static boolean first = true;
 
@@ -183,7 +183,7 @@ public class HomeActivity extends CustomActivity {
 				
 			case R.id.sort_list_item :
 				//openSortList();
-				sorter = new Sorter(homeQuestionList);
+				sorter = new QuestionSorter(homeQuestionList);
 				return true;
 				
 			case R.id.sort_date_menu:

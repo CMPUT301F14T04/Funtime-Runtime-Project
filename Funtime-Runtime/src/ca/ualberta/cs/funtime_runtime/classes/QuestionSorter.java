@@ -10,11 +10,11 @@ import java.util.ArrayList;
  * @author Brandon Smolley
  *
  */
-public class Sorter {
+public class QuestionSorter {
 	
 	private ArrayList<Question> sortList;
 	
-	public Sorter (ArrayList<Question> sortList) {
+	public QuestionSorter (ArrayList<Question> sortList) {
 		this.sortList = sortList;
 	}
 
