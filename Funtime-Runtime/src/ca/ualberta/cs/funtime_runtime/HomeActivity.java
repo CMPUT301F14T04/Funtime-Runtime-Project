@@ -10,10 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
@@ -21,6 +21,7 @@ import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
 import ca.ualberta.cs.funtime_runtime.classes.Reply;
+import ca.ualberta.cs.funtime_runtime.classes.SaveManager;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 
 /**
@@ -56,15 +57,7 @@ public class HomeActivity extends CustomActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		
-		String online;
-		
-		if (ApplicationState.isOnline(this)) {
-			online = "You are online";
-		} else {
-			online = "You are offline";
-		}
-		Toast.makeText(this, online, Toast.LENGTH_LONG).show();
-		
+		ApplicationState.startup(this);
 		
 		loggedIn = ApplicationState.isLoggedIn();
 		if (loggedIn) {
@@ -73,10 +66,38 @@ public class HomeActivity extends CustomActivity {
 		//account = new Account("TestUser1");
 		//ApplicationState.setAccount(account);
 		questionManager = new ESQuestionManager();
-		homeQuestionList = ApplicationState.getQuestionList();
+		
+		//homeQuestionList = ApplicationState.getQuestionList();
+		
 		homeListView = (ListView) findViewById(R.id.questionListView);
 
+		homeQuestionList = new ArrayList<Question>();
 		loadServerQuestions();
+		
+		
+		if ( !(ApplicationState.isOnline(this)) ) {
+			String offlineNotice;
+			offlineNotice = "No Connection Available";
+			Toast.makeText(this, offlineNotice, Toast.LENGTH_LONG).show();
+			
+			/*
+			try {
+				SaveManager saveManager = new SaveManager();
+				Object obj = saveManager.load("TEST", this);
+				homeQuestionList = (ArrayList<Question>) obj;
+			} catch (ClassNotFoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else { 		
+			loadServerQuestions();
+			SaveManager saveManager = new SaveManager();
+			saveManager.save("TEST", homeQuestionList, this);
+		*/
+		}
+		
+		
 		sorter = new QuestionSorter(homeQuestionList);
 		//testHome(); // temporary test code
 
@@ -267,7 +288,7 @@ public class HomeActivity extends CustomActivity {
 
 		if (first) {
 			account = new Account("TestUser1");
-			ApplicationState.setAccount(account);
+			ApplicationState.setAccount(account, this);
 			Question question1 = new Question("What is the meaning of life?",
 					"body 1 test", "user1");
 			Question question2 = new Question(
