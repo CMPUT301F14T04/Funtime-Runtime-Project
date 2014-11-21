@@ -109,7 +109,8 @@ public class HomeActivity extends CustomActivity {
 	@Override
 	public void onRestart() {
 		super.onRestart();
-		loadServerQuestions();
+		//loadServerQuestions();
+		refresh();
 		adapter.notifyDataSetChanged();
 	}
 
@@ -398,21 +399,13 @@ public class HomeActivity extends CustomActivity {
 	 * @param v
 	 */
 	public void askQuestion(View v) {
-		Intent authorQuestion = new Intent(HomeActivity.this, AuthorQuestionActivity.class);
-		startActivity(authorQuestion);
-
-		// Boolean loggedIn = checkLoggedIn();
-		// if (loggedIn) {
-		// Intent authorQuestion = new Intent(HomeActivity.this,
-		// AuthorQuestionActivity.class);
-		// startActivity(authorQuestion);
-		// }
-		// else {
-		// Toast.makeText(this, "Please login to post a question",
-		// Toast.LENGTH_SHORT).show();
-		// //Intent createAccount = new Intent(this, LoginActivity.class);
-		// //startActivity(createAccount);
-		// }
+		if (ApplicationState.isLoggedIn()) {
+			Intent authorQuestion = new Intent(HomeActivity.this, AuthorQuestionActivity.class);
+			startActivity(authorQuestion);
+		} else {
+			String msg = ApplicationState.notLoggedIn();
+			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+		}
 	}
 
 	/**
@@ -428,18 +421,6 @@ public class HomeActivity extends CustomActivity {
 			return true;
 		}
 	}
-	
-//	private void loadHomeList() {
-//		int id = 0;
-//		while (homeQuestionList.size() != sortList.size()) {
-//			for (Question q: sortList) {
-//				if (q.getId() == id) {
-//					homeQuestionList.add(0, q);
-//					id++;
-//				} 
-//			}
-//		}
-//	}
 
 	// Comparator code http://stackoverflow.com/questions/5927109/sort-objects-in-arraylist-by-date  - Nov 20/2014, by Domchi
 	class SearchThread extends Thread {
@@ -451,18 +432,8 @@ public class HomeActivity extends CustomActivity {
 		
 		@Override
 		public void run() {
-			homeQuestionList.clear();
-			//sortList.clear();
-			//sortList.addAll(questionManager.searchQuestions(search, null));
-			
-			homeQuestionList.addAll(questionManager.searchQuestions(search, null));
-//			Collections.sort(homeQuestionList, new Comparator<Question>() {
-//				  public int compare(Question q1, Question q2) {
-//				      return q1.getDate().compareTo(q2.getDate());
-//				  }
-//			});
-//			Collections.reverse(homeQuestionList);
-			
+			homeQuestionList.clear();		
+			homeQuestionList.addAll(questionManager.searchQuestions(search, null));			
 			runOnUiThread(updateHomeUI);	
 		}
 		

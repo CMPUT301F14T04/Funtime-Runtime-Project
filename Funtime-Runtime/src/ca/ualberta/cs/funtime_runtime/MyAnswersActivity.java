@@ -44,45 +44,38 @@ public class MyAnswersActivity extends CustomActivity {
 		setContentView(R.layout.activity_my_answers);
 		loggedIn = ApplicationState.isLoggedIn();
 		//Log.i("Logged in", ""+loggedIn);
-		if (loggedIn) {
-			account = ApplicationState.getAccount();
-			ActionBar actionbar = getActionBar();
-			actionbar.setDisplayHomeAsUpEnabled(true);
+		account = ApplicationState.getAccount();
+		ActionBar actionbar = getActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
+		
+		account = ApplicationState.getAccount();
+		
+		myAnsweredQuestionsList = account.getAnsweredList();
+		myAnsweredListView = (ListView) findViewById(R.id.listView1);
+		
+		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myAnsweredQuestionsList);
+		
+		myAnsweredListView.setAdapter(adapter);	
+		adapter.notifyDataSetChanged();
+		
+		myAnsweredListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Question question = (Question) adapter.getItem(position);				
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("Question", question);
+				Intent intent = new Intent(MyAnswersActivity.this, QuestionPageActivity.class);
+				intent.putExtras(bundle);
+				
+				ApplicationState.setPassableQuestion(question);
+				
+				startActivity(intent);			
+			}
+		});
 			
-			account = ApplicationState.getAccount();
-			
-			myAnsweredQuestionsList = account.getAnsweredList();
-			myAnsweredListView = (ListView) findViewById(R.id.listView1);
-			
-			adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myAnsweredQuestionsList);
-			
-			myAnsweredListView.setAdapter(adapter);	
-			adapter.notifyDataSetChanged();
-			
-			myAnsweredListView.setOnItemClickListener(new OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					Question question = (Question) adapter.getItem(position);				
-					Bundle bundle = new Bundle();
-					bundle.putSerializable("Question", question);
-					Intent intent = new Intent(MyAnswersActivity.this, QuestionPageActivity.class);
-					intent.putExtras(bundle);
-					
-					ApplicationState.setPassableQuestion(question);
-					
-					startActivity(intent);			
-				}
-			});
-			
-			registerForContextMenu(myAnsweredListView);
-			
-			adapter.notifyDataSetChanged();
-		} else {
-			String msg = ApplicationState.notLoggedIn();
-			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-			finish();
-			//Log.i("got here", "yep");
-		}
+		registerForContextMenu(myAnsweredListView);
+		
+		adapter.notifyDataSetChanged();
 		
 
 		
