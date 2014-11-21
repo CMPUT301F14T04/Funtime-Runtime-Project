@@ -18,6 +18,11 @@ import android.content.Context;
  *
  */
 public class SaveManager {
+	
+	public SaveManager() {
+		
+	}
+	
 
 	public void save(String FILENAME, Object object, Context ctx) {
 		FileOutputStream fos;

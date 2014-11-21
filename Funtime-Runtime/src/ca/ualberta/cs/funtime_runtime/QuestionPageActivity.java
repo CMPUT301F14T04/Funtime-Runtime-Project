@@ -206,28 +206,30 @@ public class QuestionPageActivity extends CustomActivity {
 	@Override
 	public void onRestart() {
 		super.onRestart();
-		if (favourited_list.contains(question)) {
-			favourited = true;
-			favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
-		} else {
-			favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
-		}
-		
-		if (upvoted_list.contains(question)) {
-			upvoted = true;
-			questionUpvote.setTextColor(upvote_color);
-		} else {
-			questionUpvote.setTextColor(Color.parseColor("#000000"));
-		}
-		rating = question.getRating();
-		questionUpvote.setText(Integer.toString(rating));
-		
-
-		if (bookmarked_list.contains(question)) {
-			bookmarked = true;
-			bookmark_button.setColorFilter(bookmarked_color);
-		} else {
-			bookmark_button.setColorFilter(not_bookmarked_color);
+		if (ApplicationState.isLoggedIn()) {
+			if (favourited_list.contains(question)) {
+				favourited = true;
+				favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
+			} else {
+				favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
+			}
+			
+			if (upvoted_list.contains(question)) {
+				upvoted = true;
+				questionUpvote.setTextColor(upvote_color);
+			} else {
+				questionUpvote.setTextColor(Color.parseColor("#000000"));
+			}
+			rating = question.getRating();
+			questionUpvote.setText(Integer.toString(rating));
+			
+	
+			if (bookmarked_list.contains(question)) {
+				bookmarked = true;
+				bookmark_button.setColorFilter(bookmarked_color);
+			} else {
+				bookmark_button.setColorFilter(not_bookmarked_color);
+			}
 		}
 		
 		answersTitle.setText("Answers (" + questionAnswerList.size() + ")");

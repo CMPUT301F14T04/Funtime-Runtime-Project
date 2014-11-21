@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
@@ -76,7 +77,8 @@ public class AuthorQuestionActivity extends CustomActivity {
 		photoButton = (ImageButton)  findViewById(R.id.add_image_button);
 		photoButton.setColorFilter(camera_color);
 		account = ApplicationState.getAccount();
-		username = account.getName();
+		if (ApplicationState.isLoggedIn())
+			username = account.getName();
 		questionManager = new ESQuestionManager();
 	}
 	
@@ -101,28 +103,38 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 * @param v is a button within the activity.
 	 */
 	public void submitQuestion(View v) {
-		Question question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
-		questionList = ApplicationState.getQuestionList();
-		userQuestionList = account.getQuestionList();
-		//questionList.add(0,question);
-		userQuestionList.add(0,question);
-		
-		// Elastic search code
-		generateId(question);		
-		Log.i("List Size", ""+questionList.size());
-		addServerQuestion(question);
-		
-		account.addToHistory(question); // Add question clicked to history
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("Question", question);
-		Intent intent = new Intent(AuthorQuestionActivity.this, QuestionPageActivity.class);
-		intent.putExtras(bundle);
-		
-		ApplicationState.setPassableQuestion(question);
-		
-		startActivity(intent);	
-		
-		finish();
+		if (ApplicationState.isLoggedIn()) {
+			Question question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
+			if (ApplicationState.isLoggedIn()) {
+				userQuestionList = account.getQuestionList();
+				questionList = ApplicationState.getQuestionList();
+			}
+			//questionList.add(0,question);
+			
+			userQuestionList.add(0,question);
+			
+			// Elastic search code
+			generateId(question);		
+			Log.i("List Size", ""+questionList.size());
+			addServerQuestion(question);
+			
+			if (ApplicationState.isLoggedIn()) {
+				account.addToHistory(question); // Add question clicked to history
+			}
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("Question", question);
+			Intent intent = new Intent(AuthorQuestionActivity.this, QuestionPageActivity.class);
+			intent.putExtras(bundle);
+			
+			ApplicationState.setPassableQuestion(question);
+			
+			startActivity(intent);	
+			
+			finish();
+		} else {
+			String msg = ApplicationState.notLoggedIn();
+			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+		}
 		
 		
 	}
