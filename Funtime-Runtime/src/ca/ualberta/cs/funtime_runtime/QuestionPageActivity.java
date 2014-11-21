@@ -17,9 +17,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.adapter.AnswerListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
+import ca.ualberta.cs.funtime_runtime.classes.AnswerSorter;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.UpdateQuestionThread;
@@ -40,8 +42,9 @@ import ca.ualberta.cs.funtime_runtime.classes.UpdateQuestionThread;
  */
 public class QuestionPageActivity extends CustomActivity {
 	ListView answerListView;
-	ArrayList<Answer> questionAnswerList;
+	ArrayList<Answer> answerList;
 	AnswerListAdapter adapter;
+	AnswerSorter sorter;
 	Account account;
 	TextView questionTitle;
 	TextView questionBody;
@@ -106,6 +109,7 @@ public class QuestionPageActivity extends CustomActivity {
 
 		account = ApplicationState.getAccount();
 		
+		
 		boolean loggedIn = ApplicationState.isLoggedIn();
 		if (loggedIn) {
 			favourited_list = account.getFavouritesList();
@@ -161,14 +165,16 @@ public class QuestionPageActivity extends CustomActivity {
 		questionAuthor.setText("Author: " + question.getUser());
 		questionDate.setText("Posted: " + question.getStringDate().toString());
 		
-		questionAnswerList = new ArrayList<Answer>();
-		questionAnswerList = question.getAnswerList();
+		//answerList = new ArrayList<Answer>();
+		answerList = question.getAnswerList();
+		sorter = new AnswerSorter(answerList);
+		answerList = sorter.sortByVotes();
 		
-		answersTitle.setText("Answers (" + questionAnswerList.size() + ")");
+		answersTitle.setText("Answers (" + answerList.size() + ")");
 		
 		repliesText.setText("Replies: " + question.getReplyCount());
 		
-		adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, questionAnswerList);
+		adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, answerList);
 		answerListView.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
 		
@@ -207,6 +213,7 @@ public class QuestionPageActivity extends CustomActivity {
 	public void onRestart() {
 		super.onRestart();
 		if (ApplicationState.isLoggedIn()) {
+			favourited_list = account.getFavouritesList();
 			if (favourited_list.contains(question)) {
 				favourited = true;
 				favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
@@ -214,6 +221,7 @@ public class QuestionPageActivity extends CustomActivity {
 				favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
 			}
 			
+			upvoted_list = account.getUpvotedQuestions();
 			if (upvoted_list.contains(question)) {
 				upvoted = true;
 				questionUpvote.setTextColor(upvote_color);
@@ -223,7 +231,7 @@ public class QuestionPageActivity extends CustomActivity {
 			rating = question.getRating();
 			questionUpvote.setText(Integer.toString(rating));
 			
-	
+			bookmarked_list = account.getReadingList();
 			if (bookmarked_list.contains(question)) {
 				bookmarked = true;
 				bookmark_button.setColorFilter(bookmarked_color);
@@ -232,7 +240,7 @@ public class QuestionPageActivity extends CustomActivity {
 			}
 		}
 		
-		answersTitle.setText("Answers (" + questionAnswerList.size() + ")");
+		answersTitle.setText("Answers (" + answerList.size() + ")");
 		
 		repliesText.setText("Replies: " + question.getReplyCount());
 		
@@ -264,9 +272,15 @@ public class QuestionPageActivity extends CustomActivity {
 	 * the user to a different page. 
 	 */
 	public void addAnswer(View v)	{
-		ApplicationState.setPassableQuestion(question);
-		Intent authorAnswer = new Intent(QuestionPageActivity.this, AuthorAnswerActivity.class);
-		startActivity(authorAnswer);
+		if (ApplicationState.isLoggedIn()) {
+			ApplicationState.setPassableQuestion(question);
+			Intent authorAnswer = new Intent(QuestionPageActivity.this, AuthorAnswerActivity.class);
+			startActivity(authorAnswer);
+		} else {
+			String msg = ApplicationState.notLoggedIn();
+			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+		}
+
 	}
 	
 	/**
@@ -279,16 +293,21 @@ public class QuestionPageActivity extends CustomActivity {
 	 */
 	public void favourited(View v){
 		//http://stackoverflow.com/questions/12249495/android-imagebutton-change-image-onclick-solved  -Tuesday October 28 2014
-		if (favourited == false) {
-			ImageButton favourite_button = (ImageButton) findViewById(R.id.question_favorite_button);
-			favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
-			account.addFavourite(question);
-			favourited = true;
-		} else if (favourited == true) {
-			ImageButton favourite_button = (ImageButton) findViewById(R.id.question_favorite_button);
-			favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
-			account.removeFavourite(question);
-			favourited = false;
+		if (ApplicationState.isLoggedIn()) {
+			if (favourited == false) {
+				ImageButton favourite_button = (ImageButton) findViewById(R.id.question_favorite_button);
+				favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
+				account.addFavourite(question);
+				favourited = true;
+			} else if (favourited == true) {
+				ImageButton favourite_button = (ImageButton) findViewById(R.id.question_favorite_button);
+				favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
+				account.removeFavourite(question);
+				favourited = false;
+			}
+		} else {
+			String msg = ApplicationState.notFunctional();
+			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
 	}
 	
@@ -330,21 +349,26 @@ public class QuestionPageActivity extends CustomActivity {
 		// Note: using the back button will save the question status (cannot upvote again)
 		// Note: using the home icon will not save the question status (can upvote many times)
 		Thread updateThread = new UpdateQuestionThread(question);
-		if (upvoted) {
-			//question.downVote();
-			account.downvoteQuestion(question);
-			rating = question.getRating();
-			questionUpvote.setText(Integer.toString(rating));
-			questionUpvote.setTextColor(Color.parseColor("#000000"));
-			upvoted = false;
-			
+		if (ApplicationState.isLoggedIn()) {
+			if (upvoted) {
+				//question.downVote();
+				account.downvoteQuestion(question);
+				rating = question.getRating();
+				questionUpvote.setText(Integer.toString(rating));
+				questionUpvote.setTextColor(Color.parseColor("#000000"));
+				upvoted = false;
+				
+			} else {
+				//question.upVote();
+				account.upvoteQuestion(question);
+				rating = question.getRating();
+				questionUpvote.setText(Integer.toString(rating));
+				questionUpvote.setTextColor(upvote_color);
+				upvoted = true;
+			}
 		} else {
-			//question.upVote();
-			account.upvoteQuestion(question);
-			rating = question.getRating();
-			questionUpvote.setText(Integer.toString(rating));
-			questionUpvote.setTextColor(upvote_color);
-			upvoted = true;
+			String msg = ApplicationState.notFunctional();
+			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
 		updateThread.start();
 	}
@@ -356,24 +380,21 @@ public class QuestionPageActivity extends CustomActivity {
 	 * @param v is a button within the view 
 	 */
 	public void bookmark_question(View v){
-		if (bookmarked == false){
-			account.readLater(question);
-			bookmark_button.setColorFilter(bookmarked_color);
-			bookmarked = true;
-		} else if (bookmarked == true){
-			account.removeReadLater(question);
-			bookmark_button.setColorFilter(not_bookmarked_color);
-			bookmarked = false;
+		if (ApplicationState.isLoggedIn()) {
+			if (bookmarked == false){
+				account.readLater(question);
+				bookmark_button.setColorFilter(bookmarked_color);
+				bookmarked = true;
+			} else if (bookmarked == true){
+				account.removeReadLater(question);
+				bookmark_button.setColorFilter(not_bookmarked_color);
+				bookmarked = false;
+			}
+		} else {
+			String msg = ApplicationState.notFunctional();
+			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
 	}
 	
-	
-	/**
-	 * Take the user to the author answer activity
-	 * @param v		 the view, unused.
-	 */
-	public void authorAnswer(View v) {
-		openAuthorAnswerPage();
-	}
 	
 }

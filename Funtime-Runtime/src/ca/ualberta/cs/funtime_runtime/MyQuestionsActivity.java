@@ -43,8 +43,8 @@ public class MyQuestionsActivity extends CustomActivity {
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
 		account = ApplicationState.getAccount();
-		
 		myQuestionList = account.getQuestionList();
+
 		myQuestionsListView = (ListView) findViewById(R.id.listView1);
 		
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myQuestionList);

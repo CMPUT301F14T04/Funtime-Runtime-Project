@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.R;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
@@ -138,7 +139,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 			} else {
 				answerRating.setTextColor(Color.parseColor("#000000"));
 			}
-		}
+		} 
 		
 		
 		answerRating.setTag(position);
@@ -163,6 +164,9 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 						//answer.upVote();
 						account.upvoteAnswer(answer);
 					}
+				} else {
+					String msg = ApplicationState.notFunctional();
+					Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
 				}
 				notifyDataSetChanged();
 			}
