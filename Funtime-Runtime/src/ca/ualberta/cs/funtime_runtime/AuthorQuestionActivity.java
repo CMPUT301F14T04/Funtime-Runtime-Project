@@ -1,6 +1,7 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -33,6 +34,8 @@ import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
  */
 public class AuthorQuestionActivity extends CustomActivity {
 	
+	private static final int RANDOM_NUMBER_CAP = 100000000;
+	
 	Button submitButton;
 	Button addPhotoButton;
 	Button cancelButton;
@@ -44,6 +47,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	ArrayList<Question> questionList;
 	ArrayList<Question> userQuestionList;
 	ESQuestionManager questionManager;
+	Random generator = new Random();
 	int camera_color = Color.parseColor("#001110");
 	/**
 	 * This is a standard onCreate method
@@ -100,11 +104,12 @@ public class AuthorQuestionActivity extends CustomActivity {
 		Question question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
 		questionList = ApplicationState.getQuestionList();
 		userQuestionList = account.getQuestionList();
-		questionList.add(0,question);
+		//questionList.add(0,question);
 		userQuestionList.add(0,question);
 		
 		// Elastic search code
 		generateId(question);		
+		Log.i("List Size", ""+questionList.size());
 		addServerQuestion(question);
 		
 		account.addToHistory(question); // Add question clicked to history
@@ -132,12 +137,10 @@ public class AuthorQuestionActivity extends CustomActivity {
 		searchThread.start();
 
 		int id;
-		
-		if (questionList.isEmpty()){
-			id = 1;
-		} else {
-			id = questionList.size() + 1;
-		}
+		//id = questionList.size();
+		//id = questionManager.getFound();
+		id = generator.nextInt(RANDOM_NUMBER_CAP);
+		//Log.i("Found", ""+id);
 		
 		question.setId(id);
 	}
@@ -212,13 +215,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 		public void run() {
 			questionList.clear();
 			questionList.addAll(questionManager.searchQuestions(search, null));
-			if (!questionList.isEmpty()){
-				Question question = questionList.get(0);
-				Log.i("Title", question.getTitle());
-				Log.i("Body", question.getBody());
-				Log.i("User", question.getUser());
-				Log.i("Upvotes", ""+question.getRating());
-			}
 		}
 	}
 	 

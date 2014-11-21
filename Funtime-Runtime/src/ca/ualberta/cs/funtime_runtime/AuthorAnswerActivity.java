@@ -20,6 +20,7 @@ import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.UpdateQuestionThread;
 /**
  * A view class that allows a user to edit text
  * and submit it as an answer to a question.
@@ -93,6 +94,13 @@ public class AuthorAnswerActivity extends CustomActivity {
 		Answer answer = new Answer(answerBody.getText().toString(), username.toString());
 		userAnsweredList = account.getAnsweredList();
 		question.addAnswer(answer);
+		Thread updateThread = new UpdateQuestionThread(question);
+		updateThread.start();
+		try {
+			updateThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		userAnsweredList.add(0,question);
 		
 		finish();

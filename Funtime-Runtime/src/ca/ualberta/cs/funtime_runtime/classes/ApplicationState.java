@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 import android.app.Application;
+import android.widget.Toast;
 
 /**
  * A static class used for managing the application's data in its current state.
@@ -15,7 +16,6 @@ public class ApplicationState extends Application {
 	// adapted from http://stackoverflow.com/questions/708012/how-to-declare-global-variables-in-android - Accessed Oct 22 2014
 	
 	private static Account account;
-	// TODO pull questionList from server
 	private static ArrayList<Question> questionList = new ArrayList<Question>();
 	
 	/* Questions and answers that are passable between activities.
@@ -107,6 +107,11 @@ public class ApplicationState extends Application {
 	public static ArrayList<Question> getQuestionList() {
 		//TODO grab the master question list from the sever before returning
 		return questionList;
+	}
+	
+	public static String notLoggedIn() {
+		String msg = "You are not logged in, please create a new account or login to your account"; 
+		return msg;	
 	}
 	
 	

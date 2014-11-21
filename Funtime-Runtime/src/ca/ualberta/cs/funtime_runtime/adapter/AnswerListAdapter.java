@@ -34,6 +34,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 	LayoutInflater inflater;
 	Account account;
 	ArrayList<Answer> upvotedList;
+	boolean loggedIn;
 
 	/**
 	 * This function initializes the adapter. 
@@ -103,7 +104,10 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		}
 		
 		account = ApplicationState.getAccount();
-		upvotedList = account.getUpvotedAnswers();
+		loggedIn = ApplicationState.isLoggedIn();
+		if (loggedIn) {
+			upvotedList = account.getUpvotedAnswers();
+		}
 		
 		answer = answerList.get(position);
 		
@@ -128,12 +132,13 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		
 		ImageButton answerViewPhotoButton = (ImageButton) theView.findViewById(R.id.answer_view_photo_button);
 		
-		if (upvotedList.contains(answer)) {
-			answerRating.setTextColor(Color.parseColor("#e77619"));
-		} else {
-			answerRating.setTextColor(Color.parseColor("#000000"));
+		if (loggedIn) {
+			if (upvotedList.contains(answer)) {
+				answerRating.setTextColor(Color.parseColor("#e77619"));
+			} else {
+				answerRating.setTextColor(Color.parseColor("#000000"));
+			}
 		}
-		
 		
 		
 		answerRating.setTag(position);
@@ -149,13 +154,15 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 			public void onClick(View v) {
 				Answer answer = getItem((Integer) v.getTag());
 				Account account = ApplicationState.getAccount();
-				ArrayList<Answer> upvotedAnswers = account.getUpvotedAnswers();
-				if (upvotedAnswers.contains(answer)) {
-					//answer.downVote();
-					account.downvoteAnswer(answer);
-				} else {
-					//answer.upVote();
-					account.upvoteAnswer(answer);
+				if (ApplicationState.isLoggedIn()) {
+					ArrayList<Answer> upvotedAnswers = account.getUpvotedAnswers();
+					if (upvotedAnswers.contains(answer)) {
+						//answer.downVote();
+						account.downvoteAnswer(answer);
+					} else {
+						//answer.upVote();
+						account.upvoteAnswer(answer);
+					}
 				}
 				notifyDataSetChanged();
 			}
@@ -165,5 +172,5 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		
 		return theView;
 	}
-
+	
 }

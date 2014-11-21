@@ -16,7 +16,7 @@ import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.Reply;
-import ca.ualberta.cs.funtime_runtime.elastic.ESReplyManager;
+import ca.ualberta.cs.funtime_runtime.classes.UpdateQuestionThread;
 
 /**
  * A view class that allows a user to edit text
@@ -45,8 +45,6 @@ public class AuthorReplyActivity extends CustomActivity {
 	ArrayList<Reply> replyList;
 	String replyType;
 	
-	ESReplyManager replyManager;
-	
 	/**
 	 * This is a standard onCreate method
 	 * In this method we link this java file with the xml.
@@ -66,23 +64,22 @@ public class AuthorReplyActivity extends CustomActivity {
 		ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
-		replyManager = new ESReplyManager();
 		replyType = extras.getString("ReplyType");
 		
 		if (replyType.equals("question")) {
 			question = ApplicationState.getPassableQuestion();
 			parentTitle = question.getTitle();
 			parentBody = question.getBody();
-			parentDate = question.getDate().toString();
+			parentDate = question.getStringDate().toString();
 			parentUsername = question.getUser();			
-			//replyList = question.getReplyList();
+			replyList = question.getReplyList();
 		} else if (replyType.equals("answer")) {
 			answer = ApplicationState.getPassableAnswer();
 			parentTitle = "";
 			parentBody = answer.getBody();
 			parentDate = answer.getDate().toString();
 			parentUsername = answer.getUser();			
-			//replyList = answer.getReplyList();
+			replyList = answer.getReplyList();
 		}
 		
 		parentTitleView = (TextView) findViewById(R.id.replyParentTitle);
@@ -107,7 +104,7 @@ public class AuthorReplyActivity extends CustomActivity {
 		getMenuInflater().inflate(R.menu.author_reply, menu);
 		return true;
 	}
-	
+
 	
 	/**
 	 * this onClick listener for a button simply submits whatever has been entered into the text field.
@@ -116,13 +113,13 @@ public class AuthorReplyActivity extends CustomActivity {
 	 */
 	 public void addReply(View v) { 
 		Reply reply = new Reply(typeReply.getText().toString(), username.toString());
-		//replyList.add(0, reply);
 		
-		reply.setId(17);
-		Thread thread = new AddReplyThread(reply);
-		thread.start();
+		// Add code to pull question (make sure we have most updated question)
+		question.addReply(reply);
+		Thread updateThread = new UpdateQuestionThread(question);
+		updateThread.start();
 		
-		finish();				
+		finish();		
 	}
 	 
 	 /**
@@ -133,33 +130,4 @@ public class AuthorReplyActivity extends CustomActivity {
 		 finish();
 	 }
 
-	 class AddReplyThread extends Thread {
-		private Reply reply;
-
-		public AddReplyThread(Reply reply) {
-			this.reply = reply;
-		}
-
-		@Override
-		public void run() {
-			replyManager.addReply(reply);
-			
-			// Give some time to get updated info
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			runOnUiThread(doFinishAdd);
-		}
-	 }
-	 
-	 
-	// Thread that close the activity after finishing add
-		private Runnable doFinishAdd = new Runnable() {
-			public void run() {
-				finish();
-			}
-		};
 }

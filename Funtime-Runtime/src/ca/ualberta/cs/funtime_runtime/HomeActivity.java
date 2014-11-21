@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -19,6 +19,7 @@ import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
 import ca.ualberta.cs.funtime_runtime.classes.Reply;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 
@@ -38,8 +39,10 @@ public class HomeActivity extends CustomActivity {
 	QuestionListAdapter adapter;
 	Account account;
 	ESQuestionManager questionManager;
+	QuestionSorter sorter;
 
 	static boolean first = true;
+	boolean loggedIn;
 
 	/**
 	 * Initializes the listview, ArrayList that holds the questions, the adapter
@@ -52,25 +55,26 @@ public class HomeActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
-		account = new Account("TestUser1");
-		ApplicationState.setAccount(account);
+		loggedIn = ApplicationState.isLoggedIn();
+		if (loggedIn) {
+			account = ApplicationState.getAccount();
+		} 
+		//account = new Account("TestUser1");
+		//ApplicationState.setAccount(account);
 		questionManager = new ESQuestionManager();
-		
 		homeQuestionList = ApplicationState.getQuestionList();
 		homeListView = (ListView) findViewById(R.id.questionListView);
 
-		// TODO: retrieve homeQuestionList from server
 		loadServerQuestions();
+		sorter = new QuestionSorter(homeQuestionList);
 		//testHome(); // temporary test code
 
 		account = ApplicationState.getAccount();
-
-		// adapter = new QuestionListAdapter(this,
-		// R.layout.question_list_adapter, homeQuestionList);
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter,
 				homeQuestionList);
 
 		homeListView.setAdapter(adapter);
+		sorter.sortByDate();
 		adapter.notifyDataSetChanged();
 
 		homeListView.setOnItemClickListener(new OnItemClickListener() {
@@ -86,9 +90,17 @@ public class HomeActivity extends CustomActivity {
 
 	private void loadServerQuestions() {
 		Thread loadThread = new SearchThread("*");
-		loadThread.start();
+		//Thread loadThread = new LoadHomeThread("*", homeQuestionList, adapter);
+		loadThread.start();	
 		
+		try {
+			loadThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
+
+	
 
 	/**
 	 * Refreshes the adapter when the activity restarts
@@ -97,6 +109,7 @@ public class HomeActivity extends CustomActivity {
 	@Override
 	public void onRestart() {
 		super.onRestart();
+		loadServerQuestions();
 		adapter.notifyDataSetChanged();
 	}
 
@@ -120,6 +133,92 @@ public class HomeActivity extends CustomActivity {
 			menu.add("Remove from reading list");
 		} else {
 			menu.add("Add to reading list");
+		}
+	}
+	
+	/**
+	 * This function simply redirects to another activity when a certain menu 
+	 * item is selected by the user. It operates a switch statement to transition 
+	 * between different activities
+	 * 
+	 * @param item is a menuItem signifying location within the menu that users 
+	 * wish to visit
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {	
+			case android.R.id.home:
+				openMyHome();
+				return true;
+				
+			case R.id.refresh:
+				refresh();
+				return true;
+				
+			case R.id.home_menu_item:
+				openMyHome();
+				return true;
+				
+			case R.id.searchQuestionsList :
+				openSearch();
+				return true;
+				
+			case R.id.login_menu_item :
+				openLogin();
+				return true;
+				
+			case R.id.my_questions_menu_item :
+				openMyQuestions();
+				return true;
+				
+			case R.id.my_answers_menu_item :
+				openMyAnswers();
+				return true;
+				
+			case R.id.my_favorites_menu_item :
+				openMyFavourites();
+				return true;
+				
+			case R.id.my_reading_list_item :
+				openMyReadingList();
+				return true;
+				
+			case R.id.my_history_list_item :
+				openMyHistory();
+				return true;
+				
+			case R.id.sort_list_item :
+				return true;
+				
+			case R.id.sort_date_menu:
+				homeQuestionList = sorter.sortByDate();
+				adapter.notifyDataSetChanged();
+				return true;
+				
+			case R.id.sort_votes_menu:
+				homeQuestionList = sorter.sortByVotes();
+				adapter.notifyDataSetChanged();
+				return true;
+				
+			case R.id.sort_photo_menu:
+				homeQuestionList = sorter.sortByPhoto();
+				adapter.notifyDataSetChanged();
+				return true;
+				
+			default :
+				return true;
+		}
+	}
+
+	private void refresh() {
+		String sortType = sorter.getSortType();
+		loadServerQuestions();
+		if (sortType.equals("Date")){
+			sorter.sortByDate();
+		} else if (sortType.equals("Votes")) {
+			sorter.sortByVotes();
+		} else if (sortType.equals("Photo")) {
+			sorter.sortByPhoto();
 		}
 	}
 
@@ -268,11 +367,11 @@ public class HomeActivity extends CustomActivity {
 	 */
 	private void openQuestion(int position) {
 		Question question = (Question) adapter.getItem(position);
-		account.addToHistory(question); // Add question clicked to history
+		if (loggedIn)
+			account.addToHistory(question); // Add question clicked to history
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("Question", question);
-		Intent intent = new Intent(HomeActivity.this,
-				QuestionPageActivity.class);
+		Intent intent = new Intent(this, QuestionPageActivity.class);
 		intent.putExtras(bundle);
 
 		ApplicationState.setPassableQuestion(question);
@@ -330,6 +429,19 @@ public class HomeActivity extends CustomActivity {
 		}
 	}
 	
+//	private void loadHomeList() {
+//		int id = 0;
+//		while (homeQuestionList.size() != sortList.size()) {
+//			for (Question q: sortList) {
+//				if (q.getId() == id) {
+//					homeQuestionList.add(0, q);
+//					id++;
+//				} 
+//			}
+//		}
+//	}
+
+	// Comparator code http://stackoverflow.com/questions/5927109/sort-objects-in-arraylist-by-date  - Nov 20/2014, by Domchi
 	class SearchThread extends Thread {
 		private String search;
 		
@@ -340,7 +452,17 @@ public class HomeActivity extends CustomActivity {
 		@Override
 		public void run() {
 			homeQuestionList.clear();
+			//sortList.clear();
+			//sortList.addAll(questionManager.searchQuestions(search, null));
+			
 			homeQuestionList.addAll(questionManager.searchQuestions(search, null));
+//			Collections.sort(homeQuestionList, new Comparator<Question>() {
+//				  public int compare(Question q1, Question q2) {
+//				      return q1.getDate().compareTo(q2.getDate());
+//				  }
+//			});
+//			Collections.reverse(homeQuestionList);
+			
 			runOnUiThread(updateHomeUI);	
 		}
 		
@@ -350,5 +472,6 @@ public class HomeActivity extends CustomActivity {
 			}
 		};
 	}
+
 
 }

@@ -17,7 +17,6 @@ import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.Reply;
-import ca.ualberta.cs.funtime_runtime.elastic.ESReplyManager;
 
 
 /**
@@ -38,6 +37,7 @@ public class ReplyPageActivity extends CustomActivity {
 	String parentDate;
 	String parentUsername;
 	ArrayList<Reply> repliesList;
+	ArrayList<Reply> sortList = new ArrayList<Reply>();;
 	
 	TextView parentTitleText;
 	TextView parentBodyText;
@@ -52,7 +52,6 @@ public class ReplyPageActivity extends CustomActivity {
 	String replyType;
 	Question question;
 	Answer answer;
-	ESReplyManager replyManager;
 	
 	LayoutInflater inflater;
 	View header;
@@ -83,17 +82,16 @@ public class ReplyPageActivity extends CustomActivity {
 
 		replyListView = (ListView) findViewById(R.id.reply_list_view);
 		inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		replyManager = new ESReplyManager();
 		
 		if (replyType.equals("question")) {
 			
 			question = ApplicationState.getPassableQuestion();
 			parentTitle = question.getTitle();
 			parentBody = question.getBody();
-			parentDate = question.getDate();
+			parentDate = question.getStringDate();
 			parentUsername = question.getUser();
 			parentReply = question.getReplyCount();
-			//repliesList = question.getReplyList();
+			repliesList = question.getReplyList();
 			
 			header = (View)inflater.inflate(R.layout.reply_page_header, null, false);
 			replyListView.addHeaderView(header);	
@@ -108,7 +106,7 @@ public class ReplyPageActivity extends CustomActivity {
 			parentDate = answer.getDate();
 			parentUsername = answer.getUser();		
 			parentReply = answer.getReplyCount();
-			//repliesList = answer.getReplyList();
+			repliesList = answer.getReplyList();
 			
 			header = (View)inflater.inflate(R.layout.reply_answers_page_header, null, false);
 			replyListView.addHeaderView(header);	
@@ -128,11 +126,13 @@ public class ReplyPageActivity extends CustomActivity {
 		
 		adapter = new ReplyListAdapter(this, R.layout.reply_list_adapter, repliesList);
 		replyListView.setAdapter(adapter);
+		//loadServerReplies();
 		adapter.notifyDataSetChanged();
 		
 		
 	}
 	
+
 	public void onResume() {
 		super.onResume();
 		
@@ -172,5 +172,6 @@ public class ReplyPageActivity extends CustomActivity {
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
+
 	
 }

@@ -17,7 +17,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.util.Log;
-import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.Account;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,33 +29,31 @@ import com.google.gson.reflect.TypeToken;
  * 
  * TODO Implement same methods for answers or create a new class for answer search
  * TODO check the search URL and resource URL-- probably will need two urls for this to work
- * TODO test this class to make sure elastic search works for question
- * TODO write method that returns a list of all questions, to populate home page
+ * TODO test this class to make sure elastic search works for account
+ * TODO write method that returns a list of all accounts, to populate home page
  * 
  * @see createSearchRequest
  * @author Pranjali Pokharel
  *
  */
-public class ESQuestionManager implements IQuestionManager {
-	private static final String RESOURCE_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question/";
-	private static final String SEARCH_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question/_search/?size=50";
-	//private static final String COUNT_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question/_count";
-	private static final String TAG= "QuestionsSearch";
+public class ESAccountManager {
+	private static final String RESOURCE_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/account/";
+	private static final String SEARCH_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/account/_search/?size=50";
+	private static final String TAG= "AccountSearch";
 
 	private Gson gson;
 	
-	public ESQuestionManager() 	{
+	public ESAccountManager() 	{
 		gson = new Gson();
 	}
 	
 	
-	public void updateQuestion(Question question) {
-		deleteQuestion(question.getId());
-		addQuestion(question);
+	public void updateAccount(Account account) {
+		deleteAccount(account.getId());
+		addAccount(account);
 	}
-	
-	@Override
-	public Question getQuestion(int id) {
+
+	public Account getAccount(int id) {
 		
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(RESOURCE_URL + id);
@@ -65,7 +63,7 @@ public class ESQuestionManager implements IQuestionManager {
 		try {
 			response = httpClient.execute(httpGet);
 			
-			SearchHit<Question> sr = parseQuestionHit(response);
+			SearchHit<Account> sr = parseAccountHit(response);
 			return sr.getSource();
 
 		} catch (Exception e) {
@@ -78,11 +76,11 @@ public class ESQuestionManager implements IQuestionManager {
 	
 	
 	/**
-	 * Get questions with the specified search string. If the search does not
+	 * Get accounts with the specified search string. If the search does not
 	 * specify fields, it searches on all the fields.
 	 */
-	public List<Question> searchQuestions(String searchString, String field) {
-		List<Question> result = new ArrayList<Question>();
+	public List<Account> searchAccounts(String searchString, String field) {
+		List<Account> result = new ArrayList<Account>();
 
 		if (searchString == null || "".equals(searchString)) {
 			searchString = "*";
@@ -97,13 +95,13 @@ public class ESQuestionManager implements IQuestionManager {
 			String status = response.getStatusLine().toString();
 			Log.i(TAG, status);
 			
-			SearchResponse<Question> esResponse = parseSearchResponse(response);
-			Hits<Question> hits = esResponse.getHits();
+			SearchResponse<Account> esResponse = parseSearchResponse(response);
+			Hits<Account> hits = esResponse.getHits();
 			//Log.i("Acutal hits", ""+hits.getTotal());
 			
 			if (hits != null) {
 				if (hits.getHits() != null) {
-					for (SearchHit<Question> sesr : hits.getHits()) {
+					for (SearchHit<Account> sesr : hits.getHits()) {
 						result.add(sesr.getSource());
 					}
 				}
@@ -117,18 +115,16 @@ public class ESQuestionManager implements IQuestionManager {
 	
 	
 	/**
-	 * Adds a new question
+	 * Adds a new account
 	 */
-			
-	@Override
-	public void addQuestion(Question question) {	
+	public void addAccount(Account account) {	
 		
 		HttpClient httpClient = new DefaultHttpClient();
 		
 		try {
-			HttpPost addRequest = new HttpPost(RESOURCE_URL + question.getId());
+			HttpPost addRequest = new HttpPost(RESOURCE_URL + account.getId());
 
-			StringEntity stringEntity = new StringEntity(gson.toJson(question));
+			StringEntity stringEntity = new StringEntity(gson.toJson(account));
 			addRequest.setEntity(stringEntity);
 			addRequest.setHeader("Accept", "application/json");
 
@@ -142,12 +138,11 @@ public class ESQuestionManager implements IQuestionManager {
 	}
 
 	/**
-	 * Deletes the question with the specified id
+	 * Deletes the account with the specified id
 	 * @param id
 	 */
 	
-	@Override
-	public void deleteQuestion(int questionId) 	{
+	public void deleteAccount(int accountId) 	{
 		// TODO Auto-generated method stub
 		//SAME AS ABOVE NEED --decrement Id
 		//ALSO CHECK RESOURSE URL AND SEARCH URL
@@ -155,7 +150,7 @@ public class ESQuestionManager implements IQuestionManager {
 		HttpClient httpClient = new DefaultHttpClient();
 
 		try {
-			HttpDelete deleteRequest = new HttpDelete(RESOURCE_URL + questionId);
+			HttpDelete deleteRequest = new HttpDelete(RESOURCE_URL + accountId);
 			deleteRequest.setHeader("Accept", "application/json");
 
 			HttpResponse response = httpClient.execute(deleteRequest);
@@ -199,13 +194,13 @@ public class ESQuestionManager implements IQuestionManager {
 		return searchRequest;
 	}
 	
-	private SearchHit<Question> parseQuestionHit(HttpResponse response) {
+	private SearchHit<Account> parseAccountHit(HttpResponse response) {
 		
 		try {
 			String json = getEntityContent(response);
-			Type searchHitType = new TypeToken<SearchHit<Question>>() {}.getType();
+			Type searchHitType = new TypeToken<SearchHit<Account>>() {}.getType();
 			
-			SearchHit<Question> sr = gson.fromJson(json, searchHitType);
+			SearchHit<Account> sr = gson.fromJson(json, searchHitType);
 			return sr;
 		} 
 		catch (IOException e) {
@@ -219,14 +214,14 @@ public class ESQuestionManager implements IQuestionManager {
 	/**
 	 * Parses the response of a search
 	 */
-	private SearchResponse<Question> parseSearchResponse(HttpResponse response) throws IOException {
+	private SearchResponse<Account> parseSearchResponse(HttpResponse response) throws IOException {
 		String json;
 		json = getEntityContent(response);
 		
-		Type searchResponseType = new TypeToken<SearchResponse<Question>>() {
+		Type searchResponseType = new TypeToken<SearchResponse<Account>>() {
 		}.getType();
 		
-		SearchResponse<Question> esResponse = gson.fromJson(json, searchResponseType);
+		SearchResponse<Account> esResponse = gson.fromJson(json, searchResponseType);
 
 		return esResponse;
 		

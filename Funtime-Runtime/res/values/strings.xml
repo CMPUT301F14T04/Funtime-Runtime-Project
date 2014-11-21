@@ -6,6 +6,9 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_">Activity</string>
     <string name="sort_string">Sort</string>
+    <string name="sort_date">Date</string>
+    <string name="sort_votes">Votes</string>
+    <string name="sort_photo">Photos</string>
 
     <!-- Home/Browse Questions Strings -->
     <string name="title_activity_home">Funtime-Runtime</string>

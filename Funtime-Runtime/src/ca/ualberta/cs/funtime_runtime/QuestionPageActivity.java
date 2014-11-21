@@ -22,6 +22,7 @@ import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.UpdateQuestionThread;
 
 /**
  * A view class that displays the question and
@@ -105,47 +106,50 @@ public class QuestionPageActivity extends CustomActivity {
 
 		account = ApplicationState.getAccount();
 		
-		favourited_list = account.getFavouritesList();
-		if (favourited_list.contains(question)) {
-			favourited = true;
-			favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
-		} else {
-			favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
-		}
-		
-		upvoted_list = account.getUpvotedQuestions();
-		if (upvoted_list.contains(question)) {
-			upvoted = true;
-			questionUpvote.setTextColor(upvote_color);
-		} else {
-			questionUpvote.setTextColor(Color.parseColor("#000000"));
-		}
-		rating = question.getRating();
-		questionUpvote.setText(Integer.toString(rating));
-		
-
-		bookmarked_list = account.getReadingList();
-		if (bookmarked_list.contains(question)) {
-			Intent intent = getIntent();
-			Bundle extras = intent.getExtras();
-			
-			String readingCheck = extras.getString("ReadingCheck");
-			if (readingCheck != null) {
-				extras.remove("ReadingCheck");
-				bookmarked_list.remove(question);
-				bookmark_button.setColorFilter(not_bookmarked_color);
+		boolean loggedIn = ApplicationState.isLoggedIn();
+		if (loggedIn) {
+			favourited_list = account.getFavouritesList();
+			if (favourited_list.contains(question)) {
+				favourited = true;
+				favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
 			} else {
-				bookmarked = true;
-				bookmark_button.setColorFilter(bookmarked_color);
+				favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
 			}
-		} else {
-			bookmark_button.setColorFilter(not_bookmarked_color);
+			
+			upvoted_list = account.getUpvotedQuestions();
+			if (upvoted_list.contains(question)) {
+				upvoted = true;
+				questionUpvote.setTextColor(upvote_color);
+			} else {
+				questionUpvote.setTextColor(Color.parseColor("#000000"));
+			}
+			rating = question.getRating();
+			questionUpvote.setText(Integer.toString(rating));
+			
+	
+			bookmarked_list = account.getReadingList();
+			if (bookmarked_list.contains(question)) {
+				Intent intent = getIntent();
+				Bundle extras = intent.getExtras();
+				
+				String readingCheck = extras.getString("ReadingCheck");
+				if (readingCheck != null) {
+					extras.remove("ReadingCheck");
+					bookmarked_list.remove(question);
+					bookmark_button.setColorFilter(not_bookmarked_color);
+				} else {
+					bookmarked = true;
+					bookmark_button.setColorFilter(bookmarked_color);
+				}
+			} else {
+				bookmark_button.setColorFilter(not_bookmarked_color);
+			}
+			
+			if (has_photo == true){
+				photo_button.setColorFilter(has_photo_color);
+			}
 		}
-		
-		if (has_photo == true){
-			photo_button.setColorFilter(has_photo_color);
-		}
-		
+			
 		questionAuthor = (TextView) findViewById(R.id.question_author_text);
 		questionDate = (TextView) findViewById(R.id.question_date_text);
 		answersTitle = (TextView) findViewById(R.id.answers_title_text);
@@ -155,10 +159,10 @@ public class QuestionPageActivity extends CustomActivity {
 		questionBody.setText(question.getBody());
 		
 		questionAuthor.setText("Author: " + question.getUser());
-		questionDate.setText("Posted: " + question.getDate().toString());
+		questionDate.setText("Posted: " + question.getStringDate().toString());
 		
 		questionAnswerList = new ArrayList<Answer>();
-		//questionAnswerList = question.getAnswerList();
+		questionAnswerList = question.getAnswerList();
 		
 		answersTitle.setText("Answers (" + questionAnswerList.size() + ")");
 		
@@ -321,6 +325,9 @@ public class QuestionPageActivity extends CustomActivity {
 	 * 
 	 */
 	public void upvote_question(View v){
+		// Note: using the back button will save the question status (cannot upvote again)
+		// Note: using the home icon will not save the question status (can upvote many times)
+		Thread updateThread = new UpdateQuestionThread(question);
 		if (upvoted) {
 			//question.downVote();
 			account.downvoteQuestion(question);
@@ -328,6 +335,7 @@ public class QuestionPageActivity extends CustomActivity {
 			questionUpvote.setText(Integer.toString(rating));
 			questionUpvote.setTextColor(Color.parseColor("#000000"));
 			upvoted = false;
+			
 		} else {
 			//question.upVote();
 			account.upvoteQuestion(question);
@@ -336,6 +344,7 @@ public class QuestionPageActivity extends CustomActivity {
 			questionUpvote.setTextColor(upvote_color);
 			upvoted = true;
 		}
+		updateThread.start();
 	}
 	
 	/**
