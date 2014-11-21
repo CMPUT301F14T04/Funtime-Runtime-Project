@@ -2,9 +2,10 @@ package ca.ualberta.cs.funtime_runtime.classes;
 
 import java.util.ArrayList;
 
-
 import android.app.Application;
-import android.widget.Toast;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 /**
  * A static class used for managing the application's data in its current state.
@@ -29,6 +30,7 @@ public class ApplicationState extends Application {
 	// TODO pull accountList from server
 	private static ArrayList<Account> accountList = new ArrayList<Account>();
 	private static boolean loggedIn = false;
+	//private static boolean online = false;
 	
 	/**
 	 * Sets the currently logged in account
@@ -44,6 +46,17 @@ public class ApplicationState extends Application {
 	 */
 	public static boolean isLoggedIn() {
 		return loggedIn;
+	}
+	
+	public static boolean isOnline(Context ctx) {
+		// Adapted from http://stackoverflow.com/questions/2789612/how-can-i-check-whether-an-android-device-is-connected-to-the-web - 2014-11-21
+		ConnectivityManager connManager = (ConnectivityManager) ctx.getSystemService(ctx.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+		if (netInfo == null) {
+		    // There are no active networks.
+		    return false;
+		}
+		return netInfo.isConnected();
 	}
 	
 	/**
