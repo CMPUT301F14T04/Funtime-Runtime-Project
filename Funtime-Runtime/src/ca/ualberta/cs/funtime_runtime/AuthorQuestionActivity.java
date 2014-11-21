@@ -44,6 +44,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 	ArrayList<Question> questionList;
 	ArrayList<Question> userQuestionList;
 	ESQuestionManager questionManager;
+	Bitmap photoBitmap;
+	boolean hasPhoto = false;
+	
 	int camera_color = Color.parseColor("#001110");
 	/**
 	 * This is a standard onCreate method
@@ -100,9 +103,12 @@ public class AuthorQuestionActivity extends CustomActivity {
 		Question question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
 		questionList = ApplicationState.getQuestionList();
 		userQuestionList = account.getQuestionList();
+		if (hasPhoto = true){
+			question.getPhoto(photoBitmap);
+		}
 		questionList.add(0,question);
 		userQuestionList.add(0,question);
-		
+
 		// Elastic search code
 		generateId(question);		
 		addServerQuestion(question);
@@ -158,10 +164,12 @@ public class AuthorQuestionActivity extends CustomActivity {
 
 	        if (photoUri != null) {
 	            try {
-	                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
-	                int byteCount = bitmap.getByteCount();
+	                photoBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
+	                int byteCount = photoBitmap.getByteCount();
+	                hasPhoto = true;
 	                if (byteCount > 0)
 	                	Log.i("Image Upload", ""+byteCount);
+	       
 	                //your_imgv.setImageBitmap(bitmap);
 	                //profilePicPath = photoUri.toString();
 	            } catch (Exception e) {
