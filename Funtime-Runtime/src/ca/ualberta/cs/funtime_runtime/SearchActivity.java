@@ -3,18 +3,22 @@ package ca.ualberta.cs.funtime_runtime;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
+import ca.ualberta.cs.funtime_runtime.classes.Account;
+import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
-import ca.ualberta.cs.funtime_runtime.elastic.SimpleSearchCommand;
 
 /**
  * This is a view class that displays the results of a search that the user initiated
@@ -24,6 +28,7 @@ import ca.ualberta.cs.funtime_runtime.elastic.SimpleSearchCommand;
  */
 public class SearchActivity extends CustomActivity {
 	
+	Account account;
 	ArrayList<Question> questions;
 	QuestionListAdapter adapter;
 	ListView resultList;
@@ -32,12 +37,11 @@ public class SearchActivity extends CustomActivity {
 	ESQuestionManager questionManager;
 	QuestionSorter sorter;
 	
-	//private IQuestionManager questionManager;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
+		account = ApplicationState.getAccount();
 		resultList = (ListView) findViewById(R.id.searchQuestionsList);
 		queryEdit = (EditText) findViewById(R.id.searchField);
 		searchButton = (Button) findViewById(R.id.searchButton);
@@ -46,6 +50,14 @@ public class SearchActivity extends CustomActivity {
 		questionManager = new ESQuestionManager();
 		resultList.setAdapter(adapter);	
 		sorter = new QuestionSorter(questions);
+		
+		resultList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				openQuestion(position);
+			}
+		});
 	}
 
 	
@@ -138,6 +150,27 @@ public class SearchActivity extends CustomActivity {
 		
 	}
 
+	/**
+	 * This method is called when a question is clicked on. It takes in a
+	 * integer of the position of the clicked question in the list. Then it
+	 * passes the information about the question via an intent to the
+	 * QuestionPageActivity and changes the application state. The clicked
+	 * question is also added to the history list.
+	 * 
+	 * @param position
+	 */
+	private void openQuestion(int position) {
+		Question question = (Question) adapter.getItem(position);
+		account.addToHistory(question); // Add question clicked to history
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("Question", question);
+		Intent intent = new Intent(this, QuestionPageActivity.class);
+		intent.putExtras(bundle);
+
+		ApplicationState.setPassableQuestion(question);
+
+		startActivity(intent);
+	}
 
 	/**
 	 * Called when the search button is clicked, begins a search of the 
@@ -147,9 +180,8 @@ public class SearchActivity extends CustomActivity {
 	public void searchForQuery(View v) {
 		questions.clear();
 		adapter.notifyDataSetChanged();
-		SimpleSearchCommand query = new SimpleSearchCommand(queryEdit.getText().toString());
-		String command = query.getJsonCommand();
-		Thread thread = new SearchThread(command);
+		String query = queryEdit.getText().toString();
+		Thread thread = new SearchThread(query);
 		thread.start();	
 	}
 	

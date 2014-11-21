@@ -364,8 +364,7 @@ public class HomeActivity extends CustomActivity {
 		account.addToHistory(question); // Add question clicked to history
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("Question", question);
-		Intent intent = new Intent(HomeActivity.this,
-				QuestionPageActivity.class);
+		Intent intent = new Intent(this, QuestionPageActivity.class);
 		intent.putExtras(bundle);
 
 		ApplicationState.setPassableQuestion(question);

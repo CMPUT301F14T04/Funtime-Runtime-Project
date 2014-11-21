@@ -186,8 +186,8 @@ public class ESQuestionManager implements IQuestionManager {
 		
 		SimpleSearchCommand command = new SimpleSearchCommand(searchString,	fields);
 		
-		//String query = command.getJsonCommand();
-		String query = command.getAll();
+		String query = command.getJsonCommand();
+		//String query = command.getAll();
 		Log.i(TAG, "Json command: " + query);
 
 		StringEntity stringEntity;
