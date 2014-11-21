@@ -127,6 +127,11 @@ public class ApplicationState extends Application {
 		return msg;	
 	}
 	
+	public static String notFunctional() {
+		String msg = "Please Login to use";
+		return msg;
+	}
+	
 	
 	
 }
