@@ -106,47 +106,50 @@ public class QuestionPageActivity extends CustomActivity {
 
 		account = ApplicationState.getAccount();
 		
-		favourited_list = account.getFavouritesList();
-		if (favourited_list.contains(question)) {
-			favourited = true;
-			favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
-		} else {
-			favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
-		}
-		
-		upvoted_list = account.getUpvotedQuestions();
-		if (upvoted_list.contains(question)) {
-			upvoted = true;
-			questionUpvote.setTextColor(upvote_color);
-		} else {
-			questionUpvote.setTextColor(Color.parseColor("#000000"));
-		}
-		rating = question.getRating();
-		questionUpvote.setText(Integer.toString(rating));
-		
-
-		bookmarked_list = account.getReadingList();
-		if (bookmarked_list.contains(question)) {
-			Intent intent = getIntent();
-			Bundle extras = intent.getExtras();
-			
-			String readingCheck = extras.getString("ReadingCheck");
-			if (readingCheck != null) {
-				extras.remove("ReadingCheck");
-				bookmarked_list.remove(question);
-				bookmark_button.setColorFilter(not_bookmarked_color);
+		boolean loggedIn = ApplicationState.isLoggedIn();
+		if (loggedIn) {
+			favourited_list = account.getFavouritesList();
+			if (favourited_list.contains(question)) {
+				favourited = true;
+				favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
 			} else {
-				bookmarked = true;
-				bookmark_button.setColorFilter(bookmarked_color);
+				favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
 			}
-		} else {
-			bookmark_button.setColorFilter(not_bookmarked_color);
+			
+			upvoted_list = account.getUpvotedQuestions();
+			if (upvoted_list.contains(question)) {
+				upvoted = true;
+				questionUpvote.setTextColor(upvote_color);
+			} else {
+				questionUpvote.setTextColor(Color.parseColor("#000000"));
+			}
+			rating = question.getRating();
+			questionUpvote.setText(Integer.toString(rating));
+			
+	
+			bookmarked_list = account.getReadingList();
+			if (bookmarked_list.contains(question)) {
+				Intent intent = getIntent();
+				Bundle extras = intent.getExtras();
+				
+				String readingCheck = extras.getString("ReadingCheck");
+				if (readingCheck != null) {
+					extras.remove("ReadingCheck");
+					bookmarked_list.remove(question);
+					bookmark_button.setColorFilter(not_bookmarked_color);
+				} else {
+					bookmarked = true;
+					bookmark_button.setColorFilter(bookmarked_color);
+				}
+			} else {
+				bookmark_button.setColorFilter(not_bookmarked_color);
+			}
+			
+			if (has_photo == true){
+				photo_button.setColorFilter(has_photo_color);
+			}
 		}
-		
-		if (has_photo == true){
-			photo_button.setColorFilter(has_photo_color);
-		}
-		
+			
 		questionAuthor = (TextView) findViewById(R.id.question_author_text);
 		questionDate = (TextView) findViewById(R.id.question_date_text);
 		answersTitle = (TextView) findViewById(R.id.answers_title_text);
@@ -203,28 +206,30 @@ public class QuestionPageActivity extends CustomActivity {
 	@Override
 	public void onRestart() {
 		super.onRestart();
-		if (favourited_list.contains(question)) {
-			favourited = true;
-			favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
-		} else {
-			favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
-		}
-		
-		if (upvoted_list.contains(question)) {
-			upvoted = true;
-			questionUpvote.setTextColor(upvote_color);
-		} else {
-			questionUpvote.setTextColor(Color.parseColor("#000000"));
-		}
-		rating = question.getRating();
-		questionUpvote.setText(Integer.toString(rating));
-		
-
-		if (bookmarked_list.contains(question)) {
-			bookmarked = true;
-			bookmark_button.setColorFilter(bookmarked_color);
-		} else {
-			bookmark_button.setColorFilter(not_bookmarked_color);
+		if (ApplicationState.isLoggedIn()) {
+			if (favourited_list.contains(question)) {
+				favourited = true;
+				favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
+			} else {
+				favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
+			}
+			
+			if (upvoted_list.contains(question)) {
+				upvoted = true;
+				questionUpvote.setTextColor(upvote_color);
+			} else {
+				questionUpvote.setTextColor(Color.parseColor("#000000"));
+			}
+			rating = question.getRating();
+			questionUpvote.setText(Integer.toString(rating));
+			
+	
+			if (bookmarked_list.contains(question)) {
+				bookmarked = true;
+				bookmark_button.setColorFilter(bookmarked_color);
+			} else {
+				bookmark_button.setColorFilter(not_bookmarked_color);
+			}
 		}
 		
 		answersTitle.setText("Answers (" + questionAnswerList.size() + ")");
