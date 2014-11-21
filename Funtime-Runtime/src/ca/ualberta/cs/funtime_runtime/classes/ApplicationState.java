@@ -123,7 +123,7 @@ public class ApplicationState extends Application {
 	}
 	
 	public static String notLoggedIn() {
-		String msg = "You are not logged in, please create a new account or login to your account"; 
+		String msg = "Please Login or Create an Account"; 
 		return msg;	
 	}
 	

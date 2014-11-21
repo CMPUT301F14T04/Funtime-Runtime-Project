@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.adapter.AnswerListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
@@ -264,9 +265,15 @@ public class QuestionPageActivity extends CustomActivity {
 	 * the user to a different page. 
 	 */
 	public void addAnswer(View v)	{
-		ApplicationState.setPassableQuestion(question);
-		Intent authorAnswer = new Intent(QuestionPageActivity.this, AuthorAnswerActivity.class);
-		startActivity(authorAnswer);
+		if (ApplicationState.isLoggedIn()) {
+			ApplicationState.setPassableQuestion(question);
+			Intent authorAnswer = new Intent(QuestionPageActivity.this, AuthorAnswerActivity.class);
+			startActivity(authorAnswer);
+		} else {
+			String msg = ApplicationState.notLoggedIn();
+			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+		}
+
 	}
 	
 	/**
@@ -367,13 +374,5 @@ public class QuestionPageActivity extends CustomActivity {
 		}
 	}
 	
-	
-	/**
-	 * Take the user to the author answer activity
-	 * @param v		 the view, unused.
-	 */
-	public void authorAnswer(View v) {
-		openAuthorAnswerPage();
-	}
 	
 }

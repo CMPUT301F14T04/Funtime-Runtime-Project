@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.adapter.ReplyListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
@@ -163,14 +164,19 @@ public class ReplyPageActivity extends CustomActivity {
 	 * @param v
 	 */
 	public void addReply(View v) {
+		if (ApplicationState.isLoggedIn()) {
+			
+			Bundle bundle = new Bundle();
+			
+			bundle.putString("ReplyType", replyType);
 		
-		Bundle bundle = new Bundle();
-		
-		bundle.putString("ReplyType", replyType);
-	
-		Intent intent = new Intent(ReplyPageActivity.this, AuthorReplyActivity.class);
-		intent.putExtras(bundle);
-		startActivity(intent);
+			Intent intent = new Intent(ReplyPageActivity.this, AuthorReplyActivity.class);
+			intent.putExtras(bundle);
+			startActivity(intent);
+		} else {
+			String msg = ApplicationState.notLoggedIn();
+			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+		}
 	}
 
 	

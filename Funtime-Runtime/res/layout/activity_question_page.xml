@@ -19,7 +19,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/answer_list"
         android:text="@string/button_add_answer" 
-        android:onClick="authorAnswer" />
+        android:onClick="addAnswer" />
 
     <ListView
         android:id="@+id/answer_list"
