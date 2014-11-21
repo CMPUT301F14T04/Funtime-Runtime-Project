@@ -1,6 +1,8 @@
 package ca.ualberta.cs.funtime_runtime.classes;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 /**
@@ -19,15 +21,27 @@ public class QuestionSorter {
 	}
 
 	public ArrayList<Question> sortByDate() {	
-		return null;
+		Collections.sort(sortList, new Comparator<Question>() {
+			  public int compare(Question q1, Question q2) {
+			      return q1.getDate().compareTo(q2.getDate());
+			  }
+		});
+		Collections.reverse(sortList);
+		return sortList;
 	}
 	
-	public ArrayList<Question> sortByPicture() {
-		return null;
+	public ArrayList<Question> sortByVotes() {
+		Collections.sort(sortList, new Comparator<Question>() {
+			  public int compare(Question q1, Question q2) {
+			      return q1.getRating() - q2.getRating();
+			  }
+		});
+		Collections.reverse(sortList);
+		return sortList;
 	}
 	
 	public ArrayList<Question> sortByPhoto() {
-		return null;
+		return sortList;
 	}
 	
 	

@@ -146,7 +146,7 @@ public class HomeActivity extends CustomActivity {
 				return true;
 				
 			case R.id.refresh:
-				refreshPage();
+				loadServerQuestions();
 				return true;
 				
 			case R.id.home_menu_item:
@@ -187,12 +187,18 @@ public class HomeActivity extends CustomActivity {
 				return true;
 				
 			case R.id.sort_date_menu:
+				homeQuestionList = sorter.sortByDate();
+				adapter.notifyDataSetChanged();
 				return true;
 				
 			case R.id.sort_votes_menu:
+				homeQuestionList = sorter.sortByVotes();
+				adapter.notifyDataSetChanged();
 				return true;
 				
 			case R.id.sort_photo_menu:
+				homeQuestionList = sorter.sortByPhoto();
+				adapter.notifyDataSetChanged();
 				return true;
 				
 			default :
