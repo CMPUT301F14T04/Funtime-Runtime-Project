@@ -40,6 +40,7 @@ public class Account {
 		history = new ArrayList<Question>();
 		upvotedQuestions = new ArrayList<Question>();
 		upvotedAnswers = new ArrayList<Answer>();
+		//saveManager = new SaveManager();
 	}
 
 	/**
@@ -65,6 +66,7 @@ public class Account {
 	 */
 	public void authorQuestion(Question question) {
 		questionList.add(0, question);
+		
 	}
 
 	/**

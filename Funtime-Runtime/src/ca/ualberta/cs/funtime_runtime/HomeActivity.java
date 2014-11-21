@@ -55,6 +55,17 @@ public class HomeActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+		
+		String online;
+		
+		if (ApplicationState.isOnline(this)) {
+			online = "You are online";
+		} else {
+			online = "You are offline";
+		}
+		Toast.makeText(this, online, Toast.LENGTH_LONG).show();
+		
+		
 		loggedIn = ApplicationState.isLoggedIn();
 		if (loggedIn) {
 			account = ApplicationState.getAccount();
