@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
@@ -87,7 +88,9 @@ public class AuthorReplyActivity extends CustomActivity {
 		typeReply = (EditText) findViewById(R.id.typeReply);
 		submitButton = (Button) findViewById(R.id.submitReplyButton);
 		account = ApplicationState.getAccount();
-		username = account.getName();
+		if (ApplicationState.isLoggedIn()) {
+			username = account.getName();
+		}
 		parentTitleView.setText(parentTitle);
 		parentBodyView.setText(parentBody);
 		
@@ -112,14 +115,17 @@ public class AuthorReplyActivity extends CustomActivity {
 	 * @param v is a button within the view
 	 */
 	 public void addReply(View v) { 
-		Reply reply = new Reply(typeReply.getText().toString(), username.toString());
-		
-		// Add code to pull question (make sure we have most updated question)
-		question.addReply(reply);
-		Thread updateThread = new UpdateQuestionThread(question);
-		updateThread.start();
-		
-		finish();		
+		if (ApplicationState.isLoggedIn()) {
+			Reply reply = new Reply(typeReply.getText().toString(), username.toString());
+			question.addReply(reply);
+			Thread updateThread = new UpdateQuestionThread(question);
+			updateThread.start();
+			
+			finish();		
+		} else {
+			String msg = ApplicationState.notLoggedIn();
+			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+		}
 	}
 	 
 	 /**

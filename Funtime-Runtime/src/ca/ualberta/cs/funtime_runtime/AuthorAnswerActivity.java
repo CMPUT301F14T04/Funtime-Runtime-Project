@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
@@ -65,7 +66,9 @@ public class AuthorAnswerActivity extends CustomActivity {
 		answerBody = (EditText) findViewById(R.id.typeAnswerAA);
 		submitButton = (Button) findViewById(R.id.submitAnswerButton);
 		account = ApplicationState.getAccount();
-		username = account.getName();
+		if (ApplicationState.isLoggedIn()) {
+			username = account.getName();
+		}
 		question = ApplicationState.getPassableQuestion();
 		questionTitle.setText(question.getTitle());
 		questionBody.setText(question.getBody());
@@ -91,19 +94,26 @@ public class AuthorAnswerActivity extends CustomActivity {
 	 * @param v is a button within the view
 	 */
 	 public void answer_question(View v){ 
-		Answer answer = new Answer(answerBody.getText().toString(), username.toString());
-		userAnsweredList = account.getAnsweredList();
-		question.addAnswer(answer);
-		Thread updateThread = new UpdateQuestionThread(question);
-		updateThread.start();
-		try {
-			updateThread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		userAnsweredList.add(0,question);
+		 if (ApplicationState.isLoggedIn()) {
+			Answer answer = new Answer(answerBody.getText().toString(), username.toString());
+			userAnsweredList = account.getAnsweredList();
+	
+			question.addAnswer(answer);
+			Thread updateThread = new UpdateQuestionThread(question);
+			updateThread.start();
+			try {
+				updateThread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+	
+			userAnsweredList.add(0,question);
 		
-		finish();
+			finish();
+		 } else {
+			 String msg = ApplicationState.notLoggedIn();
+			 Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+		 }
 				
 	}
 	 /**
