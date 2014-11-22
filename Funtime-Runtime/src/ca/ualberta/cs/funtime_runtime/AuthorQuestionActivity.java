@@ -107,9 +107,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 		Question question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
 		questionList = ApplicationState.getQuestionList();
 		userQuestionList = account.getQuestionList();
-		if (hasPhoto = true){
-			question.getPhoto(array);
-		}
+		//if (hasPhoto = true){
+			//question.getPhoto(array);
+		//}
 		questionList.add(0,question);
 		userQuestionList.add(0,question);
 
