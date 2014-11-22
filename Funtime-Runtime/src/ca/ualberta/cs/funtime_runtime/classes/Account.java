@@ -1,5 +1,6 @@
 package ca.ualberta.cs.funtime_runtime.classes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -13,7 +14,12 @@ import java.util.ArrayList;
  * @author Benjamin Holmwood
  * 
  */
-public class Account {
+public class Account implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1130304605213585452L;
+	
 	private String username;
 	private ArrayList<Question> favourites;
 	private ArrayList<Question> answeredList;
