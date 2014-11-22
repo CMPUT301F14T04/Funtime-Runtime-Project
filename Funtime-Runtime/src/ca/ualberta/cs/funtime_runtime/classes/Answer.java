@@ -17,7 +17,6 @@ import java.util.Date;
 public class Answer implements Serializable {
 	
 	private static final long serialVersionUID = 7328501038270376718L;
-	private Question question;
 	private final String body;
 	private final String username;
 	public ArrayList<Reply> replyList;
@@ -150,19 +149,7 @@ public class Answer implements Serializable {
 	public int getId() {
 		return id;
 	}
-	
-	/**
-	 * This functions will set the question that the answer is associated with
-	 * @param question
-	 */
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
-	
-	public Question getQuestion() {
-		return question;
-	}
-	
+
 	
 	/**
 	 * This function will be implemented later to get a photo attached to an answer
