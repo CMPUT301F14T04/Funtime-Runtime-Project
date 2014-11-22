@@ -61,7 +61,7 @@ public class LoginActivity extends CustomActivity {
                 	}
                 	if (accountExists) {
                 		// Login the user and return to previous screen
-                		ApplicationState.setAccount(account);
+                		ApplicationState.setAccount(account, ctx);
                 		finish();
                 	} else {
                 		// Notify the user that there is no existing account with that username.

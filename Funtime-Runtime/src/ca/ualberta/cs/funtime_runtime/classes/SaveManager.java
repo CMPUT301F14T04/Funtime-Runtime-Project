@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import android.content.Context;
+import android.widget.Toast;
 
 
 /**
@@ -18,11 +19,6 @@ import android.content.Context;
  *
  */
 public class SaveManager {
-	
-	public SaveManager() {
-		
-	}
-	
 
 	public void save(String FILENAME, Object object, Context ctx) {
 		FileOutputStream fos;
@@ -32,6 +28,7 @@ public class SaveManager {
 			os = new ObjectOutputStream(fos);
 			os.writeObject(object);
 			os.close();
+			Toast.makeText(ctx, "saved", Toast.LENGTH_LONG).show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -60,6 +57,8 @@ public class SaveManager {
 			// Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		Toast.makeText(ctx, "loaded", Toast.LENGTH_LONG).show();
 		
 		return loadedObject;
 	}
