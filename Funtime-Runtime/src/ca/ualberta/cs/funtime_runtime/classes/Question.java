@@ -30,6 +30,7 @@ public class Question implements Serializable {
 	private int rating;
 	//private  Bitmap photoBitmap;
 	private byte[] photo;
+	private boolean hasPhoto = false;
 	
 	public int id; //used for elastic search (see setId and getId methods)
 	/**
@@ -213,6 +214,11 @@ public class Question implements Serializable {
 	
 	public void getPhoto(byte[] questionPhoto){
 		photo = questionPhoto;
+		hasPhoto = true;
 	}
-
+	
+	public boolean getPhotoStatus(){
+		return hasPhoto;
+		
+	}
 }

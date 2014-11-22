@@ -1,5 +1,7 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.zip.Deflater;
@@ -10,9 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.provider.MediaStore;
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -49,6 +49,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	Bitmap photoBitmap;
 	boolean hasPhoto = false;
 	byte[] array;
+	byte[] compressedData;
     Deflater compressor = new Deflater();
     //compressor.setLevel(Deflater.BEST_COMPRESSION);
 	int camera_color = Color.parseColor("#001110");
@@ -107,9 +108,10 @@ public class AuthorQuestionActivity extends CustomActivity {
 		Question question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
 		questionList = ApplicationState.getQuestionList();
 		userQuestionList = account.getQuestionList();
-		//if (hasPhoto = true){
+		if (hasPhoto = true){
 			//question.getPhoto(array);
-		//}
+			question.getPhoto(compressedData);
+		}
 		questionList.add(0,question);
 		userQuestionList.add(0,question);
 
@@ -177,8 +179,27 @@ public class AuthorQuestionActivity extends CustomActivity {
 	                ByteBuffer buffer = ByteBuffer.allocate(byteCount); //Create a new buffer
 	                photoBitmap.copyPixelsToBuffer(buffer); //Move the byte data to the buffer
 	                array = buffer.array(); //Get the underlying array containing the data.
-//	                your_imgv.setImageBitmap(bitmap);
-//	                profilePicPath = photoUri.toString();
+	                Deflater compressor = new Deflater();
+	                compressor.setLevel(Deflater.BEST_COMPRESSION);
+	                compressor.setInput(array);
+	                compressor.finish();
+	                ByteArrayOutputStream bos = new ByteArrayOutputStream(array.length);
+	                byte[] buf = new byte[65536];
+	                while (!compressor.finished()) {
+	                    int count = compressor.deflate(buf);
+	                    bos.write(buf, 0, count);
+	                }
+	                try {
+	                    bos.close();
+	                } catch (IOException e) {
+	                }
+	                
+	                // Get the compressed data
+	                compressedData = bos.toByteArray();
+	                int byteArraySize = (int)compressedData.length;
+	                if (byteArraySize > 0){
+	                	Log.i("size of byte array", ""+byteArraySize);
+	                }
 	            }catch (Exception e) {
 	                e.printStackTrace();
 	            }
