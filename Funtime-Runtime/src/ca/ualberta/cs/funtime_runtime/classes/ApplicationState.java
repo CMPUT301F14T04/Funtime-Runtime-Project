@@ -32,11 +32,30 @@ public class ApplicationState extends Application {
 	private static boolean loggedIn = false;
 	//private static boolean online = false;
 	
+	private static final String USERACCOUNT = "UserAccount.sav";
+	
+	public static void startup(Context ctx) {
+		SaveManager saveManager = new SaveManager();
+		Object obj;
+		try {
+			obj = saveManager.load(USERACCOUNT, ctx);
+			if (obj != null) {
+				account = (Account) obj;
+				loggedIn = true;
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Sets the currently logged in account
 	 * @param newAccount	an account to be logged in
 	 */
-	public static void setAccount(Account newAccount) {
+	public static void setAccount(Account newAccount, Context ctx) {
+		SaveManager saveManager = new SaveManager();
+		saveManager.save(USERACCOUNT, newAccount, ctx);
 		account = newAccount;
 		loggedIn = true;
 	}
@@ -125,6 +144,11 @@ public class ApplicationState extends Application {
 	public static String notLoggedIn() {
 		String msg = "Please Login or Create an Account"; 
 		return msg;	
+	}
+	
+	public static String notFunctional() {
+		String msg = "Please Login to use";
+		return msg;
 	}
 	
 	

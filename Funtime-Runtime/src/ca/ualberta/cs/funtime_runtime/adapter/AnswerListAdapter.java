@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,10 +14,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.R;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
+import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.UpdateQuestionThread;
 
 /**
  * This class is a controller class that displays the various answer list items in proper format
@@ -34,6 +38,8 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 	LayoutInflater inflater;
 	Account account;
 	ArrayList<Answer> upvotedList;
+	//ESQuestionManager manager = new ESQuestionManager();
+	UpdateQuestionThread updateThread;
 	boolean loggedIn;
 
 	/**
@@ -138,7 +144,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 			} else {
 				answerRating.setTextColor(Color.parseColor("#000000"));
 			}
-		}
+		} 
 		
 		
 		answerRating.setTag(position);
@@ -152,18 +158,23 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		 */
 		answerRating.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
+				Question question = ApplicationState.getPassableQuestion();
 				Answer answer = getItem((Integer) v.getTag());
 				Account account = ApplicationState.getAccount();
 				if (ApplicationState.isLoggedIn()) {
 					ArrayList<Answer> upvotedAnswers = account.getUpvotedAnswers();
 					if (upvotedAnswers.contains(answer)) {
-						//answer.downVote();
 						account.downvoteAnswer(answer);
 					} else {
-						//answer.upVote();
 						account.upvoteAnswer(answer);
 					}
+				} else {
+					String msg = ApplicationState.notFunctional();
+					Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
 				}
+				updateThread = new  UpdateQuestionThread(question);
+				updateThread.start();
+				//Log.i("Question", question.getTitle());
 				notifyDataSetChanged();
 			}
 		});

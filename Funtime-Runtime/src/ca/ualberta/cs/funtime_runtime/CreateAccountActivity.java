@@ -66,7 +66,7 @@ public class CreateAccountActivity extends CustomActivity {
                 		ApplicationState.addAccount(newAccount);
 
                     	// Login the new account
-                    	ApplicationState.setAccount(newAccount);
+                    	ApplicationState.setAccount(newAccount, ctx);
                     	
                     	// TODO update accountList on server
                     	
