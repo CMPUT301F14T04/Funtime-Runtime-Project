@@ -96,9 +96,11 @@ public class AuthorAnswerActivity extends CustomActivity {
 	 public void answer_question(View v){ 
 		 if (ApplicationState.isLoggedIn()) {
 			Answer answer = new Answer(answerBody.getText().toString(), username.toString());
+			answer.setQuestion(question);
 			userAnsweredList = account.getAnsweredList();
 	
 			question.addAnswer(answer);
+			Log.i("Set question?", answer.getQuestion().getTitle());
 			Thread updateThread = new UpdateQuestionThread(question);
 			updateThread.start();
 			try {

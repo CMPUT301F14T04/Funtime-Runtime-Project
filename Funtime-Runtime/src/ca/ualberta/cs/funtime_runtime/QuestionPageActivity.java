@@ -25,6 +25,7 @@ import ca.ualberta.cs.funtime_runtime.classes.AnswerSorter;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.UpdateQuestionThread;
+import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 
 /**
  * A view class that displays the question and
@@ -61,6 +62,7 @@ public class QuestionPageActivity extends CustomActivity {
 	ArrayList<Question> favourited_list;
 	ArrayList<Question> upvoted_list;
 	ArrayList<Question> bookmarked_list;
+	ESQuestionManager manager;
 	Boolean favourited = false;
 	Boolean upvoted = false;
 	Boolean bookmarked = false;
@@ -95,6 +97,7 @@ public class QuestionPageActivity extends CustomActivity {
 		inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		questionHeader = (View)inflater.inflate(R.layout.question_page_header, null);
 		answerListView.addHeaderView(questionHeader);
+		manager = new ESQuestionManager();
 		
 		questionTitle = (TextView) findViewById(R.id.question_title);
 		questionBody = (TextView) findViewById(R.id.question_body);
@@ -195,6 +198,8 @@ public class QuestionPageActivity extends CustomActivity {
 				intent.putExtras(bundle);
 				startActivity(intent);	
 				
+				
+				
 			}
 		});
 		
@@ -212,6 +217,7 @@ public class QuestionPageActivity extends CustomActivity {
 	@Override
 	public void onRestart() {
 		super.onRestart();
+		account = ApplicationState.getAccount();
 		if (ApplicationState.isLoggedIn()) {
 			favourited_list = account.getFavouritesList();
 			if (favourited_list.contains(question)) {
