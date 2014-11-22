@@ -28,7 +28,8 @@ public class Question implements Serializable {
 	public ArrayList<Answer> answerList;
 	public ArrayList<Reply> replyList;
 	private int rating;
-	private  Bitmap photoBitmap;
+	//private  Bitmap photoBitmap;
+	private byte[] photo;
 	
 	public int id; //used for elastic search (see setId and getId methods)
 	/**
@@ -43,7 +44,7 @@ public class Question implements Serializable {
 		this.title = title;
 		this.body = body;
 		this.username = username;
-		photoBitmap = null;
+		//photoBitmap = null;
 		date = new Date();
 		rating = 0;
 		answerList = new ArrayList<Answer>();
@@ -210,8 +211,8 @@ public class Question implements Serializable {
 		this.id=id;
 	}
 	
-	public void getPhoto(Bitmap bitmap){
-		photoBitmap = bitmap;
+	public void getPhoto(byte[] questionPhoto){
+		photo = questionPhoto;
 	}
 
 }

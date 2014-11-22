@@ -1,7 +1,8 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.zip.Deflater;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -19,7 +20,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
@@ -35,8 +35,6 @@ import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
  */
 public class AuthorQuestionActivity extends CustomActivity {
 	
-	private static final int RANDOM_NUMBER_CAP = 100000000;
-	
 	Button submitButton;
 	Button addPhotoButton;
 	Button cancelButton;
@@ -48,7 +46,11 @@ public class AuthorQuestionActivity extends CustomActivity {
 	ArrayList<Question> questionList;
 	ArrayList<Question> userQuestionList;
 	ESQuestionManager questionManager;
-	Random generator = new Random();
+	Bitmap photoBitmap;
+	boolean hasPhoto = false;
+	byte[] array;
+    Deflater compressor = new Deflater();
+    //compressor.setLevel(Deflater.BEST_COMPRESSION);
 	int camera_color = Color.parseColor("#001110");
 	/**
 	 * This is a standard onCreate method
@@ -77,8 +79,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 		photoButton = (ImageButton)  findViewById(R.id.add_image_button);
 		photoButton.setColorFilter(camera_color);
 		account = ApplicationState.getAccount();
-		if (ApplicationState.isLoggedIn())
-			username = account.getName();
+		username = account.getName();
 		questionManager = new ESQuestionManager();
 	}
 	
@@ -103,38 +104,30 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 * @param v is a button within the activity.
 	 */
 	public void submitQuestion(View v) {
-		if (ApplicationState.isLoggedIn()) {
-			Question question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
-			if (ApplicationState.isLoggedIn()) {
-				userQuestionList = account.getQuestionList();
-				questionList = ApplicationState.getQuestionList();
-			}
-			//questionList.add(0,question);
-			
-			userQuestionList.add(0,question);
-			
-			// Elastic search code
-			generateId(question);		
-			Log.i("List Size", ""+questionList.size());
-			addServerQuestion(question);
-			
-			if (ApplicationState.isLoggedIn()) {
-				account.addToHistory(question); // Add question clicked to history
-			}
-			Bundle bundle = new Bundle();
-			bundle.putSerializable("Question", question);
-			Intent intent = new Intent(AuthorQuestionActivity.this, QuestionPageActivity.class);
-			intent.putExtras(bundle);
-			
-			ApplicationState.setPassableQuestion(question);
-			
-			startActivity(intent);	
-			
-			finish();
-		} else {
-			String msg = ApplicationState.notLoggedIn();
-			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+		Question question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
+		questionList = ApplicationState.getQuestionList();
+		userQuestionList = account.getQuestionList();
+		if (hasPhoto = true){
+			question.getPhoto(array);
 		}
+		questionList.add(0,question);
+		userQuestionList.add(0,question);
+
+		// Elastic search code
+		generateId(question);		
+		addServerQuestion(question);
+		
+		account.addToHistory(question); // Add question clicked to history
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("Question", question);
+		Intent intent = new Intent(AuthorQuestionActivity.this, QuestionPageActivity.class);
+		intent.putExtras(bundle);
+		
+		ApplicationState.setPassableQuestion(question);
+		
+		startActivity(intent);	
+		
+		finish();
 		
 		
 	}
@@ -149,10 +142,12 @@ public class AuthorQuestionActivity extends CustomActivity {
 		searchThread.start();
 
 		int id;
-		//id = questionList.size();
-		//id = questionManager.getFound();
-		id = generator.nextInt(RANDOM_NUMBER_CAP);
-		//Log.i("Found", ""+id);
+		
+		if (questionList.isEmpty()){
+			id = 1;
+		} else {
+			id = questionList.size() + 1;
+		}
 		
 		question.setId(id);
 	}
@@ -173,13 +168,18 @@ public class AuthorQuestionActivity extends CustomActivity {
 
 	        if (photoUri != null) {
 	            try {
-	                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
-	                int byteCount = bitmap.getByteCount();
-	                if (byteCount > 0)
+	                photoBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
+	                int byteCount = photoBitmap.getByteCount();
+	                hasPhoto = true;
+	                if (byteCount > 0){
 	                	Log.i("Image Upload", ""+byteCount);
-	                //your_imgv.setImageBitmap(bitmap);
-	                //profilePicPath = photoUri.toString();
-	            } catch (Exception e) {
+	                }
+	                ByteBuffer buffer = ByteBuffer.allocate(byteCount); //Create a new buffer
+	                photoBitmap.copyPixelsToBuffer(buffer); //Move the byte data to the buffer
+	                array = buffer.array(); //Get the underlying array containing the data.
+//	                your_imgv.setImageBitmap(bitmap);
+//	                profilePicPath = photoUri.toString();
+	            }catch (Exception e) {
 	                e.printStackTrace();
 	            }
 	        }
@@ -227,6 +227,13 @@ public class AuthorQuestionActivity extends CustomActivity {
 		public void run() {
 			questionList.clear();
 			questionList.addAll(questionManager.searchQuestions(search, null));
+			if (!questionList.isEmpty()){
+				Question question = questionList.get(0);
+				Log.i("Title", question.getTitle());
+				Log.i("Body", question.getBody());
+				Log.i("User", question.getUser());
+				Log.i("Upvotes", ""+question.getRating());
+			}
 		}
 	}
 	 
