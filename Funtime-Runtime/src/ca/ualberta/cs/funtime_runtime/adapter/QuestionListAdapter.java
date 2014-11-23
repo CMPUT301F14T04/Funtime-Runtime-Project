@@ -105,6 +105,11 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		String questionDateString = question.getStringDate();
 		questionDateTextView.setText("Posted: " + questionDateString);
 		
+		TextView questionLocationTextView = (TextView) theView.findViewById(R.id.adapterLocation);
+		//String questionLocationString = question.getStringLocation();
+		//questionLocationTextView.setText("Location: " + questionLocationString);
+		
+		
 		loggedIn = ApplicationState.isLoggedIn();
 		if (loggedIn) {
 			account = ApplicationState.getAccount();
