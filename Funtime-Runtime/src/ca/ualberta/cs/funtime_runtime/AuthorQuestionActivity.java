@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
+import ca.ualberta.cs.funtime_runtime.classes.Geolocation;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 /**
@@ -106,6 +107,12 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 */
 	public void submitQuestion(View v) {
 		Question question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
+		Geolocation geoLocation = new Geolocation(this);
+		geoLocation.findLocation();
+		String location = geoLocation.getLocation();
+		question.setLocation(location);
+		//location.getLocation(location);
+		//question.setLocation(location);
 		questionList = ApplicationState.getQuestionList();
 		userQuestionList = account.getQuestionList();
 		if (hasPhoto = true){

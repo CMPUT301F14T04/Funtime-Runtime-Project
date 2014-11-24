@@ -52,6 +52,7 @@ public class QuestionPageActivity extends CustomActivity {
 	TextView questionAuthor;
 	TextView questionDate;
 	TextView answersTitle;
+	TextView authorLocation;
 	Button questionUpvote;
 	Button addAnswerBtn;
 	Button repliesText;
@@ -101,6 +102,7 @@ public class QuestionPageActivity extends CustomActivity {
 		
 		questionTitle = (TextView) findViewById(R.id.question_title);
 		questionBody = (TextView) findViewById(R.id.question_body);
+		authorLocation = (TextView) findViewById(R.id.question_page_location);
 		question = ApplicationState.getPassableQuestion();
 		
 		addAnswerBtn = (Button) findViewById(R.id.button_add_answer);
@@ -109,6 +111,7 @@ public class QuestionPageActivity extends CustomActivity {
 		questionUpvote = (Button) findViewById(R.id.overallRating);
 		favourite_button = (ImageButton) findViewById(R.id.question_favorite_button);
 		repliesText = (Button) findViewById(R.id.replies_text);
+		
 
 		account = ApplicationState.getAccount();
 		
@@ -163,14 +166,13 @@ public class QuestionPageActivity extends CustomActivity {
 		
 		questionTitle.setText(question.getTitle());		
 		questionBody.setText(question.getBody());
+		authorLocation.setText(question.getLocation());
 		
 		questionAuthor.setText("Author: " + question.getUser());
 		questionDate.setText("Posted: " + question.getStringDate().toString());
 		
-		//answerList = new ArrayList<Answer>();
 		answerList = question.getAnswerList();
 		sorter = new AnswerSorter(answerList);
-		//answerList = sorter.sortByVotes();
 		
 		answersTitle.setText("Answers (" + answerList.size() + ")");
 		

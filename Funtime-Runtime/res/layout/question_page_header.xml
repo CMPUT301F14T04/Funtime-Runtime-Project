@@ -54,15 +54,6 @@
         android:text="@string/answers_title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <View
-        android:id="@+id/answer_divider"
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:layout_alignLeft="@+id/answers_title_text"
-        android:layout_below="@+id/question_date_text"
-        android:layout_marginTop="8dp"
-        android:background="?android:attr/listDivider" />
-
     <TextView
         android:id="@+id/question_title"
         android:layout_width="wrap_content"
@@ -149,5 +140,22 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/blue"
         android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/question_page_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/question_date_text"
+        android:layout_toLeftOf="@+id/replies_text"
+        android:text="Location" />
+
+    <View
+        android:id="@+id/answer_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:background="?android:attr/listDivider" />
 
 </RelativeLayout>

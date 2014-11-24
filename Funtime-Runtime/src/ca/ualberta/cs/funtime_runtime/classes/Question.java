@@ -32,9 +32,11 @@ public class Question implements Serializable {
 	public ArrayList<Reply> replyList;
 	private int rating;
 	//private  Bitmap photoBitmap;
-	private byte[] photo;
+	private byte[] photo = null;
 	private boolean hasPhoto = false;
+	private String location;
 	
+	public int photoId;
 	public int id; //used for elastic search (see setId and getId methods)
 	/**
 	 * 
@@ -223,5 +225,21 @@ public class Question implements Serializable {
 	public boolean getPhotoStatus(){
 		return hasPhoto;
 		
+	}
+	
+	/**
+	 * Sets the location the question was made at
+	 * @param location
+	 */
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
+	/**
+	 * Returns a the location the question was made at
+	 * @return location
+	 */
+	public String getLocation() {
+		return location;
 	}
 }
