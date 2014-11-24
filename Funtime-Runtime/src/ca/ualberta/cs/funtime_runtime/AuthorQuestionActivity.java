@@ -120,7 +120,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 		//question.setLocation(location);
 		questionList = ApplicationState.getQuestionList();
 		userQuestionList = account.getQuestionList();
-		if (hasPhoto = true){
+		if (hasPhoto == true){
 			//question.getPhoto(array);
 			question.getPhoto(compressedData);
 		}
@@ -181,7 +181,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	            try {
 	                photoBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
 	                int byteCount = photoBitmap.getByteCount();
-	                hasPhoto = true;
+	                
 	                if (byteCount > 0){
 	                	Log.i("Image Upload", ""+byteCount);
 	                }
@@ -193,7 +193,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	                compressor.setInput(array);
 	                compressor.finish();
 	                ByteArrayOutputStream bos = new ByteArrayOutputStream(array.length);
-	                byte[] buf = new byte[65536];
+	                byte[] buf = new byte[10];
 	                while (!compressor.finished()) {
 	                    int count = compressor.deflate(buf);
 	                    bos.write(buf, 0, count);
@@ -207,6 +207,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	                compressedData = bos.toByteArray();
 	                int byteArraySize = (int)compressedData.length;
 	                if (byteArraySize > 0){
+	                	hasPhoto = true;
 	                	Log.i("size of byte array", ""+byteArraySize);
 	                }
 	            }catch (Exception e) {

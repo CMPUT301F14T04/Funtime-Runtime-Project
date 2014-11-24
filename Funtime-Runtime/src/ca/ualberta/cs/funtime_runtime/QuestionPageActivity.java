@@ -154,7 +154,7 @@ public class QuestionPageActivity extends CustomActivity {
 				bookmark_button.setColorFilter(not_bookmarked_color);
 			}
 			
-			if (has_photo == true){
+			if (question.getPhotoStatus()){
 				photo_button.setColorFilter(has_photo_color);
 			}
 		}
