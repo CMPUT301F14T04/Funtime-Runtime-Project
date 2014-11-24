@@ -43,16 +43,6 @@
         android:onClick="upvote_question"
         android:src="@drawable/arrow_up_float" />
 	-->
-	
-    <TextView
-        android:id="@+id/answers_title_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/question_date_text"
-        android:layout_below="@+id/answer_divider"
-        android:layout_marginTop="8dp"
-        android:text="@string/answers_title"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/question_title"
@@ -148,14 +138,25 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/question_date_text"
         android:layout_toLeftOf="@+id/replies_text"
-        android:text="Location" />
+        android:text="Location" 
+        android:textStyle="italic"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
 
     <View
         android:id="@+id/answer_divider"
         android:layout_width="fill_parent"
         android:layout_height="2dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/question_page_location"
         android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/answers_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/answer_divider"
+        android:text="@string/answers_title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

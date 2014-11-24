@@ -107,7 +107,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		
 		TextView questionLocationTextView = (TextView) theView.findViewById(R.id.adapterLocation);
 		//Log.i("Location", question.getLocation());
-		questionLocationTextView.setText(question.getLocation());
+		
+		questionLocationTextView.setText("Location: " + question.getLocation());
 		//String questionLocationString = question.getStringLocation();
 		//questionLocationTextView.setText("Location: " + questionLocationString);
 		

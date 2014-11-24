@@ -80,7 +80,6 @@ public class Geolocation implements Serializable {
 					Address address = addresses.get(0);
 					StringBuilder sb = new StringBuilder();
 					//for(int i = 0; i< address.getMaxAddressLineIndex(); i++){
-					sb.append("Location: ");
 					sb.append(address.getLocality() + ", ");
 					//sb.append(address.getPostalCode()).append("\n");
 					sb.append(address.getCountryName());

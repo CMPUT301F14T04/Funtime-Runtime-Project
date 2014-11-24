@@ -166,7 +166,7 @@ public class QuestionPageActivity extends CustomActivity {
 		
 		questionTitle.setText(question.getTitle());		
 		questionBody.setText(question.getBody());
-		authorLocation.setText(question.getLocation());
+		authorLocation.setText("Location: " + question.getLocation());
 		
 		questionAuthor.setText("Author: " + question.getUser());
 		questionDate.setText("Posted: " + question.getStringDate().toString());
