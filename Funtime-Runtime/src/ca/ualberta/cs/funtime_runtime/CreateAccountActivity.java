@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
+import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.elastic.ESAccountManager;
 
 /**
  * An activity that allows the user to create a new account and log into it.
@@ -21,6 +23,10 @@ import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
  *
  */
 public class CreateAccountActivity extends CustomActivity {
+	
+	private ESAccountManager manager;
+	ArrayList<Account> accountList;
+	
 	protected void onCreate(Bundle savedInstanceState) 	{
 
 		super.onCreate(savedInstanceState);
@@ -30,6 +36,7 @@ public class CreateAccountActivity extends CustomActivity {
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
 		Button createAccountButton = (Button) findViewById(R.id.createAccountButton);
+		manager = new ESAccountManager();
 		
 		final Context ctx = this;
 		
@@ -43,10 +50,13 @@ public class CreateAccountActivity extends CustomActivity {
                 if (newUsername.length() > 0) {
                 	// Get account list
                 	ArrayList<Account> accountList = ApplicationState.getAccountList();
+                	//SearchThread searchThread = new SearchThread("*");
+                    //searchThread.start();
                     
                 	// Check if account already exists
                 	String username = createUsernameText.getText().toString();
                 	Account account;
+
                 	boolean accountExists = false;
                 	if (accountList.size() > 0) {
                 		for (int i = 0; i < accountList.size(); ++i) {
@@ -64,6 +74,8 @@ public class CreateAccountActivity extends CustomActivity {
                 		// Create new account and add to AccountList
                 		Account newAccount = new Account(createUsernameText.getText().toString());
                 		ApplicationState.addAccount(newAccount);
+                		//AddThread addThread = new AddThread(newAccount);
+                		//addThread.start();
 
                     	// Login the new account
                     	ApplicationState.setAccount(newAccount, ctx);
@@ -94,6 +106,39 @@ public class CreateAccountActivity extends CustomActivity {
 		getMenuInflater().inflate(R.menu.create_account, menu);
 		return true;
 	}
+	
+	class SearchThread extends Thread {
+		private String search;
+		
+		public SearchThread(String s){		
+			search = s;
+		}
+		
+		@Override
+		public void run() {
+			accountList.clear();		
+			accountList.addAll(manager.searchAccounts(search, null));				
+		}
+	}
+	
+	 class AddThread extends Thread {
+		private Account account;
+
+		public AddThread(Account account) {
+			this.account = account;
+		}
+
+		@Override
+		public void run() {
+			manager.addAccount(account);
+
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	 }
 
 	
 }

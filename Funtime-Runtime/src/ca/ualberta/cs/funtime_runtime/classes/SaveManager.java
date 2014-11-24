@@ -46,6 +46,7 @@ public class SaveManager {
 		    
 		    try {
 		        if(ois != null) {
+		        	Toast.makeText(ctx, "loaded", Toast.LENGTH_LONG).show();
 		            ois.close();
 		        }
 		    } catch (IOException e) {
@@ -58,7 +59,7 @@ public class SaveManager {
 			e.printStackTrace();
 		}
 		
-		Toast.makeText(ctx, "loaded", Toast.LENGTH_LONG).show();
+		
 		
 		return loadedObject;
 	}

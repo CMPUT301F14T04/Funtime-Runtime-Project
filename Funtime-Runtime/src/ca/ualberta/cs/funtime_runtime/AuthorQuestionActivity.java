@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.zip.Deflater;
 
 import android.app.ActionBar;
@@ -52,6 +53,8 @@ public class AuthorQuestionActivity extends CustomActivity {
 	byte[] array;
 	byte[] compressedData;
     Deflater compressor = new Deflater();
+    Random generator = new Random();
+    private static final int RANDOM_NUMBER_CAP = 100000000;
     //compressor.setLevel(Deflater.BEST_COMPRESSION);
 	int camera_color = Color.parseColor("#001110");
 	/**
@@ -150,14 +153,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 		Thread searchThread = new SearchThread("*");
 		searchThread.start();
 
-		int id;
-		
-		if (questionList.isEmpty()){
-			id = 1;
-		} else {
-			id = questionList.size() + 1;
-		}
-		
+		int id = generator.nextInt(RANDOM_NUMBER_CAP);
 		question.setId(id);
 	}
 	
