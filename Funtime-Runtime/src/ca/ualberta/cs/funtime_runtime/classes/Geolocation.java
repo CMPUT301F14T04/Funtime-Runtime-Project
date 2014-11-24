@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 
+import android.R;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
@@ -25,7 +26,72 @@ public class Geolocation implements Serializable {
 	public Geolocation(Context mContext){
 		this.mContext = mContext;
 	}
+	String context = Context.LOCATION_SERVICE;
+
+	LocationManager lm = (LocationManager)mContext.getSystemService(context);
+	String provider = LocationManager.GPS_PROVIDER;
+	Location location = lm.getLastKnownLocation(provider);
 	
+	//getLocation(location);
+	//lm.requestLocationUpdates(provider, 0, 0, ll);
+	
+	private final LocationListener ll = new LocationListener() {
+		
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras){
+		}
+		
+		@Override
+		public void onProviderEnabled(String provider) {
+		}
+		
+		@Override
+		public void onProviderDisabled(String provider) {
+			getLocation(null);
+		}
+		
+		@Override
+		public void onLocationChanged(Location location) {
+			getLocation(location);
+		}
+	};
+	
+	public void getLocation(Location location){
+		
+		String latLong;
+		TextView myLocation;
+		//myLocation = (TextView)findViewById(R.id.myLocation);
+		String addressString = "no address found";
+		
+		if(location != null){
+			double lat = location.getLatitude();
+			double lon = location.getLongitude();
+			latLong = "Lat:"+lat+"\nLong:"+lon;
+			
+			double latitude = location.getLatitude();
+			double longitude = location.getLongitude();
+			
+			Geocoder gc = new Geocoder(mContext, Locale.getDefault());
+			try{
+				List <Address> addresses = gc.getFromLocation(latitude, longitude, 1);
+				if(addresses.size() > 0){
+					Address address = addresses.get(0);
+					StringBuilder sb = new StringBuilder();
+					for(int i = 0; i< address.getMaxAddressLineIndex(); i++){
+						sb.append(address.getLocality()).append("\n");
+						sb.append(address.getPostalCode()).append("\n");
+						sb.append(address.getCountryName());
+					}
+					addressString = sb.toString();
+				}
+			}catch(Exception e){	
+			}
+		}else{
+			latLong = "No Location Found!";
+		}
+	}
+}
+
 	/*TextView textLat;
 	TextView textLong;
 	TextView myAddress;
@@ -94,6 +160,5 @@ public class Geolocation implements Serializable {
 			}
 		}
 	}*/
-}
 
 
