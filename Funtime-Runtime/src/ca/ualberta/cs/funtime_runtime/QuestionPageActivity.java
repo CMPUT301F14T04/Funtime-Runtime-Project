@@ -112,7 +112,6 @@ public class QuestionPageActivity extends CustomActivity {
 
 		account = ApplicationState.getAccount();
 		
-		
 		boolean loggedIn = ApplicationState.isLoggedIn();
 		if (loggedIn) {
 			favourited_list = account.getFavouritesList();
@@ -171,7 +170,7 @@ public class QuestionPageActivity extends CustomActivity {
 		//answerList = new ArrayList<Answer>();
 		answerList = question.getAnswerList();
 		sorter = new AnswerSorter(answerList);
-		answerList = sorter.sortByVotes();
+		//answerList = sorter.sortByVotes();
 		
 		answersTitle.setText("Answers (" + answerList.size() + ")");
 		
@@ -179,6 +178,7 @@ public class QuestionPageActivity extends CustomActivity {
 		
 		adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, answerList);
 		answerListView.setAdapter(adapter);
+		answerList = sorter.sortByVotes();
 		adapter.notifyDataSetChanged();
 		
 		answerListView.setOnItemClickListener(new OnItemClickListener() {

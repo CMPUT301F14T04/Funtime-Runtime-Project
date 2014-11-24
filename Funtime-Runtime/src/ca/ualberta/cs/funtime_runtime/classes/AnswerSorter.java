@@ -18,6 +18,7 @@ public class AnswerSorter {
 				  return a2.getRating() - a2.getRating();
 			  }
 		});
+		Collections.reverse(answerList);
 		return answerList;
 	}
 	
