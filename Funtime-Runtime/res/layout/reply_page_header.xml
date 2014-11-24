@@ -26,41 +26,50 @@
         android:textStyle="italic" />
 
     <TextView
-        android:id="@+id/reply_parent_body"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="8dp"
-        android:layout_below="@+id/reply_parent_title"
-        android:paddingTop="10dp"
-        android:text="Medium Text"
-        android:textSize="14sp" />
-
-    <TextView
         android:id="@+id/reply_parent_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="Large Text"
-        android:textStyle="bold" />
-    
+        android:textStyle="bold" 
+        android:textSize="17sp"/>
+
+    <TextView
+        android:id="@+id/reply_parent_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/reply_parent_title"
+        android:paddingTop="10dp"
+        android:text="Medium Text"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/reply_question_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/reply_parent_date"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="italic" />
+
     <View
         android:id="@+id/reply_divider"
         android:layout_width="fill_parent"
         android:layout_height="2dp"
-        android:layout_below="@+id/reply_parent_date"
-        android:layout_marginTop="8dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/reply_question_location"
+        android:layout_marginTop="16dp"
         android:background="?android:attr/listDivider" />
-    
+
     <TextView
         android:id="@+id/reply_seperator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/reply_divider"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

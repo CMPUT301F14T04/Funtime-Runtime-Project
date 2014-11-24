@@ -17,10 +17,9 @@
         android:id="@+id/reply_author_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="@string/question_adapter_date"
         android:layout_below="@+id/reply_author_textview"
+        android:text="@string/question_adapter_date"
         android:textSize="12sp"
         android:textStyle="italic" />
 
@@ -32,6 +31,17 @@
         android:layout_alignParentTop="true"
         android:text="@string/question_adapter_title"
         android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/reply_adapter_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/reply_author_date"
+        android:layout_below="@+id/reply_author_date"
+        android:text="TextView" 
+        android:textStyle="italic"
+        android:textSize="12sp"/>
 
 </RelativeLayout>
 

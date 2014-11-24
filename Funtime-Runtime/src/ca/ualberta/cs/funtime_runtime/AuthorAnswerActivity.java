@@ -20,6 +20,7 @@ import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
+import ca.ualberta.cs.funtime_runtime.classes.Geolocation;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.UpdateQuestionThread;
 /**
@@ -44,6 +45,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 	Account account;
 	String username;
 	ArrayList<Question> userAnsweredList;
+	Geolocation locator;
 	int camera_color = Color.parseColor("#001110");
 
 	/**
@@ -73,6 +75,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 		questionTitle.setText(question.getTitle());
 		questionBody.setText(question.getBody());
 		
+		
 	}
 	
 	/**
@@ -96,6 +99,8 @@ public class AuthorAnswerActivity extends CustomActivity {
 	 public void answer_question(View v){ 
 		 if (ApplicationState.isLoggedIn()) {
 			Answer answer = new Answer(answerBody.getText().toString(), username.toString());
+			locator = new Geolocation(this);
+			answer.setLocation(locator.getLocation());
 			userAnsweredList = account.getAnsweredList();
 			question.addAnswer(answer);
 			Thread updateThread = new UpdateQuestionThread(question);

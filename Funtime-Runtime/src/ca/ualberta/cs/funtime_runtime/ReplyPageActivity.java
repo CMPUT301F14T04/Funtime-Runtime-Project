@@ -45,6 +45,7 @@ public class ReplyPageActivity extends CustomActivity {
 	TextView parentDateText;
 	TextView parentUserText;
 	TextView parentReplyText;
+	TextView location;
 	
 	ListView replyListView;
 	
@@ -94,11 +95,16 @@ public class ReplyPageActivity extends CustomActivity {
 			parentReply = question.getReplyCount();
 			repliesList = question.getReplyList();
 			
+			
 			header = (View)inflater.inflate(R.layout.reply_page_header, null, false);
 			replyListView.addHeaderView(header);	
 			
 			parentTitleText = (TextView) findViewById(R.id.reply_parent_title);
 			parentTitleText.setText(parentTitle);	
+			
+			location = (TextView) findViewById(R.id.reply_question_location);
+			location.setText("Location: " + question.getLocation());
+			
 			
 		} else if (replyType.equals("answer")) {
 			
@@ -111,6 +117,9 @@ public class ReplyPageActivity extends CustomActivity {
 			
 			header = (View)inflater.inflate(R.layout.reply_answers_page_header, null, false);
 			replyListView.addHeaderView(header);	
+			
+			location = (TextView) findViewById(R.id.answer_reply_location);
+			location.setText("Location: " + answer.getLocation());
 		}
 		
 		parentBodyText = (TextView) findViewById(R.id.reply_parent_body);

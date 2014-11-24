@@ -15,6 +15,7 @@ import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
+import ca.ualberta.cs.funtime_runtime.classes.Geolocation;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.Reply;
 import ca.ualberta.cs.funtime_runtime.classes.UpdateQuestionThread;
@@ -45,6 +46,8 @@ public class AuthorReplyActivity extends CustomActivity {
 	String parentUsername;
 	ArrayList<Reply> replyList;
 	String replyType;
+	Geolocation locator;
+	
 	
 	/**
 	 * This is a standard onCreate method
@@ -117,6 +120,8 @@ public class AuthorReplyActivity extends CustomActivity {
 	 public void addReply(View v) { 
 		if (ApplicationState.isLoggedIn()) {
 			Reply reply = new Reply(typeReply.getText().toString(), username.toString());
+			locator = new Geolocation(this);
+			reply.setLocation(locator.getLocation());
 			question.addReply(reply);
 			Thread updateThread = new UpdateQuestionThread(question);
 			updateThread.start();

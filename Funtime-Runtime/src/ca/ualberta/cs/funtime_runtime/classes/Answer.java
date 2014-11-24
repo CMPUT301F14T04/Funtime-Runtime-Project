@@ -26,6 +26,7 @@ public class Answer implements Serializable {
 	private final Date date;
 	private int id;
 	private  Bitmap answerPhotoBitmap;
+	private String location;
 	
 	/**
 	 * This function initializes an answer 
@@ -161,5 +162,23 @@ public class Answer implements Serializable {
 	public void getPhoto(Bitmap bitmap){
 		answerPhotoBitmap = bitmap;
 	}
+	
+	/**
+	 * This question takes a Geolocation and sets it to the answer
+	 * @param location
+	 */
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
+	/**
+	 * Returns the locations of the answer was created at
+	 * @return
+	 */
+	public String getLocation() {
+		return location;
+	}
+	
+	
 
 }

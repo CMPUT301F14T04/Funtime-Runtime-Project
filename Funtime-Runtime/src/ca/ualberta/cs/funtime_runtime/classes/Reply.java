@@ -18,6 +18,7 @@ public class Reply implements Serializable {
 	private final String body;
 	private final String username;
 	private final Date date;
+	private String location;
 	
 	public int id; //used to elastic search (see getId and setId methods) 
 	
@@ -74,6 +75,22 @@ public class Reply implements Serializable {
 	 */
 	public void setId(int id){
 		this.id=id;
+	}
+	
+	/**
+	 * Sets the location the reply was made at
+	 * @param location
+	 */
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
+	/**
+	 * Returns the location the reply was made at
+	 * @return
+	 */
+	public String getLocation() {
+		return location;
 	}
 
 }
