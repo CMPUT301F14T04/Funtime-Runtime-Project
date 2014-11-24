@@ -25,6 +25,7 @@ import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Geolocation;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.UpdateAccountThread;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 /**
  * This view allows the user to create a question.
@@ -55,6 +56,7 @@ public class AuthorQuestionActivity extends CustomActivity {
     Deflater compressor = new Deflater();
     Random generator = new Random();
     private static final int RANDOM_NUMBER_CAP = 100000000;
+    UpdateAccountThread updateThread;
     //compressor.setLevel(Deflater.BEST_COMPRESSION);
 	int camera_color = Color.parseColor("#001110");
 	/**
@@ -130,6 +132,10 @@ public class AuthorQuestionActivity extends CustomActivity {
 		addServerQuestion(question);
 		
 		account.addToHistory(question); // Add question clicked to history
+		//account.authorQuestion(question);
+		updateThread = new UpdateAccountThread(account);
+		updateThread.start();
+		Log.i("Updated?", "Got here");
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("Question", question);
 		Intent intent = new Intent(AuthorQuestionActivity.this, QuestionPageActivity.class);

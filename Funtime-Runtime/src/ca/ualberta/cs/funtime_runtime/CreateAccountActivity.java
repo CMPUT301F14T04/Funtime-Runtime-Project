@@ -1,6 +1,7 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import android.app.ActionBar;
 import android.content.Context;
@@ -13,7 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
-import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.elastic.ESAccountManager;
 
 /**
@@ -26,6 +26,9 @@ public class CreateAccountActivity extends CustomActivity {
 	
 	private ESAccountManager manager;
 	ArrayList<Account> accountList;
+	Random generator;
+	private static final int RANDOM_NUMBER_CAP = 100000000;
+	public int id;
 	
 	protected void onCreate(Bundle savedInstanceState) 	{
 
@@ -37,6 +40,7 @@ public class CreateAccountActivity extends CustomActivity {
 		
 		Button createAccountButton = (Button) findViewById(R.id.createAccountButton);
 		manager = new ESAccountManager();
+		generator = new Random();
 		
 		final Context ctx = this;
 		
@@ -49,9 +53,10 @@ public class CreateAccountActivity extends CustomActivity {
                 String newUsername = createUsernameText.getText().toString();
                 if (newUsername.length() > 0) {
                 	// Get account list
-                	ArrayList<Account> accountList = ApplicationState.getAccountList();
-                	//SearchThread searchThread = new SearchThread("*");
-                    //searchThread.start();
+                	//ArrayList<Account> accountList = ApplicationState.getAccountList();
+                	accountList = new ArrayList<Account>();
+                	SearchThread searchThread = new SearchThread("*");
+                    searchThread.start();
                     
                 	// Check if account already exists
                 	String username = createUsernameText.getText().toString();
@@ -73,9 +78,11 @@ public class CreateAccountActivity extends CustomActivity {
                 	if (!accountExists) {
                 		// Create new account and add to AccountList
                 		Account newAccount = new Account(createUsernameText.getText().toString());
+                		id = generator.nextInt(RANDOM_NUMBER_CAP);
+                		newAccount.setId(id);
                 		ApplicationState.addAccount(newAccount);
-                		//AddThread addThread = new AddThread(newAccount);
-                		//addThread.start();
+                		AddThread addThread = new AddThread(newAccount);
+                		addThread.start();
 
                     	// Login the new account
                     	ApplicationState.setAccount(newAccount, ctx);
@@ -101,7 +108,6 @@ public class CreateAccountActivity extends CustomActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.create_account, menu);
 		return true;
