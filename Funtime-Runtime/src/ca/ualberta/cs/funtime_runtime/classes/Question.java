@@ -217,9 +217,13 @@ public class Question implements Serializable {
 		this.id=id;
 	}
 	
-	public void getPhoto(byte[] questionPhoto){
+	public void setPhoto(byte[] questionPhoto){
 		photo = questionPhoto;
 		hasPhoto = true;
+	}
+	
+	public byte[] getPhoto(){
+		return photo;
 	}
 	
 	public boolean getPhotoStatus(){

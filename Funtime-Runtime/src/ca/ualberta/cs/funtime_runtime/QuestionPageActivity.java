@@ -342,8 +342,10 @@ public class QuestionPageActivity extends CustomActivity {
 	 */
 	
 	public void show_photo(View v) {
-		
-	}
+		Intent bootPhoto = new Intent(this,ShowPhoto.class);
+		bootPhoto.putExtra("Photo", question.getPhoto());
+		startActivity(bootPhoto);
+		}
 	
 	/**
 	 * this button allows the user to upvote a question once 

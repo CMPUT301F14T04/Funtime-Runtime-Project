@@ -16,7 +16,7 @@
     <string name="home_rating_text">Rating: </string>
     <string name="home_answer_text">Answers: </string>
     <string name="home_date_text">Date Posted: </string>
-    
+
     <!-- Search Page Strings -->
     <string name="title_activity_search">Search Questions</string>
     <string name="search_text_field"><i>Search query</i></string>
@@ -63,9 +63,9 @@
     <string name="answer_parent_title">[answer_parent_title]</string>
     <string name="answer_parent_text">[answer_parent_text]</string>
 
-    <!--  Reply Page Strings -->
+    <!-- Reply Page Strings -->
     <string name="add_reply">Add Reply</string>
-    
+
     <!-- Author Reply Strings -->
     <string name="title_activity_author_reply">Author Reply</string>
     <string name="reply_parent_text">[reply_parent_text]</string>
@@ -120,5 +120,6 @@
     <string name="title_activity_info_popup">Info</string>
     <string name="reply_comment">Comment</string>
     <string name="title_activity_return">Home</string>
+    <string name="title_activity_show_photo">ShowPhoto</string>
 
 </resources>
