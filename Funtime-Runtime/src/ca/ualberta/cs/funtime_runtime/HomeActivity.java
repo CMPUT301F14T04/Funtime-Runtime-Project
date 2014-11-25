@@ -65,14 +65,14 @@ public class HomeActivity extends CustomActivity {
 		} 
 		//account = new Account("TestUser1");
 		//ApplicationState.setAccount(account);
-		questionManager = new ESQuestionManager();
+		//questionManager = new ESQuestionManager();
 		
-		//homeQuestionList = ApplicationState.getQuestionList();
+		homeQuestionList = ApplicationState.getQuestionList();
 		
 		homeListView = (ListView) findViewById(R.id.questionListView);
 
-		homeQuestionList = new ArrayList<Question>();
-		loadServerQuestions();
+		//homeQuestionList = new ArrayList<Question>();
+		//loadServerQuestions();
 		
 		
 		if ( !(ApplicationState.isOnline(this)) ) {
@@ -245,7 +245,8 @@ public class HomeActivity extends CustomActivity {
 
 	private void refresh() {
 		String sortType = sorter.getSortType();
-		loadServerQuestions();
+		ApplicationState.refresh();
+		homeQuestionList = ApplicationState.getQuestionList();
 		if (sortType.equals("Date")){
 			sorter.sortByDate();
 		} else if (sortType.equals("Votes")) {
