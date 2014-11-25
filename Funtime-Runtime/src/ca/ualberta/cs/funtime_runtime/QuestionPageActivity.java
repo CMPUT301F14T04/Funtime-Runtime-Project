@@ -344,6 +344,7 @@ public class QuestionPageActivity extends CustomActivity {
 	public void show_photo(View v) {
 		Intent bootPhoto = new Intent(this,ShowPhoto.class);
 		bootPhoto.putExtra("Photo", question.getPhoto());
+		bootPhoto.putExtra("hasPhoto?", question.getPhotoStatus());
 		startActivity(bootPhoto);
 		}
 	
