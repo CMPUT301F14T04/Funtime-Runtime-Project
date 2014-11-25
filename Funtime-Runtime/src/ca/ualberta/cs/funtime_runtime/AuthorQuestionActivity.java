@@ -53,7 +53,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	Bitmap photoBitmap;
 	boolean hasPhoto = false;
 	byte[] array;
-	byte[] compressedData;
+	byte[] compressedData = new byte[64000];
     Deflater compressor = new Deflater();
     Random generator = new Random();
     private static final int RANDOM_NUMBER_CAP = 100000000;
@@ -188,9 +188,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 	                	Log.i("Image Upload", ""+byteCount);
 	                }
 	                ByteArrayOutputStream blob = new ByteArrayOutputStream();
-	                photoBitmap.compress(CompressFormat.PNG, 0 /*ignored for PNG*/, blob);
+	                photoBitmap.compress(CompressFormat.JPEG, 20 /*ignored for PNG*/, blob);
 	                compressedData = blob.toByteArray();
-	                
+	                Log.i("size of byte array", ""+ (int)compressedData.length);
 //	                ByteBuffer buffer = ByteBuffer.allocate(byteCount); //Create a new buffer
 //	                photoBitmap.copyPixelsToBuffer(buffer); //Move the byte data to the buffer
 //	                array = buffer.array(); //Get the underlying array containing the data.
@@ -262,6 +262,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 		
 		@Override
 		public void run() {
+			
 			questionList.clear();
 			questionList.addAll(questionManager.searchQuestions(search, null));
 			if (!questionList.isEmpty()){
