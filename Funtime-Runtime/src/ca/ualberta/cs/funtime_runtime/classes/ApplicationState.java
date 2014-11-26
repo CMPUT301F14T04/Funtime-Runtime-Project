@@ -38,7 +38,7 @@ public class ApplicationState extends Application {
 	private static ESQuestionManager questionManager;
 	
 	public static void startup(Context ctx) {
-		/*
+		
 		SaveManager saveManager = new SaveManager();
 		Object obj;
 		try {
@@ -51,7 +51,7 @@ public class ApplicationState extends Application {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
+		
 		questionManager = new ESQuestionManager();
 		questionList = new ArrayList<Question>();
 		loadServerQuestions();
