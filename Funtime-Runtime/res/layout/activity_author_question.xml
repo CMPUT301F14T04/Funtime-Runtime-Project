@@ -84,6 +84,16 @@
         android:onClick="cancel_question"/>
  <!-- http://stackoverflow.com/questions/6777483/how-to-use-an-image-as-a-button -Friday October 24 2014 -->
  <!-- The information to create the camera button is from stackoverflow user Nikola Despotoski -->
- 
+
+    <ImageButton
+        android:id="@+id/add_location_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/add_image_button"
+        android:layout_marginRight="17dp"
+        android:layout_toLeftOf="@+id/add_image_button"
+        android:background="@android:color/transparent"
+        android:src="@android:drawable/ic_menu_mapmode" 
+        android:onClick="addLocation"/>
 
 </RelativeLayout>

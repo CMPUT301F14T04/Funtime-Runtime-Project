@@ -70,7 +70,7 @@ public class CreateAccountActivity extends CustomActivity {
                             String check = account.getName();
                 			if (check.equals(username)) {
                 				accountExists = true;
-                				Toast.makeText(ctx, "Account already exists. Please use a unique username.", Toast.LENGTH_SHORT).show();
+                				Toast.makeText(ctx, "Account already exists. Please use a unique username.", Toast.LENGTH_LONG).show();
                 				break;
                 			}
                 		}
@@ -86,9 +86,7 @@ public class CreateAccountActivity extends CustomActivity {
                 		addThread.start();
 
                     	// Login the new account
-                    	ApplicationState.setAccount(newAccount, ctx);
-                    	
-                    	// TODO update accountList on server
+                    	ApplicationState.setAccount(newAccount, ctx); 
                     	
                     	// Return to previous activity
                     	finish();

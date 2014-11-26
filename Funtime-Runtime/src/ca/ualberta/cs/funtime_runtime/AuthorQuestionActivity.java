@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Geolocation;
@@ -40,12 +41,15 @@ public class AuthorQuestionActivity extends CustomActivity {
 	Button submitButton;
 	Button addPhotoButton;
 	Button cancelButton;
+	ImageButton geoButton;
 	ImageButton photoButton;
 	EditText questionTitle;
 	EditText questionBody;
 	Account account;
 	String username;
 	ArrayList<Question> questionList;
+	Question question;
+	Geolocation geoLocation;
 	
 	//ArrayList<Question> userQuestionList;
 	ArrayList<Integer> userQuestionIdList;
@@ -53,6 +57,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	ESQuestionManager questionManager;
 	Bitmap photoBitmap;
 	boolean hasPhoto = false;
+	boolean hasLocation = false;
 	byte[] array;
 	byte[] compressedData = new byte[64000];
     Deflater compressor = new Deflater();
@@ -80,6 +85,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		submitButton = (Button) findViewById(R.id.submit_question_button);
+		geoButton = (ImageButton) findViewById(R.id.add_location_button);
 		//addPhotoButton = (Button) findViewById(R.id.add_question_image);
 		cancelButton = (Button) findViewById(R.id.cancel_button);
 		//addPhotoButton = (Button) findViewById(R.id.add_image_button);
@@ -113,16 +119,17 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 * @param v is a button within the activity.
 	 */
 	public void submitQuestion(View v) {
-		Question question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
-		Geolocation geoLocation = new Geolocation(this);
-		geoLocation.findLocation();
-		String location = geoLocation.getLocation();
-		question.setLocation(location);
+		question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
 		questionList = ApplicationState.getQuestionList();
 		userQuestionIdList = account.getQuestionList();
 		if (hasPhoto == true){
 			//question.getPhoto(array);
 			question.setPhoto(compressedData);
+		}
+		if (hasLocation) {
+			question.setLocation(geoLocation.getLocation());
+		} else {
+			question.setLocation("N/A");
 		}
 		questionList.add(0,question);
 		//userQuestionIdList.add(0,question.getId());
@@ -165,6 +172,15 @@ public class AuthorQuestionActivity extends CustomActivity {
 		photoPickerIntent.setType("image/*");
 		startActivityForResult(photoPickerIntent, 1);
 	
+	}
+	
+	public void addLocation(View v) {
+		geoLocation = new Geolocation(this);
+		geoLocation.findLocation();
+		hasLocation = true;
+		//String location = geoLocation.getLocation();
+		//question.setLocation(location);
+		Toast.makeText(this, "Location added", Toast.LENGTH_LONG).show();
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode,
