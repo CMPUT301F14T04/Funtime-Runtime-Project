@@ -122,7 +122,13 @@ public class AuthorReplyActivity extends CustomActivity {
 			Reply reply = new Reply(typeReply.getText().toString(), username.toString());
 			locator = new Geolocation(this);
 			reply.setLocation(locator.getLocation());
-			question.addReply(reply);
+			if (replyType.equals("question")){
+				question.addReply(reply);
+			} else if (replyType.equals("answer")){
+				answer.addReply(reply);
+				question = ApplicationState.getPassableQuestion();
+			}
+			
 			Thread updateThread = new UpdateQuestionThread(question);
 			updateThread.start();
 			
