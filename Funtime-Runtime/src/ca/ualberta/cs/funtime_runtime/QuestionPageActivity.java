@@ -382,6 +382,11 @@ public class QuestionPageActivity extends CustomActivity {
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
 		updateThread.start();
+		try {
+			updateThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
