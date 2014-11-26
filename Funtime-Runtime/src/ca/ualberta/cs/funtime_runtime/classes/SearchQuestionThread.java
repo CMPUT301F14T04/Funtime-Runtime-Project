@@ -3,12 +3,11 @@ package ca.ualberta.cs.funtime_runtime.classes;
 import android.content.Context;
 
 
-public class SearchThread extends Thread
-{
+public class SearchQuestionThread extends Thread {
 	private String search;
 	private Context context;
 	
-	public SearchThread(String s){		
+	public SearchQuestionThread(String s){		
 		search = s;
 	}
 	

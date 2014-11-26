@@ -6,6 +6,7 @@ import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import ca.ualberta.cs.funtime_runtime.elastic.ESAccountManager;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 
 /**
@@ -36,6 +37,7 @@ public class ApplicationState extends Application {
 	private static final String USERACCOUNT = "UserAccount.sav";
 	
 	private static ESQuestionManager questionManager;
+	private static ESAccountManager accountManager;
 	
 	public static void startup(Context ctx) {
 		
@@ -55,6 +57,7 @@ public class ApplicationState extends Application {
 		*/
 		
 		questionManager = new ESQuestionManager();
+		accountManager = new ESAccountManager();
 		questionList = new ArrayList<Question>();
 		loadServerQuestions();
 		
@@ -63,7 +66,7 @@ public class ApplicationState extends Application {
 	public static void loadServerQuestions() {
 		
 		
-		Thread loadThread = new SearchThread("*");
+		Thread loadThread = new SearchQuestionThread("*");
 		//Thread loadThread = new LoadHomeThread("*", homeQuestionList, adapter);
 		loadThread.start();	
 		
@@ -79,9 +82,26 @@ public class ApplicationState extends Application {
 		
 	}
 	
+	public static void loadServerAccounts() {
+		Thread accountThread = new SearchAccountThread("*");
+		accountThread.start();
+		try {
+			accountThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public static void loadBySearch(String search) {
 		ApplicationState.questionList.clear();
 		ApplicationState.questionList.addAll(questionManager.searchQuestions(search, null));	
+	}
+	
+	public static void loadAccounts(String search) {
+		ApplicationState.accountList.clear();
+		ApplicationState.accountList.addAll(accountManager.searchAccounts(search, null));	
+		
 	}
 	
 	public static void refresh() {
@@ -132,6 +152,7 @@ public class ApplicationState extends Application {
 	 */
 	public static ArrayList<Account> getAccountList() {
 		// TODO pull updated list from server before returning
+		loadServerAccounts();
 		return accountList;
 	}
 	
@@ -205,6 +226,8 @@ public class ApplicationState extends Application {
 		}
 		
 	}
+
+
 	
 	
 }
