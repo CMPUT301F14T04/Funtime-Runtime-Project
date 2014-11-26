@@ -1,0 +1,36 @@
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+   NaN    0.000000           0        12           read
+   NaN    0.000000           0         4           write
+   NaN    0.000000           0        17         7 open
+   NaN    0.000000           0        23           close
+   NaN    0.000000           0        24           lseek
+   NaN    0.000000           0         5           getpid
+   NaN    0.000000           0         1           access
+   NaN    0.000000           0         1           pipe
+   NaN    0.000000           0        10           ioctl
+   NaN    0.000000           0         3           gettimeofday
+   NaN    0.000000           0        48           munmap
+   NaN    0.000000           0         1           getpriority
+   NaN    0.000000           0         1           setpriority
+   NaN    0.000000           0         1           clone
+   NaN    0.000000           0        10           mprotect
+   NaN    0.000000           0         2           select
+   NaN    0.000000           0         6           flock
+   NaN    0.000000           0         7           writev
+   NaN    0.000000           0         2           nanosleep
+   NaN    0.000000           0         1           prctl
+   NaN    0.000000           0        11           mmap2
+   NaN    0.000000           0         3           stat64
+   NaN    0.000000           0         3           fstat64
+   NaN    0.000000           0         2           getuid32
+   NaN    0.000000           0        17         8 madvise
+   NaN    0.000000           0         8           fcntl64
+   NaN    0.000000           0         6           gettid
+   NaN    0.000000           0        76         1 futex
+   NaN    0.000000           0         1           set_thread_area
+   NaN    0.000000           0         1           epoll_create
+   NaN    0.000000           0         1           epoll_ctl
+   NaN    0.000000           0        60           clock_gettime
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.000000                   368        16 total
