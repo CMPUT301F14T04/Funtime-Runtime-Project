@@ -403,13 +403,11 @@ public class HomeActivity extends CustomActivity {
 	 */
 	private void openQuestion(int position) {
 		Question question = (Question) adapter.getItem(position);
-		if (loggedIn)
+		if (loggedIn) {
 			account.addToHistory(question); // Add question clicked to history
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("Question", question);
+		}
 		Intent intent = new Intent(this, QuestionPageActivity.class);
-		intent.putExtras(bundle);
-
+		
 		ApplicationState.setPassableQuestion(question);
 
 		startActivity(intent);

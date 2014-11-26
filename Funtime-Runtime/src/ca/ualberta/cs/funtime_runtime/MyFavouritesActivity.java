@@ -29,9 +29,11 @@ import android.widget.ListView;
 public class MyFavouritesActivity extends CustomActivity {
 
 	ListView favouritesListView;
+	
 	ArrayList<Question> myFavouritesList;
 	ArrayList<Question> appStateList;
 	ArrayList<Integer> myFavouritesIdList;
+	
 	QuestionListAdapter adapter;
 	Account account;
 	

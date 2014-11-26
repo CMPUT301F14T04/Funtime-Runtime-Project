@@ -44,7 +44,10 @@ public class AuthorAnswerActivity extends CustomActivity {
 	TextView questionBody;
 	Account account;
 	String username;
-	ArrayList<Question> userAnsweredList;
+	
+	//ArrayList<Question> userAnsweredList;
+	ArrayList<Integer> userAnsweredIdList;
+
 	Geolocation locator;
 	int camera_color = Color.parseColor("#001110");
 
@@ -101,7 +104,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 			Answer answer = new Answer(answerBody.getText().toString(), username.toString());
 			locator = new Geolocation(this);
 			answer.setLocation(locator.getLocation());
-			userAnsweredList = account.getAnsweredList();
+			userAnsweredIdList = account.getAnsweredList();
 			question.addAnswer(answer);
 			Thread updateThread = new UpdateQuestionThread(question);
 			updateThread.start();
@@ -111,7 +114,8 @@ public class AuthorAnswerActivity extends CustomActivity {
 				e.printStackTrace();
 			}
 	
-			userAnsweredList.add(0,question);
+			userAnsweredIdList.add(0,question.getId());
+			//TODO save account
 		
 			finish();
 		 } else {

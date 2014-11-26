@@ -32,9 +32,11 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	int res;
 	LayoutInflater inflater;
 	Account account;
-	ArrayList<Question> favouritesList;
+	
+	//ArrayList<Question> favouritesList;
 	ArrayList<Integer> favouritesIdList;
-	ArrayList<Question> upvotedList;	
+	ArrayList<Integer> upvotedIdList;	
+	
 	boolean loggedIn;
 	
 	public QuestionListAdapter(Context context, int resource, ArrayList<Question> objects) {
@@ -119,7 +121,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 			account = ApplicationState.getAccount();
 			favouritesIdList = account.getFavouritesList();
 			// Write code to grab all questions with 
-			upvotedList = account.getUpvotedQuestions();
+			upvotedIdList = account.getUpvotedQuestions();
 			
 			
 			ImageView star = (ImageView) theView.findViewById(R.id.adapterStar);
@@ -129,7 +131,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				star.setImageResource(android.R.drawable.btn_star_big_off);
 			}
 			
-			if (upvotedList.contains(question)) {
+			if (upvotedIdList.contains(question.getId())) {
 				ratingTextView.setTextColor(Color.parseColor("#e77619"));
 			} else {
 				ratingTextView.setTextColor(Color.parseColor("#000000"));

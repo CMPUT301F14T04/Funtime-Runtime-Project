@@ -33,7 +33,11 @@ import ca.ualberta.cs.funtime_runtime.classes.Question;
  */
 public class MyAnswersActivity extends CustomActivity {
 	ListView myAnsweredListView;
+	
 	ArrayList<Question> myAnsweredQuestionsList;
+	ArrayList<Integer> myAnsweredQuestionsIdList;
+	ArrayList<Question> appStateList;
+	
 	QuestionListAdapter adapter;
 	Account account;
 	boolean loggedIn;
@@ -50,8 +54,20 @@ public class MyAnswersActivity extends CustomActivity {
 		
 		account = ApplicationState.getAccount();
 		
-		myAnsweredQuestionsList = account.getAnsweredList();
+		myAnsweredQuestionsIdList = account.getAnsweredList();
 		myAnsweredListView = (ListView) findViewById(R.id.listView1);
+
+		myAnsweredQuestionsList = new ArrayList<Question>();
+		appStateList = new ArrayList<Question>();
+		appStateList = ApplicationState.getQuestionList();
+		for (Integer id: myAnsweredQuestionsIdList) {
+			for (Question q: appStateList) {
+				Integer qId = q.getId();
+				if (qId.equals(id)) {
+					myAnsweredQuestionsList.add(q);
+				}
+			}
+		}
 		
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myAnsweredQuestionsList);
 		
@@ -62,10 +78,8 @@ public class MyAnswersActivity extends CustomActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Question question = (Question) adapter.getItem(position);				
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("Question", question);
+
 				Intent intent = new Intent(MyAnswersActivity.this, QuestionPageActivity.class);
-				intent.putExtras(bundle);
 				
 				ApplicationState.setPassableQuestion(question);
 				

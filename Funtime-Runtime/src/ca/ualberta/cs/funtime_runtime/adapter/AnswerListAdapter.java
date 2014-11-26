@@ -37,7 +37,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 	int res;
 	LayoutInflater inflater;
 	Account account;
-	ArrayList<Answer> upvotedList;
+	ArrayList<Integer> upvotedList;
 	//ESQuestionManager manager = new ESQuestionManager();
 	UpdateQuestionThread updateThread;
 	boolean loggedIn;
@@ -142,7 +142,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		ImageButton answerViewPhotoButton = (ImageButton) theView.findViewById(R.id.answer_view_photo_button);
 		
 		if (loggedIn) {
-			if (upvotedList.contains(answer)) {
+			if (upvotedList.contains(answer.getId())) {
 				answerRating.setTextColor(Color.parseColor("#e77619"));
 			} else {
 				answerRating.setTextColor(Color.parseColor("#000000"));
@@ -165,8 +165,8 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 				Answer answer = getItem((Integer) v.getTag());
 				Account account = ApplicationState.getAccount();
 				if (ApplicationState.isLoggedIn()) {
-					ArrayList<Answer> upvotedAnswers = account.getUpvotedAnswers();
-					if (upvotedAnswers.contains(answer)) {
+					ArrayList<Integer> upvotedAnswers = account.getUpvotedAnswers();
+					if (upvotedAnswers.contains(answer.getId())) {
 						account.downvoteAnswer(answer);
 					} else {
 						account.upvoteAnswer(answer);

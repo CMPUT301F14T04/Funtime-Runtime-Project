@@ -30,7 +30,10 @@ import ca.ualberta.cs.funtime_runtime.classes.Question;
 
 public class MyQuestionsActivity extends CustomActivity {
 	ListView myQuestionsListView;
-	ArrayList<Question> myQuestionList;
+	ArrayList<Question> myQuestionsList;
+	ArrayList<Integer> myQuestionsIdList;
+	ArrayList<Question> appStateList;
+	
 	QuestionListAdapter adapter;
 	Account account;
 
@@ -43,11 +46,22 @@ public class MyQuestionsActivity extends CustomActivity {
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
 		account = ApplicationState.getAccount();
-		myQuestionList = account.getQuestionList();
+		myQuestionsIdList = account.getQuestionList();
+		
+		myQuestionsList = new ArrayList<Question>();
+		appStateList = ApplicationState.getQuestionList();
+		for (Integer id: myQuestionsIdList) {
+			for (Question q: appStateList) {
+				Integer qId = q.getId();
+				if (qId.equals(id)) {
+					myQuestionsList.add(q);
+				}
+			}
+		}
 
 		myQuestionsListView = (ListView) findViewById(R.id.listView1);
 		
-		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myQuestionList);
+		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myQuestionsList);
 		myQuestionsListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();
 		

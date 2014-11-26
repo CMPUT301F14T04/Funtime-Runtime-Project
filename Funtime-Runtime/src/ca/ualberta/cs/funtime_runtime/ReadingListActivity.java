@@ -32,7 +32,11 @@ import android.widget.ListView;
 public class ReadingListActivity extends CustomActivity {
 
 	ListView readingListView;
+	
 	ArrayList<Question> readingList;
+	ArrayList<Question> appStateList;
+	ArrayList<Integer> readingIdList;
+	
 	QuestionListAdapter adapter;
 	Account account;
 	
@@ -51,7 +55,17 @@ public class ReadingListActivity extends CustomActivity {
 		account = ApplicationState.getAccount();
 
 		// Retrieve account's reading list
-		readingList = account.getReadingList();
+		readingIdList = account.getReadingList();
+		readingList = new ArrayList<Question>();
+		appStateList = ApplicationState.getQuestionList();
+		for (Integer id: readingIdList) {
+			for (Question q: appStateList) {
+				Integer qId = q.getId();
+				if (qId.equals(id)) {
+					readingList.add(q);
+				}
+			}
+		}
 
 		// Set adapter for list
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, readingList);

@@ -48,7 +48,10 @@ public class AuthorQuestionActivity extends CustomActivity {
 	Account account;
 	String username;
 	ArrayList<Question> questionList;
-	ArrayList<Question> userQuestionList;
+	
+	//ArrayList<Question> userQuestionList;
+	ArrayList<Integer> userQuestionIdList;
+	
 	ESQuestionManager questionManager;
 	Bitmap photoBitmap;
 	boolean hasPhoto = false;
@@ -120,13 +123,13 @@ public class AuthorQuestionActivity extends CustomActivity {
 		//location.getLocation(location);
 		//question.setLocation(location);
 		questionList = ApplicationState.getQuestionList();
-		userQuestionList = account.getQuestionList();
+		userQuestionIdList = account.getQuestionList();
 		if (hasPhoto == true){
 			//question.getPhoto(array);
 			question.setPhoto(compressedData);
 		}
 		questionList.add(0,question);
-		userQuestionList.add(0,question);
+		userQuestionIdList.add(0,question.getId());
 
 		// Elastic search code
 		generateId(question);		

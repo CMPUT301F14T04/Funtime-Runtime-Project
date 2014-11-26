@@ -6,7 +6,6 @@ import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import ca.ualberta.cs.funtime_runtime.HomeActivity;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 
 /**
@@ -179,6 +178,7 @@ public class ApplicationState extends Application {
 	 */
 	public static ArrayList<Question> getQuestionList() {
 		//TODO grab the master question list from the sever before returning
+		//refresh();
 		return questionList;
 	}
 	

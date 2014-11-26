@@ -60,10 +60,16 @@ public class QuestionPageActivity extends CustomActivity {
 	ImageButton bookmark_button;
 	ImageButton photo_button;
 	Question question;
+	
+	/*
 	ArrayList<Question> favourited_list;
-	ArrayList<Integer> favourited_id_list;
 	ArrayList<Question> upvoted_list;
 	ArrayList<Question> bookmarked_list;
+	*/
+
+	ArrayList<Integer> favourited_id_list;
+	ArrayList<Integer> upvoted_id_list;
+	ArrayList<Integer> bookmarked_id_list;
 	ESQuestionManager manager;
 	Boolean favourited = false;
 	Boolean upvoted = false;
@@ -126,8 +132,8 @@ public class QuestionPageActivity extends CustomActivity {
 				favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
 			}
 			
-			upvoted_list = account.getUpvotedQuestions();
-			if (upvoted_list.contains(question)) {
+			upvoted_id_list = account.getUpvotedQuestions();
+			if (upvoted_id_list.contains(question.getId())) {
 				upvoted = true;
 				questionUpvote.setTextColor(upvote_color);
 			} else {
@@ -137,23 +143,27 @@ public class QuestionPageActivity extends CustomActivity {
 			questionUpvote.setText(Integer.toString(rating));
 			
 	
-			bookmarked_list = account.getReadingList();
-			if (bookmarked_list.contains(question)) {
+			bookmarked_id_list = account.getReadingList();
+			if (bookmarked_id_list.contains(question.getId())) {
 				Intent intent = getIntent();
 				Bundle extras = intent.getExtras();
 				
-				String readingCheck = extras.getString("ReadingCheck");
-				if (readingCheck != null) {
-					extras.remove("ReadingCheck");
-					bookmarked_list.remove(question);
-					bookmark_button.setColorFilter(not_bookmarked_color);
+				if (extras != null ) {
+					String readingCheck = extras.getString("ReadingCheck");
+					if (readingCheck != null) {
+						extras.remove("ReadingCheck");
+						account.removeReadLater(question);
+						bookmark_button.setColorFilter(not_bookmarked_color);
+					} 
 				} else {
-					bookmarked = true;
-					bookmark_button.setColorFilter(bookmarked_color);
+						bookmarked = true;
+						bookmark_button.setColorFilter(bookmarked_color);
 				}
 			} else {
 				bookmark_button.setColorFilter(not_bookmarked_color);
 			}
+			
+			//account.addToHistory(question);
 			
 
 		}
@@ -231,8 +241,8 @@ public class QuestionPageActivity extends CustomActivity {
 				favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
 			}
 			
-			upvoted_list = account.getUpvotedQuestions();
-			if (upvoted_list.contains(question)) {
+			upvoted_id_list = account.getUpvotedQuestions();
+			if (upvoted_id_list.contains(question.getId())) {
 				upvoted = true;
 				questionUpvote.setTextColor(upvote_color);
 			} else {
@@ -241,8 +251,8 @@ public class QuestionPageActivity extends CustomActivity {
 			rating = question.getRating();
 			questionUpvote.setText(Integer.toString(rating));
 			
-			bookmarked_list = account.getReadingList();
-			if (bookmarked_list.contains(question)) {
+			bookmarked_id_list = account.getReadingList();
+			if (bookmarked_id_list.contains(question.getId())) {
 				bookmarked = true;
 				bookmark_button.setColorFilter(bookmarked_color);
 			} else {
