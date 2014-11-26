@@ -38,7 +38,17 @@ public class QuestionSorter {
 		sortType = "Votes";
 		Collections.sort(sortList, new Comparator<Question>() {
 			  public int compare(Question q1, Question q2) {
-			      return q1.getRating() - q2.getRating();
+				  Integer r1 = q1.getRating();
+				  Integer r2 = q2.getRating();
+				  
+				  int pStatus = r1.compareTo(r2);
+				  if (pStatus != 0) {
+					  return pStatus;
+				  } else {
+					  Date d1 = q1.getDate();
+					  Date d2 = q2.getDate();
+					  return d1.compareTo(d2);
+				  }
 			  }
 		});
 		Collections.reverse(sortList);
