@@ -73,6 +73,8 @@ public class HomeActivity extends CustomActivity {
 
 		//homeQuestionList = new ArrayList<Question>();
 		//loadServerQuestions();
+		homeQuestionList = ApplicationState.getQuestionList();
+		//loadServerQuestions();
 		
 		
 		if ( !(ApplicationState.isOnline(this)) ) {
@@ -465,8 +467,9 @@ public class HomeActivity extends CustomActivity {
 		
 		@Override
 		public void run() {
-			homeQuestionList.clear();		
-			homeQuestionList.addAll(questionManager.searchQuestions(search, null));			
+			ArrayList<Question> appStateList = ApplicationState.getQuestionList();
+//			homeQuestionList.clear();		
+//			homeQuestionList.addAll(questionManager.searchQuestions(search, null));			
 			runOnUiThread(updateHomeUI);	
 		}
 		

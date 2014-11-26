@@ -30,6 +30,8 @@ public class MyFavouritesActivity extends CustomActivity {
 
 	ListView favouritesListView;
 	ArrayList<Question> myFavouritesList;
+	ArrayList<Question> appStateList;
+	ArrayList<Integer> myFavouritesIdList;
 	QuestionListAdapter adapter;
 	Account account;
 	
@@ -48,12 +50,23 @@ public class MyFavouritesActivity extends CustomActivity {
 		account = ApplicationState.getAccount();
 
 		// Retrieve account's favourited questions list
-		myFavouritesList = account.getFavouritesList();
+		myFavouritesIdList = account.getFavouritesList();
+		myFavouritesList = new ArrayList<Question>();
+		appStateList = ApplicationState.getQuestionList();
+		for (Integer id: myFavouritesIdList) {
+			for (Question q: appStateList) {
+				Integer qId = q.getId();
+				if (qId.equals(id)) {
+					myFavouritesList.add(q);
+				}
+			}
+		}
+		// Write code to convert ids to question, populate favorites list
 		
 		// Set up adapter for list
-		ArrayList<Question> favouritesList = new ArrayList<Question>();
-		favouritesList = myFavouritesList;
-		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, favouritesList);
+		//ArrayList<Question> favouritesList = new ArrayList<Question>();
+		//favouritesList = myFavouritesList;
+		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myFavouritesList);
 		favouritesListView.setAdapter(adapter);	
 		adapter.notifyDataSetChanged();
 		

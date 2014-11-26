@@ -21,7 +21,7 @@ public class Account implements Serializable {
 	private static final long serialVersionUID = -1130304605213585452L;
 	
 	private String username;
-	private ArrayList<Question> favourites;
+	private ArrayList<Integer> favourites;
 	private ArrayList<Question> answeredList;
 	private ArrayList<Question> questionList;
 	private ArrayList<Question> readingList;
@@ -39,7 +39,7 @@ public class Account implements Serializable {
 	 */
 	public Account(String username) {
 		this.username = username;
-		favourites = new ArrayList<Question>();
+		favourites = new ArrayList<Integer>();
 		answeredList = new ArrayList<Question>();
 		questionList = new ArrayList<Question>();
 		readingList = new ArrayList<Question>();
@@ -133,7 +133,7 @@ public class Account implements Serializable {
 	 * @param question		a question the user has indicated they want to favourite
 	 */
 	public void addFavourite(Question question) {
-		favourites.add(0, question);
+		favourites.add(0, question.getId());
 	}
 	
 	/**
@@ -147,7 +147,7 @@ public class Account implements Serializable {
 	/**
 	 * @return		the list of questions the user has favourited
 	 */
-	public ArrayList<Question> getFavouritesList() {
+	public ArrayList<Integer> getFavouritesList() {
 		return favourites;
 	}
 

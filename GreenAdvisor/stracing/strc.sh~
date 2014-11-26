@@ -1,0 +1,7 @@
+while ! ps  | grep -q -i $1 ; do :; done;
+ps | grep -i $1 | while read a b c; do
+        strace -f -c  -p $b -o /data/local/trc.txt
+       #kill $b;
+done;
+
+

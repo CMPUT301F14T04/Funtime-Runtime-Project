@@ -33,7 +33,7 @@ public class Question implements Serializable {
 	private int rating;
 	//private  Bitmap photoBitmap;
 	private byte[] photo = null;
-	private boolean hasPhoto = false;
+	private Boolean hasPhoto = false;
 	private String location;
 	
 	public int photoId;
@@ -226,7 +226,7 @@ public class Question implements Serializable {
 		return photo;
 	}
 	
-	public boolean getPhotoStatus(){
+	public Boolean getPhotoStatus(){
 		return hasPhoto;
 		
 	}

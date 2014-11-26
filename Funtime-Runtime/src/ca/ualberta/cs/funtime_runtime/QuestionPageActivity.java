@@ -61,6 +61,7 @@ public class QuestionPageActivity extends CustomActivity {
 	ImageButton photo_button;
 	Question question;
 	ArrayList<Question> favourited_list;
+	ArrayList<Integer> favourited_id_list;
 	ArrayList<Question> upvoted_list;
 	ArrayList<Question> bookmarked_list;
 	ESQuestionManager manager;
@@ -117,8 +118,8 @@ public class QuestionPageActivity extends CustomActivity {
 		
 		boolean loggedIn = ApplicationState.isLoggedIn();
 		if (loggedIn) {
-			favourited_list = account.getFavouritesList();
-			if (favourited_list.contains(question)) {
+			favourited_id_list = account.getFavouritesList();
+			if (favourited_id_list.contains(question.getId())) {
 				favourited = true;
 				favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
 			} else {
@@ -222,8 +223,8 @@ public class QuestionPageActivity extends CustomActivity {
 		super.onRestart();
 		account = ApplicationState.getAccount();
 		if (ApplicationState.isLoggedIn()) {
-			favourited_list = account.getFavouritesList();
-			if (favourited_list.contains(question)) {
+			favourited_id_list = account.getFavouritesList();
+			if (favourited_id_list.contains(question)) {
 				favourited = true;
 				favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
 			} else {
