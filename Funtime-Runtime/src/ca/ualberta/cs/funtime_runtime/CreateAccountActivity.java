@@ -54,9 +54,10 @@ public class CreateAccountActivity extends CustomActivity {
                 if (newUsername.length() > 0) {
                 	// Get account list
                 	//ArrayList<Account> accountList = ApplicationState.getAccountList();
-                	accountList = new ArrayList<Account>();
-                	SearchThread searchThread = new SearchThread("*");
-                    searchThread.start();
+                	//accountList = new ArrayList<Account>();
+                	//SearchThread searchThread = new SearchThread("*");
+                    //searchThread.start();
+                	accountList = ApplicationState.getAccountList();
                     
                 	// Check if account already exists
                 	String username = createUsernameText.getText().toString();
