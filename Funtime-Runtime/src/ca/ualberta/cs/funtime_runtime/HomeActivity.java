@@ -75,6 +75,7 @@ public class HomeActivity extends CustomActivity {
 		//loadServerQuestions();
 		
 		
+		
 		if ( !(ApplicationState.isOnline(this)) ) {
 			String offlineNotice;
 			offlineNotice = "No Connection Available";
