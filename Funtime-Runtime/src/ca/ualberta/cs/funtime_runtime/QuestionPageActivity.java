@@ -154,11 +154,12 @@ public class QuestionPageActivity extends CustomActivity {
 				bookmark_button.setColorFilter(not_bookmarked_color);
 			}
 			
-			if (question.getPhotoStatus()){
-				photo_button.setColorFilter(has_photo_color);
-			}
+
 		}
-			
+		
+		if (question.getPhotoStatus()){
+				photo_button.setColorFilter(has_photo_color);
+		}	
 		questionAuthor = (TextView) findViewById(R.id.question_author_text);
 		questionDate = (TextView) findViewById(R.id.question_date_text);
 		answersTitle = (TextView) findViewById(R.id.answers_title_text);
