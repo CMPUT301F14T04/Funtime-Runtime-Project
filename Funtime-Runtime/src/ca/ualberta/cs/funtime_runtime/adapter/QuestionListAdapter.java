@@ -28,11 +28,12 @@ import ca.ualberta.cs.funtime_runtime.classes.Question;
 public class QuestionListAdapter extends ArrayAdapter<Question> {
 	Context ctx;
 	Question question;
-	List<Question> questionList;
+	ArrayList<Question> questionList;
 	int res;
 	LayoutInflater inflater;
 	Account account;
 	ArrayList<Question> favouritesList;
+	ArrayList<Integer> favouritesIdList;
 	ArrayList<Question> upvotedList;	
 	boolean loggedIn;
 	
@@ -116,12 +117,13 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		loggedIn = ApplicationState.isLoggedIn();
 		if (loggedIn) {
 			account = ApplicationState.getAccount();
-			favouritesList = account.getFavouritesList();
+			favouritesIdList = account.getFavouritesList();
+			// Write code to grab all questions with 
 			upvotedList = account.getUpvotedQuestions();
 			
 			
 			ImageView star = (ImageView) theView.findViewById(R.id.adapterStar);
-			if (favouritesList.contains(question)) {
+			if (favouritesIdList.contains(question.getId())) {
 				star.setImageResource(android.R.drawable.btn_star_big_on);
 			} else {
 				star.setImageResource(android.R.drawable.btn_star_big_off);
