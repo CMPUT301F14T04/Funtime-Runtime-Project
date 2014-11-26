@@ -40,7 +40,7 @@ public class Account implements Serializable {
 	private ArrayList<Integer> upvotedQuestions;
 	private ArrayList<Integer> upvotedAnswers;
 	
-	private int id;
+	private Integer id;
 	
 	
 	/**
@@ -82,7 +82,8 @@ public class Account implements Serializable {
 	 * 						been added to the master questsion list
 	 */
 	public void authorQuestion(Question question) {
-		questionList.add(0, question.getId());
+		questionList.add(question.getId());
+		ApplicationState.updateAccount();
 		
 	}
 
@@ -115,7 +116,11 @@ public class Account implements Serializable {
 	 * 						parent question
 	 */
 	public void answerQuestion(Question question) {
-		answeredList.add(0, question.getId());
+		if (!answeredList.contains(question.getId())){
+			answeredList.add(question.getId());
+		}
+		
+		ApplicationState.updateAccount();
 	}
 
 	/**
@@ -145,7 +150,8 @@ public class Account implements Serializable {
 	 * @param question		a question the user has indicated they want to favourite
 	 */
 	public void addFavourite(Question question) {
-		favourites.add(0, question.getId());
+		favourites.add(question.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
@@ -154,6 +160,7 @@ public class Account implements Serializable {
 	 */
 	public void removeFavourite(Question question) {
 		favourites.remove( (Integer) question.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
@@ -168,7 +175,8 @@ public class Account implements Serializable {
 	 * @param question		a question the user has indicated they want to save to read later
 	 */
 	public void readLater(Question question) {
-		readingList.add(0, question.getId());
+		readingList.add(question.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
@@ -176,7 +184,8 @@ public class Account implements Serializable {
 	 * @param question		a question to be removed from the read later list
 	 */
 	public void removeReadLater(Question question) {
-		readingList.remove( (Integer) question.getId());
+		readingList.remove(question.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
@@ -194,6 +203,7 @@ public class Account implements Serializable {
 		if ( !(history.contains(question.getId()) ) ) {
 			history.add(question.getId());
 		}
+		ApplicationState.updateAccount();
 	}
 	
 	/**
@@ -209,7 +219,8 @@ public class Account implements Serializable {
 	 */
 	public void upvoteQuestion(Question question) {
 		question.upVote();
-		upvotedQuestions.add(0, question.getId());
+		upvotedQuestions.add(question.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
@@ -218,7 +229,8 @@ public class Account implements Serializable {
 	 */
 	public void downvoteQuestion(Question question) {
 		question.downVote();
-		upvotedQuestions.remove( (Integer) question.getId());
+		upvotedQuestions.remove(question.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
@@ -234,7 +246,8 @@ public class Account implements Serializable {
 	 */
 	public void upvoteAnswer(Answer answer) {
 		answer.upVote();
-		upvotedAnswers.add(0, answer.getId());
+		upvotedAnswers.add(answer.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
@@ -243,7 +256,8 @@ public class Account implements Serializable {
 	 */
 	public void downvoteAnswer(Answer answer) {
 		answer.downVote();
-		upvotedAnswers.remove( (Integer) answer.getId());
+		upvotedAnswers.remove(answer.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
@@ -257,7 +271,7 @@ public class Account implements Serializable {
 	 * Returns the server id of the account
 	 * @return id
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	

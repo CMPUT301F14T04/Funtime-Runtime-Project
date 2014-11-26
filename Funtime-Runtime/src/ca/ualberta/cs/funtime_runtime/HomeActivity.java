@@ -403,9 +403,7 @@ public class HomeActivity extends CustomActivity {
 	 */
 	private void openQuestion(int position) {
 		Question question = (Question) adapter.getItem(position);
-		if (loggedIn) {
-			account.addToHistory(question); // Add question clicked to history
-		}
+		
 		Intent intent = new Intent(this, QuestionPageActivity.class);
 		
 		ApplicationState.setPassableQuestion(question);

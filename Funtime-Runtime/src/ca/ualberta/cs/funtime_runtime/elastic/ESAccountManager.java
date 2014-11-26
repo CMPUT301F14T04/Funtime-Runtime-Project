@@ -49,7 +49,7 @@ public class ESAccountManager {
 	
 	
 	public void updateAccount(Account account) {
-		deleteAccount(account.getId());
+		deleteAccount(account);
 		addAccount(account);
 	}
 
@@ -142,7 +142,7 @@ public class ESAccountManager {
 	 * @param id
 	 */
 	
-	public void deleteAccount(int accountId) 	{
+	public void deleteAccount(Account account) 	{
 		// TODO Auto-generated method stub
 		//SAME AS ABOVE NEED --decrement Id
 		//ALSO CHECK RESOURSE URL AND SEARCH URL
@@ -150,7 +150,7 @@ public class ESAccountManager {
 		HttpClient httpClient = new DefaultHttpClient();
 
 		try {
-			HttpDelete deleteRequest = new HttpDelete(RESOURCE_URL + accountId);
+			HttpDelete deleteRequest = new HttpDelete(RESOURCE_URL + account.getId());
 			deleteRequest.setHeader("Accept", "application/json");
 
 			HttpResponse response = httpClient.execute(deleteRequest);

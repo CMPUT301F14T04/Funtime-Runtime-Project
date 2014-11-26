@@ -37,7 +37,7 @@ public class Question implements Serializable {
 	private String location;
 	
 	public int photoId;
-	public int id; //used for elastic search (see setId and getId methods)
+	public Integer id; //used for elastic search (see setId and getId methods)
 	/**
 	 * 
 	 * This function initializes a question
@@ -205,7 +205,7 @@ public class Question implements Serializable {
 	 * this function gets the ID associated with a certain question
 	 * @return int id
 	 */
-	public int getId(){
+	public Integer getId(){
 		return id;
 	}
 	

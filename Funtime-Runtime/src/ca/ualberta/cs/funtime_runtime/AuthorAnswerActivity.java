@@ -106,6 +106,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 			answer.setLocation(locator.getLocation());
 			userAnsweredIdList = account.getAnsweredList();
 			question.addAnswer(answer);
+			account.answerQuestion(question);
 			Thread updateThread = new UpdateQuestionThread(question);
 			updateThread.start();
 			try {
@@ -114,7 +115,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 				e.printStackTrace();
 			}
 	
-			userAnsweredIdList.add(0,question.getId());
+			//userAnsweredIdList.add(0,question.getId());
 			//TODO save account
 		
 			finish();

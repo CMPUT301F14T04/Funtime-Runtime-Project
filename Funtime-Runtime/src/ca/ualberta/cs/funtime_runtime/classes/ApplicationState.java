@@ -194,6 +194,17 @@ public class ApplicationState extends Application {
 		return msg;
 	}
 	
+	public static void updateAccount() {
+		// TODO Add checks for online vs offline
+		UpdateAccountThread accountThread = new UpdateAccountThread(account);
+		accountThread.start();
+		try {
+			accountThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 }

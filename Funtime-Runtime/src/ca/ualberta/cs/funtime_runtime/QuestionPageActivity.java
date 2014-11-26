@@ -124,6 +124,9 @@ public class QuestionPageActivity extends CustomActivity {
 		
 		boolean loggedIn = ApplicationState.isLoggedIn();
 		if (loggedIn) {
+			
+			account.addToHistory(question);
+			
 			favourited_id_list = account.getFavouritesList();
 			if (favourited_id_list.contains(question.getId())) {
 				favourited = true;
@@ -162,6 +165,7 @@ public class QuestionPageActivity extends CustomActivity {
 			} else {
 				bookmark_button.setColorFilter(not_bookmarked_color);
 			}
+			
 			
 			//account.addToHistory(question);
 			

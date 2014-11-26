@@ -1,8 +1,6 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.zip.Deflater;
@@ -120,8 +118,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 		geoLocation.findLocation();
 		String location = geoLocation.getLocation();
 		question.setLocation(location);
-		//location.getLocation(location);
-		//question.setLocation(location);
 		questionList = ApplicationState.getQuestionList();
 		userQuestionIdList = account.getQuestionList();
 		if (hasPhoto == true){
@@ -129,17 +125,14 @@ public class AuthorQuestionActivity extends CustomActivity {
 			question.setPhoto(compressedData);
 		}
 		questionList.add(0,question);
-		userQuestionIdList.add(0,question.getId());
+		//userQuestionIdList.add(0,question.getId());
 
 		// Elastic search code
 		generateId(question);		
 		addServerQuestion(question);
 		
-		account.addToHistory(question); // Add question clicked to history
-		//account.authorQuestion(question);
-		updateThread = new UpdateAccountThread(account);
-		updateThread.start();
-		Log.i("Updated?", "Got here");
+		account.authorQuestion(question);
+
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("Question", question);
 		Intent intent = new Intent(AuthorQuestionActivity.this, QuestionPageActivity.class);
