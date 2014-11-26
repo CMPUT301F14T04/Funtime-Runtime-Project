@@ -65,7 +65,8 @@ public class AuthorQuestionActivity extends CustomActivity {
     private static final int RANDOM_NUMBER_CAP = 100000000;
     UpdateAccountThread updateThread;
     //compressor.setLevel(Deflater.BEST_COMPRESSION);
-	int camera_color = Color.parseColor("#001110");
+	int CAMERA_COLOR = Color.parseColor("#001110");
+	int MAP_COLOR = Color.parseColor("#3366FF");
 	/**
 	 * This is a standard onCreate method
 	 * In this method we link this java file with the xml.
@@ -92,7 +93,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 		questionTitle = (EditText) findViewById(R.id.question_title_text);
 		questionBody = (EditText) findViewById(R.id.question_body_text);
 		photoButton = (ImageButton)  findViewById(R.id.add_image_button);
-		photoButton.setColorFilter(camera_color);
+		photoButton.setColorFilter(CAMERA_COLOR);
 		account = ApplicationState.getAccount();
 		username = account.getName();
 		questionManager = new ESQuestionManager();
@@ -128,8 +129,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 		}
 		if (hasLocation) {
 			question.setLocation(geoLocation.getLocation());
-		} else {
-			question.setLocation("N/A");
 		}
 		questionList.add(0,question);
 		//userQuestionIdList.add(0,question.getId());
@@ -178,9 +177,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 		geoLocation = new Geolocation(this);
 		geoLocation.findLocation();
 		hasLocation = true;
-		//String location = geoLocation.getLocation();
-		//question.setLocation(location);
 		Toast.makeText(this, "Location added", Toast.LENGTH_LONG).show();
+		geoButton.setColorFilter(MAP_COLOR);
+		
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode,

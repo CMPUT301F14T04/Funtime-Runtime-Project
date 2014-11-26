@@ -18,7 +18,7 @@ public class Reply implements Serializable {
 	private final String body;
 	private final String username;
 	private final Date date;
-	private String location;
+	private String location = "N/A";
 	
 	public int id; //used to elastic search (see getId and setId methods) 
 	

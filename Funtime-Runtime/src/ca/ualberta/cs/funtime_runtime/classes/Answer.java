@@ -26,7 +26,7 @@ public class Answer implements Serializable {
 	private final Date date;
 	private int id;
 	private  Bitmap answerPhotoBitmap;
-	private String location;
+	private String location = "N/A";
 	
 	/**
 	 * This function initializes an answer 

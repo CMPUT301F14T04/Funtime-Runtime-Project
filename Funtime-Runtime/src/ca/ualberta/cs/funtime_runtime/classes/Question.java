@@ -34,7 +34,7 @@ public class Question implements Serializable {
 	//private  Bitmap photoBitmap;
 	private byte[] photo = null;
 	private Boolean hasPhoto = false;
-	private String location;
+	private String location = "N/A";
 	
 	public int photoId;
 	public Integer id; //used for elastic search (see setId and getId methods)
