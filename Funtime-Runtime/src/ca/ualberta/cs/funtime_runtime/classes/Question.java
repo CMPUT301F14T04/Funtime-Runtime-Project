@@ -33,11 +33,11 @@ public class Question implements Serializable {
 	private int rating;
 	//private  Bitmap photoBitmap;
 	private byte[] photo = null;
-	private boolean hasPhoto = false;
-	private String location;
+	private Boolean hasPhoto = false;
+	private String location = "N/A";
 	
 	public int photoId;
-	public int id; //used for elastic search (see setId and getId methods)
+	public Integer id; //used for elastic search (see setId and getId methods)
 	/**
 	 * 
 	 * This function initializes a question
@@ -205,7 +205,7 @@ public class Question implements Serializable {
 	 * this function gets the ID associated with a certain question
 	 * @return int id
 	 */
-	public int getId(){
+	public Integer getId(){
 		return id;
 	}
 	
@@ -226,7 +226,7 @@ public class Question implements Serializable {
 		return photo;
 	}
 	
-	public boolean getPhotoStatus(){
+	public Boolean getPhotoStatus(){
 		return hasPhoto;
 		
 	}

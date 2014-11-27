@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
@@ -41,17 +42,25 @@ public class AuthorAnswerActivity extends CustomActivity {
 	
 	Question question;
 	Button submitButton;
+	ImageButton geoButton;
 	EditText answerBody;
 	TextView questionTitle;
 	TextView questionBody;
 	Account account;
 	String username;
-	ArrayList<Question> userAnsweredList;
+	ArrayList<Integer> userAnsweredList;
 	Geolocation locator;
-	int camera_color = Color.parseColor("#001110");
 	byte[] compressedData = new byte[64000];
 	boolean hasPhoto = false;
 	Bitmap photoBitmap;
+	
+	//ArrayList<Question> userAnsweredList;
+	ArrayList<Integer> userAnsweredIdList;
+	boolean hasLocation = false;
+
+	Geolocation geoLocation;
+	int CAMERA_COLOR = Color.parseColor("#001110");
+	int MAP_COLOR = Color.parseColor("#3366FF");
 
 	/**
 	 * This is a standard onCreate method
@@ -72,6 +81,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 		questionBody = (TextView) findViewById(R.id.questionBodyAA);
 		answerBody = (EditText) findViewById(R.id.typeAnswerAA);
 		submitButton = (Button) findViewById(R.id.submitAnswerButton);
+		geoButton = (ImageButton) findViewById(R.id.answer_geo_button);
 		account = ApplicationState.getAccount();
 		if (ApplicationState.isLoggedIn()) {
 			username = account.getName();
@@ -104,6 +114,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 	 public void answer_question(View v){ 
 		 if (ApplicationState.isLoggedIn()) {
 			Answer answer = new Answer(answerBody.getText().toString(), username.toString());
+
 			locator = new Geolocation(this);
 			if (hasPhoto == true){
 				//question.getPhoto(array);
@@ -115,7 +126,15 @@ public class AuthorAnswerActivity extends CustomActivity {
 			}
 			
 			userAnsweredList = account.getAnsweredList();
+
+			
+			if (hasLocation){
+				answer.setLocation(geoLocation.getLocation());
+			} 
+			
+
 			question.addAnswer(answer);
+			account.answerQuestion(question);
 			Thread updateThread = new UpdateQuestionThread(question);
 			updateThread.start();
 			try {
@@ -124,7 +143,8 @@ public class AuthorAnswerActivity extends CustomActivity {
 				e.printStackTrace();
 			}
 	
-			userAnsweredList.add(0,question);
+			//userAnsweredIdList.add(0,question.getId());
+			//TODO save account
 		
 			finish();
 		 } else {
@@ -145,6 +165,14 @@ public class AuthorAnswerActivity extends CustomActivity {
 			Intent  photoPickerIntent = new Intent(Intent.ACTION_PICK);
 			photoPickerIntent.setType("image/*");
 			startActivityForResult(photoPickerIntent, 1);
+	 }
+	 
+	 public void addLocation(View v){
+		 geoLocation = new Geolocation(this);
+		 geoLocation.findLocation();
+		 hasLocation = true;
+		 Toast.makeText(this, "Location added", Toast.LENGTH_LONG).show();
+		 geoButton.setColorFilter(MAP_COLOR);
 	 }
 	
 	 protected void onActivityResult(int requestCode, int resultCode,

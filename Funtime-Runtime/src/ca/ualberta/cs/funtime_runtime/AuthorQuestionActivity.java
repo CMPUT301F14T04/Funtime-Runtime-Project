@@ -1,8 +1,6 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.zip.Deflater;
@@ -22,10 +20,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Geolocation;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.SearchQuestionThread;
 import ca.ualberta.cs.funtime_runtime.classes.UpdateAccountThread;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 /**
@@ -42,16 +42,23 @@ public class AuthorQuestionActivity extends CustomActivity {
 	Button submitButton;
 	Button addPhotoButton;
 	Button cancelButton;
+	ImageButton geoButton;
 	ImageButton photoButton;
 	EditText questionTitle;
 	EditText questionBody;
 	Account account;
 	String username;
 	ArrayList<Question> questionList;
-	ArrayList<Question> userQuestionList;
+	Question question;
+	Geolocation geoLocation;
+	
+	//ArrayList<Question> userQuestionList;
+	ArrayList<Integer> userQuestionIdList;
+	
 	ESQuestionManager questionManager;
 	Bitmap photoBitmap;
 	boolean hasPhoto = false;
+	boolean hasLocation = false;
 	byte[] array;
 	byte[] compressedData = new byte[64000];
     Deflater compressor = new Deflater();
@@ -59,7 +66,8 @@ public class AuthorQuestionActivity extends CustomActivity {
     private static final int RANDOM_NUMBER_CAP = 100000000;
     UpdateAccountThread updateThread;
     //compressor.setLevel(Deflater.BEST_COMPRESSION);
-	int camera_color = Color.parseColor("#001110");
+	int CAMERA_COLOR = Color.parseColor("#001110");
+	int MAP_COLOR = Color.parseColor("#3366FF");
 	/**
 	 * This is a standard onCreate method
 	 * In this method we link this java file with the xml.
@@ -79,13 +87,14 @@ public class AuthorQuestionActivity extends CustomActivity {
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		submitButton = (Button) findViewById(R.id.submit_question_button);
+		geoButton = (ImageButton) findViewById(R.id.add_location_button);
 		//addPhotoButton = (Button) findViewById(R.id.add_question_image);
 		cancelButton = (Button) findViewById(R.id.cancel_button);
 		//addPhotoButton = (Button) findViewById(R.id.add_image_button);
 		questionTitle = (EditText) findViewById(R.id.question_title_text);
 		questionBody = (EditText) findViewById(R.id.question_body_text);
 		photoButton = (ImageButton)  findViewById(R.id.add_image_button);
-		photoButton.setColorFilter(camera_color);
+		photoButton.setColorFilter(CAMERA_COLOR);
 		account = ApplicationState.getAccount();
 		username = account.getName();
 		questionManager = new ESQuestionManager();
@@ -112,31 +121,25 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 * @param v is a button within the activity.
 	 */
 	public void submitQuestion(View v) {
-		Question question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
-		Geolocation geoLocation = new Geolocation(this);
-		geoLocation.findLocation();
-		String location = geoLocation.getLocation();
-		question.setLocation(location);
-		//location.getLocation(location);
-		//question.setLocation(location);
+		question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
 		questionList = ApplicationState.getQuestionList();
-		userQuestionList = account.getQuestionList();
+		userQuestionIdList = account.getQuestionList();
 		if (hasPhoto == true){
 			//question.getPhoto(array);
 			question.setPhoto(compressedData);
 		}
+		if (hasLocation) {
+			question.setLocation(geoLocation.getLocation());
+		}
 		questionList.add(0,question);
-		userQuestionList.add(0,question);
+		//userQuestionIdList.add(0,question.getId());
 
 		// Elastic search code
 		generateId(question);		
-		addServerQuestion(question);
+		ApplicationState.addServerQuestions(question, this);
 		
-		account.addToHistory(question); // Add question clicked to history
-		//account.authorQuestion(question);
-		updateThread = new UpdateAccountThread(account);
-		updateThread.start();
-		Log.i("Updated?", "Got here");
+		account.authorQuestion(question);
+
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("Question", question);
 		Intent intent = new Intent(AuthorQuestionActivity.this, QuestionPageActivity.class);
@@ -151,13 +154,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 		
 	}
 
-	private void addServerQuestion(Question question) {
-		Thread thread = new AddThread(question);
-		thread.start();
-	}
 
 	private void generateId(Question question) {
-		Thread searchThread = new SearchThread("*");
+		Thread searchThread = new SearchQuestionThread("*");
 		searchThread.start();
 
 		int id = generator.nextInt(RANDOM_NUMBER_CAP);
@@ -169,6 +168,15 @@ public class AuthorQuestionActivity extends CustomActivity {
 		photoPickerIntent.setType("image/*");
 		startActivityForResult(photoPickerIntent, 1);
 	
+	}
+	
+	public void addLocation(View v) {
+		geoLocation = new Geolocation(this);
+		geoLocation.findLocation();
+		hasLocation = true;
+		Toast.makeText(this, "Location added", Toast.LENGTH_LONG).show();
+		geoButton.setColorFilter(MAP_COLOR);
+		
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode,
@@ -230,58 +238,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 public void cancel_question(View v){
 		 finish();
 	 }
-	 
-	 class AddThread extends Thread {
-		private Question question;
-
-		public AddThread(Question question) {
-			this.question = question;
-		}
-
-		@Override
-		public void run() {
-			questionManager.addQuestion(question);
-			
-			// Give some time to get updated info
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			runOnUiThread(doFinishAdd);
-		}
-	 }
-	 
-	class SearchThread extends Thread {
-		private String search;
 		
-		public SearchThread(String s){		
-			search = s;
-		}
-		
-		@Override
-		public void run() {
-			
-			questionList.clear();
-			questionList.addAll(questionManager.searchQuestions(search, null));
-			if (!questionList.isEmpty()){
-				Question question = questionList.get(0);
-				Log.i("Title", question.getTitle());
-				Log.i("Body", question.getBody());
-				Log.i("User", question.getUser());
-				Log.i("Upvotes", ""+question.getRating());
-			}
-		}
-	}
-	 
-	private Runnable doFinishAdd = new Runnable() {
-		public void run() {
-			finish();
-		}
-	};	
-		
-	
-	
 
 }

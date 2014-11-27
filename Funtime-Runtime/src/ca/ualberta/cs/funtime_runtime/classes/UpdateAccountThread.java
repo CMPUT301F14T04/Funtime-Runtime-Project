@@ -17,7 +17,7 @@ public class UpdateAccountThread extends Thread {
 	}
 
 	private void updateAccount(Account account) {
-		manager.deleteAccount(account.getId());
+		manager.deleteAccount(account);
 		manager.addAccount(account);	
 	}
 

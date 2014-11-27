@@ -65,14 +65,16 @@ public class HomeActivity extends CustomActivity {
 		} 
 		//account = new Account("TestUser1");
 		//ApplicationState.setAccount(account);
-		questionManager = new ESQuestionManager();
+		//questionManager = new ESQuestionManager();
 		
 		//homeQuestionList = ApplicationState.getQuestionList();
 		
 		homeListView = (ListView) findViewById(R.id.questionListView);
 
-		homeQuestionList = new ArrayList<Question>();
-		loadServerQuestions();
+		//homeQuestionList = new ArrayList<Question>();
+		//loadServerQuestions();
+		homeQuestionList = ApplicationState.getQuestionList();
+		//loadServerQuestions();
 		
 		
 		if ( !(ApplicationState.isOnline(this)) ) {
@@ -245,7 +247,8 @@ public class HomeActivity extends CustomActivity {
 
 	private void refresh() {
 		String sortType = sorter.getSortType();
-		loadServerQuestions();
+		ApplicationState.refresh();
+		homeQuestionList = ApplicationState.getQuestionList();
 		if (sortType.equals("Date")){
 			sorter.sortByDate();
 		} else if (sortType.equals("Votes")) {
@@ -400,13 +403,9 @@ public class HomeActivity extends CustomActivity {
 	 */
 	private void openQuestion(int position) {
 		Question question = (Question) adapter.getItem(position);
-		if (loggedIn)
-			account.addToHistory(question); // Add question clicked to history
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("Question", question);
+		
 		Intent intent = new Intent(this, QuestionPageActivity.class);
-		intent.putExtras(bundle);
-
+		
 		ApplicationState.setPassableQuestion(question);
 
 		startActivity(intent);
@@ -464,8 +463,9 @@ public class HomeActivity extends CustomActivity {
 		
 		@Override
 		public void run() {
-			homeQuestionList.clear();		
-			homeQuestionList.addAll(questionManager.searchQuestions(search, null));			
+			ArrayList<Question> appStateList = ApplicationState.getQuestionList();
+//			homeQuestionList.clear();		
+//			homeQuestionList.addAll(questionManager.searchQuestions(search, null));			
 			runOnUiThread(updateHomeUI);	
 		}
 		

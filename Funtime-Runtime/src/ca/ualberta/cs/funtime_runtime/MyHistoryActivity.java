@@ -32,6 +32,9 @@ import android.widget.ListView;
 public class MyHistoryActivity extends CustomActivity {
 
 	ArrayList<Question> myHistoryList;
+	ArrayList<Integer> myHistoryIdList;
+	ArrayList<Question> appStateList;
+	
 	Account account;
 	ListView myHistoryListView;
 	QuestionListAdapter adapter;
@@ -52,12 +55,20 @@ public class MyHistoryActivity extends CustomActivity {
 		myHistoryListView = (ListView) findViewById(R.id.myHistory_ListView);
 		account = ApplicationState.getAccount();
 
-		myHistoryList = account.getHistoryList();
-
-		ArrayList<Question> historyList = new ArrayList<Question>();
-		historyList = myHistoryList;
+		myHistoryIdList = account.getHistoryList();
+		myHistoryList = new ArrayList<Question>();
+		appStateList = ApplicationState.getQuestionList();
+		for (Integer id: myHistoryIdList) {
+			for (Question q: appStateList) {
+				Integer qId = q.getId();
+				if (qId.equals(id)) {
+					myHistoryList.add(q);
+				}
+			}
+		}
+		
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter,
-				historyList);
+				myHistoryList);
 		myHistoryListView.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
 

@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
@@ -35,6 +37,7 @@ public class AuthorReplyActivity extends CustomActivity {
 	Question question;
 	Answer answer;
 	Button submitButton;
+	ImageButton geoButton;
 	EditText typeReply;
 	TextView parentTitleView;
 	TextView parentBodyView;
@@ -46,7 +49,9 @@ public class AuthorReplyActivity extends CustomActivity {
 	String parentUsername;
 	ArrayList<Reply> replyList;
 	String replyType;
-	Geolocation locator;
+	Geolocation geoLocation;
+	boolean hasLocation = false;
+	int MAP_COLOR = Color.parseColor("#3366FF");
 	
 	
 	/**
@@ -90,6 +95,7 @@ public class AuthorReplyActivity extends CustomActivity {
 		parentBodyView = (TextView) findViewById(R.id.replyParentBody);
 		typeReply = (EditText) findViewById(R.id.typeReply);
 		submitButton = (Button) findViewById(R.id.submitReplyButton);
+		geoButton = (ImageButton) findViewById(R.id.reply_location_button);
 		account = ApplicationState.getAccount();
 		if (ApplicationState.isLoggedIn()) {
 			username = account.getName();
@@ -120,9 +126,18 @@ public class AuthorReplyActivity extends CustomActivity {
 	 public void addReply(View v) { 
 		if (ApplicationState.isLoggedIn()) {
 			Reply reply = new Reply(typeReply.getText().toString(), username.toString());
-			locator = new Geolocation(this);
-			reply.setLocation(locator.getLocation());
-			question.addReply(reply);
+	
+			if (replyType.equals("question")){
+				question.addReply(reply);
+			} else if (replyType.equals("answer")){
+				answer.addReply(reply);
+				question = ApplicationState.getPassableQuestion();
+			}
+			
+			if (hasLocation){
+				reply.setLocation(geoLocation.getLocation());
+			}
+			
 			Thread updateThread = new UpdateQuestionThread(question);
 			updateThread.start();
 			
@@ -132,6 +147,14 @@ public class AuthorReplyActivity extends CustomActivity {
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
 	}
+	 
+	 public void addLocation(View v) {
+		 geoLocation = new Geolocation(this);
+		 geoLocation.findLocation();
+		 hasLocation = true;
+		 Toast.makeText(this, "Location added", Toast.LENGTH_LONG).show();
+		 geoButton.setColorFilter(MAP_COLOR);
+	 }
 	 
 	 /**
 	  * This onClick listener leaves the activity after the "cancel button is clicked

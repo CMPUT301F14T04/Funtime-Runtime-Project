@@ -3,6 +3,7 @@ package ca.ualberta.cs.funtime_runtime.classes;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
 
 /**
@@ -37,15 +38,42 @@ public class QuestionSorter {
 		sortType = "Votes";
 		Collections.sort(sortList, new Comparator<Question>() {
 			  public int compare(Question q1, Question q2) {
-			      return q1.getRating() - q2.getRating();
+				  Integer r1 = q1.getRating();
+				  Integer r2 = q2.getRating();
+				  
+				  int pStatus = r1.compareTo(r2);
+				  if (pStatus != 0) {
+					  return pStatus;
+				  } else {
+					  Date d1 = q1.getDate();
+					  Date d2 = q2.getDate();
+					  return d1.compareTo(d2);
+				  }
 			  }
 		});
 		Collections.reverse(sortList);
 		return sortList;
 	}
 	
+	// http://stackoverflow.com/questions/4805606/java-sort-problem-by-two-fields - Nov 25, 2014 - Richard H
 	public ArrayList<Question> sortByPhoto() {
 		sortType = "Photo";
+		Collections.sort(sortList, new Comparator<Question>() {
+			  public int compare(Question q1, Question q2) {
+				  Boolean p1 = q1.getPhotoStatus();
+				  Boolean p2 = q2.getPhotoStatus();
+				  
+				  int pStatus = p1.compareTo(p2);
+				  if (pStatus != 0) {
+					  return pStatus;
+				  } else {
+					  Date d1 = q1.getDate();
+					  Date d2 = q2.getDate();
+					  return d1.compareTo(d2);
+				  }
+			  }
+		});
+		Collections.reverse(sortList);
 		return sortList;
 	}
 

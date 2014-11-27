@@ -35,14 +35,14 @@
          android:id="@+id/typeReply"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_above="@+id/replyCancelButton"
+         android:layout_above="@+id/reply_location_button"
          android:layout_alignParentLeft="true"
          android:layout_alignParentRight="true"
          android:layout_below="@+id/replyParentBody"
-         android:layout_marginBottom="20dp"
          android:ems="10"
          android:hint="@string/type_reply_hint_text"
          android:inputType="textMultiLine" >
+
          <requestFocus />
      </EditText>
 
@@ -72,5 +72,16 @@
          android:scrollbars="vertical"
          android:text="@string/answer_parent_text"
          android:textSize="14sp" />
+
+     <ImageButton
+         android:id="@+id/reply_location_button"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_above="@+id/submitReplyButton"
+         android:layout_alignParentRight="true"
+         android:src="@android:drawable/ic_menu_mapmode"
+         android:onClick="addLocation"
+         android:background="@android:color/transparent"
+         android:padding="10dp" />
 
 </RelativeLayout>

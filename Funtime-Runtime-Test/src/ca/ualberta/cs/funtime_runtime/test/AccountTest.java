@@ -32,9 +32,11 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 	public void testAuthorQuestion() {
 		Account account = new Account("TestAccountUsername");
 		Question question = new Question("Test Question Title", "Test question body", "TestAccountUsername");
+		Integer id = 7841;
+		question.setId(id);
 		account.authorQuestion(question);
 		assertEquals(account.questionsCount(), 1);
-		assertEquals(question, account.getQuestion(0));
+		assertEquals(id, account.getQuestionId(0));
 		
 		Question question0 = new Question("Test Question 0 Title", "Test question 0 body", "TestAccountUsername0");
 		Question question1 = new Question("Test Question 1 Title", "Test question 1 body", "TestAccountUsername1");
@@ -49,10 +51,12 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 		Account account = new Account("TestAccountUsername");
 		Question question = new Question("test question 1", "test body 1", "iAmTest");
 		Answer answer = new Answer("Test answer body", "TestAccountUsername");
+		Integer id = 7841;
+		answer.setId(id);
 		question.addAnswer(answer);
 		account.answerQuestion(question);
 		assertEquals(account.answeredCount(), 1);
-		assertEquals(answer, account.getAnsweredQuestion(0));
+		assertEquals(id, account.getAnsweredQuestionId(0));
 		
 		Answer answer0 = new Answer("Test answer 0 body", "TestAccountUsername0");
 		Answer answer1 = new Answer("Test answer 1 body", "TestAccountUsername1");
@@ -68,7 +72,7 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 	
 	public void testFavorites() {
 		Account account = new Account("TestAccountUsername");
-		ArrayList<Question> testList;
+		ArrayList<Integer> testList;
 		testList = account.getFavouritesList();
 		assertNotNull(testList);
 		
@@ -76,17 +80,17 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 		
 		account.addFavourite(question);
 		
-		assertTrue(testList.contains(question));
+		assertTrue(testList.contains(question.getId()));
 		
 		account.removeFavourite(question);
 		
-		assertFalse(testList.contains(question));
+		assertFalse(testList.contains(question.getId()));
 		
 	}
 	
 	public void testReadingList() {
 		Account account = new Account("TestAccountUsername");
-		ArrayList<Question> testList;
+		ArrayList<Integer> testList;
 		testList = account.getReadingList();
 		assertNotNull(testList);
 		
@@ -94,16 +98,16 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 		
 		account.readLater(question);
 		
-		assertTrue(testList.contains(question));
+		assertTrue(testList.contains(question.getId()));
 		
-		account.removeReadLater(question);
+		account.removeFavourite(question);
 		
-		assertFalse(testList.contains(question));
+		assertFalse(testList.contains(question.getId()));
 	}
 	
 	public void testHistory() {
 		Account account = new Account("TestAccountUsername");
-		ArrayList<Question> testList;
+		ArrayList<Integer> testList;
 		testList = account.getHistoryList();
 		assertNotNull(testList);
 		
@@ -111,12 +115,12 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 		
 		account.addToHistory(question);
 		
-		assertTrue(testList.contains(question));
+		assertTrue(testList.contains(question.getId()));
 	}
 	
 	public void testQuestionVoting() {
 		Account account = new Account("TestAccountUsername");
-		ArrayList<Question> testList;
+		ArrayList<Integer> testList;
 		testList = account.getUpvotedQuestions();
 		assertNotNull(testList);
 		
@@ -134,7 +138,7 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 	
 	public void testAnswerVoting() {
 		Account account = new Account("TestAccountUsername");
-		ArrayList<Answer> testList;
+		ArrayList<Integer> testList;
 		testList = account.getUpvotedAnswers();
 		assertNotNull(testList);
 		
@@ -142,11 +146,11 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 		
 		account.upvoteAnswer(answer);
 		
-		assertTrue(testList.contains(answer));
+		assertTrue(testList.contains(answer.getId()));
 		
 		account.downvoteAnswer(answer);
 		
-		assertFalse(testList.contains(answer));
+		assertFalse(testList.contains(answer.getId()));
 		
 	}
 	

@@ -56,7 +56,7 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 		Account account = new Account("TestUser1");
 		account.upvoteQuestion(question);
 		assertEquals(question.getRating(), 11);
-		ArrayList<Question> upvotedQuestions = account.getUpvotedQuestions();
+		ArrayList<Integer> upvotedQuestions = account.getUpvotedQuestions();
 		assertTrue(upvotedQuestions.contains(question));
 	}
 	

@@ -39,8 +39,7 @@ import com.google.gson.reflect.TypeToken;
  */
 public class ESQuestionManager implements IQuestionManager {
 	private static final String RESOURCE_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question/";
-	private static final String SEARCH_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question/_search/?size=50";
-	//private static final String COUNT_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question/_count";
+	private static final String SEARCH_URL="http://cmput301.softwareprocess.es:8080/cmput301f14t04/question/_search/?size=20";
 	private static final String TAG= "QuestionsSearch";
 
 	private Gson gson;

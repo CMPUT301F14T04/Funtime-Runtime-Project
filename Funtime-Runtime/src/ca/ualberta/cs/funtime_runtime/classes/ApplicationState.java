@@ -2,10 +2,13 @@ package ca.ualberta.cs.funtime_runtime.classes;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import ca.ualberta.cs.funtime_runtime.elastic.ESAccountManager;
+import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 
 /**
  * A static class used for managing the application's data in its current state.
@@ -34,7 +37,12 @@ public class ApplicationState extends Application {
 	
 	private static final String USERACCOUNT = "UserAccount.sav";
 	
+	private static ESQuestionManager questionManager;
+	private static ESAccountManager accountManager;
+	
 	public static void startup(Context ctx) {
+		
+		/*
 		SaveManager saveManager = new SaveManager();
 		Object obj;
 		try {
@@ -47,7 +55,60 @@ public class ApplicationState extends Application {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
+		
+		questionManager = new ESQuestionManager();
+		accountManager = new ESAccountManager();
+		questionList = new ArrayList<Question>();
+		loadServerQuestions();
+		
 	}
+	
+	public static void loadServerQuestions() {
+		
+		
+		Thread loadThread = new SearchQuestionThread("*");
+		//Thread loadThread = new LoadHomeThread("*", homeQuestionList, adapter);
+		loadThread.start();	
+		
+		try {
+			loadThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		
+		//questionList.clear();
+		//questionList.addAll(questionManager.searchQuestions("*", null));	
+		
+	}
+	
+	public static void loadServerAccounts() {
+		Thread accountThread = new SearchAccountThread("*");
+		accountThread.start();
+		try {
+			accountThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void loadBySearch(String search) {
+		ApplicationState.questionList.clear();
+		ApplicationState.questionList.addAll(questionManager.searchQuestions(search, null));	
+	}
+	
+	public static void loadAccounts(String search) {
+		ApplicationState.accountList.clear();
+		ApplicationState.accountList.addAll(accountManager.searchAccounts(search, null));	
+		
+	}
+	
+	public static void refresh() {
+		loadServerQuestions();
+	}
+	
 	
 	/**
 	 * Sets the currently logged in account
@@ -78,6 +139,8 @@ public class ApplicationState extends Application {
 		return netInfo.isConnected();
 	}
 	
+	
+	
 	/**
 	 * @return		the currently logged in account
 	 */
@@ -90,6 +153,7 @@ public class ApplicationState extends Application {
 	 */
 	public static ArrayList<Account> getAccountList() {
 		// TODO pull updated list from server before returning
+		loadServerAccounts();
 		return accountList;
 	}
 	
@@ -138,6 +202,7 @@ public class ApplicationState extends Application {
 	 */
 	public static ArrayList<Question> getQuestionList() {
 		//TODO grab the master question list from the sever before returning
+		//refresh();
 		return questionList;
 	}
 	
@@ -151,6 +216,30 @@ public class ApplicationState extends Application {
 		return msg;
 	}
 	
+	public static void addServerQuestions(Question question, Activity activity) {
+		Thread addThread = new AddQuestionThread(question, activity);
+		addThread.start();
+		try {
+			addThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void updateAccount() {
+		// TODO Add checks for online vs offline
+		UpdateAccountThread accountThread = new UpdateAccountThread(account);
+		accountThread.start();
+		try {
+			accountThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+
 	
 	
 }

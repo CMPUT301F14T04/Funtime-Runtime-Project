@@ -21,6 +21,8 @@ public class Account implements Serializable {
 	private static final long serialVersionUID = -1130304605213585452L;
 	
 	private String username;
+	
+	/*
 	private ArrayList<Question> favourites;
 	private ArrayList<Question> answeredList;
 	private ArrayList<Question> questionList;
@@ -28,7 +30,17 @@ public class Account implements Serializable {
 	private ArrayList<Question> history;
 	private ArrayList<Question> upvotedQuestions;
 	private ArrayList<Answer> upvotedAnswers;
-	private int id;
+	*/
+	
+	private ArrayList<Integer> favourites;
+	private ArrayList<Integer> answeredList;
+	private ArrayList<Integer> questionList;
+	private ArrayList<Integer> readingList;
+	private ArrayList<Integer> history;
+	private ArrayList<Integer> upvotedQuestions;
+	private ArrayList<Integer> upvotedAnswers;
+	
+	private Integer id;
 	
 	
 	/**
@@ -39,13 +51,13 @@ public class Account implements Serializable {
 	 */
 	public Account(String username) {
 		this.username = username;
-		favourites = new ArrayList<Question>();
-		answeredList = new ArrayList<Question>();
-		questionList = new ArrayList<Question>();
-		readingList = new ArrayList<Question>();
-		history = new ArrayList<Question>();
-		upvotedQuestions = new ArrayList<Question>();
-		upvotedAnswers = new ArrayList<Answer>();
+		favourites = new ArrayList<Integer>();
+		answeredList = new ArrayList<Integer>();
+		questionList = new ArrayList<Integer>();
+		readingList = new ArrayList<Integer>();
+		history = new ArrayList<Integer>();
+		upvotedQuestions = new ArrayList<Integer>();
+		upvotedAnswers = new ArrayList<Integer>();
 	}
 
 	/**
@@ -70,7 +82,8 @@ public class Account implements Serializable {
 	 * 						been added to the master questsion list
 	 */
 	public void authorQuestion(Question question) {
-		questionList.add(0, question);
+		questionList.add(question.getId());
+		ApplicationState.updateAccount();
 		
 	}
 
@@ -85,14 +98,14 @@ public class Account implements Serializable {
 	 * @param i		the index of the question to be returned
 	 * @return		the question at the given index
 	 */
-	public Question getQuestion(int i) {
+	public Integer getQuestionId(int i) {
 		return questionList.get(i);
 	}
 	
 	/**
 	 * @return		the list of questions the user has authored
 	 */
-	public ArrayList<Question> getQuestionList() {
+	public ArrayList<Integer> getQuestionList() {
 		return questionList;
 	}
 
@@ -103,7 +116,11 @@ public class Account implements Serializable {
 	 * 						parent question
 	 */
 	public void answerQuestion(Question question) {
-		answeredList.add(0, question);
+		if (!answeredList.contains(question.getId())){
+			answeredList.add(question.getId());
+		}
+		
+		ApplicationState.updateAccount();
 	}
 
 	/**
@@ -117,14 +134,14 @@ public class Account implements Serializable {
 	 * @param i		the index of the answer to be returned
 	 * @return		the answer at that index
 	 */
-	public Question getAnsweredQuestion(int i) {
+	public Integer getAnsweredQuestionId(int i) {
 		return answeredList.get(i);
 	}
 
 	/**
 	 * @return		the list of answers the question has authored
 	 */
-	public ArrayList<Question> getAnsweredList() {
+	public ArrayList<Integer> getAnsweredList() {
 		return answeredList;
 	}
 	
@@ -133,7 +150,8 @@ public class Account implements Serializable {
 	 * @param question		a question the user has indicated they want to favourite
 	 */
 	public void addFavourite(Question question) {
-		favourites.add(0, question);
+		favourites.add(question.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
@@ -141,13 +159,14 @@ public class Account implements Serializable {
 	 * @param question		a question the user has indicated they want to remove from favourites
 	 */
 	public void removeFavourite(Question question) {
-		favourites.remove(question);
+		favourites.remove( (Integer) question.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
 	 * @return		the list of questions the user has favourited
 	 */
-	public ArrayList<Question> getFavouritesList() {
+	public ArrayList<Integer> getFavouritesList() {
 		return favourites;
 	}
 
@@ -156,7 +175,8 @@ public class Account implements Serializable {
 	 * @param question		a question the user has indicated they want to save to read later
 	 */
 	public void readLater(Question question) {
-		readingList.add(0, question);
+		readingList.add(question.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
@@ -164,13 +184,14 @@ public class Account implements Serializable {
 	 * @param question		a question to be removed from the read later list
 	 */
 	public void removeReadLater(Question question) {
-		readingList.remove(question);
+		readingList.remove(question.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
 	 * @return		the list of questions the user has saved for reading later
 	 */
-	public ArrayList<Question> getReadingList() {
+	public ArrayList<Integer> getReadingList() {
 		return readingList;
 	}
 	
@@ -179,13 +200,16 @@ public class Account implements Serializable {
 	 * @param question		a question the user has viewed
 	 */
 	public void addToHistory(Question question) {
-		history.add(question);
+		if ( !(history.contains(question.getId()) ) ) {
+			history.add(question.getId());
+		}
+		ApplicationState.updateAccount();
 	}
 	
 	/**
 	 * @return		the account's history list
 	 */
-	public ArrayList<Question> getHistoryList() {
+	public ArrayList<Integer> getHistoryList() {
 		return history;
 	}
 	
@@ -195,7 +219,8 @@ public class Account implements Serializable {
 	 */
 	public void upvoteQuestion(Question question) {
 		question.upVote();
-		upvotedQuestions.add(0, question);
+		upvotedQuestions.add(question.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
@@ -204,13 +229,14 @@ public class Account implements Serializable {
 	 */
 	public void downvoteQuestion(Question question) {
 		question.downVote();
-		upvotedQuestions.remove(question);
+		upvotedQuestions.remove(question.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
 	 * @return		the list of questions the account has upvoted
 	 */
-	public ArrayList<Question> getUpvotedQuestions() {
+	public ArrayList<Integer> getUpvotedQuestions() {
 		return upvotedQuestions;
 	}
 
@@ -220,7 +246,8 @@ public class Account implements Serializable {
 	 */
 	public void upvoteAnswer(Answer answer) {
 		answer.upVote();
-		upvotedAnswers.add(0, answer);
+		upvotedAnswers.add(answer.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
@@ -229,13 +256,14 @@ public class Account implements Serializable {
 	 */
 	public void downvoteAnswer(Answer answer) {
 		answer.downVote();
-		upvotedAnswers.remove(answer);
+		upvotedAnswers.remove(answer.getId());
+		ApplicationState.updateAccount();
 	}
 	
 	/**
 	 * @return		the list of answers the user has upvoted
 	 */
-	public ArrayList<Answer> getUpvotedAnswers() {
+	public ArrayList<Integer> getUpvotedAnswers() {
 		return upvotedAnswers;
 	}
 
@@ -243,7 +271,7 @@ public class Account implements Serializable {
 	 * Returns the server id of the account
 	 * @return id
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	

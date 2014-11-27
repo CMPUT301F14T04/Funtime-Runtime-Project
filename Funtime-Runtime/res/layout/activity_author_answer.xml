@@ -31,16 +31,6 @@
         android:text="@string/answer_parent_title" 
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/add_image_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/submitAnswerButton"
-        android:layout_alignRight="@+id/submitAnswerButton"
-        android:background="@null"
-        android:drawableRight="@android:drawable/ic_menu_camera"
-        android:onClick="add_photo" />
-
     <EditText
         android:id="@+id/typeAnswerAA"
         android:layout_width="wrap_content"
@@ -79,5 +69,27 @@
        android:layout_width="0dp"
        android:layout_height="0dp" 
        android:layout_centerInParent="true"/>
+
+    <Button
+        android:id="@+id/add_image_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/submitAnswerButton"
+        android:layout_alignRight="@+id/typeAnswerAA"
+        android:background="@null"
+        android:drawableRight="@android:drawable/ic_menu_camera"
+        android:onClick="add_photo" />
+
+    <ImageButton
+        android:id="@+id/answer_geo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/add_image_button"
+        android:layout_alignRight="@+id/typeAnswerAA"
+        android:layout_below="@+id/typeAnswerAA"
+        android:layout_marginRight="46dp"
+        android:background="@android:color/transparent"
+        android:onClick="addLocation"
+        android:src="@android:drawable/ic_menu_mapmode" />
 
 </RelativeLayout>

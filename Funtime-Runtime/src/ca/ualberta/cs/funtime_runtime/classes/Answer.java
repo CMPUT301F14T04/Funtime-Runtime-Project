@@ -25,9 +25,15 @@ public class Answer implements Serializable {
 	private int rating;
 	private final Date date;
 	private int id;
+
 	private  byte[] answerPhotoByteArray = null;
-	private String location;
+	
 	private boolean hasPhoto = false;
+
+	private  Bitmap answerPhotoBitmap;
+	private String location = "N/A";
+	
+
 	/**
 	 * This function initializes an answer 
 	 * 
