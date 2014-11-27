@@ -20,7 +20,7 @@ import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Geolocation;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.Reply;
-import ca.ualberta.cs.funtime_runtime.classes.UpdateQuestionThread;
+import ca.ualberta.cs.funtime_runtime.thread.UpdateQuestionThread;
 
 /**
  * A view class that allows a user to edit text

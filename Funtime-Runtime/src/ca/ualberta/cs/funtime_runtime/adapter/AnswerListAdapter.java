@@ -23,7 +23,7 @@ import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
-import ca.ualberta.cs.funtime_runtime.classes.UpdateQuestionThread;
+import ca.ualberta.cs.funtime_runtime.thread.UpdateQuestionThread;
 
 /**
  * This class is a controller class that displays the various answer list items in proper format

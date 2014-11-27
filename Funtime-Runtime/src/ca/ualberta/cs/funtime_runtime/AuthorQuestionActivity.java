@@ -25,9 +25,9 @@ import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Geolocation;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
-import ca.ualberta.cs.funtime_runtime.classes.SearchQuestionThread;
-import ca.ualberta.cs.funtime_runtime.classes.UpdateAccountThread;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
+import ca.ualberta.cs.funtime_runtime.thread.SearchQuestionThread;
+import ca.ualberta.cs.funtime_runtime.thread.UpdateAccountThread;
 /**
  * This view allows the user to create a question.
  * They use an edit texts to give a title and a body to the question 

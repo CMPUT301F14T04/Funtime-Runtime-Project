@@ -1,6 +1,7 @@
-package ca.ualberta.cs.funtime_runtime.classes;
+package ca.ualberta.cs.funtime_runtime.thread;
 
 import android.app.Activity;
+import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 
 public class AddQuestionThread extends Thread {

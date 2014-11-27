@@ -9,16 +9,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
+import ca.ualberta.cs.funtime_runtime.thread.SearchActivityThread;
 
 /**
  * This is a view class that displays the results of a search that the user initiated
@@ -161,7 +162,9 @@ public class SearchActivity extends CustomActivity {
 	 */
 	private void openQuestion(int position) {
 		Question question = (Question) adapter.getItem(position);
-		account.addToHistory(question); // Add question clicked to history
+		if (ApplicationState.isLoggedIn()){
+			account.addToHistory(question); // Add question clicked to history
+		}
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("Question", question);
 		Intent intent = new Intent(this, QuestionPageActivity.class);
@@ -181,34 +184,14 @@ public class SearchActivity extends CustomActivity {
 		questions.clear();
 		adapter.notifyDataSetChanged();
 		String query = queryEdit.getText().toString();
-		Thread thread = new SearchThread(query);
-		thread.start();	
+		Thread thread = new SearchActivityThread(query, questions, adapter, this);
+		thread.start();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 	}
-	
-	class SearchThread extends Thread {
-		private String search;
-		
-		public SearchThread(String query){		
-			search = query;
-		}
-		
-		@Override
-		public void run() {
-			List<Question> results = new ArrayList<Question>();
-			questions.clear();
-			results = questionManager.searchQuestions(search, null);
-			// Code to convert results into Question format
-			questions.addAll(results);
-		
-			runOnUiThread(doUpdateGUIList);
-		}
-	}
-	
-	// Thread to update adapter after an operation
-	private Runnable doUpdateGUIList = new Runnable() {
-		public void run() {
-			adapter.notifyDataSetChanged();
-		}
-	};
 
 }

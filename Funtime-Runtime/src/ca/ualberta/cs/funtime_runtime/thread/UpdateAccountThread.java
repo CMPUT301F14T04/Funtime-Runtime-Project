@@ -1,5 +1,6 @@
-package ca.ualberta.cs.funtime_runtime.classes;
+package ca.ualberta.cs.funtime_runtime.thread;
 
+import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.elastic.ESAccountManager;
 
 public class UpdateAccountThread extends Thread {

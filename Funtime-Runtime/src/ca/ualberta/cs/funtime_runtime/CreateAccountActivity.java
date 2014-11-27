@@ -82,8 +82,9 @@ public class CreateAccountActivity extends CustomActivity {
                 		id = generator.nextInt(RANDOM_NUMBER_CAP);
                 		newAccount.setId(id);
                 		ApplicationState.addAccount(newAccount);
-                		AddThread addThread = new AddThread(newAccount);
-                		addThread.start();
+                		ApplicationState.addServerAccount(newAccount);
+                		//AddThread addThread = new AddThread(newAccount);
+                		//addThread.start();
 
                     	// Login the new account
                     	ApplicationState.setAccount(newAccount, ctx); 
@@ -112,38 +113,38 @@ public class CreateAccountActivity extends CustomActivity {
 		return true;
 	}
 	
-	class SearchThread extends Thread {
-		private String search;
-		
-		public SearchThread(String s){		
-			search = s;
-		}
-		
-		@Override
-		public void run() {
-			accountList.clear();		
-			accountList.addAll(manager.searchAccounts(search, null));				
-		}
-	}
-	
-	 class AddThread extends Thread {
-		private Account account;
-
-		public AddThread(Account account) {
-			this.account = account;
-		}
-
-		@Override
-		public void run() {
-			manager.addAccount(account);
-
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	 }
+//	class SearchThread extends Thread {
+//		private String search;
+//		
+//		public SearchThread(String s){		
+//			search = s;
+//		}
+//		
+//		@Override
+//		public void run() {
+//			accountList.clear();		
+//			accountList.addAll(manager.searchAccounts(search, null));				
+//		}
+//	}
+//	
+//	 class AddThread extends Thread {
+//		private Account account;
+//
+//		public AddThread(Account account) {
+//			this.account = account;
+//		}
+//
+//		@Override
+//		public void run() {
+//			manager.addAccount(account);
+//
+//			try {
+//				Thread.sleep(500);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	 }
 
 	
 }

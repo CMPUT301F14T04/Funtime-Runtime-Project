@@ -9,6 +9,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import ca.ualberta.cs.funtime_runtime.elastic.ESAccountManager;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
+import ca.ualberta.cs.funtime_runtime.thread.AddAccountThread;
+import ca.ualberta.cs.funtime_runtime.thread.AddQuestionThread;
+import ca.ualberta.cs.funtime_runtime.thread.SearchAccountThread;
+import ca.ualberta.cs.funtime_runtime.thread.SearchQuestionThread;
+import ca.ualberta.cs.funtime_runtime.thread.UpdateAccountThread;
 
 /**
  * A static class used for managing the application's data in its current state.
@@ -221,6 +226,17 @@ public class ApplicationState extends Application {
 		addThread.start();
 		try {
 			addThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void addServerAccount(Account account) {
+		Thread accountThread = new AddAccountThread(account);
+		accountThread.start();
+		try {
+			accountThread.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

@@ -1,5 +1,6 @@
-package ca.ualberta.cs.funtime_runtime.classes;
+package ca.ualberta.cs.funtime_runtime.thread;
 
+import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import android.content.Context;
 
 public class SearchAccountThread extends Thread {

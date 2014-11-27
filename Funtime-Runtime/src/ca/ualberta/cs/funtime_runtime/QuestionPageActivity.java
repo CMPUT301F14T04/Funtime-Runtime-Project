@@ -24,8 +24,8 @@ import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.AnswerSorter;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
-import ca.ualberta.cs.funtime_runtime.classes.UpdateQuestionThread;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
+import ca.ualberta.cs.funtime_runtime.thread.UpdateQuestionThread;
 
 /**
  * A view class that displays the question and
