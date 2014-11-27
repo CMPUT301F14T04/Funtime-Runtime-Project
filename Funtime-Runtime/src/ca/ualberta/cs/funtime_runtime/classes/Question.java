@@ -132,7 +132,7 @@ public class Question implements Serializable {
 	 * @param answer
 	 */
 	public void addAnswer(Answer answer) {
-		answerList.add(0, answer);
+		answerList.add(answer);
 	}
 
 	

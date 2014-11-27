@@ -8,13 +8,16 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.Toast;
+import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.elastic.ESAccountManager;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 import ca.ualberta.cs.funtime_runtime.thread.AddAccountThread;
 import ca.ualberta.cs.funtime_runtime.thread.AddQuestionThread;
 import ca.ualberta.cs.funtime_runtime.thread.SearchAccountThread;
+import ca.ualberta.cs.funtime_runtime.thread.SearchActivityThread;
 import ca.ualberta.cs.funtime_runtime.thread.SearchQuestionThread;
 import ca.ualberta.cs.funtime_runtime.thread.UpdateAccountThread;
+import ca.ualberta.cs.funtime_runtime.thread.UpdateQuestionThread;
 
 /**
  * A static class used for managing the application's data in its current state.
@@ -260,6 +263,16 @@ public class ApplicationState extends Application {
 		
 	}
 	
+	public static void updateServerQuestion(Question question) {
+		Thread updateThread = new UpdateQuestionThread(question);
+		updateThread.start();
+		try {
+			updateThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void addServerAccount(Account account) {
 		Thread accountThread = new AddAccountThread(account);
 		accountThread.start();
@@ -281,6 +294,16 @@ public class ApplicationState extends Application {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public static void searchQuery(String query, ArrayList<Question> list, QuestionListAdapter adapter, Activity act) {
+		Thread thread = new SearchActivityThread(query, list, adapter, act);
+		thread.start();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 

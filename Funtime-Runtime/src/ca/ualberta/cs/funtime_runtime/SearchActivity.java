@@ -184,13 +184,14 @@ public class SearchActivity extends CustomActivity {
 		questions.clear();
 		adapter.notifyDataSetChanged();
 		String query = queryEdit.getText().toString();
-		Thread thread = new SearchActivityThread(query, questions, adapter, this);
-		thread.start();
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		ApplicationState.searchQuery(query, questions, adapter, this);
+//		Thread thread = new SearchActivityThread(query, questions, adapter, this);
+//		thread.start();
+//		try {
+//			thread.join();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 
 	}
 
