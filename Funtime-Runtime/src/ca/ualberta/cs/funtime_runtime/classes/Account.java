@@ -184,7 +184,7 @@ public class Account implements Serializable {
 	 * @param question		a question to be removed from the read later list
 	 */
 	public void removeReadLater(Question question) {
-		readingList.remove(question.getId());
+		readingList.remove( (Integer) question.getId());
 		ApplicationState.updateAccount();
 	}
 	
@@ -229,7 +229,7 @@ public class Account implements Serializable {
 	 */
 	public void downvoteQuestion(Question question) {
 		question.downVote();
-		upvotedQuestions.remove(question.getId());
+		upvotedQuestions.remove( (Integer) question.getId());
 		ApplicationState.updateAccount();
 	}
 	
@@ -256,7 +256,7 @@ public class Account implements Serializable {
 	 */
 	public void downvoteAnswer(Answer answer) {
 		answer.downVote();
-		upvotedAnswers.remove(answer.getId());
+		upvotedAnswers.remove( (Integer) answer.getId() );
 		ApplicationState.updateAccount();
 	}
 	

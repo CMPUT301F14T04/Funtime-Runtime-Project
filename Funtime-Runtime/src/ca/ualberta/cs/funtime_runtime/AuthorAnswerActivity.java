@@ -2,12 +2,13 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Random;
 
 import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -115,7 +116,9 @@ public class AuthorAnswerActivity extends CustomActivity {
 	 public void answer_question(View v){ 
 		 if (ApplicationState.isLoggedIn()) {
 			answer = new Answer(answerBody.getText().toString(), username.toString());
-			
+			Random gen = new Random();
+			Integer id = gen.nextInt(1000000);
+			answer.setId(id);
 			if (hasPhoto == true){
 				answer.setPhoto(compressedData);
 			}

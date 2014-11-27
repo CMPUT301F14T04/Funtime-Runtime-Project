@@ -124,7 +124,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		TextView answerTextView = (TextView) theView.findViewById(R.id.answer_textview);
 		answerTextView.setText(answer.getBody());
 		
-		Button answerRating = (Button) theView.findViewById(R.id.answerAdapterRating);
+		final Button answerRating = (Button) theView.findViewById(R.id.answerAdapterRating);
 		String ratingText = Integer.toString(answer.getRating());
 		answerRating.setText(ratingText);
 		
@@ -144,7 +144,6 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		answerLocation.setText("Location: " + answer.getLocation());
 		
 		ImageButton answerViewPhotoButton = (ImageButton) theView.findViewById(R.id.answer_view_photo_button);
-		
 		if (loggedIn) {
 			if (upvotedList.contains(answer.getId())) {
 				answerRating.setTextColor(Color.parseColor("#e77619"));
@@ -152,6 +151,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 				answerRating.setTextColor(Color.parseColor("#000000"));
 			}
 		} 
+
 		if(answer.getPhotoStatus()){
 			answerViewPhotoButton.setColorFilter(has_photo_color);
 		}
@@ -175,8 +175,11 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 					ArrayList<Integer> upvotedAnswers = account.getUpvotedAnswers();
 					if (upvotedAnswers.contains(answer.getId())) {
 						account.downvoteAnswer(answer);
+						//answerRating.setTextColor(Color.parseColor("#000000"));
+						
 					} else {
 						account.upvoteAnswer(answer);
+						//answerRating.setTextColor(Color.parseColor("#e77619"));
 					}
 					notifyDataSetChanged();
 					updateThread = new  UpdateQuestionThread(question);
