@@ -178,21 +178,27 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 					} else {
 						account.upvoteAnswer(answer);
 					}
+					notifyDataSetChanged();
+					updateThread = new  UpdateQuestionThread(question);
+					updateThread.start();
+					try {
+						updateThread.join();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				} else {
 					String msg = ApplicationState.notFunctional();
 					Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
 				}
-				updateThread = new  UpdateQuestionThread(question);
-				updateThread.start();
-				//Log.i("Question", question.getTitle());
-				notifyDataSetChanged();
+
+				
 			}
 		});
 		
 		answerViewPhotoButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				//Question question = ApplicationState.getPassableQuestion();
-				//Answer answer = getItem((Integer) v.getTag());
+				//Answer answer = getItem((Integer) v.getTag());				
 				Context context = getContext();
 				Intent bootPhoto = new Intent(context, ShowAnswerPhoto.class);
 				bootPhoto.putExtra("answerPhoto", answer.getPhoto());

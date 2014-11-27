@@ -40,6 +40,7 @@ import ca.ualberta.cs.funtime_runtime.thread.UpdateQuestionThread;
 
 public class AuthorAnswerActivity extends CustomActivity {
 	
+	Answer answer;
 	Question question;
 	Button submitButton;
 	ImageButton geoButton;
@@ -113,17 +114,12 @@ public class AuthorAnswerActivity extends CustomActivity {
 	 */
 	 public void answer_question(View v){ 
 		 if (ApplicationState.isLoggedIn()) {
-			Answer answer = new Answer(answerBody.getText().toString(), username.toString());
-
-			locator = new Geolocation(this);
+			answer = new Answer(answerBody.getText().toString(), username.toString());
+			
 			if (hasPhoto == true){
-				//question.getPhoto(array);
 				answer.setPhoto(compressedData);
 			}
-			answer.setLocation(locator.getLocation());
-			if (hasPhoto) {
-				answer.setHasPhoto();
-			}
+			
 			
 			userAnsweredList = account.getAnsweredList();
 
@@ -162,9 +158,9 @@ public class AuthorAnswerActivity extends CustomActivity {
 	 }
 	 
 	 public void add_photo(View v){
-			Intent  photoPickerIntent = new Intent(Intent.ACTION_PICK);
-			photoPickerIntent.setType("image/*");
-			startActivityForResult(photoPickerIntent, 1);
+		Intent  photoPickerIntent = new Intent(Intent.ACTION_PICK);
+		photoPickerIntent.setType("image/*");
+		startActivityForResult(photoPickerIntent, 1);
 	 }
 	 
 	 public void addLocation(View v){
@@ -193,7 +189,10 @@ public class AuthorAnswerActivity extends CustomActivity {
 		                ByteArrayOutputStream blob = new ByteArrayOutputStream();
 		                photoBitmap.compress(CompressFormat.JPEG, 20 /*ignored for PNG*/, blob);
 		                compressedData = blob.toByteArray();
+		                
 		                Log.i("size of byte array", ""+ (int)compressedData.length);
+//		                answer = ApplicationState.getPassableAnswer();
+//		                answer.setPhoto(compressedData);
 		                //your_imgv.setImageBitmap(bitmap);
 		                //profilePicPath = photoUri.toString();
 		            } catch (Exception e) {
