@@ -121,5 +121,6 @@
     <string name="reply_comment">Comment</string>
     <string name="title_activity_return">Home</string>
     <string name="title_activity_show_photo">ShowPhoto</string>
+    <string name="title_activity_show_answer_photo">ShowAnswerPhoto</string>
 
 </resources>

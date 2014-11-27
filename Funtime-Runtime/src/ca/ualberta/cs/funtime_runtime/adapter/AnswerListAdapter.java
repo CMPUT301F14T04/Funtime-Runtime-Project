@@ -3,6 +3,7 @@ package ca.ualberta.cs.funtime_runtime.adapter;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.R;
+import ca.ualberta.cs.funtime_runtime.ShowAnswerPhoto;
+import ca.ualberta.cs.funtime_runtime.ShowPhoto;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
@@ -40,6 +43,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 	ArrayList<Answer> upvotedList;
 	//ESQuestionManager manager = new ESQuestionManager();
 	UpdateQuestionThread updateThread;
+	int has_photo_color = Color.parseColor("#228b22");
 	boolean loggedIn;
 
 	/**
@@ -148,6 +152,9 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 				answerRating.setTextColor(Color.parseColor("#000000"));
 			}
 		} 
+		if(answer.getPhotoStatus()){
+			answerViewPhotoButton.setColorFilter(has_photo_color);
+		}
 		
 		
 		answerRating.setTag(position);
@@ -182,9 +189,28 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 			}
 		});
 		
+		answerViewPhotoButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				//Question question = ApplicationState.getPassableQuestion();
+				//Answer answer = getItem((Integer) v.getTag());
+				Context context = getContext();
+				Intent bootPhoto = new Intent(context, ShowAnswerPhoto.class);
+				bootPhoto.putExtra("answerPhoto", answer.getPhoto());
+				bootPhoto.putExtra("hasAnswerPhoto?", answer.getPhotoStatus());
+				context.startActivity(bootPhoto);
+				
+			}
+		});
 		
-		
+			
 		return theView;
 	}
 	
+//	public void show_answerPhoto(View v) {
+//		Context context = getContext();
+//		Intent bootPhoto = new Intent(context, ShowAnswerPhoto.class);
+//		bootPhoto.putExtra("answerPhoto", answer.getPhoto());
+//		bootPhoto.putExtra("hasAnswerPhoto?", answer.getPhotoStatus());
+//		context.startActivity(bootPhoto);
+//	}
 }

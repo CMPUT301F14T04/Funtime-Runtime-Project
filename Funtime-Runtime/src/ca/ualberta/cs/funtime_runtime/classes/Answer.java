@@ -25,9 +25,9 @@ public class Answer implements Serializable {
 	private int rating;
 	private final Date date;
 	private int id;
-	private  Bitmap answerPhotoBitmap;
+	private  byte[] answerPhotoByteArray = null;
 	private String location;
-	
+	private boolean hasPhoto = false;
 	/**
 	 * This function initializes an answer 
 	 * 
@@ -42,7 +42,7 @@ public class Answer implements Serializable {
 		rating = 0;
 		replyList = new ArrayList<Reply>();
 		date = new Date();
-		answerPhotoBitmap = null;
+		answerPhotoByteArray = null;
 	}
 
 	
@@ -159,8 +159,17 @@ public class Answer implements Serializable {
 	 * This function will be implemented later to get a photo attached to an answer
 	 */	
 	
-	public void getPhoto(Bitmap bitmap){
-		answerPhotoBitmap = bitmap;
+	public void setPhoto(byte[] answerPhoto){
+		answerPhotoByteArray = answerPhoto;
+		hasPhoto = true;
+	}
+	public byte[] getPhoto(){
+		return answerPhotoByteArray ;
+	}
+	
+	public boolean getPhotoStatus(){
+		return hasPhoto;
+		
 	}
 	
 	/**
@@ -177,6 +186,10 @@ public class Answer implements Serializable {
 	 */
 	public String getLocation() {
 		return location;
+	}
+	
+	public void setHasPhoto() {
+		hasPhoto = true;
 	}
 	
 	

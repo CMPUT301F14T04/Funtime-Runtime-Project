@@ -1,11 +1,13 @@
 package ca.ualberta.cs.funtime_runtime;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -47,6 +49,9 @@ public class AuthorAnswerActivity extends CustomActivity {
 	ArrayList<Question> userAnsweredList;
 	Geolocation locator;
 	int camera_color = Color.parseColor("#001110");
+	byte[] compressedData = new byte[64000];
+	boolean hasPhoto = false;
+	Bitmap photoBitmap;
 
 	/**
 	 * This is a standard onCreate method
@@ -100,7 +105,15 @@ public class AuthorAnswerActivity extends CustomActivity {
 		 if (ApplicationState.isLoggedIn()) {
 			Answer answer = new Answer(answerBody.getText().toString(), username.toString());
 			locator = new Geolocation(this);
+			if (hasPhoto == true){
+				//question.getPhoto(array);
+				answer.setPhoto(compressedData);
+			}
 			answer.setLocation(locator.getLocation());
+			if (hasPhoto) {
+				answer.setHasPhoto();
+			}
+			
 			userAnsweredList = account.getAnsweredList();
 			question.addAnswer(answer);
 			Thread updateThread = new UpdateQuestionThread(question);
@@ -143,10 +156,16 @@ public class AuthorAnswerActivity extends CustomActivity {
 
 		        if (photoUri != null) {
 		            try {
-		                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
-		                int byteCount = bitmap.getByteCount();
-		                if (byteCount > 0)
+		                photoBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
+		                int byteCount = photoBitmap.getByteCount();
+		                if (byteCount > 0){
 		                	Log.i("Image Upload", ""+byteCount);
+		                	hasPhoto = true;
+		                }
+		                ByteArrayOutputStream blob = new ByteArrayOutputStream();
+		                photoBitmap.compress(CompressFormat.JPEG, 20 /*ignored for PNG*/, blob);
+		                compressedData = blob.toByteArray();
+		                Log.i("size of byte array", ""+ (int)compressedData.length);
 		                //your_imgv.setImageBitmap(bitmap);
 		                //profilePicPath = photoUri.toString();
 		            } catch (Exception e) {

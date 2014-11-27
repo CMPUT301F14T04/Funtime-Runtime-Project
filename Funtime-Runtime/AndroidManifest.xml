@@ -170,6 +170,10 @@
             android:name="ca.ualberta.cs.funtime_runtime.ShowPhoto"
             android:label="@string/title_activity_show_photo" >
         </activity>
+        <activity
+            android:name="ca.ualberta.cs.funtime_runtime.ShowAnswerPhoto"
+            android:label="@string/title_activity_show_answer_photo" >
+        </activity>
     </application>
 
 </manifest>

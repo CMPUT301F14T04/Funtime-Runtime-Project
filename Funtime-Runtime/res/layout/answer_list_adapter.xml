@@ -68,7 +68,7 @@
         android:layout_alignParentRight="true"
         android:background="@null"
         android:contentDescription="@string/view_photo_description"
-        android:onClick="show_photo"
+        android:onClick="show_answerPhoto"
         android:src="@android:drawable/ic_menu_gallery" />
 
     <TextView
