@@ -37,8 +37,9 @@ public class ShowPhoto extends Activity {
 			questionPhoto.setImageBitmap(photoBitmap);
 		} else if (hasAnswerPhoto == true){
 			//String answerId = getIntent().getExtras().getString("answerId");
-			Answer answer = ApplicationState.getPassableAnswer();
-			photoByteArray = answer.getPhoto();
+			//Answer answer = ApplicationState.getPassableAnswer();
+			//photoByteArray = answer.getPhoto();
+			photoByteArray = getIntent().getExtras().getByteArray("Photo");
 			photoBitmap = BitmapFactory.decodeByteArray(photoByteArray, 0, photoByteArray.length);
 			questionPhoto.setImageBitmap(photoBitmap);
 		}

@@ -201,20 +201,18 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		
 		answerViewPhotoButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				//Question question = ApplicationState.getPassableQuestion();
-				//Answer answer = question.getAnswer(position);
-				Answer answer = getItem((Integer) v.getTag());				
+
+				Answer answer = getItem((Integer) v.getTag());	
 				Context context = getContext();
-//				Intent bootPhoto = new Intent(context, ShowAnswerPhoto.class);
-//				bootPhoto.putExtra("answerPhoto", answer.getPhoto());
-//				bootPhoto.putExtra("hasAnswerPhoto?", answer.getPhotoStatus());
-				Intent bootPhoto = new Intent(context, ShowPhoto.class);
-				ApplicationState.setPassableAnswer(answer);
-				bootPhoto.putExtra("Photo", answer.getPhoto());
-				bootPhoto.putExtra("hasAnswerPhoto?", answer.getPhotoStatus());
-				Toast.makeText(getContext(), String.valueOf(answer.getBody()), Toast.LENGTH_LONG).show();
-				bootPhoto.putExtra("answerId", answer.getId());
-				context.startActivity(bootPhoto);
+				if ( answer.getPhotoStatus() ) {
+					Intent bootPhoto = new Intent(context, ShowPhoto.class);
+					bootPhoto.putExtra("Photo", answer.getPhoto());
+					bootPhoto.putExtra("hasAnswerPhoto?", answer.getPhotoStatus());
+
+					context.startActivity(bootPhoto);
+				} else {
+					Toast.makeText(context, "No photo available", Toast.LENGTH_LONG).show();
+				}
 				
 			}
 		});
