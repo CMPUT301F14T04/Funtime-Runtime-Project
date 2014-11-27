@@ -375,7 +375,7 @@ public class QuestionPageActivity extends CustomActivity {
 	public void upvote_question(View v){
 		// Note: using the back button will save the question status (cannot upvote again)
 		// Note: using the home icon will not save the question status (can upvote many times)
-		Thread updateThread = new UpdateQuestionThread(question);
+		//Thread updateThread = new UpdateQuestionThread(question);
 		if (ApplicationState.isLoggedIn()) {
 			if (upvoted) {
 				//question.downVote();
@@ -397,12 +397,13 @@ public class QuestionPageActivity extends CustomActivity {
 			String msg = ApplicationState.notFunctional();
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
-		updateThread.start();
-		try {
-			updateThread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		ApplicationState.updateServerQuestion(question);
+//		updateThread.start();
+//		try {
+//			updateThread.join();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	/**

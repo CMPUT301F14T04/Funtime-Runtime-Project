@@ -134,13 +134,15 @@ public class AuthorAnswerActivity extends CustomActivity {
 
 			question.addAnswer(answer);
 			account.answerQuestion(question);
-			Thread updateThread = new UpdateQuestionThread(question);
-			updateThread.start();
-			try {
-				updateThread.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			ApplicationState.updateServerQuestion(question);
+			ApplicationState.updateAccount();
+//			Thread updateThread = new UpdateQuestionThread(question);
+//			updateThread.start();
+//			try {
+//				updateThread.join();
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
 	
 			//userAnsweredIdList.add(0,question.getId());
 			//TODO save account

@@ -138,8 +138,9 @@ public class AuthorReplyActivity extends CustomActivity {
 				reply.setLocation(geoLocation.getLocation());
 			}
 			
-			Thread updateThread = new UpdateQuestionThread(question);
-			updateThread.start();
+			ApplicationState.updateServerQuestion(question);
+//			Thread updateThread = new UpdateQuestionThread(question);
+//			updateThread.start();
 			
 			finish();		
 		} else {
