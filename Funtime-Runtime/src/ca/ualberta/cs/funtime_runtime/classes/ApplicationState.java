@@ -2,6 +2,7 @@ package ca.ualberta.cs.funtime_runtime.classes;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -213,6 +214,17 @@ public class ApplicationState extends Application {
 	public static String notFunctional() {
 		String msg = "Please Login to use";
 		return msg;
+	}
+	
+	public static void addServerQuestions(Question question, Activity activity) {
+		Thread addThread = new AddQuestionThread(question, activity);
+		addThread.start();
+		try {
+			addThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public static void updateAccount() {

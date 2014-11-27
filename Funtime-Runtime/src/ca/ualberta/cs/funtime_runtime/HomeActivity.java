@@ -67,7 +67,7 @@ public class HomeActivity extends CustomActivity {
 		//ApplicationState.setAccount(account);
 		//questionManager = new ESQuestionManager();
 		
-		homeQuestionList = ApplicationState.getQuestionList();
+		//homeQuestionList = ApplicationState.getQuestionList();
 		
 		homeListView = (ListView) findViewById(R.id.questionListView);
 

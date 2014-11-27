@@ -17,7 +17,7 @@ public class ApplicationStateTest extends ActivityInstrumentationTestCase2<HomeA
 	public void testLogin() {
 		assertFalse(ApplicationState.isLoggedIn());
 		Account newAccount = new Account("TestUser");
-		ApplicationState.setAccount(newAccount);
+		ApplicationState.setAccount(newAccount, getActivity().getApplicationContext());
 		Account foundAccount = ApplicationState.getAccount();
 		assertEquals(newAccount, foundAccount);
 		assertTrue(ApplicationState.isLoggedIn());

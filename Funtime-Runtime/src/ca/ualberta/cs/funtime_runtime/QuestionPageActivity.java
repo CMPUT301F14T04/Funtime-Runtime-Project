@@ -362,7 +362,7 @@ public class QuestionPageActivity extends CustomActivity {
 		bootPhoto.putExtra("Photo", question.getPhoto());
 		bootPhoto.putExtra("hasPhoto?", question.getPhotoStatus());
 		startActivity(bootPhoto);
-		}
+	}
 	
 	/**
 	 * this button allows the user to upvote a question once 

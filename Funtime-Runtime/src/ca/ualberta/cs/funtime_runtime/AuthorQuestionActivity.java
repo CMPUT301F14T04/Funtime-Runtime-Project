@@ -25,6 +25,7 @@ import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Geolocation;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.SearchQuestionThread;
 import ca.ualberta.cs.funtime_runtime.classes.UpdateAccountThread;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 /**
@@ -135,7 +136,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 
 		// Elastic search code
 		generateId(question);		
-		addServerQuestion(question);
+		ApplicationState.addServerQuestions(question, this);
 		
 		account.authorQuestion(question);
 
@@ -153,13 +154,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 		
 	}
 
-	private void addServerQuestion(Question question) {
-		Thread thread = new AddThread(question);
-		thread.start();
-	}
 
 	private void generateId(Question question) {
-		Thread searchThread = new SearchThread("*");
+		Thread searchThread = new SearchQuestionThread("*");
 		searchThread.start();
 
 		int id = generator.nextInt(RANDOM_NUMBER_CAP);
@@ -241,58 +238,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 public void cancel_question(View v){
 		 finish();
 	 }
-	 
-	 class AddThread extends Thread {
-		private Question question;
-
-		public AddThread(Question question) {
-			this.question = question;
-		}
-
-		@Override
-		public void run() {
-			questionManager.addQuestion(question);
-			
-			// Give some time to get updated info
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			runOnUiThread(doFinishAdd);
-		}
-	 }
-	 
-	class SearchThread extends Thread {
-		private String search;
 		
-		public SearchThread(String s){		
-			search = s;
-		}
-		
-		@Override
-		public void run() {
-			
-			questionList.clear();
-			questionList.addAll(questionManager.searchQuestions(search, null));
-			if (!questionList.isEmpty()){
-				Question question = questionList.get(0);
-				Log.i("Title", question.getTitle());
-				Log.i("Body", question.getBody());
-				Log.i("User", question.getUser());
-				Log.i("Upvotes", ""+question.getRating());
-			}
-		}
-	}
-	 
-	private Runnable doFinishAdd = new Runnable() {
-		public void run() {
-			finish();
-		}
-	};	
-		
-	
-	
 
 }
