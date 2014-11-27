@@ -304,6 +304,7 @@ public class QuestionPageActivity extends CustomActivity {
 			String msg = ApplicationState.notLoggedIn();
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
+		ApplicationState.updateAccount();
 
 	}
 	
@@ -329,6 +330,7 @@ public class QuestionPageActivity extends CustomActivity {
 				account.removeFavourite(question);
 				favourited = false;
 			}
+			ApplicationState.updateAccount();
 		} else {
 			String msg = ApplicationState.notFunctional();
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
@@ -393,6 +395,7 @@ public class QuestionPageActivity extends CustomActivity {
 				questionUpvote.setTextColor(upvote_color);
 				upvoted = true;
 			}
+			ApplicationState.updateAccount();
 		} else {
 			String msg = ApplicationState.notFunctional();
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
@@ -423,6 +426,7 @@ public class QuestionPageActivity extends CustomActivity {
 				bookmark_button.setColorFilter(not_bookmarked_color);
 				bookmarked = false;
 			}
+			ApplicationState.updateAccount();
 		} else {
 			String msg = ApplicationState.notFunctional();
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();

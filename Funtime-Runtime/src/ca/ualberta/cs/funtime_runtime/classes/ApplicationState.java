@@ -239,6 +239,7 @@ public class ApplicationState extends Application {
 	public static ArrayList<Question> getQuestionList() {
 		//TODO grab the master question list from the sever before returning
 		//refresh();
+		ApplicationState.loadServerQuestions();
 		return questionList;
 	}
 	
