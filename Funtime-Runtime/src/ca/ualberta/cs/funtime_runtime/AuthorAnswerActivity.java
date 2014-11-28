@@ -114,7 +114,8 @@ public class AuthorAnswerActivity extends CustomActivity {
 	 */
 	 public void answer_question(View v){ 
 		 if (ApplicationState.isLoggedIn()) {
-			answer = new Answer(answerBody.getText().toString(), username.toString());
+			answer = new Answer(question.getId(), answerBody.getText().toString(), username.toString());
+	
 			Random gen = new Random();
 			Integer id = gen.nextInt(1000000);
 			answer.setId(id);

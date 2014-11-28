@@ -365,7 +365,37 @@ public class ApplicationState extends Application {
 		}
 	}
 
-
+	public static Question refreshQuestion(Question question, Context context) {
+		ArrayList<Question> newestQuestions = getQuestionList(context);
+		for (Question q: newestQuestions) {
+			if (q.equals(question)) {
+				return q;
+			}
+		}
+		return question;
+	}
+	
+	public static Question getQuestionById(Integer qId) {
+		for (Question q: questionList) {
+			if (qId.equals(q.getId())) {
+				return q;
+			}
+		}
+		return null;
+	}
+	
+	public static Answer refreshAnswer(Answer answer, Context context) {
+		Integer parentID = answer.getParentQuestionId();
+		Question parentQuestion = ApplicationState.getQuestionById(parentID);
+		parentQuestion = ApplicationState.refreshQuestion(parentQuestion, context);
+		ArrayList<Answer> newestAnswers = parentQuestion.getAnswerList();
+		for (Answer a: newestAnswers) {
+			if (a.equals(answer)) {
+				return a;
+			}
+		}
+		return answer;
+	}
 	
 	
 }
