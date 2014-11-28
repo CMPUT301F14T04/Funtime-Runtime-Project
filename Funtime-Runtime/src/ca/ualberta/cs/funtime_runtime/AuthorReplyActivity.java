@@ -126,9 +126,26 @@ public class AuthorReplyActivity extends CustomActivity {
 		if (ApplicationState.isLoggedIn()) {
 			Reply reply = new Reply(typeReply.getText().toString(), username.toString());
 	
+			question = ApplicationState.getPassableQuestion();
+			
+			ArrayList<Question> newestQuestions = ApplicationState.getQuestionList(this);
+			for (Question q: newestQuestions) {
+				if (q.equals(question)) {
+					question = q;
+				}
+			}
+			
+			ApplicationState.setPassableQuestion(question);
+			
 			if (replyType.equals("question")){
 				question.addReply(reply);
 			} else if (replyType.equals("answer")){
+				ArrayList<Answer> newestAnswers = question.getAnswerList();
+				for (Answer a: newestAnswers) {
+					if (a.equals(answer)) {
+						answer = a;
+					}
+				}
 				answer.addReply(reply);
 				//question = ApplicationState.getPassableQuestion();
 			}

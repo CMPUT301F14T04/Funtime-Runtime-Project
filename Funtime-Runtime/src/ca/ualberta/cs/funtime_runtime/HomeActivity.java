@@ -113,9 +113,7 @@ public class HomeActivity extends CustomActivity {
 	@Override
 	public void onRestart() {
 		super.onRestart();
-		//loadServerQuestions();
 		refresh();
-		adapter.notifyDataSetChanged();
 	}
 
 	/**
@@ -143,82 +141,10 @@ public class HomeActivity extends CustomActivity {
 			}
 		}
 	}
-	
-	/**
-	 * This function simply redirects to another activity when a certain menu 
-	 * item is selected by the user. It operates a switch statement to transition 
-	 * between different activities
-	 * 
-	 * @param item is a menuItem signifying location within the menu that users 
-	 * wish to visit
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {	
-			case android.R.id.home:
-				openMyHome();
-				return true;
-				
-			case R.id.refresh:
-				refresh();
-				return true;
-				
-			case R.id.home_menu_item:
-				openMyHome();
-				return true;
-				
-			case R.id.searchQuestionsList :
-				openSearch();
-				return true;
-				
-			case R.id.login_menu_item :
-				openLogin();
-				return true;
-				
-			case R.id.my_questions_menu_item :
-				openMyQuestions();
-				return true;
-				
-			case R.id.my_answers_menu_item :
-				openMyAnswers();
-				return true;
-				
-			case R.id.my_favorites_menu_item :
-				openMyFavourites();
-				return true;
-				
-			case R.id.my_reading_list_item :
-				openMyReadingList();
-				return true;
-				
-			case R.id.my_history_list_item :
-				openMyHistory();
-				return true;
-				
-			case R.id.sort_list_item :
-				return true;
-				
-			case R.id.sort_date_menu:
-				homeQuestionList = sorter.sortByDate();
-				adapter.notifyDataSetChanged();
-				return true;
-				
-			case R.id.sort_votes_menu:
-				homeQuestionList = sorter.sortByVotes();
-				adapter.notifyDataSetChanged();
-				return true;
-				
-			case R.id.sort_photo_menu:
-				homeQuestionList = sorter.sortByPhoto();
-				adapter.notifyDataSetChanged();
-				return true;
-				
-			default :
-				return true;
-		}
-	}
 
-	private void refresh() {
+
+	@Override
+	public void refresh() {
 		String sortType = sorter.getSortType();
 		ApplicationState.refresh(this);
 		homeQuestionList = ApplicationState.getQuestionList(this);
@@ -229,6 +155,7 @@ public class HomeActivity extends CustomActivity {
 		} else if (sortType.equals("Photo")) {
 			sorter.sortByPhoto();
 		}
+		adapter.notifyDataSetChanged();
 	}
 
 	/**

@@ -203,6 +203,12 @@ public class Answer implements Serializable {
 		hasPhoto = true;
 	}
 	
-	
+    public boolean equals(Object obj) {
+    	if (!(obj instanceof Answer)) {
+             return false;
+    	}
+    	Answer other = (Answer) obj;
+    	return (other.getId() == this.getId() );
+    }
 
 }

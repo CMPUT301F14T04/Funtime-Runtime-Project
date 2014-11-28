@@ -249,5 +249,12 @@ public class Question implements Serializable {
 		return location;
 	}
 	
+    public boolean equals(Object obj) {
+    	if (!(obj instanceof Question)) {
+             return false;
+    	}
+    	Question other = (Question) obj;
+    	return (other.getId().equals(this.getId()));
+    }
 	
 }

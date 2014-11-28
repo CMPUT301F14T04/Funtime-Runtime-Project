@@ -239,44 +239,7 @@ public class QuestionPageActivity extends CustomActivity {
 	@Override
 	public void onRestart() {
 		super.onRestart();
-		account = ApplicationState.getAccount();
-		if (ApplicationState.isLoggedIn()) {
-			favourited_id_list = account.getFavouritesList();
-			if (favourited_id_list.contains(question)) {
-				favourited = true;
-				favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
-			} else {
-				favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
-			}
-			
-			upvoted_id_list = account.getUpvotedQuestions();
-			if (upvoted_id_list.contains(question.getId())) {
-				upvoted = true;
-				questionUpvote.setTextColor(upvote_color);
-			} else {
-				questionUpvote.setTextColor(Color.parseColor("#000000"));
-			}
-			rating = question.getRating();
-			questionUpvote.setText(Integer.toString(rating));
-			
-			bookmarked_id_list = account.getReadingList();
-			if (bookmarked_id_list.contains(question.getId())) {
-				bookmarked = true;
-				bookmark_button.setColorFilter(bookmarked_color);
-			} else {
-				bookmark_button.setColorFilter(not_bookmarked_color);
-			}
-		}
-		
-		answersTitle.setText("Answers (" + answerList.size() + ")");
-		
-		repliesText.setText("Replies: " + question.getReplyCount());
-		
-		sorter.sortByVotes();
-		adapter.notifyDataSetChanged();
-		
-		// TODO save reading list locally
-	
+		refresh();
 	}
 	
 	/**
@@ -311,6 +274,26 @@ public class QuestionPageActivity extends CustomActivity {
 		sorter.sortByVotes();
 		ApplicationState.updateAccount(this);
 
+	}
+	
+	@Override
+	public void refresh() {
+		ApplicationState.refresh(this);
+		ArrayList<Question> qList = ApplicationState.getQuestionList(this);
+		for (Question q: qList) {
+			if (q.getId().equals(question.getId())) {
+				question = q;
+				ApplicationState.setPassableQuestion(question);
+			}
+		}
+		
+		answerList = question.getAnswerList();
+		//Toast.makeText(this, "Answer size" + answerList.size(), Toast.LENGTH_LONG).show();
+		sorter = new AnswerSorter(answerList);
+		sorter.sortByVotes();
+		adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, answerList);
+		answerListView.setAdapter(adapter);
+		adapter.notifyDataSetChanged();
 	}
 	
 	/**
@@ -437,6 +420,7 @@ public class QuestionPageActivity extends CustomActivity {
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
 	}
+	
 	
 	
 }
