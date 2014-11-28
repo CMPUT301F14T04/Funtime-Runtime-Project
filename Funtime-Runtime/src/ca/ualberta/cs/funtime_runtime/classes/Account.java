@@ -224,6 +224,7 @@ public class Account implements Serializable {
 	 * @param question		a question the user has upvoted
 	 */
 	public void upvoteQuestion(Question question, Context context) {
+//		question = ApplicationState.refreshQuestion(question, context);
 		question.upVote();
 		upvotedQuestions.add(question.getId());
 		ApplicationState.updateAccount(context);
@@ -234,6 +235,7 @@ public class Account implements Serializable {
 	 * @param question		a question the user has un-upvoted
 	 */
 	public void downvoteQuestion(Question question, Context context) {
+		question = ApplicationState.refreshQuestion(question, context);
 		question.downVote();
 		upvotedQuestions.remove( (Integer) question.getId());
 		ApplicationState.updateAccount(context);
@@ -251,6 +253,7 @@ public class Account implements Serializable {
 	 * @param answer	an answer the user has upvoted
 	 */
 	public void upvoteAnswer(Answer answer, Context context) {
+//		answer = ApplicationState.refreshAnswer(answer, context);
 		answer.upVote();
 		upvotedAnswers.add(answer.getId());
 		ApplicationState.updateAccount(context);
@@ -261,6 +264,7 @@ public class Account implements Serializable {
 	 * @param answer	an answer the user has un-upvoted
 	 */
 	public void downvoteAnswer(Answer answer, Context context) {
+		answer = ApplicationState.refreshAnswer(answer, context);
 		answer.downVote();
 		upvotedAnswers.remove( (Integer) answer.getId() );
 		ApplicationState.updateAccount(context);

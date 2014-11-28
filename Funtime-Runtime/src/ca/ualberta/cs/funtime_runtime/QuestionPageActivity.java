@@ -292,7 +292,12 @@ public class QuestionPageActivity extends CustomActivity {
 		sorter.sortByVotes();
 		adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, answerList);
 		answerListView.setAdapter(adapter);
+
+		rating = question.getRating();
+		questionUpvote.setText(Integer.toString(rating));
+
 		answersTitle.setText("Answers (" + answerList.size() + ")");
+
 		adapter.notifyDataSetChanged();
 	}
 	
@@ -367,6 +372,7 @@ public class QuestionPageActivity extends CustomActivity {
 		// Note: using the home icon will not save the question status (can upvote many times)
 		//Thread updateThread = new UpdateQuestionThread(question);
 		if (ApplicationState.isLoggedIn()) {
+			question = ApplicationState.refreshQuestion(question, this);
 			if (upvoted) {
 				//question.downVote();
 				account.downvoteQuestion(question, this);
@@ -384,11 +390,12 @@ public class QuestionPageActivity extends CustomActivity {
 				upvoted = true;
 			}
 			ApplicationState.updateAccount(this);
+			refresh();
 		} else {
 			String msg = ApplicationState.notFunctional();
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
-		ApplicationState.updateServerQuestion(question);
+//		ApplicationState.updateServerQuestion(question);
 //		updateThread.start();
 //		try {
 //			updateThread.join();

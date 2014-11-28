@@ -104,13 +104,15 @@ public class Question implements Serializable {
 	 */
 	public void upVote() {
 		rating++;
+		ApplicationState.updateServerQuestion(this);
 	}
 
 	/**
 	 * This function subtracts from the total number of ratings on an question 
 	 */
 	public void downVote() {
-		rating--;	
+		rating--;
+		ApplicationState.updateServerQuestion(this);
 	}
 
 	
