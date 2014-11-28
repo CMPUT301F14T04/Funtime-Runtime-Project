@@ -41,39 +41,44 @@ public class LoginActivity extends CustomActivity {
              * @see android.view.View.OnClickListener#onClick(android.view.View)
              */
             public void onClick(View v) {
-            	// Retrieve the username to be logged in from the edit text field
-                EditText usernameText = (EditText) findViewById(R.id.loginField);
-                String username = usernameText.getText().toString();
-                //Make sure the username field is not empty
-                if (username != "") {
-                	// Get account list
-                	ArrayList<Account> accountList = ApplicationState.getAccountList();
-                	
-                	// Check if username matches existing account
-                	boolean accountExists = false;
-                	Account account = null;
-                	for (int i = 0; i < accountList.size(); ++i) {
-                		account = accountList.get(i);
-                		if (account.getName().equals(username)) {
-                			accountExists = true;
-                			break;
-                		}
-                	}
-                	if (accountExists) {
-                		// Login the user and return to previous screen
-                		ApplicationState.setAccount(account, ctx);
-                		Toast.makeText(getApplicationContext(), "Logged in as" + account.getName(), Toast.LENGTH_LONG);
-                		finish();
-                	} else {
-                		// Notify the user that there is no existing account with that username.
-                		Toast.makeText(ctx, "Account does not exist. Please login to an existing account or create a a new one.", Toast.LENGTH_LONG).show();
-                	}
-                	usernameText.setText(""); 
-
-                }
-                else {
-           		    Toast.makeText(ctx, "Please enter a username to login.", Toast.LENGTH_SHORT).show();
-                }
+            	
+        		if ( (ApplicationState.isOnline(ctx)) ) {
+	            	// Retrieve the username to be logged in from the edit text field
+	                EditText usernameText = (EditText) findViewById(R.id.loginField);
+	                String username = usernameText.getText().toString();
+	                //Make sure the username field is not empty
+	                if (username != "") {
+	                	// Get account list
+	                	ArrayList<Account> accountList = ApplicationState.getAccountList();
+	                	
+	                	// Check if username matches existing account
+	                	boolean accountExists = false;
+	                	Account account = null;
+	                	for (int i = 0; i < accountList.size(); ++i) {
+	                		account = accountList.get(i);
+	                		if (account.getName().equals(username)) {
+	                			accountExists = true;
+	                			break;
+	                		}
+	                	}
+	                	if (accountExists) {
+	                		// Login the user and return to previous screen
+	                		ApplicationState.setAccount(account, ctx);
+	                		Toast.makeText(getApplicationContext(), "Logged in as" + account.getName(), Toast.LENGTH_LONG);
+	                		finish();
+	                	} else {
+	                		// Notify the user that there is no existing account with that username.
+	                		Toast.makeText(ctx, "Account does not exist. Please login to an existing account or create a a new one.", Toast.LENGTH_LONG).show();
+	                	}
+	                	usernameText.setText(""); 
+	
+	                }
+	                else {
+	           		    Toast.makeText(ctx, "Please enter a username to login.", Toast.LENGTH_SHORT).show();
+	                }
+        		} else {
+           		    Toast.makeText(ctx, "Could not connect to network.", Toast.LENGTH_SHORT).show();
+        		}
             }
         };
         
@@ -93,8 +98,13 @@ public class LoginActivity extends CustomActivity {
 	 * Takes the user to the create account page. 
 	 */
 	public void createAccount(View v)	{
-		Intent createNewAccount = new Intent(LoginActivity.this, CreateAccountActivity.class);
-		startActivity(createNewAccount);
-		finish();
+		
+		if ( (ApplicationState.isOnline(this)) ) {
+			Intent createNewAccount = new Intent(LoginActivity.this, CreateAccountActivity.class);
+			startActivity(createNewAccount);
+			finish();
+		} else {
+   		    Toast.makeText(this, "Could not connect to network.", Toast.LENGTH_SHORT).show();
+		}
 	}
 }

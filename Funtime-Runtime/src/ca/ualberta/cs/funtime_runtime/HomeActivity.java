@@ -247,7 +247,7 @@ public class HomeActivity extends CustomActivity {
 
 	private void refresh() {
 		String sortType = sorter.getSortType();
-		ApplicationState.refresh();
+		ApplicationState.refresh(this);
 		homeQuestionList = ApplicationState.getQuestionList();
 		if (sortType.equals("Date")){
 			sorter.sortByDate();

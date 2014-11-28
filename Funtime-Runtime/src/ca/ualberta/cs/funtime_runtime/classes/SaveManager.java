@@ -28,7 +28,7 @@ public class SaveManager {
 			os = new ObjectOutputStream(fos);
 			os.writeObject(object);
 			os.close();
-			Toast.makeText(ctx, "saved", Toast.LENGTH_LONG).show();
+			//Toast.makeText(ctx, "saved", Toast.LENGTH_LONG).show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,7 +46,7 @@ public class SaveManager {
 		    
 		    try {
 		        if(ois != null) {
-		        	Toast.makeText(ctx, "loaded", Toast.LENGTH_LONG).show();
+		        	//Toast.makeText(ctx, "loaded", Toast.LENGTH_LONG).show();
 		            ois.close();
 		        }
 		    } catch (IOException e) {

@@ -49,7 +49,8 @@ public class CreateAccountActivity extends CustomActivity {
                 /* The on-click listener for the create account button.
                  * @see android.view.View.OnClickListener#onClick(android.view.View)
                  */
-                EditText createUsernameText = (EditText) findViewById(R.id.loginField);
+            	
+            	EditText createUsernameText = (EditText) findViewById(R.id.loginField);
                 String newUsername = createUsernameText.getText().toString();
                 if (newUsername.length() > 0) {
                 	// Get account list

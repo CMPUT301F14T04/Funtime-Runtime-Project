@@ -7,6 +7,7 @@ import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.elastic.ESAccountManager;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
@@ -44,37 +45,29 @@ public class ApplicationState extends Application {
 	//private static boolean online = false;
 	
 	private static final String USERACCOUNT = "UserAccount.sav";
+	private static final String CACHEDQUESTIONS = "CachedQuestions.sav";
 	
 	private static ESQuestionManager questionManager;
 	private static ESAccountManager accountManager;
+	private static SaveManager saveManager;
 	
 	public static void startup(Context ctx) {
 		
-		/*
-		SaveManager saveManager = new SaveManager();
-		Object obj;
-		try {
-			obj = saveManager.load(USERACCOUNT, ctx);
-			if (obj != null) {
-				account = (Account) obj;
-				loggedIn = true;
-			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if ( (ApplicationState.isOnline(ctx)) ) {
+			questionManager = new ESQuestionManager();
+			accountManager = new ESAccountManager();
+			questionList = new ArrayList<Question>();
+			loadServerQuestions();
+		} else {
+			loadCachedQuestions(ctx);
 		}
-		*/
 		
-		questionManager = new ESQuestionManager();
-		accountManager = new ESAccountManager();
-		questionList = new ArrayList<Question>();
-		loadServerQuestions();
-		
+		saveManager = new SaveManager();
+		checkLogin(ctx);
+	
 	}
 	
 	public static void loadServerQuestions() {
-		
-		
 		Thread loadThread = new SearchQuestionThread("*");
 		//Thread loadThread = new LoadHomeThread("*", homeQuestionList, adapter);
 		loadThread.start();	
@@ -84,11 +77,19 @@ public class ApplicationState extends Application {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
-		
-		//questionList.clear();
-		//questionList.addAll(questionManager.searchQuestions("*", null));	
-		
+	}
+	
+	public static void loadCachedQuestions(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(CACHEDQUESTIONS, context);
+			if (obj != null) {
+				questionList = (ArrayList<Question>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void loadServerAccounts() {
@@ -102,6 +103,28 @@ public class ApplicationState extends Application {
 		
 	}
 	
+	private static void checkLogin(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(USERACCOUNT, context);
+			if (obj != null) {
+				String name = (String) obj;
+				for (Account a: accountList) {
+					String aName = a.getName();
+					if (name.equals(aName)) {
+						account = a;
+						loggedIn = true;
+                		Toast.makeText(context, "Logged in as" + aName, Toast.LENGTH_LONG);
+						break;
+					}
+				}
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static void loadBySearch(String search) {
 		ApplicationState.questionList.clear();
 		ApplicationState.questionList.addAll(questionManager.searchQuestions(search, null));	
@@ -113,8 +136,14 @@ public class ApplicationState extends Application {
 		
 	}
 	
-	public static void refresh() {
-		loadServerQuestions();
+	public static void refresh(Context context) {
+		if ( (ApplicationState.isOnline(context)) ) {
+			loadServerQuestions();
+		} else {
+			String offlineNotice;
+			offlineNotice = "No Connection Available";
+			Toast.makeText(context, offlineNotice, Toast.LENGTH_LONG).show();
+		}
 	}
 	
 	
@@ -123,8 +152,7 @@ public class ApplicationState extends Application {
 	 * @param newAccount	an account to be logged in
 	 */
 	public static void setAccount(Account newAccount, Context ctx) {
-		SaveManager saveManager = new SaveManager();
-		saveManager.save(USERACCOUNT, newAccount, ctx);
+		saveManager.save(USERACCOUNT, newAccount.getName(), ctx);
 		account = newAccount;
 		loggedIn = true;
 	}
