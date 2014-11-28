@@ -113,9 +113,7 @@ public class HomeActivity extends CustomActivity {
 	@Override
 	public void onRestart() {
 		super.onRestart();
-		//loadServerQuestions();
 		refresh();
-		adapter.notifyDataSetChanged();
 	}
 
 	/**
