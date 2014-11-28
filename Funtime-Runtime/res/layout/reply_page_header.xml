@@ -33,7 +33,7 @@
         android:layout_alignParentTop="true"
         android:text="Large Text"
         android:textStyle="bold" 
-        android:textSize="17sp"/>
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/reply_parent_body"

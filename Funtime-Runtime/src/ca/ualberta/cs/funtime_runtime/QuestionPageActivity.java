@@ -189,6 +189,7 @@ public class QuestionPageActivity extends CustomActivity {
 		
 		answerList = question.getAnswerList();
 		sorter = new AnswerSorter(answerList);
+		sorter.sortByVotes();
 		
 		answersTitle.setText("Answers (" + answerList.size() + ")");
 		
@@ -268,7 +269,7 @@ public class QuestionPageActivity extends CustomActivity {
 		
 		repliesText.setText("Replies: " + question.getReplyCount());
 		
-		
+		sorter.sortByVotes();
 		adapter.notifyDataSetChanged();
 		
 		// TODO save reading list locally
@@ -304,6 +305,7 @@ public class QuestionPageActivity extends CustomActivity {
 			String msg = ApplicationState.notLoggedIn();
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
+		sorter.sortByVotes();
 		ApplicationState.updateAccount();
 
 	}

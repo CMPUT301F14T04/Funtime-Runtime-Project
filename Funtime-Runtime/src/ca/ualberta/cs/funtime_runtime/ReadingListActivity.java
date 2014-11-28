@@ -2,11 +2,6 @@ package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
 
-import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
-import ca.ualberta.cs.funtime_runtime.classes.Account;
-import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
-import ca.ualberta.cs.funtime_runtime.classes.Question;
-
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +14,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
+import ca.ualberta.cs.funtime_runtime.classes.Account;
+import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
+import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
 
 /**
  * This is a view class that displays all of the questions that a user has added to 
@@ -36,6 +36,7 @@ public class ReadingListActivity extends CustomActivity {
 	ArrayList<Question> readingList;
 	ArrayList<Question> appStateList;
 	ArrayList<Integer> readingIdList;
+	QuestionSorter sorter;
 	
 	QuestionListAdapter adapter;
 	Account account;
@@ -69,7 +70,9 @@ public class ReadingListActivity extends CustomActivity {
 
 		// Set adapter for list
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, readingList);
-		readingListView.setAdapter(adapter);	
+		readingListView.setAdapter(adapter);
+		sorter = new QuestionSorter(readingList);
+		sorter.sortByDate();
 		adapter.notifyDataSetChanged();
 		
 		

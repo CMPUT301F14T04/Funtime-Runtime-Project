@@ -51,6 +51,7 @@ public class SearchActivity extends CustomActivity {
 		questionManager = new ESQuestionManager();
 		resultList.setAdapter(adapter);	
 		sorter = new QuestionSorter(questions);
+		sorter.sortByDate();
 		
 		resultList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
