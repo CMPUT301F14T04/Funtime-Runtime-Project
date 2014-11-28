@@ -60,7 +60,7 @@ public class MyAnswersActivity extends CustomActivity {
 
 		myAnsweredQuestionsList = new ArrayList<Question>();
 		appStateList = new ArrayList<Question>();
-		appStateList = ApplicationState.getQuestionList();
+		appStateList = ApplicationState.getQuestionList(this);
 		for (Integer id: myAnsweredQuestionsIdList) {
 			for (Question q: appStateList) {
 				Integer qId = q.getId();
@@ -140,7 +140,7 @@ public class MyAnswersActivity extends CustomActivity {
 		    account.removeReadLater(selectedQuestion);
 		}
 		else if (item.getTitle() == "Add to reading list") {
-		    account.readLater(selectedQuestion);
+		    account.readLater(selectedQuestion, this);
             
 	    } 
 		else {

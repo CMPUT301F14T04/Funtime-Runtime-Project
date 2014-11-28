@@ -30,6 +30,7 @@ public class ApplicationState extends Application {
 	
 	private static Account account;
 	private static ArrayList<Question> questionList = new ArrayList<Question>();
+	private static ArrayList<Question> cachedQuestions = new ArrayList<Question>();
 	
 	/* Questions and answers that are passable between activities.
 	* This will save the reference, while passing via intent will not.
@@ -56,16 +57,22 @@ public class ApplicationState extends Application {
 	
 	public static void startup(Context ctx) {
 		
+		saveManager = new SaveManager();
+		
+		loadCachedQuestions(ctx);
+		
 		if ( (ApplicationState.isOnline(ctx)) ) {
 			questionManager = new ESQuestionManager();
 			accountManager = new ESAccountManager();
 			questionList = new ArrayList<Question>();
 			loadServerQuestions();
 		} else {
-			loadCachedQuestions(ctx);
+			String offlineNotice;
+			offlineNotice = "No Connection Available";
+			Toast.makeText(ctx, offlineNotice, Toast.LENGTH_SHORT).show();
+			setCachedQuestions(ctx);
 		}
-		
-		saveManager = new SaveManager();
+
 		checkLogin(ctx);
 		
 		firstLaunch = false;
@@ -93,12 +100,17 @@ public class ApplicationState extends Application {
 		try {
 			obj = saveManager.load(CACHEDQUESTIONS, context);
 			if (obj != null) {
-				questionList = (ArrayList<Question>) obj;
+				cachedQuestions = (ArrayList<Question>) obj;
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public static void setCachedQuestions(Context context) {
+		Toast.makeText(context, "Loaded Chached Questions", Toast.LENGTH_LONG).show();
+		questionList = cachedQuestions;
 	}
 	
 	public static void loadServerAccounts() {
@@ -245,10 +257,18 @@ public class ApplicationState extends Application {
 	/**
 	 * @return		return the master list of questions
 	 */
-	public static ArrayList<Question> getQuestionList() {
+	public static ArrayList<Question> getQuestionList(Context context) {
 		//TODO grab the master question list from the sever before returning
-		//refresh();
-		ApplicationState.loadServerQuestions();
+		refresh(context);
+		/*
+		if ( !(isOnline(context)) ) {
+			String offlineCacheNotice = "Cached questions loaded.";
+			Toast.makeText(context, offlineCacheNotice, Toast.LENGTH_LONG).show();
+			loadCachedQuestions(context);
+		} else {
+			ApplicationState.loadServerQuestions();
+		}
+		*/
 		return questionList;
 	}
 	
@@ -296,6 +316,7 @@ public class ApplicationState extends Application {
 	
 	public static void updateAccount() {
 		// TODO Add checks for online vs offline
+		
 		UpdateAccountThread accountThread = new UpdateAccountThread(account);
 		accountThread.start();
 		try {
@@ -313,6 +334,14 @@ public class ApplicationState extends Application {
 			thread.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public static void cacheQuestion(Question question, Context context) {
+		if ( !(cachedQuestions.contains(question) ) ) {
+			cachedQuestions.add(question);
+			saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
+			Toast.makeText(context, "Cached " + question.getTitle(), Toast.LENGTH_LONG).show();
 		}
 	}
 

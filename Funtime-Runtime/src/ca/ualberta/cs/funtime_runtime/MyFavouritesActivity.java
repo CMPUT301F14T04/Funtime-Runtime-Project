@@ -56,7 +56,7 @@ public class MyFavouritesActivity extends CustomActivity {
 		// Retrieve account's favourited questions list
 		myFavouritesIdList = account.getFavouritesList();
 		myFavouritesList = new ArrayList<Question>();
-		appStateList = ApplicationState.getQuestionList();
+		appStateList = ApplicationState.getQuestionList(this);
 		for (Integer id: myFavouritesIdList) {
 			for (Question q: appStateList) {
 				Integer qId = q.getId();
@@ -146,7 +146,7 @@ public class MyFavouritesActivity extends CustomActivity {
 		    account.removeReadLater(selectedQuestion);
 		}
 		else if (item.getTitle() == "Add to reading list") {
-		    account.readLater(selectedQuestion);
+		    account.readLater(selectedQuestion, this);
             
 	    } 
 		else {

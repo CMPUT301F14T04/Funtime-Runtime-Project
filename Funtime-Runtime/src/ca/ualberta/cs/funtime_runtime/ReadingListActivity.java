@@ -58,7 +58,7 @@ public class ReadingListActivity extends CustomActivity {
 		// Retrieve account's reading list
 		readingIdList = account.getReadingList();
 		readingList = new ArrayList<Question>();
-		appStateList = ApplicationState.getQuestionList();
+		appStateList = ApplicationState.getQuestionList(this);
 		for (Integer id: readingIdList) {
 			for (Question q: appStateList) {
 				Integer qId = q.getId();
@@ -148,7 +148,7 @@ public class ReadingListActivity extends CustomActivity {
 		    adapter.notifyDataSetChanged();
 		}
 		else if (item.getTitle() == "Add to reading list") {
-		    account.readLater(selectedQuestion);
+		    account.readLater(selectedQuestion, this);
             
 	    } 
 		else {

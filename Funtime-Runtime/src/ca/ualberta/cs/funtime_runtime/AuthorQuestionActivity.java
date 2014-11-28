@@ -122,7 +122,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 */
 	public void submitQuestion(View v) {
 		question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
-		questionList = ApplicationState.getQuestionList();
+		questionList = ApplicationState.getQuestionList(this);
 		userQuestionIdList = account.getQuestionList();
 		if (hasPhoto == true){
 			//question.getPhoto(array);

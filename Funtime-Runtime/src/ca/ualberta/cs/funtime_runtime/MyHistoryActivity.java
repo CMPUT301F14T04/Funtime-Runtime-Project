@@ -59,7 +59,7 @@ public class MyHistoryActivity extends CustomActivity {
 
 		myHistoryIdList = account.getHistoryList();
 		myHistoryList = new ArrayList<Question>();
-		appStateList = ApplicationState.getQuestionList();
+		appStateList = ApplicationState.getQuestionList(this);
 		for (Integer id: myHistoryIdList) {
 			for (Question q: appStateList) {
 				Integer qId = q.getId();
@@ -157,7 +157,7 @@ public class MyHistoryActivity extends CustomActivity {
 		if (item.getTitle() == "Remove from reading list") {
 			account.removeReadLater(selectedQuestion);
 		} else if (item.getTitle() == "Add to reading list") {
-			account.readLater(selectedQuestion);
+			account.readLater(selectedQuestion, this);
 
 		} else {
 			return false;

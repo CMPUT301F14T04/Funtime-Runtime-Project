@@ -51,7 +51,7 @@ public class MyQuestionsActivity extends CustomActivity {
 		myQuestionsIdList = account.getQuestionList();
 		
 		myQuestionsList = new ArrayList<Question>();
-		appStateList = ApplicationState.getQuestionList();
+		appStateList = ApplicationState.getQuestionList(this);
 		for (Integer id: myQuestionsIdList) {
 			for (Question q: appStateList) {
 				Integer qId = q.getId();
@@ -133,7 +133,7 @@ public class MyQuestionsActivity extends CustomActivity {
 		    account.removeReadLater(selectedQuestion);
 		}
 		else if (item.getTitle() == "Add to reading list") {
-		    account.readLater(selectedQuestion);
+		    account.readLater(selectedQuestion, this);
             
 	    } 
 		else {

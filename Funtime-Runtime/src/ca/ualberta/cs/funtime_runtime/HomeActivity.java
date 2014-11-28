@@ -62,43 +62,14 @@ public class HomeActivity extends CustomActivity {
 		if (loggedIn) {
 			account = ApplicationState.getAccount();
 		} 
-		//account = new Account("TestUser1");
-		//ApplicationState.setAccount(account);
-		//questionManager = new ESQuestionManager();
-		
-		//homeQuestionList = ApplicationState.getQuestionList();
 		
 		homeListView = (ListView) findViewById(R.id.questionListView);
 
 		//homeQuestionList = new ArrayList<Question>();
 		//loadServerQuestions();
-		homeQuestionList = ApplicationState.getQuestionList();
+		homeQuestionList = ApplicationState.getQuestionList(this);
 		//loadServerQuestions();
-		
-		
-		if ( !(ApplicationState.isOnline(this)) ) {
-			String offlineNotice;
-			offlineNotice = "No Connection Available";
-			Toast.makeText(this, offlineNotice, Toast.LENGTH_LONG).show();
-			
-			/*
-			try {
-				SaveManager saveManager = new SaveManager();
-				Object obj = saveManager.load("TEST", this);
-				homeQuestionList = (ArrayList<Question>) obj;
-			} catch (ClassNotFoundException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else { 		
-			loadServerQuestions();
-			SaveManager saveManager = new SaveManager();
-			saveManager.save("TEST", homeQuestionList, this);
-		*/
-		}
-		
-		
+
 		sorter = new QuestionSorter(homeQuestionList);
 		//testHome(); // temporary test code
 
@@ -250,7 +221,7 @@ public class HomeActivity extends CustomActivity {
 	private void refresh() {
 		String sortType = sorter.getSortType();
 		ApplicationState.refresh(this);
-		homeQuestionList = ApplicationState.getQuestionList();
+		homeQuestionList = ApplicationState.getQuestionList(this);
 		if (sortType.equals("Date")){
 			sorter.sortByDate();
 		} else if (sortType.equals("Votes")) {
@@ -276,7 +247,7 @@ public class HomeActivity extends CustomActivity {
 		if (item.getTitle() == "Remove from reading list") {
 			account.removeReadLater(selectedQuestion);
 		} else if (item.getTitle() == "Add to reading list") {
-			account.readLater(selectedQuestion);
+			account.readLater(selectedQuestion, this);
 
 		} else {
 			return false;

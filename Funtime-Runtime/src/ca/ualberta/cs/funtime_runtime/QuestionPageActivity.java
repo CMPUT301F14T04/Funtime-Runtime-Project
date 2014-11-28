@@ -121,10 +121,12 @@ public class QuestionPageActivity extends CustomActivity {
 
 		account = ApplicationState.getAccount();
 		
+		ApplicationState.cacheQuestion(question, this);
+		
 		boolean loggedIn = ApplicationState.isLoggedIn();
 		if (loggedIn) {
 			
-			account.addToHistory(question);
+			account.addToHistory(question, this);
 			
 			favourited_id_list = account.getFavouritesList();
 			if (favourited_id_list.contains(question.getId())) {
@@ -419,7 +421,7 @@ public class QuestionPageActivity extends CustomActivity {
 	public void bookmark_question(View v){
 		if (ApplicationState.isLoggedIn()) {
 			if (bookmarked == false){
-				account.readLater(question);
+				account.readLater(question, this);
 				bookmark_button.setColorFilter(bookmarked_color);
 				bookmarked = true;
 			} else if (bookmarked == true){

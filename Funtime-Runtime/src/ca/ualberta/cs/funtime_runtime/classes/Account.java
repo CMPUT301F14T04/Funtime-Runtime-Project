@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 
 
 /**
@@ -87,7 +88,7 @@ public class Account implements Serializable {
 		questionList.add(question.getId());
 		ApplicationState.updateAccount();
 		ApplicationState.addServerQuestions(question, activity);
-		
+		ApplicationState.cacheQuestion(question, activity);
 	}
 
 	/**
@@ -177,9 +178,10 @@ public class Account implements Serializable {
 	 * Adds a question to the account's read later list
 	 * @param question		a question the user has indicated they want to save to read later
 	 */
-	public void readLater(Question question) {
+	public void readLater(Question question, Context context) {
 		readingList.add(question.getId());
 		ApplicationState.updateAccount();
+		ApplicationState.cacheQuestion(question, context);
 	}
 	
 	/**
@@ -202,11 +204,12 @@ public class Account implements Serializable {
 	 * Adds a question to the account's history list
 	 * @param question		a question the user has viewed
 	 */
-	public void addToHistory(Question question) {
+	public void addToHistory(Question question, Context context) {
 		if ( !(history.contains(question.getId()) ) ) {
 			history.add(question.getId());
 		}
 		ApplicationState.updateAccount();
+		ApplicationState.cacheQuestion(question, context);
 	}
 	
 	/**
