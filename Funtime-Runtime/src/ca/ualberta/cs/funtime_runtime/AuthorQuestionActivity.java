@@ -88,8 +88,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 		setContentView(R.layout.activity_author_question);
 		setResources();
 	}
-
-	// useGPS = (Button)findViewB
 	
 	private void setResources() {
 		ActionBar actionbar = getActionBar();
@@ -186,7 +184,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 //		Toast.makeText(this, "Location added", Toast.LENGTH_LONG).show();
 //		geoButton.setColorFilter(MAP_COLOR);
 		final View Viewlayout = inflater.inflate(R.layout.geolocation_popup,(ViewGroup) findViewById(R.id.geolocation_dialog)); 
-		popDialog.setTitle("Set Location!");
+		popDialog.setTitle("Set Location");
 		popDialog.setView(Viewlayout);
 		popDialog.create();
 		popDialog.show();

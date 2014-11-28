@@ -9,19 +9,11 @@
         android:id="@+id/editText_Location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10" 
-        android:hint="Enter Location">
-
-        <requestFocus />
-    </EditText>
-
-    <Button
-        android:id="@+id/UseGpsButton"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText_Location"
-        android:layout_centerHorizontal="true"
-        android:text="Use GPS?" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="38dp"
+        android:ems="10"
+        android:hint="Enter Location" />
 
     <Button
         android:id="@+id/attachLocationButton"
@@ -31,5 +23,13 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/UseGpsButton"
         android:text="Attach Location" />
+
+    <Button
+        android:id="@+id/UseGpsButton"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_Location"
+        android:layout_centerHorizontal="true"
+        android:text="Use GPS?" />
 
 </RelativeLayout>
