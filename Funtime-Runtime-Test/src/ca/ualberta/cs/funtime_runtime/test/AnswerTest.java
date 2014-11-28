@@ -31,7 +31,7 @@ public class AnswerTest extends ActivityInstrumentationTestCase2<QuestionPageAct
 		/*
 		public void testEditAnswer() {
 			// Consider implementing
-		}
+		}AnswerPageActivity
 		*/
 		
 		public void testVoting() {
@@ -52,7 +52,7 @@ public class AnswerTest extends ActivityInstrumentationTestCase2<QuestionPageAct
 			assertEquals(rating, 10);
 			
 			Account account = new Account("TestUser1");
-			account.upvoteAnswer(answer);
+			account.upvoteAnswer(answer, getActivity());
 			assertEquals(answer.getRating(), 11);
 			ArrayList<Integer> upvotedAnswers = account.getUpvotedAnswers();
 			assertTrue(upvotedAnswers.contains(answer));
