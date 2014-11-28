@@ -63,7 +63,7 @@ public class ApplicationState extends Application {
 		}
 		
 		saveManager = new SaveManager();
-		checkLogin(ctx);
+		//checkLogin(ctx);
 	
 	}
 	
