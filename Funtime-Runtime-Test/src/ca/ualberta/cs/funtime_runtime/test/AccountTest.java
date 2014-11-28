@@ -34,16 +34,16 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 		Question question = new Question("Test Question Title", "Test question body", "TestAccountUsername");
 		Integer id = 7841;
 		question.setId(id);
-		account.authorQuestion(question);
+		account.authorQuestion(question, getActivity());
 		assertEquals(account.questionsCount(), 1);
 		assertEquals(id, account.getQuestionId(0));
 		
 		Question question0 = new Question("Test Question 0 Title", "Test question 0 body", "TestAccountUsername0");
 		Question question1 = new Question("Test Question 1 Title", "Test question 1 body", "TestAccountUsername1");
 		Question question2 = new Question("Test Question 2 Title", "Test question 2 body", "TestAccountUsername2");
-		account.authorQuestion(question0);
-		account.authorQuestion(question1);
-		account.authorQuestion(question2);	
+		account.authorQuestion(question0, getActivity());
+		account.authorQuestion(question1, getActivity());
+		account.authorQuestion(question2, getActivity());	
 		assertEquals(account.questionsCount(), 4);
 	}
 	

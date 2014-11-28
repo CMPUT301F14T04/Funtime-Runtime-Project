@@ -224,6 +224,10 @@ public class Question implements Serializable {
 		return photo;
 	}
 	
+	public void setHasPhoto(Boolean bool) {
+		hasPhoto = bool;
+	}
+	
 	public Boolean getPhotoStatus(){
 		return hasPhoto;
 		
@@ -244,4 +248,6 @@ public class Question implements Serializable {
 	public String getLocation() {
 		return location;
 	}
+	
+	
 }
