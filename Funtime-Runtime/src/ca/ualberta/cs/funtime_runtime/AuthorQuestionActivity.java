@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.zip.Deflater;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -14,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
@@ -78,6 +80,8 @@ public class AuthorQuestionActivity extends CustomActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		//final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
+		//final LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);;
 		setContentView(R.layout.activity_author_question);
 		setResources();
 	}
