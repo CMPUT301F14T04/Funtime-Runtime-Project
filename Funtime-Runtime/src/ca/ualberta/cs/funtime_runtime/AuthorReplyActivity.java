@@ -126,6 +126,13 @@ public class AuthorReplyActivity extends CustomActivity {
 		if (ApplicationState.isLoggedIn()) {
 			Reply reply = new Reply(typeReply.getText().toString(), username.toString());
 	
+			ArrayList<Question> newestQuestions = ApplicationState.getQuestionList(this);
+			for (Question q: newestQuestions) {
+				if (q.equals(question)) {
+					question = q;
+				}
+			}
+			
 			if (replyType.equals("question")){
 				question.addReply(reply);
 			} else if (replyType.equals("answer")){
@@ -136,6 +143,8 @@ public class AuthorReplyActivity extends CustomActivity {
 			if (hasLocation){
 				reply.setLocation(geoLocation.getLocation());
 			}
+			
+			ApplicationState.setPassableQuestion(question);
 			
 //			ApplicationState.updateServerQuestion(question);
 //			Thread updateThread = new UpdateQuestionThread(question);

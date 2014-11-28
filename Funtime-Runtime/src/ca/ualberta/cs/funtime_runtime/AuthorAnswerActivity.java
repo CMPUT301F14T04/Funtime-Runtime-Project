@@ -134,7 +134,6 @@ public class AuthorAnswerActivity extends CustomActivity {
 			ArrayList<Question> newestQuestions = ApplicationState.getQuestionList(this);
 			for (Question q: newestQuestions) {
 				if (q.equals(question)) {
-					Toast.makeText(this, "FOUND!", Toast.LENGTH_SHORT).show();
 					question = q;
 				}
 			}
