@@ -44,6 +44,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 	Question question;
 	Button submitButton;
 	ImageButton geoButton;
+	ImageButton photoButton;
 	EditText answerBody;
 	TextView questionTitle;
 	TextView questionBody;
@@ -83,6 +84,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 		answerBody = (EditText) findViewById(R.id.typeAnswerAA);
 		submitButton = (Button) findViewById(R.id.submitAnswerButton);
 		geoButton = (ImageButton) findViewById(R.id.answer_geo_button);
+		photoButton = (ImageButton) findViewById(R.id.add_answerImage_button);
 		account = ApplicationState.getAccount();
 		if (ApplicationState.isLoggedIn()) {
 			username = account.getName();
@@ -198,6 +200,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 		                photoBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
 		                int byteCount = photoBitmap.getByteCount();
 		                if (byteCount > 0){
+		                	photoButton.setColorFilter(CAMERA_COLOR);
 		                	Log.i("Image Upload", ""+byteCount);
 		                	hasPhoto = true;
 		                }
