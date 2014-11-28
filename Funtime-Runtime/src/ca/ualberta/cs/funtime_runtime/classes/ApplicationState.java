@@ -49,6 +49,7 @@ public class ApplicationState extends Application {
 	//private static boolean online = false;
 	
 	private static final String USERACCOUNT = "UserAccount.sav";
+	private static final String CACHEDACCOUNT = "CachedAccount.sav";
 	private static final String CACHEDQUESTIONS = "CachedQuestions.sav";
 	
 	private static ESQuestionManager questionManager;
@@ -125,23 +126,46 @@ public class ApplicationState extends Application {
 	}
 	
 	private static void checkLogin(Context context) {
-		Object obj;
-		try {
-			obj = saveManager.load(USERACCOUNT, context);
-			if (obj != null) {
-				String name = (String) obj;
-        		loadServerAccounts();
-				for (Account a: accountList) {
-					String aName = a.getName();
-					if (name.equals(aName)) {
-						setAccount(a, context);
-						break;
+		Object nameObj;
+		Object accObj;
+		if ( (ApplicationState.isOnline(context)) ) {
+			try {
+				nameObj = saveManager.load(USERACCOUNT, context);
+				accObj = saveManager.load(CACHEDACCOUNT, context);
+				
+				if (nameObj != null) {
+					loadServerAccounts();
+					String name = (String) nameObj;
+					for (Account a: accountList) {
+						String aName = a.getName();
+						if (name.equals(aName)) {
+							if (accObj != null) {
+								Account account = (Account) accObj;
+								a = account;
+								setAccount(account, context);
+								updateAccount(context);
+							} else {
+								setAccount(a, context);
+							}
+							break;
+						}
 					}
 				}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} else {
+			try {
+				accObj = saveManager.load(CACHEDACCOUNT, context);
+				if (accObj != null) {
+					Account account = (Account) accObj;
+					setAccount(account, context);
+				}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -159,10 +183,6 @@ public class ApplicationState extends Application {
 	public static void refresh(Context context) {
 		if ( (ApplicationState.isOnline(context)) ) {
 			loadServerQuestions();
-		} else {
-			String offlineNotice;
-			offlineNotice = "No Connection Available";
-			Toast.makeText(context, offlineNotice, Toast.LENGTH_LONG).show();
 		}
 	}
 	
@@ -282,8 +302,8 @@ public class ApplicationState extends Application {
 		return msg;
 	}
 	
-	public static void addServerQuestions(Question question, Activity activity) {
-		Thread addThread = new AddQuestionThread(question, activity);
+	public static void addServerQuestions(Question question, Context context) {
+		Thread addThread = new AddQuestionThread(question, context);
 		addThread.start();
 		try {
 			addThread.join();
@@ -314,9 +334,9 @@ public class ApplicationState extends Application {
 		
 	}
 	
-	public static void updateAccount() {
+	public static void updateAccount(Context context) {
 		// TODO Add checks for online vs offline
-		
+		saveManager.save(CACHEDACCOUNT, account, context);
 		UpdateAccountThread accountThread = new UpdateAccountThread(account);
 		accountThread.start();
 		try {

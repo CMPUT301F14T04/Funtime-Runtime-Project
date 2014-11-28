@@ -1,6 +1,7 @@
 package ca.ualberta.cs.funtime_runtime.thread;
 
 import android.app.Activity;
+import android.content.Context;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 
@@ -10,9 +11,9 @@ public class AddQuestionThread extends Thread {
 	private Question question;
 	private ESQuestionManager manager = new ESQuestionManager();
 
-	public AddQuestionThread(Question question, Activity activity) {
+	public AddQuestionThread(Question question, Context context) {
 		this.question = question;
-		this.activity = activity;
+		this.activity = (Activity) context;
 	}
 
 	@Override

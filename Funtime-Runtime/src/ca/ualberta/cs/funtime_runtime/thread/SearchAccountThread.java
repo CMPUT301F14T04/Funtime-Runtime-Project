@@ -11,6 +11,6 @@ public class SearchAccountThread extends Thread {
 	
 	@Override
 	public void run() {
-		ApplicationState.loadAccounts(search);	
+		ApplicationState.loadAccounts(search);
 	}
 }

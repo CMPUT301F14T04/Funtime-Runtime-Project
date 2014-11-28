@@ -132,7 +132,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 			
 
 			question.addAnswer(answer);
-			account.answerQuestion(question);
+			account.answerQuestion(question, this);
 //			ApplicationState.updateServerQuestion(question);
 //			ApplicationState.updateAccount();
 //			Thread updateThread = new UpdateQuestionThread(question);

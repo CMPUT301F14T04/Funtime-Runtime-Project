@@ -84,11 +84,11 @@ public class Account implements Serializable {
 	 * @param question		A question asked by the user that has 
 	 * 						been added to the master questsion list
 	 */
-	public void authorQuestion(Question question, Activity activity) {
+	public void authorQuestion(Question question, Context context) {
 		questionList.add(question.getId());
-		ApplicationState.updateAccount();
-		ApplicationState.addServerQuestions(question, activity);
-		ApplicationState.cacheQuestion(question, activity);
+		ApplicationState.updateAccount(context);
+		ApplicationState.addServerQuestions(question, context);
+		ApplicationState.cacheQuestion(question, context);
 	}
 
 	/**
@@ -119,12 +119,12 @@ public class Account implements Serializable {
 	 * 						been added to the answer list of its 
 	 * 						parent question
 	 */
-	public void answerQuestion(Question question) {
+	public void answerQuestion(Question question, Context context) {
 		if (!answeredList.contains(question.getId())){
 			answeredList.add(question.getId());
 		}
 		ApplicationState.updateServerQuestion(question);
-		ApplicationState.updateAccount();
+		ApplicationState.updateAccount(context);
 	}
 
 	/**
@@ -153,18 +153,18 @@ public class Account implements Serializable {
 	 * Adds a question to the account's favourited questions list
 	 * @param question		a question the user has indicated they want to favourite
 	 */
-	public void addFavourite(Question question) {
+	public void addFavourite(Question question, Context context) {
 		favourites.add(question.getId());
-		ApplicationState.updateAccount();
+		ApplicationState.updateAccount(context);
 	}
 	
 	/**
 	 * Removes a question from the account's favourited questions list
 	 * @param question		a question the user has indicated they want to remove from favourites
 	 */
-	public void removeFavourite(Question question) {
+	public void removeFavourite(Question question, Context context) {
 		favourites.remove( (Integer) question.getId());
-		ApplicationState.updateAccount();
+		ApplicationState.updateAccount(context);
 	}
 	
 	/**
@@ -180,7 +180,7 @@ public class Account implements Serializable {
 	 */
 	public void readLater(Question question, Context context) {
 		readingList.add(question.getId());
-		ApplicationState.updateAccount();
+		ApplicationState.updateAccount(context);
 		ApplicationState.cacheQuestion(question, context);
 	}
 	
@@ -188,9 +188,9 @@ public class Account implements Serializable {
 	 * Removes a question from the account's read later list
 	 * @param question		a question to be removed from the read later list
 	 */
-	public void removeReadLater(Question question) {
+	public void removeReadLater(Question question, Context context) {
 		readingList.remove( (Integer) question.getId());
-		ApplicationState.updateAccount();
+		ApplicationState.updateAccount(context);
 	}
 	
 	/**
@@ -208,7 +208,7 @@ public class Account implements Serializable {
 		if ( !(history.contains(question.getId()) ) ) {
 			history.add(question.getId());
 		}
-		ApplicationState.updateAccount();
+		ApplicationState.updateAccount(context);
 		ApplicationState.cacheQuestion(question, context);
 	}
 	
@@ -223,20 +223,20 @@ public class Account implements Serializable {
 	 * Adds a question to the account's upvoted questions list
 	 * @param question		a question the user has upvoted
 	 */
-	public void upvoteQuestion(Question question) {
+	public void upvoteQuestion(Question question, Context context) {
 		question.upVote();
 		upvotedQuestions.add(question.getId());
-		ApplicationState.updateAccount();
+		ApplicationState.updateAccount(context);
 	}
 	
 	/**
 	 * Removed a question from the account's upvoted questions list
 	 * @param question		a question the user has un-upvoted
 	 */
-	public void downvoteQuestion(Question question) {
+	public void downvoteQuestion(Question question, Context context) {
 		question.downVote();
 		upvotedQuestions.remove( (Integer) question.getId());
-		ApplicationState.updateAccount();
+		ApplicationState.updateAccount(context);
 	}
 	
 	/**
@@ -250,20 +250,20 @@ public class Account implements Serializable {
 	 * Adds an answer to the account's upvoted answers list
 	 * @param answer	an answer the user has upvoted
 	 */
-	public void upvoteAnswer(Answer answer) {
+	public void upvoteAnswer(Answer answer, Context context) {
 		answer.upVote();
 		upvotedAnswers.add(answer.getId());
-		ApplicationState.updateAccount();
+		ApplicationState.updateAccount(context);
 	}
 	
 	/**
 	 * Removes an answer from the account's upvoted answers list
 	 * @param answer	an answer the user has un-upvoted
 	 */
-	public void downvoteAnswer(Answer answer) {
+	public void downvoteAnswer(Answer answer, Context context) {
 		answer.downVote();
 		upvotedAnswers.remove( (Integer) answer.getId() );
-		ApplicationState.updateAccount();
+		ApplicationState.updateAccount(context);
 	}
 	
 	/**

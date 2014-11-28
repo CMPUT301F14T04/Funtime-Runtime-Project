@@ -96,6 +96,8 @@ public class QuestionPageActivity extends CustomActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_page);
 		
+		final Context ctx = this;
+		
 		ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
@@ -156,7 +158,7 @@ public class QuestionPageActivity extends CustomActivity {
 					String readingCheck = extras.getString("ReadingCheck");
 					if (readingCheck != null) {
 						extras.remove("ReadingCheck");
-						account.removeReadLater(question);
+						account.removeReadLater(question, this);
 						bookmark_button.setColorFilter(not_bookmarked_color);
 					} 
 				} else {
@@ -307,7 +309,7 @@ public class QuestionPageActivity extends CustomActivity {
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
 		sorter.sortByVotes();
-		ApplicationState.updateAccount();
+		ApplicationState.updateAccount(this);
 
 	}
 	
@@ -325,15 +327,15 @@ public class QuestionPageActivity extends CustomActivity {
 			if (favourited == false) {
 				ImageButton favourite_button = (ImageButton) findViewById(R.id.question_favorite_button);
 				favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
-				account.addFavourite(question);
+				account.addFavourite(question, this);
 				favourited = true;
 			} else if (favourited == true) {
 				ImageButton favourite_button = (ImageButton) findViewById(R.id.question_favorite_button);
 				favourite_button.setImageResource(android.R.drawable.btn_star_big_off);
-				account.removeFavourite(question);
+				account.removeFavourite(question, this);
 				favourited = false;
 			}
-			ApplicationState.updateAccount();
+			ApplicationState.updateAccount(this);
 		} else {
 			String msg = ApplicationState.notFunctional();
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
@@ -384,7 +386,7 @@ public class QuestionPageActivity extends CustomActivity {
 		if (ApplicationState.isLoggedIn()) {
 			if (upvoted) {
 				//question.downVote();
-				account.downvoteQuestion(question);
+				account.downvoteQuestion(question, this);
 				rating = question.getRating();
 				questionUpvote.setText(Integer.toString(rating));
 				questionUpvote.setTextColor(Color.parseColor("#000000"));
@@ -392,13 +394,13 @@ public class QuestionPageActivity extends CustomActivity {
 				
 			} else {
 				//question.upVote();
-				account.upvoteQuestion(question);
+				account.upvoteQuestion(question, this);
 				rating = question.getRating();
 				questionUpvote.setText(Integer.toString(rating));
 				questionUpvote.setTextColor(upvote_color);
 				upvoted = true;
 			}
-			ApplicationState.updateAccount();
+			ApplicationState.updateAccount(this);
 		} else {
 			String msg = ApplicationState.notFunctional();
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
@@ -425,11 +427,11 @@ public class QuestionPageActivity extends CustomActivity {
 				bookmark_button.setColorFilter(bookmarked_color);
 				bookmarked = true;
 			} else if (bookmarked == true){
-				account.removeReadLater(question);
+				account.removeReadLater(question, this);
 				bookmark_button.setColorFilter(not_bookmarked_color);
 				bookmarked = false;
 			}
-			ApplicationState.updateAccount();
+			ApplicationState.updateAccount(this);
 		} else {
 			String msg = ApplicationState.notFunctional();
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();

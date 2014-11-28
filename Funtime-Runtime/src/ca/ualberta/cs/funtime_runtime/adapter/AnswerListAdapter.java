@@ -173,11 +173,11 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 				if (ApplicationState.isLoggedIn()) {
 					ArrayList<Integer> upvotedAnswers = account.getUpvotedAnswers();
 					if (upvotedAnswers.contains(answer.getId())) {
-						account.downvoteAnswer(answer);
+						account.downvoteAnswer(answer, getContext());
 						//answerRating.setTextColor(Color.parseColor("#000000"));
 						
 					} else {
-						account.upvoteAnswer(answer);
+						account.upvoteAnswer(answer, getContext());
 						//answerRating.setTextColor(Color.parseColor("#e77619"));
 					}
 					notifyDataSetChanged();

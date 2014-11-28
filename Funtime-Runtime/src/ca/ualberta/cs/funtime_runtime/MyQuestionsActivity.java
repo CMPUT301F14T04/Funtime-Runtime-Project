@@ -130,7 +130,7 @@ public class MyQuestionsActivity extends CustomActivity {
 	    Question selectedQuestion = adapter.getItem(itemIndex);
 	    
 		if (item.getTitle() == "Remove from reading list") {
-		    account.removeReadLater(selectedQuestion);
+		    account.removeReadLater(selectedQuestion, this);
 		}
 		else if (item.getTitle() == "Add to reading list") {
 		    account.readLater(selectedQuestion, this);
