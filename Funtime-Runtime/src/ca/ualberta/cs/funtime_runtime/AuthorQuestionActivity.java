@@ -66,7 +66,7 @@ public class AuthorQuestionActivity extends CustomActivity {
     private static final int RANDOM_NUMBER_CAP = 100000000;
     UpdateAccountThread updateThread;
     //compressor.setLevel(Deflater.BEST_COMPRESSION);
-	int CAMERA_COLOR = Color.parseColor("#001110");
+	int CAMERA_COLOR = Color.parseColor("#000000");
 	int MAP_COLOR = Color.parseColor("#3366FF");
 	/**
 	 * This is a standard onCreate method
@@ -93,8 +93,8 @@ public class AuthorQuestionActivity extends CustomActivity {
 		//addPhotoButton = (Button) findViewById(R.id.add_image_button);
 		questionTitle = (EditText) findViewById(R.id.question_title_text);
 		questionBody = (EditText) findViewById(R.id.question_body_text);
-		photoButton = (ImageButton)  findViewById(R.id.add_image_button);
-		photoButton.setColorFilter(CAMERA_COLOR);
+		photoButton = (ImageButton)  findViewById(R.id.add_answerImage_button);
+		
 		account = ApplicationState.getAccount();
 		username = account.getName();
 		questionManager = new ESQuestionManager();
@@ -193,6 +193,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	                
 	                if (byteCount > 0){
 	                	hasPhoto = true;
+	                	photoButton.setColorFilter(CAMERA_COLOR);
 	                	Log.i("Image Upload", ""+byteCount);
 	                }
 	                ByteArrayOutputStream blob = new ByteArrayOutputStream();

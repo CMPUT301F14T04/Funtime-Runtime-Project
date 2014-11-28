@@ -35,7 +35,7 @@
         android:id="@+id/typeAnswerAA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/add_image_button"
+        android:layout_above="@+id/answer_geo_button"
         android:layout_alignLeft="@+id/questionBodyAA"
         android:layout_alignRight="@+id/questionBodyAA"
         android:layout_below="@+id/questionBodyAA"
@@ -70,26 +70,35 @@
        android:layout_height="0dp" 
        android:layout_centerInParent="true"/>
 
-    <Button
-        android:id="@+id/add_image_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/submitAnswerButton"
-        android:layout_alignRight="@+id/typeAnswerAA"
-        android:background="@null"
-        android:drawableRight="@android:drawable/ic_menu_camera"
-        android:onClick="add_photo" />
-
     <ImageButton
         android:id="@+id/answer_geo_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/add_image_button"
+        android:layout_above="@+id/submitAnswerButton"
         android:layout_alignRight="@+id/typeAnswerAA"
-        android:layout_below="@+id/typeAnswerAA"
         android:layout_marginRight="46dp"
         android:background="@android:color/transparent"
         android:onClick="addLocation"
         android:src="@android:drawable/ic_menu_mapmode" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/answer_geo_button"
+        android:layout_marginBottom="77dp"
+        android:layout_toRightOf="@+id/answer_geo_button"
+        android:src="@android:drawable/btn_star" />
+
+ 	<ImageButton
+ 	    android:id="@+id/add_answerImage_button"
+ 	    android:layout_width="wrap_content"
+ 	    android:layout_height="wrap_content"
+ 	    android:layout_alignBottom="@+id/answer_geo_button"
+ 	    android:layout_alignRight="@+id/submitAnswerButton"
+ 	    android:background="@drawable/camera_button"
+ 	    android:contentDescription="@string/camera_action"
+ 	    android:onClick="add_photo"
+ 	    android:src="@android:drawable/ic_menu_camera" />
 
 </RelativeLayout>

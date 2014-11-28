@@ -292,8 +292,12 @@ public class QuestionPageActivity extends CustomActivity {
 		sorter.sortByVotes();
 		adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, answerList);
 		answerListView.setAdapter(adapter);
+
 		rating = question.getRating();
 		questionUpvote.setText(Integer.toString(rating));
+
+		answersTitle.setText("Answers (" + answerList.size() + ")");
+
 		adapter.notifyDataSetChanged();
 	}
 	
