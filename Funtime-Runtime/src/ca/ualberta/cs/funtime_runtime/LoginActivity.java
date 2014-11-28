@@ -51,6 +51,8 @@ public class LoginActivity extends CustomActivity {
 	                	// Get account list
 	                	ArrayList<Account> accountList = ApplicationState.getAccountList();
 	                	
+
+	                	
 	                	// Check if username matches existing account
 	                	boolean accountExists = false;
 	                	Account account = null;
@@ -64,7 +66,7 @@ public class LoginActivity extends CustomActivity {
 	                	if (accountExists) {
 	                		// Login the user and return to previous screen
 	                		ApplicationState.setAccount(account, ctx);
-	                		Toast.makeText(getApplicationContext(), "Logged in as" + account.getName(), Toast.LENGTH_LONG);
+	                		//Toast.makeText(ctx, "Logged in as " + account.getName(), Toast.LENGTH_LONG).show();
 	                		finish();
 	                	} else {
 	                		// Notify the user that there is no existing account with that username.

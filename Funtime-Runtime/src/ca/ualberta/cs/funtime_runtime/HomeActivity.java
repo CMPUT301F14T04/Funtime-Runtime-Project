@@ -163,11 +163,14 @@ public class HomeActivity extends CustomActivity {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
 		Question selectedQuestion = adapter.getItem(info.position);
-
-		if (account.getReadingList().contains(selectedQuestion)) {
-			menu.add("Remove from reading list");
-		} else {
-			menu.add("Add to reading list");
+		
+		if (loggedIn) {
+			
+			if (account.getReadingList().contains(selectedQuestion.getId())) {
+				menu.add("Remove from reading list");
+			} else {
+				menu.add("Add to reading list");
+			}
 		}
 	}
 	

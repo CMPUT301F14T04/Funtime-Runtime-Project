@@ -109,12 +109,11 @@ public class ApplicationState extends Application {
 			obj = saveManager.load(USERACCOUNT, context);
 			if (obj != null) {
 				String name = (String) obj;
+        		loadServerAccounts();
 				for (Account a: accountList) {
 					String aName = a.getName();
 					if (name.equals(aName)) {
-						account = a;
-						loggedIn = true;
-                		Toast.makeText(context, "Logged in as" + aName, Toast.LENGTH_LONG);
+						setAccount(a, context);
 						break;
 					}
 				}
