@@ -86,6 +86,8 @@ public class AuthorQuestionActivity extends CustomActivity {
 		setResources();
 	}
 
+	// useGPS = (Button)findViewB
+	
 	private void setResources() {
 		ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
