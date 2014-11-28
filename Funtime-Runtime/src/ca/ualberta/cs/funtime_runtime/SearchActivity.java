@@ -1,7 +1,6 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
-import ca.ualberta.cs.funtime_runtime.thread.SearchActivityThread;
 
 /**
  * This is a view class that displays the results of a search that the user initiated

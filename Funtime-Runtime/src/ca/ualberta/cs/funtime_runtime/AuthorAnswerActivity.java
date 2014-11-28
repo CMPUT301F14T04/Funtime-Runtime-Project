@@ -26,7 +26,6 @@ import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Geolocation;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
-import ca.ualberta.cs.funtime_runtime.thread.UpdateQuestionThread;
 /**
  * A view class that allows a user to edit text
  * and submit it as an answer to a question.

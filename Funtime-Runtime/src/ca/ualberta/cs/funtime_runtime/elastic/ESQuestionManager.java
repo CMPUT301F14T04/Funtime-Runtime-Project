@@ -17,7 +17,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.util.Log;
-import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 
 import com.google.gson.Gson;

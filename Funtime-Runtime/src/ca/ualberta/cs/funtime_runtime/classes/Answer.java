@@ -1,12 +1,11 @@
 package ca.ualberta.cs.funtime_runtime.classes;
 
-import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import android.annotation.SuppressLint;
 
 /**
  * This is a model class for answers
@@ -30,7 +29,7 @@ public class Answer implements Serializable {
 	
 	private boolean hasPhoto = false;
 
-	private  Bitmap answerPhotoBitmap;
+	//private  Bitmap answerPhotoBitmap;
 	private String location = "N/A";
 	
 

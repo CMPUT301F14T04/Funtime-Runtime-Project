@@ -1,7 +1,6 @@
 package ca.ualberta.cs.funtime_runtime.thread;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.app.Activity;
 import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;

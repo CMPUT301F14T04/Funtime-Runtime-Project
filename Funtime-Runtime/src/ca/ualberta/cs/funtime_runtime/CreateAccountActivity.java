@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
-import ca.ualberta.cs.funtime_runtime.elastic.ESAccountManager;
 
 /**
  * An activity that allows the user to create a new account and log into it.
@@ -24,7 +23,6 @@ import ca.ualberta.cs.funtime_runtime.elastic.ESAccountManager;
  */
 public class CreateAccountActivity extends CustomActivity {
 	
-	private ESAccountManager manager;
 	ArrayList<Account> accountList;
 	Random generator;
 	private static final int RANDOM_NUMBER_CAP = 100000000;
@@ -39,7 +37,6 @@ public class CreateAccountActivity extends CustomActivity {
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
 		Button createAccountButton = (Button) findViewById(R.id.createAccountButton);
-		manager = new ESAccountManager();
 		generator = new Random();
 		
 		final Context ctx = this;

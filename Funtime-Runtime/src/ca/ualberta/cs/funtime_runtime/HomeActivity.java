@@ -16,12 +16,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
-import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
-import ca.ualberta.cs.funtime_runtime.classes.Reply;
-import ca.ualberta.cs.funtime_runtime.classes.SaveManager;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
 
 /**

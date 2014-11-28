@@ -6,8 +6,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
-import ca.ualberta.cs.funtime_runtime.classes.Answer;
-import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 //http://nebula.wsimg.com/fd3fb0dbd502dd558787bbb2af6f3861?AccessKeyId=F951FDF451EBE1B34A66&disposition=0&alloworigin=1
 public class ShowPhoto extends Activity {
 	ImageView questionPhoto;

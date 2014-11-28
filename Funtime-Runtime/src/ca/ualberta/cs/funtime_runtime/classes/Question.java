@@ -1,15 +1,11 @@
 package ca.ualberta.cs.funtime_runtime.classes;
 
-import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.widget.TextView;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import ca.ualberta.cs.funtime_runtime.R;
+import android.annotation.SuppressLint;
 
 
 /**

@@ -56,7 +56,7 @@ public class Geolocation implements Serializable {
 	
 	public void findLocation(){
 		
-		String latLong;
+		//String latLong;
 		//TextView myLocation;
 		//myLocation = (TextView)findViewById(R.id.myLocation);
 		//String addressString = "no address found";
@@ -66,9 +66,9 @@ public class Geolocation implements Serializable {
 		Location location = lm.getLastKnownLocation(provider);
 		
 		if(location != null){
-			double lat = location.getLatitude();
-			double lon = location.getLongitude();
-			latLong = "Lat:"+lat+"\nLong:"+lon;
+			//double lat = location.getLatitude();
+			//double lon = location.getLongitude();
+			//latLong = "Lat:"+lat+"\nLong:"+lon;
 			
 			double latitude = location.getLatitude();
 			double longitude = location.getLongitude();
@@ -88,7 +88,7 @@ public class Geolocation implements Serializable {
 			} catch(Exception e){	
 			}
 		} else {
-			latLong = "No Location Found!";
+			//latLong = "No Location Found!";
 			addressString = "N/A";
 		}
 	}
