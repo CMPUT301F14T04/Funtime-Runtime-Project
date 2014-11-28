@@ -480,6 +480,26 @@ public class QuestionPageActivity extends CustomActivity {
 
 	}
 	
+	@Override
+	public void refresh() {
+		ApplicationState.refresh(this);
+		ArrayList<Question> qList = ApplicationState.getQuestionList(this);
+		for (Question q: qList) {
+			if (q.getId().equals(question.getId())) {
+				question = q;
+				ApplicationState.setPassableQuestion(question);
+			}
+		}
+		
+		answerList = question.getAnswerList();
+		Toast.makeText(this, "Answer size" + answerList.size(), Toast.LENGTH_LONG).show();
+		sorter = new AnswerSorter(answerList);
+		sorter.sortByVotes();
+		adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, answerList);
+		answerListView.setAdapter(adapter);
+		adapter.notifyDataSetChanged();
+	}
+	
 	/**
 	 * This function adds a specific question to the favorites list
 	 * it also triggers a change in the appearance of the star/favorites button 
