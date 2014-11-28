@@ -144,11 +144,7 @@ public class SearchActivity extends CustomActivity {
 				return true;
 		}
 	}
-	
-	private void refresh() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	/**
 	 * This method is called when a question is clicked on. It takes in a

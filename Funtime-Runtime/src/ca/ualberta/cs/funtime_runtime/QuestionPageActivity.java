@@ -239,10 +239,20 @@ public class QuestionPageActivity extends CustomActivity {
 	@Override
 	public void onRestart() {
 		super.onRestart();
+		
+		question = ApplicationState.getPassableQuestion();
+		
 		account = ApplicationState.getAccount();
-		if (ApplicationState.isLoggedIn()) {
+		
+		ApplicationState.cacheQuestion(question, this);
+		
+		boolean loggedIn = ApplicationState.isLoggedIn();
+		if (loggedIn) {
+			
+			account.addToHistory(question, this);
+			
 			favourited_id_list = account.getFavouritesList();
-			if (favourited_id_list.contains(question)) {
+			if (favourited_id_list.contains(question.getId())) {
 				favourited = true;
 				favourite_button.setImageResource(android.R.drawable.btn_star_big_on);
 			} else {
@@ -259,23 +269,76 @@ public class QuestionPageActivity extends CustomActivity {
 			rating = question.getRating();
 			questionUpvote.setText(Integer.toString(rating));
 			
+	
 			bookmarked_id_list = account.getReadingList();
 			if (bookmarked_id_list.contains(question.getId())) {
-				bookmarked = true;
-				bookmark_button.setColorFilter(bookmarked_color);
+				Intent intent = getIntent();
+				Bundle extras = intent.getExtras();
+				
+				if (extras != null ) {
+					String readingCheck = extras.getString("ReadingCheck");
+					if (readingCheck != null) {
+						extras.remove("ReadingCheck");
+						account.removeReadLater(question, this);
+						bookmark_button.setColorFilter(not_bookmarked_color);
+					} 
+				} else {
+						bookmarked = true;
+						bookmark_button.setColorFilter(bookmarked_color);
+				}
 			} else {
 				bookmark_button.setColorFilter(not_bookmarked_color);
 			}
+			
+
 		}
+		
+		if (question.getPhotoStatus()){
+				photo_button.setColorFilter(has_photo_color);
+		}	
+		
+		
+		questionTitle.setText(question.getTitle());		
+		questionBody.setText(question.getBody());
+		authorLocation.setText("Location: " + question.getLocation());
+		
+		questionAuthor.setText("Author: " + question.getUser());
+		questionDate.setText("Posted: " + question.getStringDate().toString());
+		
+		answerList = question.getAnswerList();
+		sorter = new AnswerSorter(answerList);
+		sorter.sortByVotes();
 		
 		answersTitle.setText("Answers (" + answerList.size() + ")");
 		
 		repliesText.setText("Replies: " + question.getReplyCount());
 		
-		sorter.sortByVotes();
+		adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, answerList);
+		answerListView.setAdapter(adapter);
+		answerList = sorter.sortByVotes();
 		adapter.notifyDataSetChanged();
 		
-		// TODO save reading list locally
+		answerListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// Header is the first element in the listview, so
+				//  we need to access ArrayList item at listview position - 1
+				Answer answer = adapter.getItem(position - 1);	
+				
+				Bundle bundle = new Bundle();
+				
+				ApplicationState.setPassableAnswer(answer);
+				
+				bundle.putString("ReplyType", "answer");
+								
+				Intent intent = new Intent(QuestionPageActivity.this, ReplyPageActivity.class);
+				intent.putExtras(bundle);
+				startActivity(intent);	
+				
+				
+				
+			}
+		});
 	
 	}
 	
@@ -437,6 +500,7 @@ public class QuestionPageActivity extends CustomActivity {
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
 	}
+	
 	
 	
 }

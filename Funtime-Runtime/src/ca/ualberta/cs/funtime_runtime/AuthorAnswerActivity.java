@@ -130,9 +130,21 @@ public class AuthorAnswerActivity extends CustomActivity {
 				answer.setLocation(geoLocation.getLocation());
 			} 
 			
+			
+			ArrayList<Question> newestQuestions = ApplicationState.getQuestionList(this);
+			for (Question q: newestQuestions) {
+				if (q.equals(question)) {
+					Toast.makeText(this, "FOUND!", Toast.LENGTH_SHORT).show();
+					question = q;
+				}
+			}
+			
 
 			question.addAnswer(answer);
 			account.answerQuestion(question, this);
+			
+			ApplicationState.setPassableQuestion(question);
+
 //			ApplicationState.updateServerQuestion(question);
 //			ApplicationState.updateAccount();
 //			Thread updateThread = new UpdateQuestionThread(question);

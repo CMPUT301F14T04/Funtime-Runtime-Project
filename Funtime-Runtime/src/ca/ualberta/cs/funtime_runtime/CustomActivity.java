@@ -127,6 +127,8 @@ public class CustomActivity extends Activity {
 		}
 	}
 	
+	public void refresh() {}
+	
 
 	/**
 	 * This function simply redirects to another activity when a certain menu 
@@ -174,6 +176,9 @@ public class CustomActivity extends Activity {
 			case R.id.my_history_list_item :
 				openMyHistory();
 				return true;
+			
+			case R.id.refresh:
+				refresh();
 				
 			default :
 				return true;
