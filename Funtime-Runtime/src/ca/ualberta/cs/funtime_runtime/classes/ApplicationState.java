@@ -42,6 +42,9 @@ public class ApplicationState extends Application {
 	// TODO pull accountList from server
 	private static ArrayList<Account> accountList = new ArrayList<Account>();
 	private static boolean loggedIn = false;
+	
+	public static boolean firstLaunch = true;
+	
 	//private static boolean online = false;
 	
 	private static final String USERACCOUNT = "UserAccount.sav";
@@ -63,8 +66,14 @@ public class ApplicationState extends Application {
 		}
 		
 		saveManager = new SaveManager();
-		//checkLogin(ctx);
+		checkLogin(ctx);
+		
+		firstLaunch = false;
 	
+	}
+	
+	public static boolean isFirstLaunch() {
+		return firstLaunch;
 	}
 	
 	public static void loadServerQuestions() {
@@ -152,6 +161,7 @@ public class ApplicationState extends Application {
 	 */
 	public static void setAccount(Account newAccount, Context ctx) {
 		saveManager.save(USERACCOUNT, newAccount.getName(), ctx);
+		Toast.makeText(ctx, "Logged in as " + newAccount.getName(), Toast.LENGTH_LONG).show();
 		account = newAccount;
 		loggedIn = true;
 	}

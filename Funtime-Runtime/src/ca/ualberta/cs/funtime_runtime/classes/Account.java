@@ -3,6 +3,8 @@ package ca.ualberta.cs.funtime_runtime.classes;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import android.app.Activity;
+
 
 /**
  * A class for storing the user's account information.
@@ -81,9 +83,10 @@ public class Account implements Serializable {
 	 * @param question		A question asked by the user that has 
 	 * 						been added to the master questsion list
 	 */
-	public void authorQuestion(Question question) {
+	public void authorQuestion(Question question, Activity activity) {
 		questionList.add(question.getId());
 		ApplicationState.updateAccount();
+		ApplicationState.addServerQuestions(question, activity);
 		
 	}
 
@@ -119,7 +122,7 @@ public class Account implements Serializable {
 		if (!answeredList.contains(question.getId())){
 			answeredList.add(question.getId());
 		}
-		
+		ApplicationState.updateServerQuestion(question);
 		ApplicationState.updateAccount();
 	}
 

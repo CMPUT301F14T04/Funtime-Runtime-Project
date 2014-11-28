@@ -136,9 +136,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 
 		// Elastic search code
 		generateId(question);		
-		ApplicationState.addServerQuestions(question, this);
+		//ApplicationState.addServerQuestions(question, this);
 		
-		account.authorQuestion(question);
+		account.authorQuestion(question, this);
 
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("Question", question);

@@ -57,7 +57,9 @@ public class HomeActivity extends CustomActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		
-		ApplicationState.startup(this);
+		if (ApplicationState.isFirstLaunch()) {
+			ApplicationState.startup(this);	
+		}
 		
 		loggedIn = ApplicationState.isLoggedIn();
 		if (loggedIn) {
@@ -285,114 +287,6 @@ public class HomeActivity extends CustomActivity {
 
 		return true;
 
-	}
-
-	/**
-	 * Populates the list with questions and answers for the sake of demos and
-	 * testing.
-	 */
-	private void testHome() {
-
-		if (first) {
-			account = new Account("TestUser1");
-			ApplicationState.setAccount(account, this);
-			Question question1 = new Question("What is the meaning of life?",
-					"body 1 test", "user1");
-			Question question2 = new Question(
-					"Why does Computing Science homework take so long to do?",
-					"body 2 test", "user2");
-			Question question3 = new Question(
-					"In what world does gravity push you away at a faster rate than it pulls you in?",
-					"body 3 test", "user3");
-			Question question4 = new Question(
-					"Why is this question so long? How it is going to look? What should the character count restriction be on question titles?",
-					"This is a really really really really really really really really really really long question. It's going to take up a whooooooooooooooooooooooooooooooooooooooooooooole lot of space. What should the character limit be on question bodies? Right now I'm testing with a maximum of 8 lines of text before the textview becomes scrollable. Is that bad? I feel like question descriptions should be allowed to be pretty long, but we can't take up the whole screen or else the answers will be basically unviewable. Well let's see how this looks.",
-					"LongQuestionAsker");
-			homeQuestionList.add(0, question1);
-			homeQuestionList.add(0, question2);
-			homeQuestionList.add(0, question3);
-			homeQuestionList.add(0, question4);
-			question4.addReply(new Reply("This is a test reply", "testuser1"));
-			question4.addReply(new Reply("This is another test reply",
-					"testuser2"));
-			question4.addReply(new Reply("This is also a test reply",
-					"testuser3"));
-			account.addFavourite(question1);
-			account.addFavourite(question2);
-			account.readLater(question1);
-			account.readLater(question2);
-			question1.upVote();
-			for (int i = 0; i < 1000; i++)
-				question2.upVote();
-			for (int i = 0; i < 999; i++) {
-				question4.upVote();
-			}
-			Answer answer1 = new Answer("Sweet", "user1");
-			Answer answer2 = new Answer("Question", "user2");
-			Answer answer3 = new Answer(
-					"Bro do you even lift????????????????????????????????????????",
-					"user3");
-			answer3.addReply(new Reply("This is a test reply on an answer!",
-					"userman"));
-			answer3.addReply(new Reply(
-					"This is also a test reply on an answer!", "womanman"));
-			answer3.addReply(new Reply(
-					"This is not a test reply on an answer! (Ha! I tricked you, it totally is! I bet you fell for it!",
-					"catman"));
-			question1.addAnswer(answer1);
-			question1.addAnswer(answer2);
-			question1.addAnswer(answer3);
-			Answer answer0 = new Answer(
-					"This is a really long anser jkdslf;j;dsklfjkdls;ajfklds;ajfklds;jafkld;sjaklf;djskalf;jdskla;fjdskla;jfklds;ajfkld;sjafkl;dsjaklf;djsakfjds",
-					"blaman");
-			question4.addAnswer(answer0);
-			for (int i = 0; i < 15; i++) {
-				Answer answer = new Answer("This is answer " + i, "user " + i);
-				for (int j = 0; j < 123; j++) {
-					answer.upVote();
-				}
-				question4.addAnswer(answer);
-			}
-
-			question1.upVote();
-			question3.upVote();
-			account.upvoteQuestion(question1);
-			account.upvoteQuestion(question3);
-
-			// test MyQuestions code
-
-			Question myQuestion1 = new Question(
-					"Why are there animals in my van?",
-					"Test: there are animals in my van etc", account.getName());
-			homeQuestionList.add(myQuestion1);
-			account.authorQuestion(myQuestion1);
-			Answer answer4 = new Answer("Because the devil put it there",
-					"user2");
-			Answer answer5 = new Answer(
-					"Maybe you left the door open? Sometimes animals can also get in through the window",
-					"user5");
-			myQuestion1.addAnswer(answer4);
-			myQuestion1.addAnswer(answer5);
-
-			Question myQuestion2 = new Question(
-					"How many colors can the people see?",
-					"Test: like when it comes to skin color what if someone is color blind??",
-					account.getName());
-			homeQuestionList.add(myQuestion2);
-			account.authorQuestion(myQuestion2);
-			Answer answer6 = new Answer("Wow you're not very smart are you?",
-					"user3");
-			myQuestion2.addAnswer(answer6);
-
-			// test MyAnsweredQuestions code
-			account.answerQuestion(question1);
-			Answer myAnswer = new Answer("THIS IS AN UNHELPFUL ANSWER!",
-					account.getName());
-			question1.addAnswer(myAnswer);
-
-			first = false;
-
-		}
 	}
 
 	/**
