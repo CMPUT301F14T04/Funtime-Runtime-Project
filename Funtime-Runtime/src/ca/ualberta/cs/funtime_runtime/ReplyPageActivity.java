@@ -19,6 +19,7 @@ import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
 import ca.ualberta.cs.funtime_runtime.classes.Reply;
+import ca.ualberta.cs.funtime_runtime.classes.ReplySorter;
 
 
 /**
@@ -40,6 +41,7 @@ public class ReplyPageActivity extends CustomActivity {
 	String parentUsername;
 	ArrayList<Reply> repliesList;
 	ArrayList<Reply> sortList = new ArrayList<Reply>();
+	ReplySorter replySorter;
 	QuestionSorter sorter;
 	
 	TextView parentTitleText;
@@ -96,6 +98,8 @@ public class ReplyPageActivity extends CustomActivity {
 			parentUsername = question.getUser();
 			parentReply = question.getReplyCount();
 			repliesList = question.getReplyList();
+			replySorter = new ReplySorter(repliesList);
+			replySorter.sortByDate();
 			
 			
 			header = (View)inflater.inflate(R.layout.reply_page_header, null, false);
@@ -116,6 +120,9 @@ public class ReplyPageActivity extends CustomActivity {
 			parentUsername = answer.getUser();		
 			parentReply = answer.getReplyCount();
 			repliesList = answer.getReplyList();
+			
+			replySorter = new ReplySorter(repliesList);
+			replySorter.sortByDate();
 			
 			header = (View)inflater.inflate(R.layout.reply_answers_page_header, null, false);
 			replyListView.addHeaderView(header);	
@@ -189,6 +196,54 @@ public class ReplyPageActivity extends CustomActivity {
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
 	}
+	
+	@Override
+	public void refresh() {
+		ApplicationState.refresh(this);
+		ArrayList<Question> qList = ApplicationState.getQuestionList(this);
+		ArrayList<Answer> aList;
+		Question question = ApplicationState.getPassableQuestion();
+		for (Question q: qList) {
+			if (q.getId().equals(question.getId())) {
+				question = q;
+				ApplicationState.setPassableQuestion(question);
+			}
+			aList = question.getAnswerList();
+		}
+		
+		if (replyType.equals("answer")) {
+			aList = question.getAnswerList();
+			for (Answer a: aList) {
+				if (a.equals(answer)) {
+					answer = a;
+				}
+			}
+
+			repliesList = answer.getReplyList();
+			adapter = new ReplyListAdapter(this, R.layout.reply_list_adapter, repliesList);
+			replyListView.setAdapter(adapter);
+			parentReply = repliesList.size();
+			parentReplyText.setText("Replies " + "(" + parentReply + ")");
+			replySorter = new ReplySorter(repliesList);
+			replySorter.sortByDate();
+			adapter.notifyDataSetChanged();
+			
+		} else if (replyType.equals("question")) {
+
+			repliesList = question.getReplyList();
+			adapter = new ReplyListAdapter(this, R.layout.reply_list_adapter, repliesList);
+			replyListView.setAdapter(adapter);
+			parentReply = repliesList.size();
+			parentReplyText.setText("Replies " + "(" + parentReply + ")");
+			replySorter = new ReplySorter(repliesList);
+			replySorter.sortByDate();
+			adapter.notifyDataSetChanged();
+			
+		}
+
+	}
+	
+	
 
 	
 }

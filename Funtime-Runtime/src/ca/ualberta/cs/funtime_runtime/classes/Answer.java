@@ -20,6 +20,7 @@ public class Answer implements Serializable {
 	private static final long serialVersionUID = 7328501038270376718L;
 	private final String body;
 	private final String username;
+	private Integer parentQuestionId;
 	public ArrayList<Reply> replyList;
 	private int rating;
 	private final Date date;
@@ -41,13 +42,14 @@ public class Answer implements Serializable {
 	 *
 	 */
 	
-	public Answer(String text, String user) 	{
+	public Answer(Integer parentQuestionId, String text, String user) 	{
 		body = text;
 		username = user;
 		rating = 0;
 		replyList = new ArrayList<Reply>();
 		date = new Date();
 		answerPhotoByteArray = null;
+		this.parentQuestionId =  parentQuestionId;
 	}
 
 	
@@ -73,7 +75,9 @@ public class Answer implements Serializable {
 	 * This function adds to the total number of ratings on an answer 
 	 */
 	public void upVote() {
-		rating++;	
+		rating++;
+		Question parentQuestion = ApplicationState.getQuestionById(parentQuestionId);
+		ApplicationState.updateServerQuestion(parentQuestion);
 	}
 
 	/**
@@ -81,6 +85,8 @@ public class Answer implements Serializable {
 	 */
 	public void downVote()	{
 		rating--;
+		Question parentQuestion = ApplicationState.getQuestionById(parentQuestionId);
+		ApplicationState.updateServerQuestion(parentQuestion);
 	}
 	
 	/**
@@ -89,6 +95,10 @@ public class Answer implements Serializable {
 	 */
 	public int getRating() {
 		return rating;
+	}
+	
+	public int getParentQuestionId() {
+		return parentQuestionId;
 	}
 	
 	/**
