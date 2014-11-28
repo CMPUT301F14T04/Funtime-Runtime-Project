@@ -288,7 +288,7 @@ public class QuestionPageActivity extends CustomActivity {
 		}
 		
 		answerList = question.getAnswerList();
-		Toast.makeText(this, "Answer size" + answerList.size(), Toast.LENGTH_LONG).show();
+		//Toast.makeText(this, "Answer size" + answerList.size(), Toast.LENGTH_LONG).show();
 		sorter = new AnswerSorter(answerList);
 		sorter.sortByVotes();
 		adapter = new AnswerListAdapter(this, R.layout.answer_list_adapter, answerList);
