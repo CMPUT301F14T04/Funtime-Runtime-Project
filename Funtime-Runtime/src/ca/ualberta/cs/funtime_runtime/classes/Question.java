@@ -170,7 +170,9 @@ public class Question implements Serializable {
 	 * @param reply
 	 */
 	public void addReply(Reply reply) {
-		replyList.add(0, reply);
+		Question question = ApplicationState.getPassableQuestion();
+		replyList.add(reply);
+		ApplicationState.updateServerQuestion(question);
 	}
 	
 	

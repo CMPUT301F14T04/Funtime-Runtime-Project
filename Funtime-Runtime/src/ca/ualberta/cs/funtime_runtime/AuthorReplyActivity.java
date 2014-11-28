@@ -131,14 +131,14 @@ public class AuthorReplyActivity extends CustomActivity {
 				question.addReply(reply);
 			} else if (replyType.equals("answer")){
 				answer.addReply(reply);
-				question = ApplicationState.getPassableQuestion();
+				//question = ApplicationState.getPassableQuestion();
 			}
 			
 			if (hasLocation){
 				reply.setLocation(geoLocation.getLocation());
 			}
 			
-			ApplicationState.updateServerQuestion(question);
+//			ApplicationState.updateServerQuestion(question);
 //			Thread updateThread = new UpdateQuestionThread(question);
 //			updateThread.start();
 			
