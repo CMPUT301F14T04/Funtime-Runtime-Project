@@ -6,6 +6,7 @@ import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -34,6 +35,7 @@ public class MyHistoryActivity extends CustomActivity {
 	ArrayList<Question> myHistoryList;
 	ArrayList<Integer> myHistoryIdList;
 	ArrayList<Question> appStateList;
+	QuestionSorter sorter;
 	
 	Account account;
 	ListView myHistoryListView;
@@ -70,6 +72,8 @@ public class MyHistoryActivity extends CustomActivity {
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter,
 				myHistoryList);
 		myHistoryListView.setAdapter(adapter);
+		sorter = new QuestionSorter(myHistoryList);
+		sorter.sortByDate();
 		adapter.notifyDataSetChanged();
 
 		myHistoryListView.setOnItemClickListener(new OnItemClickListener() {

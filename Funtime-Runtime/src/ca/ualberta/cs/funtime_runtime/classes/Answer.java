@@ -136,10 +136,14 @@ public class Answer implements Serializable {
 	 * @return an answer date string with the format: "dd/MM/yyyy  HH:mm"
 	 */
 	@SuppressLint("SimpleDateFormat")
-	public String getDate() {
+	public String getStringDate() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy  HH:mm");
 		String answerDateString = dateFormat.format(date);
 		return answerDateString;
+	}
+	
+	public Date getDate() {
+		return date;
 	}
 	
 	/**

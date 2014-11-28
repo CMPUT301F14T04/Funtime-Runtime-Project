@@ -19,6 +19,7 @@ import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
 
 /**
  * This class is a view class that displays the questions that the user asked in the application
@@ -33,6 +34,7 @@ public class MyQuestionsActivity extends CustomActivity {
 	ArrayList<Question> myQuestionsList;
 	ArrayList<Integer> myQuestionsIdList;
 	ArrayList<Question> appStateList;
+	QuestionSorter sorter;
 	
 	QuestionListAdapter adapter;
 	Account account;
@@ -62,7 +64,9 @@ public class MyQuestionsActivity extends CustomActivity {
 		myQuestionsListView = (ListView) findViewById(R.id.listView1);
 		
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myQuestionsList);
-		myQuestionsListView.setAdapter(adapter);	
+		myQuestionsListView.setAdapter(adapter);
+		sorter = new QuestionSorter(myQuestionsList);
+		sorter.sortByDate();
 		adapter.notifyDataSetChanged();
 		
 		myQuestionsListView.setOnItemClickListener(new OnItemClickListener() {

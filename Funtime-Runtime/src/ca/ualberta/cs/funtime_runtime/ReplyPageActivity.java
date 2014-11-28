@@ -17,6 +17,7 @@ import ca.ualberta.cs.funtime_runtime.adapter.ReplyListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
 import ca.ualberta.cs.funtime_runtime.classes.Reply;
 
 
@@ -38,7 +39,8 @@ public class ReplyPageActivity extends CustomActivity {
 	String parentDate;
 	String parentUsername;
 	ArrayList<Reply> repliesList;
-	ArrayList<Reply> sortList = new ArrayList<Reply>();;
+	ArrayList<Reply> sortList = new ArrayList<Reply>();
+	QuestionSorter sorter;
 	
 	TextView parentTitleText;
 	TextView parentBodyText;
@@ -110,7 +112,7 @@ public class ReplyPageActivity extends CustomActivity {
 			
 			answer = ApplicationState.getPassableAnswer();
 			parentBody = answer.getBody();
-			parentDate = answer.getDate();
+			parentDate = answer.getStringDate();
 			parentUsername = answer.getUser();		
 			parentReply = answer.getReplyCount();
 			repliesList = answer.getReplyList();

@@ -138,7 +138,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		
 		TextView answerDateTextView = (TextView) theView.findViewById(R.id.answer_date);
 		String answerDateString = "Posted:";
-		answerDateTextView.setText(answerDateString + " " + answer.getDate());
+		answerDateTextView.setText(answerDateString + " " + answer.getStringDate());
 		
 		TextView answerLocation = (TextView) theView.findViewById(R.id.answer_adapter_location);
 		answerLocation.setText("Location: " + answer.getLocation());

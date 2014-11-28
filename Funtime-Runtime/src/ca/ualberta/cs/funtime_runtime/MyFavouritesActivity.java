@@ -6,6 +6,7 @@ import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -33,6 +34,7 @@ public class MyFavouritesActivity extends CustomActivity {
 	ArrayList<Question> myFavouritesList;
 	ArrayList<Question> appStateList;
 	ArrayList<Integer> myFavouritesIdList;
+	QuestionSorter sorter;
 	
 	QuestionListAdapter adapter;
 	Account account;
@@ -70,6 +72,8 @@ public class MyFavouritesActivity extends CustomActivity {
 		//favouritesList = myFavouritesList;
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myFavouritesList);
 		favouritesListView.setAdapter(adapter);	
+		sorter = new QuestionSorter(myFavouritesList);
+		sorter.sortByDate();
 		adapter.notifyDataSetChanged();
 		
 		

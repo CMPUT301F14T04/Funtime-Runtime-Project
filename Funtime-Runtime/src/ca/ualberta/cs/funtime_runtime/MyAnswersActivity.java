@@ -20,6 +20,7 @@ import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
+import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
 
 
 /**
@@ -37,6 +38,7 @@ public class MyAnswersActivity extends CustomActivity {
 	ArrayList<Question> myAnsweredQuestionsList;
 	ArrayList<Integer> myAnsweredQuestionsIdList;
 	ArrayList<Question> appStateList;
+	QuestionSorter sorter;
 	
 	QuestionListAdapter adapter;
 	Account account;
@@ -53,6 +55,7 @@ public class MyAnswersActivity extends CustomActivity {
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		
 		account = ApplicationState.getAccount();
+		
 		
 		myAnsweredQuestionsIdList = account.getAnsweredList();
 		myAnsweredListView = (ListView) findViewById(R.id.listView1);
@@ -72,6 +75,8 @@ public class MyAnswersActivity extends CustomActivity {
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myAnsweredQuestionsList);
 		
 		myAnsweredListView.setAdapter(adapter);	
+		sorter = new QuestionSorter(myAnsweredQuestionsList);
+		sorter.sortByDate();
 		adapter.notifyDataSetChanged();
 		
 		myAnsweredListView.setOnItemClickListener(new OnItemClickListener() {
