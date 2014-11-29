@@ -78,10 +78,10 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 	}
 	
 	public void testReply() {
-		Reply reply = new Reply("Test reply body", "TestReplier1");
+		Reply reply = new Reply(-1, 0, "Test reply body", "TestReplier1");
 		
 		Question question = new Question("Is this a test question?", "I think this is a question, but I can't tell. HELP!", "TestAsker");
-		
+		question.setId(0);
 		question.addReply(reply);
 		
 		Reply testReply = question.getReply(0);
