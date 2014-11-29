@@ -243,6 +243,18 @@ public class ReplyPageActivity extends CustomActivity {
 
 	}
 	
+	@Override
+	public void sortDate() {
+		replySorter.sortByDate();	
+		adapter.notifyDataSetChanged();
+	}
+	
+	@Override
+	public void sortLocation() {
+		replySorter.sortByLocation(this);
+		adapter.notifyDataSetChanged();
+	}
+	
 	
 
 	

@@ -54,5 +54,24 @@
         android:showAsAction="never"
 	    android:title="@string/title_activity_history"/> 
 	    
+    <item 
+        android:id="@+id/sort_list_item"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+	    android:title="@string/sort_string"> 
+	    <menu>
+	        <item 
+			    android:id="@+id/sort_date_menu"
+		        android:orderInCategory="100"
+		        android:showAsAction="never"
+			    android:title="@string/sort_date"/>
+   	        <item 
+   	            android:id="@+id/sort_location_menu"
+   	         	android:orderInCategory="100"
+		        android:showAsAction="never"
+			    android:title="@string/sort_location"/>
+	    </menu>
+	</item>
+	    
 
 </menu>
