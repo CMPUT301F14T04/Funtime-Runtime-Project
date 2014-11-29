@@ -1,20 +1,19 @@
 package ca.ualberta.cs.funtime_runtime;
 
-import android.os.Bundle;
+import java.util.ArrayList;
+
 import android.app.ActionBar;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
-
-import java.util.ArrayList;
-
+import android.widget.ListView;
 import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
@@ -157,5 +156,28 @@ public class MyQuestionsActivity extends CustomActivity {
 		return true;
 	}
 	
+	@Override
+	public void sortDate() {
+		sorter.sortByDate();	
+		adapter.notifyDataSetChanged();
+	}
+	
+	@Override
+	public void sortVotes() {
+		sorter.sortByVotes();
+		adapter.notifyDataSetChanged();
+	}
+	
+	@Override
+	public void sortPhoto() {
+		sorter.sortByPhoto();
+		adapter.notifyDataSetChanged();	
+	}
+	
+	@Override
+	public void sortLocation() {
+		sorter.sortByLocation(this);
+		adapter.notifyDataSetChanged();
+	}
 
 }

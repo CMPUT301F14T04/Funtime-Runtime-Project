@@ -7,6 +7,7 @@ import java.util.zip.Deflater;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -21,9 +22,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Geolocation;
@@ -57,6 +58,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	
 	//ArrayList<Question> userQuestionList;
 	ArrayList<Integer> userQuestionIdList;
+	String globalLocation;
 	
 	ESQuestionManager questionManager;
 	Bitmap photoBitmap;
@@ -137,7 +139,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 			question.setPhoto(compressedData);
 		}
 		if (hasLocation) {
-			question.setLocation(geoLocation.getLocation());
+			question.setLocation(globalLocation);
 		}
 		questionList.add(0,question);
 		//userQuestionIdList.add(0,question.getId());
@@ -183,18 +185,52 @@ public class AuthorQuestionActivity extends CustomActivity {
 	}
 	
 	public void addLocation(View v) {
-//		geoLocation = new Geolocation(this);
-//		geoLocation.findLocation();
-//		hasLocation = true;
-//		Toast.makeText(this, "Location added", Toast.LENGTH_LONG).show();
-//		geoButton.setColorFilter(MAP_COLOR);
-		final View Viewlayout = inflater.inflate(R.layout.geolocation_popup,(ViewGroup) findViewById(R.id.geolocation_dialog)); 
+		final View view = inflater.inflate(R.layout.geolocation_popup,(ViewGroup) findViewById(R.id.geolocation_dialog)); 
+		final EditText locationEdit = (EditText) view.findViewById(R.id.editText_Location); 
+		final CheckBox addCheck = (CheckBox) view.findViewById(R.id.add_location_box);
+		//final Button attachButton = (Button) view.findViewById(R.id.attachLocationButton);
+		
+		//question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
+		
 		popDialog.setTitle("Set Location");
-		popDialog.setView(Viewlayout);
+		popDialog.setView(view);		
+		
+		
+		
+		addCheck.setOnClickListener(new View.OnClickListener() {		
+			@Override
+			public void onClick(View v)
+			{
+				if (addCheck.isChecked()) {
+					geoLocation = new Geolocation(getApplicationContext());
+					geoLocation.findLocation();
+					hasLocation = true;
+					String location = geoLocation.getLocation();
+					globalLocation = location;
+					locationEdit.setText(location);	
+				} else {
+					locationEdit.setText("");
+				}
+			}
+		});
+		
+		popDialog.setNegativeButton("Attach Location" , new DialogInterface.OnClickListener()		{
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				dialog.dismiss();
+				String location = locationEdit.getText().toString();
+				globalLocation = location;
+				hasLocation = true;
+				geoButton.setColorFilter(MAP_COLOR);	
+				
+			
+			}
+		});
+		
 		popDialog.create();
 		popDialog.show();
-		
-		
 		
 		//http://www.thaicreate.com/mobile/android-popup-custom-layout-and-returning-values-from-dialog.html
 		//November 28 2014
