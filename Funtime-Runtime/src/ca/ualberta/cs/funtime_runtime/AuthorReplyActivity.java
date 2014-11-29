@@ -205,49 +205,49 @@ public class AuthorReplyActivity extends CustomActivity {
 		 hasLocation = true;
 		 Toast.makeText(this, "Location added", Toast.LENGTH_LONG).show();
 		 geoButton.setColorFilter(MAP_COLOR);
-//		 final View view = inflater.inflate(R.layout.geolocation_popup,(ViewGroup) findViewById(R.id.geolocation_dialog)); 
-//		 final EditText locationEdit = (EditText) view.findViewById(R.id.editText_Location); 
-//		 final CheckBox addCheck = (CheckBox) view.findViewById(R.id.add_location_box);
+		 final View view = inflater.inflate(R.layout.geolocation_popup,(ViewGroup) findViewById(R.id.geolocation_dialog)); 
+		 final EditText locationEdit = (EditText) view.findViewById(R.id.editText_Location); 
+		 final CheckBox addCheck = (CheckBox) view.findViewById(R.id.add_location_box);
+	 
+		 popDialog.setTitle("Set Location");
+		 popDialog.setView(view);		
 //		 
-//		 popDialog.setTitle("Set Location");
-//		 popDialog.setView(view);		
+		 addCheck.setOnClickListener(new View.OnClickListener() {		
+			 @Override
+			 public void onClick(View v) {
+				 if (addCheck.isChecked()) {
+					 
+					 Geolocation geoLocation = new Geolocation(getApplicationContext());
+					 
+					 //final Geolocation geoLocation = new Geolocation(getApplicationContext());
+					 
+					 geoLocation.findLocation();
+					 hasLocation = true;
+					 String location = geoLocation.getLocation();
+					 Toast.makeText(getApplicationContext(), location, Toast.LENGTH_SHORT).show();
+					 globalLocation = location;
+					 locationEdit.setText(location);	
+					 } else {
+						 locationEdit.setText("");
+					 }
+			 }
+		 });
 //		 
-//		 addCheck.setOnClickListener(new View.OnClickListener() {		
-//			 @Override
-//			 public void onClick(View v) {
-//				 if (addCheck.isChecked()) {
-//					 
-//					 Geolocation geoLocation = new Geolocation(getApplicationContext());
-//					 
-//					 //final Geolocation geoLocation = new Geolocation(getApplicationContext());
-//					 
-//					 geoLocation.findLocation();
-//					 hasLocation = true;
-//					 String location = geoLocation.getLocation();
-//					 Toast.makeText(getApplicationContext(), location, Toast.LENGTH_SHORT).show();
-//					 globalLocation = location;
-//					 locationEdit.setText(location);	
-//					 } else {
-//						 locationEdit.setText("");
-//					 }
-//			 }
-//		 });
+		 popDialog.setNegativeButton("Attach Location" , new DialogInterface.OnClickListener() {
+			 
+			 @Override
+			 public void onClick(DialogInterface dialog, int which)
+			 {
+				 dialog.dismiss();
+				 String location = locationEdit.getText().toString();
+				 globalLocation = location;
+				 hasLocation = true;
+				 geoButton.setColorFilter(MAP_COLOR);			
+			 }
+		});
 //		 
-//		 popDialog.setNegativeButton("Attach Location" , new DialogInterface.OnClickListener() {
-//			 
-//			 @Override
-//			 public void onClick(DialogInterface dialog, int which)
-//			 {
-//				 dialog.dismiss();
-//				 String location = locationEdit.getText().toString();
-//				 globalLocation = location;
-//				 hasLocation = true;
-//				 geoButton.setColorFilter(MAP_COLOR);			
-//			 }
-//		});
-//		 
-//		 popDialog.create();
-//		 popDialog.show();
+		 popDialog.create();
+		 popDialog.show();
 //			
 //		 //http://www.thaicreate.com/mobile/android-popup-custom-layout-and-returning-values-from-dialog.html
 //		 //November 28 2014
