@@ -37,6 +37,14 @@ public class ApplicationState extends Application {
 	private static ArrayList<Question> questionList = new ArrayList<Question>();
 	private static ArrayList<Question> cachedQuestions = new ArrayList<Question>();
 	private static ArrayList<Question> offlineQuestions = new ArrayList<Question>();
+	private static ArrayList<Answer> offlineAnswers = new ArrayList<Answer>();
+	private static ArrayList<Integer> offlineQuestionUpvotes = new ArrayList<Integer>();
+	private static ArrayList<Integer> offlineQuestionDownvotes = new ArrayList<Integer>();
+	private static ArrayList<Integer> offlineAnswerUpvotes = new ArrayList<Integer>();
+	private static ArrayList<Integer> offlineAnswerDownvotes = new ArrayList<Integer>();
+	private static ArrayList<Reply> offlineQuestionReplies = new ArrayList<Reply>();	
+	private static ArrayList<Reply> offlineAnswerReplies = new ArrayList<Reply>();
+	
 	
 	/* Questions and answers that are passable between activities.
 	* This will save the reference, while passing via intent will not.
@@ -58,31 +66,39 @@ public class ApplicationState extends Application {
 	private static final String CACHEDACCOUNT = "CachedAccount.sav";
 	private static final String CACHEDQUESTIONS = "CachedQuestions.sav";
 	private static final String OFFLINEQUESTIONS = "OfflineQuestions.sav";
+	private static final String OFFLINEQUESTIONUPVOTES = "OfflineQuestionUpvotes.sav";
+	private static final String OFFLINEQUESTIONDOWNVOTES = "OfflineQuestionDownvotes.sav";
+	private static final String OFFLINEANSWERUPVOTES = "OfflineAnswerUpvotes.sav";
+	private static final String OFFLINEANSWERDOWNVOTES = "OfflineAnswerDownvotes.sav";
+	
 	
 	private static ESQuestionManager questionManager = new ESQuestionManager();
 	private static ESAccountManager accountManager = new ESAccountManager();
 	private static SaveManager saveManager = new SaveManager();
 	
-	public static void startup(Context ctx) {
+	public static void startup(Context context) {
 		
 		saveManager = new SaveManager();
 		
-		loadCachedQuestions(ctx);
+		loadCachedQuestions(context);
 		questionList = new ArrayList<Question>();
 		
-		if ( (ApplicationState.isOnline(ctx)) ) {
+		loadOfflineData(context);
+		
+		if ( (ApplicationState.isOnline(context)) ) {
 			questionManager = new ESQuestionManager();
 			accountManager = new ESAccountManager();
-			loadServerQuestions(ctx);
-			syncCachedQuestions(ctx);
+			loadServerQuestions(context);
+			pushOfflineData(context);
+			syncCachedQuestions(context);
 		} else {
 			String offlineNotice;
 			offlineNotice = "No Connection Available";
-			Toast.makeText(ctx, offlineNotice, Toast.LENGTH_SHORT).show();
-			setCachedQuestions(ctx);
+			Toast.makeText(context, offlineNotice, Toast.LENGTH_SHORT).show();
+			setCachedQuestions(context);
 		}
 
-		checkLogin(ctx);
+		checkLogin(context);
 		
 		firstLaunch = false;
 		
@@ -211,13 +227,32 @@ public class ApplicationState extends Application {
 		loadCachedQuestions(context);
 		updateAccount(context);
 		
+		loadOfflineData(context);
+		
 		if ( (ApplicationState.isOnline(context)) ) {
-			loadOfflineQuestions(context);
-			pushOfflineQuestions(context);
+			pushOfflineData(context);
 			loadServerQuestions(context);
 		} else {
 			questionList = cachedQuestions;
 		}
+	}
+	
+	public static void loadOfflineData(Context context) {
+		loadOfflineQuestions(context);
+		loadOfflineQuestionUpvotes(context);
+		loadOfflineQuestionDownvotes(context);
+		loadOfflineAnswerUpvotes(context);
+		loadOfflineAnswerDownvotes(context);
+	}
+	
+	public static void pushOfflineData(Context context) {
+
+		pushOfflineQuestions(context);
+		pushOfflineQuestionUpvotes(context);
+		pushOfflineQuestionDownvotes(context);
+		pushOfflineAnswerUpvotes(context);
+		pushOfflineAnswerDownvotes(context);
+		
 	}
 	
 	public static void pushOfflineQuestions(Context context) {
@@ -228,8 +263,53 @@ public class ApplicationState extends Application {
 		for (int i = 0; i < offlineQuestions.size(); i++) {
 			addServerQuestions(offlineQuestions.get(0), context);
 		}
+		offlineQuestions.clear();
 		Log.i("Offline Push", "offline push done: " + offlineQuestions.size());
 
+	}
+	
+	public static void pushOfflineQuestionUpvotes(Context context) {
+		//while ( !(offlineQuestionUpvotes.isEmpty()) ) {
+		for (int i = 0; i < offlineQuestionUpvotes.size(); i++) {	
+			Question q = getQuestionById(offlineQuestionUpvotes.get(0));
+			q.upVote(context);
+		}
+		offlineQuestionUpvotes.clear();
+		
+
+//		Log.i("Offline Push", "offline push, elements: " + offlineQuestions.size());
+//		for (int i = 0; i < offlineQuestions.size(); i++) {
+//			addServerQuestions(offlineQuestions.get(0), context);
+//		}
+//		Log.i("Offline Push", "offline push done: " + offlineQuestions.size());
+
+	}
+	
+	public static void pushOfflineQuestionDownvotes(Context context) {
+		//while ( !(offlineQuestionDownvotes.isEmpty()) ) {
+		for (int i = 0; i < offlineQuestionDownvotes.size(); i++) {
+			Question q = getQuestionById(offlineQuestionDownvotes.get(0));
+			q.upVote(context);
+		}
+		offlineQuestionDownvotes.clear();
+	}
+	
+	public static void pushOfflineAnswerUpvotes(Context context) {
+		//while ( !(offlineQuestions.isEmpty()) ) {
+		for (int i = 0; i < offlineAnswerUpvotes.size(); i++) {
+			Question q = getQuestionById(offlineAnswerUpvotes.get(0));
+			q.upVote(context);
+		}
+		offlineAnswerUpvotes.clear();
+	}
+	
+	public static void pushOfflineAnswerDownvotes(Context context) {
+		//while ( !(offlineQuestions.isEmpty()) ) {
+		for (int i = 0; i < offlineAnswerDownvotes.size(); i++) {	
+			Question q = getQuestionById(offlineAnswerDownvotes.get(0));
+			q.upVote(context);
+		}
+		offlineAnswerDownvotes.clear();
 	}
 	
 	
@@ -376,21 +456,64 @@ public class ApplicationState extends Application {
 	}
 	
 	public static void loadOfflineQuestions(Context context) {
-		offlineQuestions = new ArrayList<Question>();
 		Object obj;
 		try {
 			obj = saveManager.load(OFFLINEQUESTIONS, context);
 			if (obj != null) {
 				offlineQuestions = (ArrayList<Question>) obj;
-				Log.i("Offline Load", "offline loaded : " + offlineQuestions.get(0).getTitle());
-			} else {
-				Log.i("Offline Load", "not loaded " + offlineQuestions.size());
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	public static void loadOfflineQuestionUpvotes(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEQUESTIONUPVOTES, context);
+			if (obj != null) {
+				offlineQuestionUpvotes = (ArrayList<Integer>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void loadOfflineQuestionDownvotes(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEQUESTIONDOWNVOTES, context);
+			if (obj != null) {
+				offlineQuestionDownvotes = (ArrayList<Integer>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void loadOfflineAnswerUpvotes(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEANSWERUPVOTES, context);
+			if (obj != null) {
+				offlineAnswerUpvotes = (ArrayList<Integer>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void loadOfflineAnswerDownvotes(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEANSWERDOWNVOTES, context);
+			if (obj != null) {
+				offlineAnswerDownvotes = (ArrayList<Integer>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static void updateServerQuestion(Question question) {
 		Thread updateThread = new UpdateQuestionThread(question);
@@ -485,6 +608,30 @@ public class ApplicationState extends Application {
 		}
 		return answer;
 	}
-	
+
+	public static void addOfflineQuestionUpvote(Integer id, Context context) {
+		if ( !(offlineQuestionUpvotes.contains(id)) ) {
+			offlineQuestionUpvotes.add(id);
+		}
+		saveManager.save(OFFLINEQUESTIONUPVOTES, offlineQuestionUpvotes, context);
+	}	
+	public static void addOfflineQuestionDownvote(Integer id, Context context) {
+		if ( !(offlineQuestionDownvotes.contains(id)) ) {
+			offlineQuestionDownvotes.add(id);
+		}
+		saveManager.save(OFFLINEQUESTIONDOWNVOTES, offlineQuestionDownvotes, context);
+	}
+	public static void addOfflineAnswerUpvote(Integer id, Context context) {
+		if ( !(offlineAnswerUpvotes.contains(id)) ) {
+			offlineAnswerUpvotes.add(id);
+		}
+		saveManager.save(OFFLINEANSWERUPVOTES, offlineAnswerUpvotes, context);
+	}
+	public static void addOfflineAnswerDownvote(Integer id, Context context) {
+		if ( !(offlineAnswerDownvotes.contains(id)) ) {
+			offlineAnswerDownvotes.add(id);
+		}
+		saveManager.save(OFFLINEANSWERUPVOTES, offlineAnswerUpvotes, context);
+	}
 	
 }

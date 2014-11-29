@@ -145,6 +145,8 @@ public class AuthorAnswerActivity extends CustomActivity {
 			question.addAnswer(answer);
 			account.answerQuestion(question, this);
 			
+			
+			ApplicationState.cacheQuestion(question, this);
 			ApplicationState.setPassableQuestion(question);
 
 //			ApplicationState.updateServerQuestion(question);

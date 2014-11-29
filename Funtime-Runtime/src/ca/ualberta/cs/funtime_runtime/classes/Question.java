@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 
 
 /**
@@ -102,17 +103,25 @@ public class Question implements Serializable {
 	/**
 	 * This function adds to the total number of ratings on a question 
 	 */
-	public void upVote() {
+	public void upVote(Context context) {
 		rating++;
-		ApplicationState.updateServerQuestion(this);
+		if ( (ApplicationState.isOnline(context)) ) {
+			ApplicationState.updateServerQuestion(this);
+		} else {
+			ApplicationState.addOfflineQuestionUpvote(getId(), context);
+		}
 	}
 
 	/**
 	 * This function subtracts from the total number of ratings on an question 
 	 */
-	public void downVote() {
+	public void downVote(Context context) {
 		rating--;
-		ApplicationState.updateServerQuestion(this);
+		if ( (ApplicationState.isOnline(context)) ) {
+			ApplicationState.updateServerQuestion(this);
+		} else {
+			ApplicationState.addOfflineQuestionDownvote(getId(), context);
+		}
 	}
 
 	

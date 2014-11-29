@@ -86,18 +86,10 @@ public class Account implements Serializable {
 	 * 						been added to the master questsion list
 	 */
 	public void authorQuestion(Question question, Context context) {
-		Log.i("AuthorQuestion", "Adding to question list");
 		questionList.add(question.getId());
-		Log.i("AuthorQuestion", "added");
-		Log.i("AuthorQuestion", "Updating account");
 		ApplicationState.updateAccount(context);
-		Log.i("AuthorQuestion", "updated");
-		Log.i("AuthorQuestion", "Adding server question");
 		ApplicationState.addServerQuestions(question, context);
-		Log.i("AuthorQuestion", "added");
-		Log.i("AuthorQuestion", "Cacheing question");
 		ApplicationState.cacheQuestion(question, context);
-		Log.i("AuthorQuestion", "Cached");
 	}
 
 	/**
@@ -234,7 +226,7 @@ public class Account implements Serializable {
 	 */
 	public void upvoteQuestion(Question question, Context context) {
 //		question = ApplicationState.refreshQuestion(question, context);
-		question.upVote();
+		question.upVote(context);
 		upvotedQuestions.add(question.getId());
 		ApplicationState.updateAccount(context);
 	}
@@ -245,7 +237,7 @@ public class Account implements Serializable {
 	 */
 	public void downvoteQuestion(Question question, Context context) {
 		question = ApplicationState.refreshQuestion(question, context);
-		question.downVote();
+		question.downVote(context);
 		upvotedQuestions.remove( (Integer) question.getId());
 		ApplicationState.updateAccount(context);
 	}
@@ -263,9 +255,10 @@ public class Account implements Serializable {
 	 */
 	public void upvoteAnswer(Answer answer, Context context) {
 //		answer = ApplicationState.refreshAnswer(answer, context);
-		answer.upVote();
+		answer.upVote(context);
 		upvotedAnswers.add(answer.getId());
 		ApplicationState.updateAccount(context);
+		
 	}
 	
 	/**
@@ -274,7 +267,7 @@ public class Account implements Serializable {
 	 */
 	public void downvoteAnswer(Answer answer, Context context) {
 		answer = ApplicationState.refreshAnswer(answer, context);
-		answer.downVote();
+		answer.downVote(context);
 		upvotedAnswers.remove( (Integer) answer.getId() );
 		ApplicationState.updateAccount(context);
 	}

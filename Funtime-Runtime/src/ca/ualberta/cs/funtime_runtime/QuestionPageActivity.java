@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -281,6 +282,8 @@ public class QuestionPageActivity extends CustomActivity {
 		ApplicationState.refresh(this);
 		ArrayList<Question> qList = ApplicationState.getQuestionList(this);
 		for (Question q: qList) {
+			Log.i("QuestionPage", "Question: " + q.getTitle());
+			Log.i("QuestionPage", "QId: " + q.getId());
 			if (q.getId().equals(question.getId())) {
 				question = q;
 				ApplicationState.setPassableQuestion(question);

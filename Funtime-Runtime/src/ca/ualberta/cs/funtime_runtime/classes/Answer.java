@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 
 /**
  * This is a model class for answers
@@ -74,19 +75,29 @@ public class Answer implements Serializable {
 	/**
 	 * This function adds to the total number of ratings on an answer 
 	 */
-	public void upVote() {
+	public void upVote(Context context) {
 		rating++;
-		Question parentQuestion = ApplicationState.getQuestionById(parentQuestionId);
-		ApplicationState.updateServerQuestion(parentQuestion);
+		if ( (ApplicationState.isOnline(context)) ) {
+			Question parentQuestion = ApplicationState.getQuestionById(parentQuestionId);
+			ApplicationState.updateServerQuestion(parentQuestion);
+		} else {
+			ApplicationState.addOfflineAnswerUpvote(getId(), context);
+		}
+		
 	}
 
 	/**
 	 * This function subtracts from the total number of ratings on an answer 
 	 */
-	public void downVote()	{
+	public void downVote(Context context)	{
 		rating--;
-		Question parentQuestion = ApplicationState.getQuestionById(parentQuestionId);
-		ApplicationState.updateServerQuestion(parentQuestion);
+		if ( (ApplicationState.isOnline(context)) ) {
+			Question parentQuestion = ApplicationState.getQuestionById(parentQuestionId);
+			ApplicationState.updateServerQuestion(parentQuestion);
+		} else {
+			ApplicationState.addOfflineAnswerDownvote(getId(), context);
+		}
+		
 	}
 	
 	/**
