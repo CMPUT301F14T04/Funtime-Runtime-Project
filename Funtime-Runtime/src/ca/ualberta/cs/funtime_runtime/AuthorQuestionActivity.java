@@ -3,7 +3,6 @@ package ca.ualberta.cs.funtime_runtime;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.zip.Deflater;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -45,6 +44,7 @@ import ca.ualberta.cs.funtime_runtime.thread.UpdateAccountThread;
  */
 public class AuthorQuestionActivity extends CustomActivity {
 	
+	Question question;
 	Button submitButton;
 	Button addPhotoButton;
 	Button cancelButton;
@@ -55,7 +55,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	Account account;
 	String username;
 	ArrayList<Question> questionList;
-	Question question;
+	
 	//Geolocation geoLocation;
 	
 	//ArrayList<Question> userQuestionList;
@@ -68,7 +68,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	boolean hasLocation = false;
 	byte[] array;
 	byte[] compressedData = new byte[64000];
-    Deflater compressor = new Deflater();
+   
     Random generator = new Random();
     private static final int RANDOM_NUMBER_CAP = 100000000;
     UpdateAccountThread updateThread;
@@ -105,9 +105,10 @@ public class AuthorQuestionActivity extends CustomActivity {
 		//addPhotoButton = (Button) findViewById(R.id.add_question_image);
 		cancelButton = (Button) findViewById(R.id.cancel_button);
 		//addPhotoButton = (Button) findViewById(R.id.add_image_button);
+		photoButton = (ImageButton)  findViewById(R.id.add_answerImage_button);
+		
 		questionTitle = (EditText) findViewById(R.id.question_title_text);
 		questionBody = (EditText) findViewById(R.id.question_body_text);
-		photoButton = (ImageButton)  findViewById(R.id.add_answerImage_button);
 		
 		account = ApplicationState.getAccount();
 		username = account.getName();
@@ -308,6 +309,4 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 public void cancel_question(View v){
 		 finish();
 	 }
-		
-
 }

@@ -31,7 +31,6 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 	}
 	
 	public void testAuthorQuestion() {
-		ApplicationState.startup(getActivity());
 		Account account = new Account("TestAccountUsername");
 		Question question = new Question("Test Question Title", "Test question body", "TestAccountUsername");
 		Integer id = 7841;
@@ -39,56 +38,40 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 		account.authorQuestion(question, getActivity());
 		assertEquals(account.questionsCount(), 1);
 		assertEquals(id, account.getQuestionId(0));
-		
-		Question question0 = new Question("Test Question 0 Title", "Test question 0 body", "TestAccountUsername0");
-		Question question1 = new Question("Test Question 1 Title", "Test question 1 body", "TestAccountUsername1");
-		Question question2 = new Question("Test Question 2 Title", "Test question 2 body", "TestAccountUsername2");
-		account.authorQuestion(question0, getActivity());
-		account.authorQuestion(question1, getActivity());
-		account.authorQuestion(question2, getActivity());	
-		assertEquals(account.questionsCount(), 4);
 	}
-//	
-//	public void testAuthorAnswer() {
-//		Account account = new Account("TestAccountUsername");
-//		Question question = new Question("test question 1", "test body 1", "iAmTest");
-//		Answer answer = new Answer("Test answer body", "TestAccountUsername");
-//		Integer id = 7841;
-//		answer.setId(id);
-//		question.addAnswer(answer);
-//		account.answerQuestion(question, getActivity());
-//		assertEquals(account.answeredCount(), 1);
-//		assertEquals(id, account.getAnsweredQuestionId(0));
-//		
-//		Answer answer0 = new Answer("Test answer 0 body", "TestAccountUsername0");
-//		Answer answer1 = new Answer("Test answer 1 body", "TestAccountUsername1");
-//		Answer answer2 = new Answer("Test answer 2 body", "TestAccountUsername2");
-//		question.addAnswer(answer0);
-//		account.answerQuestion(question, getActivity());
-//		question.addAnswer(answer1);
-//		account.answerQuestion(question, getActivity());
-//		question.addAnswer(answer2);
-//		account.answerQuestion(question, getActivity());
-//		assertEquals(account.answeredCount(), 4);
-//	}
-//	
-//	public void testFavorites() {
-//		Account account = new Account("TestAccountUsername");
-//		ArrayList<Integer> testList;
-//		testList = account.getFavouritesList();
-//		assertNotNull(testList);
-//		
-//		Question question = new Question("Test Question Title", "Test question body", "TestAccountUsername");
-//		
-//		account.addFavourite(question, getActivity());
-//		
-//		assertTrue(testList.contains(question.getId()));
-//		
-//		account.removeFavourite(question, getActivity());
-//		
-//		assertFalse(testList.contains(question.getId()));
-//		
-//	}
+	
+	public void testAuthorAnswer() {
+		Account account = new Account("TestAccountUsername");
+		Question question = new Question("test question 1", "test body 1", "iAmTest");
+		Answer answer = new Answer(10, "Test answer body", "TestAccountUsername");
+		Integer id = 7841;
+		question.setId(id);
+		answer.setId(id);
+		question.addAnswer(answer);
+		account.answerQuestion(question, answer, getActivity());
+		assertEquals(account.answeredCount(), 1);
+		assertEquals(id, account.getAnsweredQuestionId(0));
+		
+	}
+	
+	public void testFavorites() {
+		Account account = new Account("TestAccountUsername");
+		ArrayList<Integer> testList;
+		testList = account.getFavouritesList();
+		assertNotNull(testList);
+		
+		Question question = new Question("Test Question Title", "Test question body", "TestAccountUsername");
+		question.setId(55);
+		
+		account.addFavourite(question, getActivity());
+		
+		assertTrue(testList.contains(question.getId()));
+		
+		account.removeFavourite(question, getActivity());
+		
+		assertFalse(testList.contains(question.getId()));
+		
+	}
 //	
 //	public void testReadingList() {
 //		Account account = new Account("TestAccountUsername");

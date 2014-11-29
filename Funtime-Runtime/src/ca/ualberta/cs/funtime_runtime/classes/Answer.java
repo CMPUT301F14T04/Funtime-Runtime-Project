@@ -21,7 +21,7 @@ public class Answer implements Serializable {
 	private static final long serialVersionUID = 7328501038270376718L;
 	private final String body;
 	private final String username;
-	private Integer parentQuestionId;
+	private int parentQuestionId;
 	public ArrayList<Reply> replyList;
 	private int rating;
 	private final Date date;
