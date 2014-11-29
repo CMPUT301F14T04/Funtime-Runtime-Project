@@ -24,7 +24,6 @@ public class Geolocation implements Serializable {
 	public Geolocation(Context mContext){
 		this.mContext = mContext;
 	}
-	String context = Context.LOCATION_SERVICE;
 	
 	private final LocationListener ll = new LocationListener() {
 		
@@ -49,7 +48,7 @@ public class Geolocation implements Serializable {
 	
 	public void findLocation(){
 		
-		LocationManager lm = (LocationManager)mContext.getSystemService(context);
+		LocationManager lm = (LocationManager)mContext.getSystemService(Context.LOCATION_SERVICE);
 		String provider = LocationManager.GPS_PROVIDER;
 		Location location = lm.getLastKnownLocation(provider);
 		

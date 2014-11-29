@@ -130,6 +130,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 * @param v is a button within the activity.
 	 */
 	public void submitQuestion(View v) {
+		
 		question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
 		questionList = ApplicationState.getQuestionList(this);
 		userQuestionIdList = account.getQuestionList();
@@ -147,7 +148,11 @@ public class AuthorQuestionActivity extends CustomActivity {
 		generateId(question);		
 		//ApplicationState.addServerQuestions(question, this);
 		
+		Log.i("AuthorQuestion", "AuthorQuestion starting");
+		
 		account.authorQuestion(question, this);
+		
+		Log.i("AuthorQuestion", "AuthorQuestion finished");
 
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("Question", question);
