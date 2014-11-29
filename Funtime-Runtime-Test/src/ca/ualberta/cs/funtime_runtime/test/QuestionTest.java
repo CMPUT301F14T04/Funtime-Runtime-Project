@@ -78,6 +78,7 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 		assertEquals(question.getAnswer(3), answer0);
 	}
 	
+
 	public void testReply() {
 		Reply reply = new Reply(-1, 0, "Test reply body", "TestReplier1");
 		
