@@ -659,11 +659,14 @@ public class ApplicationState extends Application {
 			//saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
 			Toast.makeText(context, "Cached " + question.getTitle(), Toast.LENGTH_LONG).show();
 		} 
-//		else {
-//			Question q = question;
-//			cachedQuestions.remove(question);
-//			cachedQuestions.add(q);
-//		}
+		else {
+			for (Question q: cachedQuestions) {
+				if (q.equals(question)) {
+					cachedQuestions.remove(q);
+					cachedQuestions.add(question);
+				}
+			}
+		}
 		saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
 	}
 
