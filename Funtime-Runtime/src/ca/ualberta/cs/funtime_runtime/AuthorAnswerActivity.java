@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -13,10 +16,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -51,17 +57,21 @@ public class AuthorAnswerActivity extends CustomActivity {
 	Account account;
 	String username;
 	ArrayList<Integer> userAnsweredList;
-	Geolocation locator;
+	//Geolocation locator;
 	
-	byte[] compressedData = new byte[64000];
-	boolean hasPhoto = false;
+	ArrayList<Integer> userAnswerIdList;
+	String globalLocation;
+	
 	Bitmap photoBitmap;
-	
-	//ArrayList<Question> userAnsweredList;
-	ArrayList<Integer> userAnsweredIdList;
+	boolean hasPhoto = false;
 	boolean hasLocation = false;
-
-	Geolocation geoLocation;
+	byte[] array;
+	byte[] compressedData = new byte[64000];
+	
+	private AlertDialog.Builder popDialog;
+	private LayoutInflater inflater;
+	
+	//Geolocation geoLocation;
 	int CAMERA_COLOR = Color.parseColor("#001110");
 	int MAP_COLOR = Color.parseColor("#3366FF");
 
@@ -75,17 +85,27 @@ public class AuthorAnswerActivity extends CustomActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		
+		final Context ctx = this;
+		
+		popDialog = new AlertDialog.Builder(this);
+		inflater = (LayoutInflater)this.getSystemService(LAYOUT_INFLATER_SERVICE);
 		setContentView(R.layout.activity_author_answer);
+		setResources();
+	}
+	
+	private void setResources(){
 		ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+		submitButton = (Button) findViewById(R.id.submitAnswerButton);
+		geoButton = (ImageButton) findViewById(R.id.answer_geo_button);
+		photoButton = (ImageButton) findViewById(R.id.add_answerImage_button);
 		
 		questionTitle = (TextView) findViewById(R.id.questionTitleAA);
 		questionBody = (TextView) findViewById(R.id.questionBodyAA);
 		answerBody = (EditText) findViewById(R.id.typeAnswerAA);
-		submitButton = (Button) findViewById(R.id.submitAnswerButton);
-		geoButton = (ImageButton) findViewById(R.id.answer_geo_button);
-		photoButton = (ImageButton) findViewById(R.id.add_answerImage_button);
+		
 		account = ApplicationState.getAccount();
 		if (ApplicationState.isLoggedIn()) {
 			username = account.getName();
@@ -93,8 +113,6 @@ public class AuthorAnswerActivity extends CustomActivity {
 		question = ApplicationState.getPassableQuestion();
 		questionTitle.setText(question.getTitle());
 		questionBody.setText(question.getBody());
-		
-		
 	}
 	
 	/**
@@ -131,8 +149,13 @@ public class AuthorAnswerActivity extends CustomActivity {
 
 			
 			if (hasLocation){
-				answer.setLocation(geoLocation.getLocation());
+				//answer.setLocation(geoLocation.getLocation());
 			} 
+			
+			Geolocation geoLocation = new Geolocation(getApplicationContext());
+			geoLocation.findLocation();
+			answer.setLocation(geoLocation.getLocation());
+			Toast.makeText(getApplicationContext(), geoLocation.getLocation(), Toast.LENGTH_SHORT).show();
 			
 			
 			ArrayList<Question> newestQuestions = ApplicationState.getQuestionList(this);
@@ -170,13 +193,6 @@ public class AuthorAnswerActivity extends CustomActivity {
 		 }
 				
 	}
-	 /**
-	  * This onClick listener leaves the activity after the "cancel button is clicked
-	  * @param v is a button within the view
-	  */
-	 public void answer_cancel(View v){
-		 finish();
-	 }
 	 
 	 public void add_photo(View v){
 		Intent  photoPickerIntent = new Intent(Intent.ACTION_PICK);
@@ -185,11 +201,52 @@ public class AuthorAnswerActivity extends CustomActivity {
 	 }
 	 
 	 public void addLocation(View v){
-		 geoLocation = new Geolocation(this);
-		 geoLocation.findLocation();
-		 hasLocation = true;
-		 Toast.makeText(this, "Location added", Toast.LENGTH_LONG).show();
-		 geoButton.setColorFilter(MAP_COLOR);
+		 final View view = inflater.inflate(R.layout.geolocation_popup,(ViewGroup) findViewById(R.id.geolocation_dialog)); 
+		 final EditText locationEdit = (EditText) view.findViewById(R.id.editText_Location); 
+		 final CheckBox addCheck = (CheckBox) view.findViewById(R.id.add_location_box);
+		 
+		 popDialog.setTitle("Set Location");
+		 popDialog.setView(view);		
+		 
+		 addCheck.setOnClickListener(new View.OnClickListener() {		
+			 @Override
+			 public void onClick(View v) {
+				 if (addCheck.isChecked()) {
+					 
+					 Geolocation geoLocation = new Geolocation(getApplicationContext());
+					 
+					 //final Geolocation geoLocation = new Geolocation(getApplicationContext());
+					 
+					 geoLocation.findLocation();
+					 hasLocation = true;
+					 String location = geoLocation.getLocation();
+					 Toast.makeText(getApplicationContext(), location, Toast.LENGTH_SHORT).show();
+					 globalLocation = location;
+					 locationEdit.setText(location);	
+					 } else {
+						 locationEdit.setText("");
+					 }
+			 }
+		 });
+		 
+		 popDialog.setNegativeButton("Attach Location" , new DialogInterface.OnClickListener() {
+			 
+			 @Override
+			 public void onClick(DialogInterface dialog, int which)
+			 {
+				 dialog.dismiss();
+				 String location = locationEdit.getText().toString();
+				 globalLocation = location;
+				 hasLocation = true;
+				 geoButton.setColorFilter(MAP_COLOR);			
+			 }
+		});
+		 
+		 popDialog.create();
+		 popDialog.show();
+			
+		 //http://www.thaicreate.com/mobile/android-popup-custom-layout-and-returning-values-from-dialog.html
+		 //November 28 2014
 	 }
 	
 	 protected void onActivityResult(int requestCode, int resultCode,
@@ -222,6 +279,13 @@ public class AuthorAnswerActivity extends CustomActivity {
 		            }
 		        }
 		    }
-		}
-
+	 }
+	 /**
+	  * This onClick listener leaves the activity after the "cancel button is clicked
+	  * @param v is a button within the view
+	  */
+	 public void answer_cancel(View v){
+		 finish();
+	 }
 }
+		    
