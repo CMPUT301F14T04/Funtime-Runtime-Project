@@ -74,6 +74,7 @@ public class ApplicationState extends Application {
 			questionManager = new ESQuestionManager();
 			accountManager = new ESAccountManager();
 			loadServerQuestions(ctx);
+			syncCachedQuestions(ctx);
 		} else {
 			String offlineNotice;
 			offlineNotice = "No Connection Available";
@@ -125,6 +126,13 @@ public class ApplicationState extends Application {
 	public static void setCachedQuestions(Context context) {
 		Toast.makeText(context, "Loaded Chached Questions", Toast.LENGTH_LONG).show();
 		questionList = cachedQuestions;
+	}
+	
+	public static void syncCachedQuestions(Context context) {
+		for (Question q: cachedQuestions) {
+			q = ApplicationState.getQuestionById(q.getId());
+		}
+		saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
 	}
 	
 	public static void loadServerAccounts() {
@@ -460,7 +468,9 @@ public class ApplicationState extends Application {
 				return q;
 			}
 		}
-		return null;
+		Question bad = new Question("INVALID QID", "", "");
+		bad.setId(qId);
+		return bad;
 	}
 	
 	public static Answer refreshAnswer(Answer answer, Context context) {
