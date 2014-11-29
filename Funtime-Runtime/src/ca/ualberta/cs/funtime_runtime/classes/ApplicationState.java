@@ -282,6 +282,8 @@ public class ApplicationState extends Application {
 			Answer a = offlineAnswers.get(i);
 			Integer parentQId = a.getParentQuestionId();
 			Question parentQ = ApplicationState.getQuestionById(parentQId);
+			Log.i("PushOfflineQuestionReply", "got guestion " + parentQ.getTitle());
+			Log.i("PushOfflineQuestionReply", "ID: " + parentQ.getId());
 			//if parentQ.getTitle()
 			parentQ.addAnswer(a);
 			updateServerQuestion(parentQ);
@@ -331,6 +333,8 @@ public class ApplicationState extends Application {
 	public static void pushOfflineQuestionUpvotes(Context context) {
 		for (int i = 0; i < offlineQuestionUpvotes.size(); i++) {	
 			Question q = getQuestionById(offlineQuestionUpvotes.get(i));
+			Log.i("PushOfflineQuestionUpvotes", "got guestion " + q.getTitle());
+			Log.i("PushOfflineQuestionUpvotes", "ID: " + q.getId());
 			q.upVote();
 			ApplicationState.updateServerQuestion(q);
 		}
@@ -342,6 +346,8 @@ public class ApplicationState extends Application {
 	public static void pushOfflineQuestionDownvotes(Context context) {
 		for (int i = 0; i < offlineQuestionDownvotes.size(); i++) {
 			Question q = getQuestionById(offlineQuestionDownvotes.get(i));
+			Log.i("PushOfflineQuestionDownvotes", "got guestion " + q.getTitle());
+			Log.i("PushOfflineQuestionDownvotes", "ID: " + q.getId());
 			q.downVote();
 			ApplicationState.updateServerQuestion(q);
 		}
@@ -352,6 +358,8 @@ public class ApplicationState extends Application {
 	public static void pushOfflineAnswerUpvotes(Context context) {
 		for (int i = 0; i < offlineAnswerUpvotes.size(); i++) {
 			Question parentQ = getQuestionById(offlineAnswerUpvotes.get(i).getParentQuestionId());
+			Log.i("PushOfflineAnswerUpvotes", "got guestion " + parentQ.getTitle());
+			Log.i("PushOfflineAnswerUpvotes", "ID: " + parentQ.getId());
 			Answer a = parentQ.getAnswerById(offlineAnswerUpvotes.get(i).getAnswerId());
 			a.upVote();
 			ApplicationState.updateServerQuestion(parentQ);
@@ -364,6 +372,8 @@ public class ApplicationState extends Application {
 		for (int i = 0; i < offlineAnswerDownvotes.size(); i++) {
 			Question parentQ = getQuestionById(offlineAnswerDownvotes.get(i).getParentQuestionId());
 			Answer a = parentQ.getAnswerById(offlineAnswerDownvotes.get(i).getAnswerId());
+			Log.i("PushOfflineQuestionDownvotes", "got guestion " + parentQ.getTitle());
+			Log.i("PushOfflineQuestionDownvotes", "ID: " + parentQ.getId());
 			a.downVote();
 			ApplicationState.updateServerQuestion(parentQ);
 		}
@@ -660,11 +670,15 @@ public class ApplicationState extends Application {
 			Toast.makeText(context, "Cached " + question.getTitle(), Toast.LENGTH_LONG).show();
 		} 
 		else {
-			for (Question q: cachedQuestions) {
-				if (q.equals(question)) {
-					cachedQuestions.remove(q);
-					cachedQuestions.add(question);
+			try {
+				for (Question q: cachedQuestions) {
+					if (q.equals(question)) {
+						cachedQuestions.remove(q);
+						cachedQuestions.add(question);
+					}
 				}
+			} catch (Exception e) {
+				e.printStackTrace();				
 			}
 		}
 		saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
@@ -687,9 +701,12 @@ public class ApplicationState extends Application {
 				return q;
 			}
 		}
+		/*
 		Question bad = new Question("INVALID QID", "", "");
 		bad.setId(qId);
 		return bad;
+		*/
+		return questionList.get(0);
 	}
 	
 	public static Answer refreshAnswer(Answer answer, Context context) {

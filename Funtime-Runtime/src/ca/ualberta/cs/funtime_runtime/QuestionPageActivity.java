@@ -408,8 +408,9 @@ public class QuestionPageActivity extends CustomActivity {
 				questionUpvote.setTextColor(upvote_color);
 				upvoted = true;
 			}
-			ApplicationState.syncCachedQuestions(this);
+			//ApplicationState.syncCachedQuestions(this);
 			//question = ApplicationState.refreshQuestion(question, this);
+			ApplicationState.cacheQuestion(question, this);
 			questionUpvote.setText(Integer.toString(rating));
 			ApplicationState.updateAccount(this);
 		} else {
