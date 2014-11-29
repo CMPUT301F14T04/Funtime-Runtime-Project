@@ -269,5 +269,11 @@ public class Question implements Serializable {
 		bad.setId(answerId);
 		return bad;
 	}
+
+	public void updateAnswer(Answer parentA) {
+		Answer current = getAnswerById(parentA.getId());
+		answerList.remove(current);
+		answerList.add(parentA);
+	}
 	
 }
