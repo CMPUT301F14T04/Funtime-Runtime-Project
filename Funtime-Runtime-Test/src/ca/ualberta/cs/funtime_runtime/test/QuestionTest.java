@@ -30,12 +30,6 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 		assertEquals(authorName, "TestAuthorUsername");
 	}
 	
-	/*
-	public void testEditQuestion() {
-		// Consider implementing
-	}
-	*/
-	
 	public void testVoting() {
 		Question question = new Question("Test Question Title", "Test question body", "TestAuthorUsername");
 		
@@ -62,12 +56,12 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 	
 	public void testAnswers() {
 		Question question = new Question("Test Question Title", "Test question body", "TestAuthorUsername");
-		Answer answer0 = new Answer("Test answer body", "TestAuthorUsername");
+		Answer answer0 = new Answer(1, "Test answer body", "TestAuthorUsername");
 		assertNotNull(answer0);
 		question.addAnswer(answer0);
-		Answer answer1 = new Answer("Test answer 0 body", "TestAuthorUsername0");
-		Answer answer2 = new Answer("Test answer 1 body", "TestAuthorUsername1");
-		Answer answer3 = new Answer("Test answer 2 body", "TestAuthorUsername2");
+		Answer answer1 = new Answer(2, "Test answer 0 body", "TestAuthorUsername0");
+		Answer answer2 = new Answer(3, "Test answer 1 body", "TestAuthorUsername1");
+		Answer answer3 = new Answer(4, "Test answer 2 body", "TestAuthorUsername2");
 		
 		question.addAnswer(answer1);
 		question.addAnswer(answer2);
