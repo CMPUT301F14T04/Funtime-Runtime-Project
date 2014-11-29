@@ -32,7 +32,7 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 	
 	public void testVoting() {
 		Question question = new Question("Test Question Title", "Test question body", "TestAuthorUsername");
-		
+		question.setId(0);
 		question.upVote();
 		int rating = question.getRating();
 		assertEquals(rating, 1);
@@ -48,6 +48,7 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 		assertEquals(rating, 10);
 		
 		Account account = new Account("TestUser1");
+		account.setId(0);
 		account.upvoteQuestion(question, getActivity());
 		assertEquals(question.getRating(), 11);
 		ArrayList<Integer> upvotedQuestions = account.getUpvotedQuestions();
@@ -95,17 +96,18 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 	
 	}
 	
-	/*
+	
 	public void testAddPhoto() {
 		Question question = new Question("Test Question Title", "Test question body", "TestAuthorUsername");
-		
+		question.setId(0);
 		//create bitmap testPhoto
-		bitmap testPhoto = //implement!
+		/*bitmap testPhoto = //implement!
 		question.addPhoto(testPhoto);
 		bitmap retreivedPhoto = question.getPhoto();
 		assertEquals(testPhoto, retreivedPhoto);
+		*/
 	}
-	*/
+	
 	
 	/*
 	public void testDeleteQuestion() {
