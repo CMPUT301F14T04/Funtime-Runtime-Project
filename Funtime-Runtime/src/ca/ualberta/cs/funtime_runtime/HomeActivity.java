@@ -218,7 +218,6 @@ public class HomeActivity extends CustomActivity {
 	public void sortPhoto() {
 		sorter.sortByPhoto();
 		adapter.notifyDataSetChanged();
-		
 	}
 	
 	@Override

@@ -54,7 +54,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	String username;
 	ArrayList<Question> questionList;
 	Question question;
-	Geolocation geoLocation;
+	//Geolocation geoLocation;
 	
 	//ArrayList<Question> userQuestionList;
 	ArrayList<Integer> userQuestionIdList;
@@ -165,7 +165,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 		
 		finish();
 		
-		
 	}
 
 
@@ -188,6 +187,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 		final View view = inflater.inflate(R.layout.geolocation_popup,(ViewGroup) findViewById(R.id.geolocation_dialog)); 
 		final EditText locationEdit = (EditText) view.findViewById(R.id.editText_Location); 
 		final CheckBox addCheck = (CheckBox) view.findViewById(R.id.add_location_box);
+		//final Geolocation geoLocation;
 		//final Button attachButton = (Button) view.findViewById(R.id.attachLocationButton);
 		
 		//question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
@@ -199,10 +199,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 		
 		addCheck.setOnClickListener(new View.OnClickListener() {		
 			@Override
-			public void onClick(View v)
-			{
+			public void onClick(View v) {
 				if (addCheck.isChecked()) {
-					geoLocation = new Geolocation(getApplicationContext());
+					final Geolocation geoLocation = new Geolocation(getApplicationContext());
 					geoLocation.findLocation();
 					hasLocation = true;
 					String location = geoLocation.getLocation();
@@ -214,7 +213,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 			}
 		});
 		
-		popDialog.setNegativeButton("Attach Location" , new DialogInterface.OnClickListener()		{
+		popDialog.setNegativeButton("Attach Location" , new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which)
@@ -223,9 +222,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 				String location = locationEdit.getText().toString();
 				globalLocation = location;
 				hasLocation = true;
-				geoButton.setColorFilter(MAP_COLOR);	
-				
-			
+				geoButton.setColorFilter(MAP_COLOR);			
 			}
 		});
 		
