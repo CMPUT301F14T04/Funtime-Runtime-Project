@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 
 /**
@@ -85,10 +86,18 @@ public class Account implements Serializable {
 	 * 						been added to the master questsion list
 	 */
 	public void authorQuestion(Question question, Context context) {
+		Log.i("AuthorQuestion", "Adding to question list");
 		questionList.add(question.getId());
+		Log.i("AuthorQuestion", "added");
+		Log.i("AuthorQuestion", "Updating account");
 		ApplicationState.updateAccount(context);
+		Log.i("AuthorQuestion", "updated");
+		Log.i("AuthorQuestion", "Adding server question");
 		ApplicationState.addServerQuestions(question, context);
+		Log.i("AuthorQuestion", "added");
+		Log.i("AuthorQuestion", "Cacheing question");
 		ApplicationState.cacheQuestion(question, context);
+		Log.i("AuthorQuestion", "Cached");
 	}
 
 	/**

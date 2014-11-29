@@ -33,7 +33,7 @@ public class AddQuestionThread extends Thread {
 	
 	private Runnable doFinishAdd = new Runnable() {
 		public void run() {
-			activity.finish();
+			//activity.finish();
 		}
 	};
 }

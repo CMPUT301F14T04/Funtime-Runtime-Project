@@ -1,13 +1,18 @@
 package ca.ualberta.cs.funtime_runtime.classes;
 
 import java.util.ArrayList;
+import java.util.Queue;
 
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.widget.Toast;
+import ca.ualberta.cs.funtime_runtime.AuthorQuestionActivity;
+import ca.ualberta.cs.funtime_runtime.QuestionPageActivity;
 import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.elastic.ESAccountManager;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
@@ -31,6 +36,7 @@ public class ApplicationState extends Application {
 	private static Account account;
 	private static ArrayList<Question> questionList = new ArrayList<Question>();
 	private static ArrayList<Question> cachedQuestions = new ArrayList<Question>();
+	private static ArrayList<Question> offlineQuestions = new ArrayList<Question>();
 	
 	/* Questions and answers that are passable between activities.
 	* This will save the reference, while passing via intent will not.
@@ -45,28 +51,29 @@ public class ApplicationState extends Application {
 	private static boolean loggedIn = false;
 	
 	public static boolean firstLaunch = true;
-	
+	public static boolean lastKnownNetworkStatus = false;
 	//private static boolean online = false;
 	
 	private static final String USERACCOUNT = "UserAccount.sav";
 	private static final String CACHEDACCOUNT = "CachedAccount.sav";
 	private static final String CACHEDQUESTIONS = "CachedQuestions.sav";
+	private static final String OFFLINEQUESTIONS = "OfflineQuestions.sav";
 	
-	private static ESQuestionManager questionManager;
-	private static ESAccountManager accountManager;
-	private static SaveManager saveManager;
+	private static ESQuestionManager questionManager = new ESQuestionManager();
+	private static ESAccountManager accountManager = new ESAccountManager();
+	private static SaveManager saveManager = new SaveManager();
 	
 	public static void startup(Context ctx) {
 		
 		saveManager = new SaveManager();
 		
 		loadCachedQuestions(ctx);
+		questionList = new ArrayList<Question>();
 		
 		if ( (ApplicationState.isOnline(ctx)) ) {
 			questionManager = new ESQuestionManager();
 			accountManager = new ESAccountManager();
-			questionList = new ArrayList<Question>();
-			loadServerQuestions();
+			loadServerQuestions(ctx);
 		} else {
 			String offlineNotice;
 			offlineNotice = "No Connection Available";
@@ -77,6 +84,7 @@ public class ApplicationState extends Application {
 		checkLogin(ctx);
 		
 		firstLaunch = false;
+		
 	
 	}
 	
@@ -84,15 +92,20 @@ public class ApplicationState extends Application {
 		return firstLaunch;
 	}
 	
-	public static void loadServerQuestions() {
-		Thread loadThread = new SearchQuestionThread("*");
-		//Thread loadThread = new LoadHomeThread("*", homeQuestionList, adapter);
-		loadThread.start();	
-		
-		try {
-			loadThread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+	public static void loadServerQuestions(Context context) {
+		if ( (ApplicationState.isOnline(context)) ) {
+			Log.i("ApplicationState", "online passed");
+			Thread loadThread = new SearchQuestionThread("*");
+			//Thread loadThread = new LoadHomeThread("*", homeQuestionList, adapter);
+			loadThread.start();	
+			
+			try {
+				loadThread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		} else {
+			Log.i("ApplicationState", "loadServer online failed ");
 		}
 	}
 	
@@ -115,12 +128,14 @@ public class ApplicationState extends Application {
 	}
 	
 	public static void loadServerAccounts() {
-		Thread accountThread = new SearchAccountThread("*");
-		accountThread.start();
-		try {
-			accountThread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		if (lastKnownOnlineStatus()) {
+			Thread accountThread = new SearchAccountThread("*");
+			accountThread.start();
+			try {
+				accountThread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}
@@ -170,20 +185,43 @@ public class ApplicationState extends Application {
 	}
 	
 	public static void loadBySearch(String search) {
-		ApplicationState.questionList.clear();
-		ApplicationState.questionList.addAll(questionManager.searchQuestions(search, null));	
+		if (lastKnownOnlineStatus()) {
+			ApplicationState.questionList.clear();
+			ApplicationState.questionList.addAll(questionManager.searchQuestions(search, null));	
+		}
 	}
 	
 	public static void loadAccounts(String search) {
-		ApplicationState.accountList.clear();
-		ApplicationState.accountList.addAll(accountManager.searchAccounts(search, null));	
-		
+		if (lastKnownOnlineStatus()) {
+			ApplicationState.accountList.clear();
+			ApplicationState.accountList.addAll(accountManager.searchAccounts(search, null));	
+		}
 	}
 	
 	public static void refresh(Context context) {
+		
+		loadCachedQuestions(context);
+		updateAccount(context);
+		
 		if ( (ApplicationState.isOnline(context)) ) {
-			loadServerQuestions();
+			loadOfflineQuestions(context);
+			pushOfflineQuestions(context);
+			loadServerQuestions(context);
+		} else {
+			questionList = cachedQuestions;
 		}
+	}
+	
+	public static void pushOfflineQuestions(Context context) {
+//		while ( !(offlineQuestions.isEmpty()) ) {
+//			addServerQuestions(offlineQuestions.remove(0), context);
+//		}
+		Log.i("Offline Push", "offline push, elements: " + offlineQuestions.size());
+		for (int i = 0; i < offlineQuestions.size(); i++) {
+			addServerQuestions(offlineQuestions.get(0), context);
+		}
+		Log.i("Offline Push", "offline push done: " + offlineQuestions.size());
+
 	}
 	
 	
@@ -193,6 +231,7 @@ public class ApplicationState extends Application {
 	 */
 	public static void setAccount(Account newAccount, Context ctx) {
 		saveManager.save(USERACCOUNT, newAccount.getName(), ctx);
+		saveManager.save(CACHEDACCOUNT, newAccount, ctx);
 		Toast.makeText(ctx, "Logged in as " + newAccount.getName(), Toast.LENGTH_LONG).show();
 		account = newAccount;
 		loggedIn = true;
@@ -211,9 +250,16 @@ public class ApplicationState extends Application {
 		NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 		if (netInfo == null) {
 		    // There are no active networks.
-		    return false;
+			lastKnownNetworkStatus = false;
+			return false;
 		}
+		lastKnownNetworkStatus = true;
 		return netInfo.isConnected();
+	}
+	
+	public static boolean lastKnownOnlineStatus() {
+		// Adapted from http://stackoverflow.com/questions/2789612/how-can-i-check-whether-an-android-device-is-connected-to-the-web - 2014-11-21
+		return lastKnownNetworkStatus;
 	}
 	
 	
@@ -303,15 +349,40 @@ public class ApplicationState extends Application {
 	}
 	
 	public static void addServerQuestions(Question question, Context context) {
-		Thread addThread = new AddQuestionThread(question, context);
-		addThread.start();
-		try {
-			addThread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		if ( (ApplicationState.isOnline(context)) ) {
+			Thread addThread = new AddQuestionThread(question, context);
+			addThread.start();
+			try {
+				addThread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		} else {
+			if ( !(offlineQuestions.contains(question)) ) {
+				offlineQuestions.add(question);
+				saveManager.save(OFFLINEQUESTIONS, offlineQuestions, context);
+			}
+			saveManager.save(OFFLINEQUESTIONS, offlineQuestions, context);
 		}
 		
 	}
+	
+	public static void loadOfflineQuestions(Context context) {
+		offlineQuestions = new ArrayList<Question>();
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEQUESTIONS, context);
+			if (obj != null) {
+				offlineQuestions = (ArrayList<Question>) obj;
+				Log.i("Offline Load", "offline loaded : " + offlineQuestions.get(0).getTitle());
+			} else {
+				Log.i("Offline Load", "not loaded " + offlineQuestions.size());
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public static void updateServerQuestion(Question question) {
 		Thread updateThread = new UpdateQuestionThread(question);
@@ -337,23 +408,30 @@ public class ApplicationState extends Application {
 	public static void updateAccount(Context context) {
 		// TODO Add checks for online vs offline
 		saveManager.save(CACHEDACCOUNT, account, context);
-		UpdateAccountThread accountThread = new UpdateAccountThread(account);
-		accountThread.start();
-		try {
-			accountThread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		
+		
+		if ( (ApplicationState.isOnline(context)) ) {
+			Log.i("OnlinePass", "Online check passed");
+			UpdateAccountThread accountThread = new UpdateAccountThread(account);
+			accountThread.start();
+			try {
+				accountThread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}
 	
 	public static void searchQuery(String query, ArrayList<Question> list, QuestionListAdapter adapter, Activity act) {
-		Thread thread = new SearchActivityThread(query, list, adapter, act);
-		thread.start();
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		if (lastKnownOnlineStatus()) {
+			Thread thread = new SearchActivityThread(query, list, adapter, act);
+			thread.start();
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -363,6 +441,7 @@ public class ApplicationState extends Application {
 			saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
 			Toast.makeText(context, "Cached " + question.getTitle(), Toast.LENGTH_LONG).show();
 		}
+		saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
 	}
 
 	public static Question refreshQuestion(Question question, Context context) {

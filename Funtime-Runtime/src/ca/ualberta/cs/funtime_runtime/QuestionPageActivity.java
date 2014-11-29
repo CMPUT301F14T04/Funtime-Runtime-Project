@@ -125,6 +125,7 @@ public class QuestionPageActivity extends CustomActivity {
 		
 		ApplicationState.cacheQuestion(question, this);
 		
+		
 		boolean loggedIn = ApplicationState.isLoggedIn();
 		if (loggedIn) {
 			
@@ -170,7 +171,6 @@ public class QuestionPageActivity extends CustomActivity {
 			}
 			
 			
-			//account.addToHistory(question);
 			
 
 		}

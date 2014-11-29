@@ -256,7 +256,7 @@ public class Question implements Serializable {
              return false;
     	}
     	Question other = (Question) obj;
-    	return (other.getId().equals(this.getId()));
+    	return (other.getId() == (this.getId()));
     }
 	
 }

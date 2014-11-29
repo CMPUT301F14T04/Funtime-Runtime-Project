@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -58,10 +59,14 @@ public class HomeActivity extends CustomActivity {
 			ApplicationState.startup(this);	
 		}
 		
+		Log.i("HomeActivity", "Startup done");
+		
 		loggedIn = ApplicationState.isLoggedIn();
 		if (loggedIn) {
 			account = ApplicationState.getAccount();
 		} 
+		
+		Log.i("HomeActivity", "Login check done");
 		
 		homeListView = (ListView) findViewById(R.id.questionListView);
 
@@ -70,13 +75,17 @@ public class HomeActivity extends CustomActivity {
 		homeQuestionList = ApplicationState.getQuestionList(this);
 		//loadServerQuestions();
 
+		Log.i("HomeActivity", "Retrieved question list");
+		
 		sorter = new QuestionSorter(homeQuestionList);
-		//testHome(); // temporary test code
 
+		Log.i("HomeActivity", "Sorted");
+		
 		account = ApplicationState.getAccount();
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter,
 				homeQuestionList);
 
+		
 		homeListView.setAdapter(adapter);
 		sorter.sortByDate();
 		adapter.notifyDataSetChanged();
@@ -90,6 +99,11 @@ public class HomeActivity extends CustomActivity {
 		});
 
 		registerForContextMenu(homeListView);
+		
+		Log.i("HomeActivity", "onCreate finished");
+		
+		refresh();
+		
 	}
 
 //	private void loadServerQuestions() {
@@ -145,6 +159,7 @@ public class HomeActivity extends CustomActivity {
 
 	@Override
 	public void refresh() {
+		
 		String sortType = sorter.getSortType();
 		ApplicationState.refresh(this);
 		homeQuestionList = ApplicationState.getQuestionList(this);
@@ -155,6 +170,7 @@ public class HomeActivity extends CustomActivity {
 		} else if (sortType.equals("Photo")) {
 			sorter.sortByPhoto();
 		}
+		
 		adapter.notifyDataSetChanged();
 	}
 
