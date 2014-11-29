@@ -195,7 +195,7 @@ public class AuthorReplyActivity extends CustomActivity {
 
 			
 			ApplicationState.cacheQuestion(question, this);
-			ApplicationState.setPassableQuestion(question);
+			//ApplicationState.setPassableQuestion(question);
 			
 //			ApplicationState.updateServerQuestion(question);
 //			Thread updateThread = new UpdateQuestionThread(question);
