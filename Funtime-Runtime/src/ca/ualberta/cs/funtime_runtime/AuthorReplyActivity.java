@@ -144,12 +144,18 @@ public class AuthorReplyActivity extends CustomActivity {
 				}
 			}
 			
+		
+			
 			if (replyType.equals("question")){
 				reply = new Reply(-1 , question.getId(), typeReply.getText().toString(), username.toString());
 				
 				Random gen = new Random();
 				Integer id = gen.nextInt(1000000);
 				reply.setId(id);
+				
+				if (hasLocation){
+					reply.setLocation(globalLocation);
+				}
 				
 				question.addReply(reply);
 				
@@ -171,6 +177,11 @@ public class AuthorReplyActivity extends CustomActivity {
 				}
 				
 				reply = new Reply(answer.getId(), question.getId(), typeReply.getText().toString(), username.toString());
+				
+				if (hasLocation){
+					reply.setLocation(globalLocation);
+				}
+				
 				answer.addReply(reply);
 				if ( (ApplicationState.isOnline(getApplicationContext())) ) {
 					ApplicationState.updateServerQuestion(question);
@@ -181,9 +192,7 @@ public class AuthorReplyActivity extends CustomActivity {
 				ApplicationState.setPassableAnswer(answer);
 			}
 			
-			if (hasLocation){
-				reply.setLocation(geoLocation.getLocation());
-			}
+
 			
 			ApplicationState.cacheQuestion(question, this);
 			ApplicationState.setPassableQuestion(question);
@@ -200,11 +209,6 @@ public class AuthorReplyActivity extends CustomActivity {
 	}
 	 
 	 public void addLocation(View v){ 
-		 geoLocation = new Geolocation(this);
-		 geoLocation.findLocation();
-		 hasLocation = true;
-		 Toast.makeText(this, "Location added", Toast.LENGTH_LONG).show();
-		 geoButton.setColorFilter(MAP_COLOR);
 		 final View view = inflater.inflate(R.layout.geolocation_popup,(ViewGroup) findViewById(R.id.geolocation_dialog)); 
 		 final EditText locationEdit = (EditText) view.findViewById(R.id.editText_Location); 
 		 final CheckBox addCheck = (CheckBox) view.findViewById(R.id.add_location_box);
@@ -219,17 +223,15 @@ public class AuthorReplyActivity extends CustomActivity {
 					 
 					 Geolocation geoLocation = new Geolocation(getApplicationContext());
 					 
-					 //final Geolocation geoLocation = new Geolocation(getApplicationContext());
-					 
 					 geoLocation.findLocation();
 					 hasLocation = true;
 					 String location = geoLocation.getLocation();
 					 Toast.makeText(getApplicationContext(), location, Toast.LENGTH_SHORT).show();
 					 globalLocation = location;
 					 locationEdit.setText(location);	
-					 } else {
-						 locationEdit.setText("");
-					 }
+				} else {
+					 locationEdit.setText("");
+				 }
 			 }
 		 });
 //		 
@@ -238,17 +240,19 @@ public class AuthorReplyActivity extends CustomActivity {
 			 @Override
 			 public void onClick(DialogInterface dialog, int which)
 			 {
-				 dialog.dismiss();
 				 String location = locationEdit.getText().toString();
 				 globalLocation = location;
 				 hasLocation = true;
-				 geoButton.setColorFilter(MAP_COLOR);			
+				 geoButton.setColorFilter(MAP_COLOR);	
+				 dialog.dismiss();
 			 }
 		});
 //		 
 		 popDialog.create();
 		 popDialog.show();
-//			
+		 
+		 //Toast.makeText(this, globalLocation, Toast.LENGTH_LONG).show();
+		
 //		 //http://www.thaicreate.com/mobile/android-popup-custom-layout-and-returning-values-from-dialog.html
 //		 //November 28 2014
 		 
