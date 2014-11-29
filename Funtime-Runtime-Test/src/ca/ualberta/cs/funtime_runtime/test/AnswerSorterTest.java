@@ -20,7 +20,7 @@ public class AnswerSorterTest extends ActivityInstrumentationTestCase2<QuestionP
 		AnswerSorter sorter = new AnswerSorter(answerList);
 		
 		for (int i = 0; i < 10; i++) {
-			Answer answer = new Answer("Body" + i, "User" + i);
+			Answer answer = new Answer(i, "Body" + i, "User" + i);
 			for (int j = 0; j < i; j++) {
 				answer.upVote();
 			}
