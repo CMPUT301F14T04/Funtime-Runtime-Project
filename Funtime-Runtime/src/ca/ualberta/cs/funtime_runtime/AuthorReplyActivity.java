@@ -1,6 +1,7 @@
 package ca.ualberta.cs.funtime_runtime;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -124,8 +125,10 @@ public class AuthorReplyActivity extends CustomActivity {
 	 */
 	 public void addReply(View v) { 
 		if (ApplicationState.isLoggedIn()) {
-			Reply reply = new Reply(typeReply.getText().toString(), username.toString());
+//			Reply reply = new Reply(typeReply.getText().toString(), username.toString());
 	
+			Reply reply;
+			
 			question = ApplicationState.getPassableQuestion();
 			
 			ArrayList<Question> newestQuestions = ApplicationState.getQuestionList(this);
@@ -135,24 +138,49 @@ public class AuthorReplyActivity extends CustomActivity {
 				}
 			}
 			
-			ApplicationState.setPassableQuestion(question);
-			
 			if (replyType.equals("question")){
+				reply = new Reply(-1 , question.getId(), typeReply.getText().toString(), username.toString());
+				
+				Random gen = new Random();
+				Integer id = gen.nextInt(1000000);
+				reply.setId(id);
+				
 				question.addReply(reply);
-			} else if (replyType.equals("answer")){
+				
+				if ( (ApplicationState.isOnline(getApplicationContext())) ) {
+					ApplicationState.updateServerQuestion(question);
+				} else {
+					ApplicationState.addOfflineQuestionReply(reply, getApplicationContext());
+				}
+				
+			//} else if (replyType.equals("answer")){
+			} else {
+				answer = ApplicationState.getPassableAnswer();
+				
 				ArrayList<Answer> newestAnswers = question.getAnswerList();
 				for (Answer a: newestAnswers) {
 					if (a.equals(answer)) {
 						answer = a;
 					}
 				}
+				
+				reply = new Reply(answer.getId(), question.getId(), typeReply.getText().toString(), username.toString());
 				answer.addReply(reply);
+				if ( (ApplicationState.isOnline(getApplicationContext())) ) {
+					ApplicationState.updateServerQuestion(question);
+				} else {
+					ApplicationState.addOfflineAnswerReply(reply, getApplicationContext());
+				}
 				//question = ApplicationState.getPassableQuestion();
+				ApplicationState.setPassableAnswer(answer);
 			}
 			
 			if (hasLocation){
 				reply.setLocation(geoLocation.getLocation());
 			}
+			
+			ApplicationState.cacheQuestion(question, this);
+			ApplicationState.setPassableQuestion(question);
 			
 //			ApplicationState.updateServerQuestion(question);
 //			Thread updateThread = new UpdateQuestionThread(question);

@@ -16,12 +16,12 @@ public class AnswerTest extends ActivityInstrumentationTestCase2<QuestionPageAct
 		}
 
 		public void testMakeAnswer(){
-			Answer answer = new Answer("Test answer body", "TestAuthorUsername");
+			Answer answer = new Answer(10, "Test answer body", "TestAuthorUsername");
 			assertNotNull(answer);
 		}
 		
 		public void testAnswerContent() {
-			Answer answer = new Answer("Test answer body", "TestAuthorUsername");
+			Answer answer = new Answer(10, "Test answer body", "TestAuthorUsername");
 			String answerBody = answer.getBody();
 			String authorName = answer.getUser();
 			assertEquals(answerBody, "Test answer body");
@@ -35,7 +35,7 @@ public class AnswerTest extends ActivityInstrumentationTestCase2<QuestionPageAct
 		*/
 		
 		public void testVoting() {
-			Answer answer = new Answer("Test answer body", "TestAuthorUsername");
+			Answer answer = new Answer(10, "Test answer body", "TestAuthorUsername");
 			
 			answer.upVote();
 			int rating = answer.getRating();
@@ -64,7 +64,7 @@ public class AnswerTest extends ActivityInstrumentationTestCase2<QuestionPageAct
 			Reply reply = new Reply("Test reply body", "TestReplier1");
 			
 			Question question = new Question("Is this a test question?", "I think this is a question, but I can't tell. HELP!", "TestAsker");
-			Answer answer = new Answer("This is a test answer.", "TestAnswerer");
+			Answer answer = new Answer(10, "This is a test answer.", "TestAnswerer");
 			
 			question.addAnswer(answer);
 			

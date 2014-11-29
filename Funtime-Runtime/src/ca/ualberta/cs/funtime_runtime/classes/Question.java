@@ -168,9 +168,9 @@ public class Question implements Serializable {
 	 * @param reply
 	 */
 	public void addReply(Reply reply) {
-		Question question = ApplicationState.getPassableQuestion();
+		//Question question = ApplicationState.getPassableQuestion();
 		replyList.add(reply);
-		ApplicationState.updateServerQuestion(question);
+		//ApplicationState.updateServerQuestion(question);
 	}
 	
 	
