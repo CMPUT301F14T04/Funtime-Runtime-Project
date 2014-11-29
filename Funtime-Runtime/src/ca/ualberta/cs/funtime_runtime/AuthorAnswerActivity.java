@@ -248,7 +248,13 @@ public class AuthorAnswerActivity extends CustomActivity {
 		                photoBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
 		                int byteCount = photoBitmap.getByteCount();
 		                if (byteCount > 0){
-		                	photoButton.setColorFilter(CAMERA_COLOR);
+		                	//photoButton.setColorFilter(CAMERA_COLOR);
+		                	Context context = getApplicationContext();
+		                	CharSequence text = "Photo Added!";
+		                	int duration = Toast.LENGTH_LONG;
+		                	Toast toast = Toast.makeText(context, text, duration);
+		                	toast.show();
+		                	hasPhoto = true;
 		                	Log.i("Image Upload", ""+byteCount);
 		                	hasPhoto = true;
 		                }

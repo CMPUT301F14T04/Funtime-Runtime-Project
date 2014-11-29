@@ -6,6 +6,7 @@ import java.util.Random;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -70,7 +71,7 @@ public class AuthorQuestionActivity extends CustomActivity {
     private AlertDialog.Builder popDialog;
     private LayoutInflater inflater;
 
-	int CAMERA_COLOR = Color.parseColor("#000000");
+	int CAMERA_COLOR = Color.parseColor("#001110");
 	int MAP_COLOR = Color.parseColor("#3366FF");
 	/**
 	 * This is a standard onCreate method
@@ -239,39 +240,19 @@ public class AuthorQuestionActivity extends CustomActivity {
 	                int byteCount = photoBitmap.getByteCount();
 	                
 	                if (byteCount > 0){
+	                	Context context = getApplicationContext();
+	                	CharSequence text = "Photo Added!";
+	                	int duration = Toast.LENGTH_LONG;
+	                	Toast toast = Toast.makeText(context, text, duration);
+	                	toast.show();
 	                	hasPhoto = true;
-	                	photoButton.setColorFilter(CAMERA_COLOR);
 	                	Log.i("Image Upload", ""+byteCount);
 	                }
 	                ByteArrayOutputStream blob = new ByteArrayOutputStream();
-	                photoBitmap.compress(CompressFormat.JPEG, 20 /*ignored for PNG*/, blob);
+	                photoBitmap.compress(CompressFormat.JPEG, 20, blob);
 	                compressedData = blob.toByteArray();
 	                Log.i("size of byte array", ""+ (int)compressedData.length);
-//	                ByteBuffer buffer = ByteBuffer.allocate(byteCount); //Create a new buffer
-//	                photoBitmap.copyPixelsToBuffer(buffer); //Move the byte data to the buffer
-//	                array = buffer.array(); //Get the underlying array containing the data.
-//	                Deflater compressor = new Deflater();
-//	                compressor.setLevel(Deflater.BEST_COMPRESSION);
-//	                compressor.setInput(array);
-//	                compressor.finish();
-//	                ByteArrayOutputStream bos = new ByteArrayOutputStream(array.length);
-//	                byte[] buf = new byte[10];
-//	                while (!compressor.finished()) {
-//	                    int count = compressor.deflate(buf);
-//	                    bos.write(buf, 0, count);
-//	                }
-//	                try {
-//	                    bos.close();
-//	                } catch (IOException e) {
-//	                }
-//	                
-//	                // Get the compressed data
-//	                compressedData = bos.toByteArray();
-//	                int byteArraySize = (int)compressedData.length;
-//	                if (byteArraySize > 0){
-//	                	hasPhoto = true;
-//	                	Log.i("size of byte array", ""+byteArraySize);
-//	                }
+
 	            }catch (Exception e) {
 	                e.printStackTrace();
 	            }
