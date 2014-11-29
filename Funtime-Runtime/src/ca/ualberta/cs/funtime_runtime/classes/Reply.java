@@ -55,10 +55,18 @@ public class Reply implements Serializable {
 	 * @return the date in string form
 	 */
 	@SuppressLint("SimpleDateFormat")
-	public String getDate() {
+	public String getDateString() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy  HH:mm");
 		String replyDateString = dateFormat.format(date);
 		return replyDateString;
+	}
+	
+	/**
+	 * this function displays the date that the question was created on.
+	 * @return the date in string form
+	 */
+	public Date getDate() {
+		return date;
 	}
 	
 	
