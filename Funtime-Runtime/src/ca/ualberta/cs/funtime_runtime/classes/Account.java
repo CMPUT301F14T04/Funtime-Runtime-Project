@@ -3,7 +3,6 @@ package ca.ualberta.cs.funtime_runtime.classes;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Context;
 
 

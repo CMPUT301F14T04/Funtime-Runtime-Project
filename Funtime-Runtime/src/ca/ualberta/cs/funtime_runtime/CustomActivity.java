@@ -1,11 +1,11 @@
 package ca.ualberta.cs.funtime_runtime;
 
-import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
+import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 
 /**
  * An activity used as a starting point for all activities within the application.

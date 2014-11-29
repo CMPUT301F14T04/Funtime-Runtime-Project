@@ -15,21 +15,12 @@
         android:ems="10"
         android:hint="Enter Location" />
 
-    <Button
-        android:id="@+id/attachLocationButton"
-        android:layout_width="157dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/UseGpsButton"
-        android:text="Attach Location" />
-
-    <Button
-        android:id="@+id/UseGpsButton"
-        android:layout_width="160dp"
+    <CheckBox
+        android:id="@+id/add_location_box"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText_Location"
         android:layout_centerHorizontal="true"
-        android:text="Use GPS?" />
+        android:text="Use GPS" />
 
 </RelativeLayout>

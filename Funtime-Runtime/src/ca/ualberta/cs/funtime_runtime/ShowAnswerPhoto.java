@@ -1,9 +1,9 @@
 package ca.ualberta.cs.funtime_runtime;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
 

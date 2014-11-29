@@ -1,9 +1,10 @@
 package ca.ualberta.cs.funtime_runtime.classes;
 
-import android.annotation.SuppressLint;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import android.annotation.SuppressLint;
 
 /**
  * This class is our model for replies
