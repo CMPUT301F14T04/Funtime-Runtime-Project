@@ -169,6 +169,8 @@ public class HomeActivity extends CustomActivity {
 			sorter.sortByVotes();
 		} else if (sortType.equals("Photo")) {
 			sorter.sortByPhoto();
+		} else if (sortType.equals("Location")) {
+			sorter.sortByLocation(this);
 		}
 		
 		adapter.notifyDataSetChanged();
@@ -199,6 +201,32 @@ public class HomeActivity extends CustomActivity {
 		return true;
 
 	}
+	
+	@Override
+	public void sortDate() {
+		sorter.sortByDate();	
+		adapter.notifyDataSetChanged();
+	}
+	
+	@Override
+	public void sortVotes() {
+		sorter.sortByVotes();
+		adapter.notifyDataSetChanged();
+	}
+	
+	@Override
+	public void sortPhoto() {
+		sorter.sortByPhoto();
+		adapter.notifyDataSetChanged();
+		
+	}
+	
+	@Override
+	public void sortLocation() {
+		sorter.sortByLocation(this);
+		adapter.notifyDataSetChanged();
+	}
+	
 
 	/**
 	 * This method is called when a question is clicked on. It takes in a

@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.zip.Deflater;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -14,8 +15,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,6 +68,8 @@ public class AuthorQuestionActivity extends CustomActivity {
     Random generator = new Random();
     private static final int RANDOM_NUMBER_CAP = 100000000;
     UpdateAccountThread updateThread;
+    private AlertDialog.Builder popDialog;
+    private LayoutInflater inflater;
     //compressor.setLevel(Deflater.BEST_COMPRESSION);
 	int CAMERA_COLOR = Color.parseColor("#000000");
 	int MAP_COLOR = Color.parseColor("#3366FF");
@@ -78,10 +83,12 @@ public class AuthorQuestionActivity extends CustomActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		popDialog = new AlertDialog.Builder(this);
+		inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);;
 		setContentView(R.layout.activity_author_question);
 		setResources();
 	}
-
+	
 	private void setResources() {
 		ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
@@ -176,12 +183,21 @@ public class AuthorQuestionActivity extends CustomActivity {
 	}
 	
 	public void addLocation(View v) {
-		geoLocation = new Geolocation(this);
-		geoLocation.findLocation();
-		hasLocation = true;
-		Toast.makeText(this, "Location added", Toast.LENGTH_LONG).show();
-		geoButton.setColorFilter(MAP_COLOR);
+//		geoLocation = new Geolocation(this);
+//		geoLocation.findLocation();
+//		hasLocation = true;
+//		Toast.makeText(this, "Location added", Toast.LENGTH_LONG).show();
+//		geoButton.setColorFilter(MAP_COLOR);
+		final View Viewlayout = inflater.inflate(R.layout.geolocation_popup,(ViewGroup) findViewById(R.id.geolocation_dialog)); 
+		popDialog.setTitle("Set Location");
+		popDialog.setView(Viewlayout);
+		popDialog.create();
+		popDialog.show();
 		
+		
+		
+		//http://www.thaicreate.com/mobile/android-popup-custom-layout-and-returning-values-from-dialog.html
+		//November 28 2014
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode,
