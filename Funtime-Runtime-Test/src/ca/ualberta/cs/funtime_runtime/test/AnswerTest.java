@@ -61,10 +61,11 @@ public class AnswerTest extends ActivityInstrumentationTestCase2<QuestionPageAct
 		}
 		
 		public void testReply() {
-			Reply reply = new Reply(0, 1, "Test reply body", "TestReplier1");
+			Reply reply = new Reply(0, 1804, "Test reply body", "TestReplier1");
 			
 			Question question = new Question("Is this a test question?", "I think this is a question, but I can't tell. HELP!", "TestAsker");
-			Answer answer = new Answer(10, "This is a test answer.", "TestAnswerer");
+			question.setId(1804);
+			Answer answer = new Answer(question.getId(), "This is a test answer.", "TestAnswerer");
 			
 			question.addAnswer(answer);
 			

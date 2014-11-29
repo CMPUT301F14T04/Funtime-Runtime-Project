@@ -1,18 +1,14 @@
 package ca.ualberta.cs.funtime_runtime.classes;
 
 import java.util.ArrayList;
-import java.util.Queue;
 
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
-import ca.ualberta.cs.funtime_runtime.AuthorQuestionActivity;
-import ca.ualberta.cs.funtime_runtime.QuestionPageActivity;
 import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.elastic.ESAccountManager;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
@@ -228,17 +224,17 @@ public class ApplicationState extends Application {
 	}
 	
 	public static void loadBySearch(String search) {
-		if (lastKnownOnlineStatus()) {
+//		if (lastKnownOnlineStatus()) {
 			ApplicationState.questionList.clear();
 			ApplicationState.questionList.addAll(questionManager.searchQuestions(search, null));	
-		}
+//		}
 	}
 	
 	public static void loadAccounts(String search) {
-		if (lastKnownOnlineStatus()) {
+//		if (lastKnownOnlineStatus()) {
 			ApplicationState.accountList.clear();
 			ApplicationState.accountList.addAll(accountManager.searchAccounts(search, null));	
-		}
+//		}
 	}
 	
 	public static void loadOfflineData(Context context) {
@@ -284,6 +280,7 @@ public class ApplicationState extends Application {
 			Answer a = offlineAnswers.get(i);
 			Integer parentQId = a.getParentQuestionId();
 			Question parentQ = ApplicationState.getQuestionById(parentQId);
+			//if parentQ.getTitle()
 			parentQ.addAnswer(a);
 			updateServerQuestion(parentQ);
 		}
@@ -297,30 +294,35 @@ public class ApplicationState extends Application {
 			Reply r = offlineQuestionReplies.get(i);
 			Integer parentQId = r.getParentQuestionId();
 			Question parentQ = ApplicationState.getQuestionById(parentQId);
-			Log.i("PushOfflineQuestions", "got guestion " + parentQ.getTitle());
-			Log.i("PushOfflineQuestions", "ID: " + parentQ.getId());
+			Log.i("PushOfflineQuestionReply", "got guestion " + parentQ.getTitle());
+			Log.i("PushOfflineQuestionReply", "ID: " + parentQ.getId());
 			parentQ.addReply(r);
-			Log.i("PushOfflineQuestions", "ID: " + parentQ.getId());
 			updateServerQuestion(parentQ);
-			Log.i("PushOfflineQuestions", "updated server question " + parentQ.getTitle());
+			Log.i("PushOfflineQuestionReply", "updated server question " + parentQ.getTitle());
 		}
-		offlineAnswers.clear();
-		saveManager.save(OFFLINEANSWERS, offlineQuestionReplies, context);
+		offlineQuestionReplies.clear();
+		saveManager.save(OFFLINEQUESTIONREPLIES, offlineQuestionReplies, context);
 
 	}
 	
 	public static void pushOfflineAnswerReplies(Context context) {
+		Log.i("PushOfflineAnswerReplies", "Replies to push: " + offlineAnswerReplies.size());
 		for (int i = 0; i < offlineAnswerReplies.size(); i++) {
 			Reply r = offlineAnswerReplies.get(i);
 			Integer parentQId = r.getParentQuestionId();
 			Question parentQ = ApplicationState.getQuestionById(parentQId);
+			Log.i("PushOfflineAnswerReplies", "got guestion " + parentQ.getTitle());
+			Log.i("PushOfflineAnswerReplies", "ID: " + parentQ.getId());
 			Integer parentAId = r.getParentAnswerId();
 			Answer parentA = parentQ.getAnswerById(parentAId);
+			Log.i("PushOfflineAnswerReplies", "got answer " + parentA.getBody());
+			Log.i("PushOfflineAnswerRepliesS", "ID: " + parentA.getId());
 			parentA.addReply(r);
+			//parentQ.updateAnswer(parentA);
 			updateServerQuestion(parentQ);
 		}
-		offlineAnswers.clear();
-		saveManager.save(OFFLINEANSWERS, offlineAnswers, context);
+		offlineAnswerReplies.clear();
+		saveManager.save(OFFLINEANSWERREPLIES, offlineAnswerReplies, context);
 
 	}
 	
@@ -697,17 +699,23 @@ public class ApplicationState extends Application {
 	}
 
 	public static void addOfflineAnswer(Answer offA, Context context) {
-		offlineAnswers.add(offA);
+		if ( !(offlineAnswers.contains(offA)) ) {
+			offlineAnswers.add(offA);
+		}
 		saveManager.save(OFFLINEANSWERS, offlineAnswers, context);
 	}
 	
 	public static void addOfflineQuestionReply(Reply offR, Context context) {
-		offlineQuestionReplies.add(offR);
+		if ( !(offlineQuestionReplies.contains(offR)) ) {
+			offlineQuestionReplies.add(offR);
+		}
 		saveManager.save(OFFLINEQUESTIONREPLIES, offlineQuestionReplies, context);
 	}
 	
 	public static void addOfflineAnswerReply(Reply offR, Context context) {
-		offlineAnswerReplies.add(offR);
+		if ( !(offlineAnswerReplies.contains(offR)) ) {
+			offlineAnswerReplies.add(offR);
+		}
 		saveManager.save(OFFLINEANSWERREPLIES, offlineAnswerReplies, context);
 	}
 	

@@ -118,9 +118,7 @@ public class Answer implements Serializable {
 	 * @param reply of the type Reply
 	 */
 	public void addReply(Reply reply) {
-		Question question = ApplicationState.getPassableQuestion();
 		replyList.add(reply);
-		ApplicationState.updateServerQuestion(question);
 	}
 
 	
