@@ -55,10 +55,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 	Account account;
 	String username;
 	ArrayList<Question> questionList;
-	
-	//Geolocation geoLocation;
-	
-	//ArrayList<Question> userQuestionList;
 	ArrayList<Integer> userQuestionIdList;
 	String globalLocation;
 	
@@ -87,8 +83,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		
-		final Context ctx = this;
 		
 		popDialog = new AlertDialog.Builder(this);
 		inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -145,13 +139,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 			question.setPhoto(compressedData);
 		}
 		if (hasLocation) {
-			//question.setLocation(globalLocation);
+			question.setLocation(globalLocation);
 		}
 		
-		Geolocation geoLocation = new Geolocation(getApplicationContext());
-		geoLocation.findLocation();
-		question.setLocation(geoLocation.getLocation());
-		Toast.makeText(getApplicationContext(), geoLocation.getLocation(), Toast.LENGTH_SHORT).show();
 		questionList.add(0,question);
 		//userQuestionIdList.add(0,question.getId());
 
@@ -215,8 +205,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 
 					Geolocation geoLocation = new Geolocation(getApplicationContext());
 
-					//final Geolocation geoLocation = new Geolocation(getApplicationContext());
-
 					geoLocation.findLocation();
 					hasLocation = true;
 					String location = geoLocation.getLocation();
@@ -233,12 +221,13 @@ public class AuthorQuestionActivity extends CustomActivity {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which)
-			{
-				dialog.dismiss();
+			{		
 				String location = locationEdit.getText().toString();
+				Toast.makeText(getApplicationContext(), location, Toast.LENGTH_LONG).show();
 				globalLocation = location;
 				hasLocation = true;
-				geoButton.setColorFilter(MAP_COLOR);			
+				geoButton.setColorFilter(MAP_COLOR);	
+				dialog.dismiss();
 			}
 		});
 		
