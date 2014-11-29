@@ -6,7 +6,6 @@ import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.funtime_runtime.CreateAccountActivity;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
-import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 
 public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountActivity> {
@@ -80,15 +79,11 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 		assertNotNull(testList);
 		
 		Question question = new Question("Test Question Title", "Test question body", "TestAccountUsername");
-		question.setId(0);
+		question.setId(1800);
 		
 		account.readLater(question, getActivity());
 		
 		assertTrue(testList.contains(question.getId()));
-		
-		account.removeFavourite(question, getActivity());
-		
-		assertFalse(testList.contains(question.getId()));
 	}
 	
 	public void testHistory() {
@@ -98,6 +93,7 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 		assertNotNull(testList);
 		
 		Question question = new Question("Test Question Title", "Test question body", "TestAccountUsername");
+		question.setId(1801);
 		
 		account.addToHistory(question, getActivity());
 		
@@ -111,11 +107,11 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 		assertNotNull(testList);
 		
 		Question question = new Question("Test Question Title", "Test question body", "TestAccountUsername");
-		question.setId(0);
+		question.setId(1802);
 		
 		account.upvoteQuestion(question, getActivity());
 		
-		assertTrue(testList.contains(question));
+		assertTrue(testList.contains(question.getId()));
 		
 		account.downvoteQuestion(question, getActivity());
 		
@@ -129,6 +125,7 @@ public class AccountTest extends ActivityInstrumentationTestCase2<CreateAccountA
 		testList = account.getUpvotedAnswers();
 		assertNotNull(testList);
 		Question question = new Question("Test Question Title", "Test question Body", "TestAccountUsername");
+		question.setId(1803);
 		Answer answer = new Answer(question.getId(), "Test answer body", "TestAccountUsername");
 		
 		account.upvoteAnswer(answer, getActivity());
