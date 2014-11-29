@@ -6,7 +6,6 @@ import java.util.Random;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -70,7 +69,7 @@ public class AuthorQuestionActivity extends CustomActivity {
     UpdateAccountThread updateThread;
     private AlertDialog.Builder popDialog;
     private LayoutInflater inflater;
-    //compressor.setLevel(Deflater.BEST_COMPRESSION);
+
 	int CAMERA_COLOR = Color.parseColor("#000000");
 	int MAP_COLOR = Color.parseColor("#3366FF");
 	/**
@@ -96,9 +95,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		submitButton = (Button) findViewById(R.id.submit_question_button);
 		geoButton = (ImageButton) findViewById(R.id.add_location_button);
-		//addPhotoButton = (Button) findViewById(R.id.add_question_image);
 		cancelButton = (Button) findViewById(R.id.cancel_button);
-		//addPhotoButton = (Button) findViewById(R.id.add_image_button);
 		photoButton = (ImageButton)  findViewById(R.id.add_answerImage_button);
 		
 		questionTitle = (EditText) findViewById(R.id.question_title_text);
@@ -135,7 +132,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 		questionList = ApplicationState.getQuestionList(this);
 		userQuestionIdList = account.getQuestionList();
 		if (hasPhoto == true){
-			//question.getPhoto(array);
 			question.setPhoto(compressedData);
 		}
 		if (hasLocation) {
@@ -143,7 +139,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 		}
 		
 		questionList.add(0,question);
-		//userQuestionIdList.add(0,question.getId());
 
 		// Elastic search code
 		generateId(question);		
@@ -188,15 +183,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 		final View view = inflater.inflate(R.layout.geolocation_popup,(ViewGroup) findViewById(R.id.geolocation_dialog)); 
 		final EditText locationEdit = (EditText) view.findViewById(R.id.editText_Location); 
 		final CheckBox addCheck = (CheckBox) view.findViewById(R.id.add_location_box);
-		//final Geolocation geoLocation;
-		//final Button attachButton = (Button) view.findViewById(R.id.attachLocationButton);
-		
-		//question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
-		
+				
 		popDialog.setTitle("Set Location");
 		popDialog.setView(view);		
-		
-		
 		
 		addCheck.setOnClickListener(new View.OnClickListener() {		
 			@Override
@@ -223,7 +212,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 			public void onClick(DialogInterface dialog, int which)
 			{		
 				String location = locationEdit.getText().toString();
-				Toast.makeText(getApplicationContext(), location, Toast.LENGTH_LONG).show();
 				globalLocation = location;
 				hasLocation = true;
 				geoButton.setColorFilter(MAP_COLOR);	

@@ -57,8 +57,6 @@ public class AuthorAnswerActivity extends CustomActivity {
 	Account account;
 	String username;
 	ArrayList<Integer> userAnsweredList;
-	//Geolocation locator;
-	
 	ArrayList<Integer> userAnswerIdList;
 	String globalLocation;
 	
@@ -71,7 +69,6 @@ public class AuthorAnswerActivity extends CustomActivity {
 	private AlertDialog.Builder popDialog;
 	private LayoutInflater inflater;
 	
-	//Geolocation geoLocation;
 	int CAMERA_COLOR = Color.parseColor("#001110");
 	int MAP_COLOR = Color.parseColor("#3366FF");
 
@@ -144,19 +141,11 @@ public class AuthorAnswerActivity extends CustomActivity {
 				answer.setPhoto(compressedData);
 			}
 			
-			
 			userAnsweredList = account.getAnsweredList();
-
 			
 			if (hasLocation){
-				//answer.setLocation(geoLocation.getLocation());
-			} 
-			
-			Geolocation geoLocation = new Geolocation(getApplicationContext());
-			geoLocation.findLocation();
-			answer.setLocation(geoLocation.getLocation());
-			Toast.makeText(getApplicationContext(), geoLocation.getLocation(), Toast.LENGTH_SHORT).show();
-			
+				answer.setLocation(globalLocation);
+			}
 			
 			ArrayList<Question> newestQuestions = ApplicationState.getQuestionList(this);
 			for (Question q: newestQuestions) {
@@ -215,8 +204,6 @@ public class AuthorAnswerActivity extends CustomActivity {
 					 
 					 Geolocation geoLocation = new Geolocation(getApplicationContext());
 					 
-					 //final Geolocation geoLocation = new Geolocation(getApplicationContext());
-					 
 					 geoLocation.findLocation();
 					 hasLocation = true;
 					 String location = geoLocation.getLocation();
@@ -234,11 +221,11 @@ public class AuthorAnswerActivity extends CustomActivity {
 			 @Override
 			 public void onClick(DialogInterface dialog, int which)
 			 {
-				 dialog.dismiss();
 				 String location = locationEdit.getText().toString();
 				 globalLocation = location;
 				 hasLocation = true;
-				 geoButton.setColorFilter(MAP_COLOR);			
+				 geoButton.setColorFilter(MAP_COLOR);
+				 dialog.dismiss();
 			 }
 		});
 		 
