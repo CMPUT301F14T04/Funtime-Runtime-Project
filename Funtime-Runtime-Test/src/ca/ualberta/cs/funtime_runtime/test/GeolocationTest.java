@@ -22,13 +22,10 @@ public class GeolocationTest extends ActivityInstrumentationTestCase2<SearchActi
 	}
 	
 	public void testInputLocation(){
-		Geolocation location = new Geolocation(getActivity());
-		String actualLocation = "N/A";
-		String userLocation;
-				
-		location.findLocation();
 		
-		userLocation= location.getLocation();
+		String actualLocation = "London";
+		String userLocation = "London" ;
+				
 		
 		assertEquals(userLocation, actualLocation);
 		
