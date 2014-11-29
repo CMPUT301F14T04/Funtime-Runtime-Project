@@ -157,5 +157,28 @@ public class MyQuestionsActivity extends CustomActivity {
 		return true;
 	}
 	
+	@Override
+	public void sortDate() {
+		sorter.sortByDate();	
+		adapter.notifyDataSetChanged();
+	}
+	
+	@Override
+	public void sortVotes() {
+		sorter.sortByVotes();
+		adapter.notifyDataSetChanged();
+	}
+	
+	@Override
+	public void sortPhoto() {
+		sorter.sortByPhoto();
+		adapter.notifyDataSetChanged();	
+	}
+	
+	@Override
+	public void sortLocation() {
+		sorter.sortByLocation(this);
+		adapter.notifyDataSetChanged();
+	}
 
 }
