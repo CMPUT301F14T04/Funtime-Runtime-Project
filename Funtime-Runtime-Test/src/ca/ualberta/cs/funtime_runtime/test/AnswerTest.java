@@ -60,26 +60,26 @@ public class AnswerTest extends ActivityInstrumentationTestCase2<QuestionPageAct
 			
 		}
 		
-		public void testReply() {
-			Reply reply = new Reply("Test reply body", "TestReplier1");
-			
-			Question question = new Question("Is this a test question?", "I think this is a question, but I can't tell. HELP!", "TestAsker");
-			Answer answer = new Answer(10, "This is a test answer.", "TestAnswerer");
-			
-			question.addAnswer(answer);
-			
-			answer.addReply(reply);
-			
-			Reply testReply = answer.getReply(0);
-			
-			assertEquals(reply, testReply);
-			
-			ArrayList<Reply> replyList = answer.getReplyList();
-		
-			assertEquals(answer.getReplyCount(), 1);
-			assertTrue(replyList.contains(reply));
-		
-		}
+//		public void testReply() {
+//			Reply reply = new Reply("Test reply body", "TestReplier1");
+//			
+//			Question question = new Question("Is this a test question?", "I think this is a question, but I can't tell. HELP!", "TestAsker");
+//			Answer answer = new Answer(10, "This is a test answer.", "TestAnswerer");
+//			
+//			question.addAnswer(answer);
+//			
+//			answer.addReply(reply);
+//			
+//			Reply testReply = answer.getReply(0);
+//			
+//			assertEquals(reply, testReply);
+//			
+//			ArrayList<Reply> replyList = answer.getReplyList();
+//		
+//			assertEquals(answer.getReplyCount(), 1);
+//			assertTrue(replyList.contains(reply));
+//		
+//		}
 		
 		
 		

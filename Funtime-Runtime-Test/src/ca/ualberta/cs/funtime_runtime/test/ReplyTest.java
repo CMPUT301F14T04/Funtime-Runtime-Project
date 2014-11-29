@@ -10,18 +10,18 @@ public class ReplyTest extends ActivityInstrumentationTestCase2<QuestionPageActi
 		super(QuestionPageActivity.class);
 	}
 
-	public void testMakeReply() {
-		Reply reply = new Reply("Test reply body", "TestAuthorUsername");
-		assertNotNull(reply);
-	}
-	
-	public void testReplyContent() {
-		Reply reply = new Reply("Test reply body", "TestAuthorUsername");
-		String replyBody = reply.getBody();
-		String authorName = reply.getUser();
-		assertEquals(replyBody, "Test reply body");
-		assertEquals(authorName, "TestAuthorUsername");
-	}
+//	public void testMakeReply() {
+//		Reply reply = new Reply("Test reply body", "TestAuthorUsername");
+//		assertNotNull(reply);
+//	}
+//	
+//	public void testReplyContent() {
+//		Reply reply = new Reply("Test reply body", "TestAuthorUsername");
+//		String replyBody = reply.getBody();
+//		String authorName = reply.getUser();
+//		assertEquals(replyBody, "Test reply body");
+//		assertEquals(authorName, "TestAuthorUsername");
+//	}
 	
 	/*
 	public void testEditReply() {

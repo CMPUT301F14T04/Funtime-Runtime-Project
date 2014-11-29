@@ -21,6 +21,7 @@ public class QuestionSorterTest extends ActivityInstrumentationTestCase2<HomeAct
 		
 		for (int i = 0; i < 10; i++) {
 			Question question = new Question("Title" + i, "Body" + i, "User" + i);
+			question.setId(i);
 			questionList.add(question);
 			reversedList.add(question);
 		}
@@ -38,6 +39,7 @@ public class QuestionSorterTest extends ActivityInstrumentationTestCase2<HomeAct
 		
 		for (int i = 0; i < 10; i++) {
 			Question question = new Question("Title" + i, "Body" + i, "User" + i);
+			question.setId(i);
 			for (int j = 0; j < i; j++) {
 				question.upVote();
 			}
@@ -58,6 +60,7 @@ public class QuestionSorterTest extends ActivityInstrumentationTestCase2<HomeAct
 		
 		for (int i = 0; i < 5; i++) {
 			Question question = new Question("Title" + i, "Body" + i, "User" + i);
+			question.setId(i);
 			question.setPhoto(photo);
 			questionList.add(question);
 			reversedList.add(question);
@@ -69,8 +72,35 @@ public class QuestionSorterTest extends ActivityInstrumentationTestCase2<HomeAct
 		
 		Collections.reverse(reversedList);
 		sorter.sortByPhoto();
-		assertEquals(questionList, reversedList);
-		
+		assertEquals(questionList, reversedList);	
 	}
+//	
+//	public void testSortByLocation() {
+//		ArrayList<Question> questionList = new ArrayList<Question>();
+//		QuestionSorter sorter = new QuestionSorter(questionList);
+//		String loc1 = "Edmonton";
+//		String loc2 = "N/A";
+//		
+//		for (int i = 0; i < 10; i++) {
+//			Question question = new Question("Title" + i, "Body" + i, "User" + i);
+//			question.setId(i);
+//			if (i % 2 == 0) {
+//				question.setLocation(loc1);
+//			} else {
+//				question.setLocation(loc2);
+//			}
+//			
+//			questionList.add(question);
+//		}
+//		
+//		sorter.sortByLocation(getActivity());
+//		
+//		for (int i = 0; i < 5; i++) {
+//			assertEquals(questionList.get(i).getLocation(), loc2);
+//		}
+//		
+//		for (int i = 5; i < 10; i ++)
+//			assertEquals(questionList.get(i).getLocation(), loc1);
+//	}
 
 }
