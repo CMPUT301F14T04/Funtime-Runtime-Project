@@ -75,28 +75,28 @@ public class Answer implements Serializable {
 	/**
 	 * This function adds to the total number of ratings on an answer 
 	 */
-	public void upVote(Context context) {
+	public void upVote() {
 		rating++;
-		if ( (ApplicationState.isOnline(context)) ) {
-			Question parentQuestion = ApplicationState.getQuestionById(parentQuestionId);
-			ApplicationState.updateServerQuestion(parentQuestion);
-		} else {
-			ApplicationState.addOfflineAnswerUpvote(getId(), context);
-		}
+//		if ( (ApplicationState.isOnline(context)) ) {
+//			Question parentQuestion = ApplicationState.getQuestionById(parentQuestionId);
+//			ApplicationState.updateServerQuestion(parentQuestion);
+//		} else {
+//			ApplicationState.addOfflineAnswerUpvote(getId(), context);
+//		}
 		
 	}
 
 	/**
 	 * This function subtracts from the total number of ratings on an answer 
 	 */
-	public void downVote(Context context)	{
+	public void downVote()	{
 		rating--;
-		if ( (ApplicationState.isOnline(context)) ) {
-			Question parentQuestion = ApplicationState.getQuestionById(parentQuestionId);
-			ApplicationState.updateServerQuestion(parentQuestion);
-		} else {
-			ApplicationState.addOfflineAnswerDownvote(getId(), context);
-		}
+//		if ( (ApplicationState.isOnline(context)) ) {
+//			Question parentQuestion = ApplicationState.getQuestionById(parentQuestionId);
+//			ApplicationState.updateServerQuestion(parentQuestion);
+//		} else {
+//			ApplicationState.addOfflineAnswerDownvote(getId(), context);
+//		}
 		
 	}
 	
@@ -229,7 +229,7 @@ public class Answer implements Serializable {
              return false;
     	}
     	Answer other = (Answer) obj;
-    	return (other.getId() == this.getId() );
+    	return ( ((Integer) (other.getId()) ).equals( (Integer) (this.getId()) ));
     }
-
+    
 }

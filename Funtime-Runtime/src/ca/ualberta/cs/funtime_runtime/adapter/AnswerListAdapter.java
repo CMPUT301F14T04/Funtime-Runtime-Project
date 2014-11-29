@@ -169,17 +169,23 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 //				Question question = ApplicationState.getPassableQuestion();
 				Answer answer = getItem((Integer) v.getTag());
 				
-				answer = ApplicationState.refreshAnswer(answer, ctx);
+				//answer = ApplicationState.refreshAnswer(answer, ctx);
+				
+				int rating = answer.getRating();
 				
 				Account account = ApplicationState.getAccount();
 				if (ApplicationState.isLoggedIn()) {
 					ArrayList<Integer> upvotedAnswers = account.getUpvotedAnswers();
 					if (upvotedAnswers.contains(answer.getId())) {
 						account.downvoteAnswer(answer, getContext());
+						answer.downVote();
+						rating--;
 						answerRating.setTextColor(Color.parseColor("#000000"));
 						
 					} else {
 						account.upvoteAnswer(answer, getContext());
+						answer.upVote();
+						rating++;
 						answerRating.setTextColor(Color.parseColor("#e77619"));
 					}
 				} else {
@@ -187,7 +193,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 					Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
 				}
 
-				String ratingText = Integer.toString(answer.getRating());
+				String ratingText = Integer.toString(rating);
 				answerRating.setText(ratingText);
 				
 			}

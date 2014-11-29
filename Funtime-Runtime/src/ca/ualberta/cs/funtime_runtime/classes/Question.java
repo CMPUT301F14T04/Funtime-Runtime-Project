@@ -7,6 +7,7 @@ import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 
 
 /**
@@ -257,5 +258,16 @@ public class Question implements Serializable {
     	Question other = (Question) obj;
     	return ( ((Integer) (other.getId()) ).equals( (Integer) (this.getId()) ));
     }
+
+	public Answer getAnswerById(int answerId)	{
+		for (Answer a: answerList) {
+			if (answerId == a.getId()) {
+				return a;
+			}
+		}
+		Answer bad = new Answer(this.getId(), "INVALID AID", "");
+		bad.setId(answerId);
+		return bad;
+	}
 	
 }
