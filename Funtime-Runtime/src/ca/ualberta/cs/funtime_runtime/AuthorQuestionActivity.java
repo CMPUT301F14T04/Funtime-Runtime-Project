@@ -246,38 +246,13 @@ public class AuthorQuestionActivity extends CustomActivity {
 	                	Toast toast = Toast.makeText(context, text, duration);
 	                	toast.show();
 	                	hasPhoto = true;
-	                	//photoButton.setColorFilter(CAMERA_COLOR);
 	                	Log.i("Image Upload", ""+byteCount);
 	                }
 	                ByteArrayOutputStream blob = new ByteArrayOutputStream();
-	                photoBitmap.compress(CompressFormat.JPEG, 20 /*ignored for PNG*/, blob);
+	                photoBitmap.compress(CompressFormat.JPEG, 20, blob);
 	                compressedData = blob.toByteArray();
 	                Log.i("size of byte array", ""+ (int)compressedData.length);
-//	                ByteBuffer buffer = ByteBuffer.allocate(byteCount); //Create a new buffer
-//	                photoBitmap.copyPixelsToBuffer(buffer); //Move the byte data to the buffer
-//	                array = buffer.array(); //Get the underlying array containing the data.
-//	                Deflater compressor = new Deflater();
-//	                compressor.setLevel(Deflater.BEST_COMPRESSION);
-//	                compressor.setInput(array);
-//	                compressor.finish();
-//	                ByteArrayOutputStream bos = new ByteArrayOutputStream(array.length);
-//	                byte[] buf = new byte[10];
-//	                while (!compressor.finished()) {
-//	                    int count = compressor.deflate(buf);
-//	                    bos.write(buf, 0, count);
-//	                }
-//	                try {
-//	                    bos.close();
-//	                } catch (IOException e) {
-//	                }
-//	                
-//	                // Get the compressed data
-//	                compressedData = bos.toByteArray();
-//	                int byteArraySize = (int)compressedData.length;
-//	                if (byteArraySize > 0){
-//	                	hasPhoto = true;
-//	                	Log.i("size of byte array", ""+byteArraySize);
-//	                }
+
 	            }catch (Exception e) {
 	                e.printStackTrace();
 	            }
