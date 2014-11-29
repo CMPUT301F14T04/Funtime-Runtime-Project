@@ -32,7 +32,7 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 	
 	public void testVoting() {
 		Question question = new Question("Test Question Title", "Test question body", "TestAuthorUsername");
-		question.setId(0);
+		question.setId(3460);
 		question.upVote();
 		int rating = question.getRating();
 		assertEquals(rating, 1);
@@ -48,7 +48,7 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 		assertEquals(rating, 10);
 		
 		Account account = new Account("TestUser1");
-		account.setId(0);
+		account.setId(3460);
 		account.upvoteQuestion(question, getActivity());
 		assertEquals(question.getRating(), 11);
 		ArrayList<Integer> upvotedQuestions = account.getUpvotedQuestions();
@@ -80,10 +80,10 @@ public class QuestionTest extends ActivityInstrumentationTestCase2<HomeActivity>
 	
 
 	public void testReply() {
-		Reply reply = new Reply(-1, 0, "Test reply body", "TestReplier1");
+		Reply reply = new Reply(-1, 3460, "Test reply body", "TestReplier1");
 		
 		Question question = new Question("Is this a test question?", "I think this is a question, but I can't tell. HELP!", "TestAsker");
-		question.setId(0);
+		question.setId(3460);
 		question.addReply(reply);
 		
 		Reply testReply = question.getReply(0);
