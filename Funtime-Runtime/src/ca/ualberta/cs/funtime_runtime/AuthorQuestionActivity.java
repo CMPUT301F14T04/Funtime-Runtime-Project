@@ -91,7 +91,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 		final Context ctx = this;
 		
 		popDialog = new AlertDialog.Builder(this);
-		inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);;
+		inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
 		setContentView(R.layout.activity_author_question);
 		setResources();
 	}
