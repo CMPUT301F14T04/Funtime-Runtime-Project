@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -50,9 +55,11 @@ public class AuthorReplyActivity extends CustomActivity {
 	ArrayList<Reply> replyList;
 	String replyType;
 	Geolocation geoLocation;
+	String globalLocation;
 	boolean hasLocation = false;
 	int MAP_COLOR = Color.parseColor("#3366FF");
-	
+	private AlertDialog.Builder popDialog;
+	private LayoutInflater inflater;
 	
 	/**
 	 * This is a standard onCreate method
@@ -69,12 +76,11 @@ public class AuthorReplyActivity extends CustomActivity {
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
-		
+		popDialog = new AlertDialog.Builder(this);
+		inflater = (LayoutInflater)this.getSystemService(LAYOUT_INFLATER_SERVICE);
 		ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
-		
 		replyType = extras.getString("ReplyType");
-		
 		if (replyType.equals("question")) {
 			question = ApplicationState.getPassableQuestion();
 			parentTitle = question.getTitle();
@@ -193,12 +199,59 @@ public class AuthorReplyActivity extends CustomActivity {
 		}
 	}
 	 
-	 public void addLocation(View v) {
+	 public void addLocation(View v){ 
 		 geoLocation = new Geolocation(this);
 		 geoLocation.findLocation();
 		 hasLocation = true;
 		 Toast.makeText(this, "Location added", Toast.LENGTH_LONG).show();
 		 geoButton.setColorFilter(MAP_COLOR);
+		 final View view = inflater.inflate(R.layout.geolocation_popup,(ViewGroup) findViewById(R.id.geolocation_dialog)); 
+		 final EditText locationEdit = (EditText) view.findViewById(R.id.editText_Location); 
+		 final CheckBox addCheck = (CheckBox) view.findViewById(R.id.add_location_box);
+	 
+		 popDialog.setTitle("Set Location");
+		 popDialog.setView(view);		
+//		 
+		 addCheck.setOnClickListener(new View.OnClickListener() {		
+			 @Override
+			 public void onClick(View v) {
+				 if (addCheck.isChecked()) {
+					 
+					 Geolocation geoLocation = new Geolocation(getApplicationContext());
+					 
+					 //final Geolocation geoLocation = new Geolocation(getApplicationContext());
+					 
+					 geoLocation.findLocation();
+					 hasLocation = true;
+					 String location = geoLocation.getLocation();
+					 Toast.makeText(getApplicationContext(), location, Toast.LENGTH_SHORT).show();
+					 globalLocation = location;
+					 locationEdit.setText(location);	
+					 } else {
+						 locationEdit.setText("");
+					 }
+			 }
+		 });
+//		 
+		 popDialog.setNegativeButton("Attach Location" , new DialogInterface.OnClickListener() {
+			 
+			 @Override
+			 public void onClick(DialogInterface dialog, int which)
+			 {
+				 dialog.dismiss();
+				 String location = locationEdit.getText().toString();
+				 globalLocation = location;
+				 hasLocation = true;
+				 geoButton.setColorFilter(MAP_COLOR);			
+			 }
+		});
+//		 
+		 popDialog.create();
+		 popDialog.show();
+//			
+//		 //http://www.thaicreate.com/mobile/android-popup-custom-layout-and-returning-values-from-dialog.html
+//		 //November 28 2014
+		 
 	 }
 	 
 	 /**

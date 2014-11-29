@@ -3,11 +3,9 @@ package ca.ualberta.cs.funtime_runtime;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.zip.Deflater;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -45,6 +43,7 @@ import ca.ualberta.cs.funtime_runtime.thread.UpdateAccountThread;
  */
 public class AuthorQuestionActivity extends CustomActivity {
 	
+	Question question;
 	Button submitButton;
 	Button addPhotoButton;
 	Button cancelButton;
@@ -55,10 +54,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 	Account account;
 	String username;
 	ArrayList<Question> questionList;
-	Question question;
-	//Geolocation geoLocation;
-	
-	//ArrayList<Question> userQuestionList;
 	ArrayList<Integer> userQuestionIdList;
 	String globalLocation;
 	
@@ -68,13 +63,13 @@ public class AuthorQuestionActivity extends CustomActivity {
 	boolean hasLocation = false;
 	byte[] array;
 	byte[] compressedData = new byte[64000];
-    Deflater compressor = new Deflater();
+   
     Random generator = new Random();
     private static final int RANDOM_NUMBER_CAP = 100000000;
     UpdateAccountThread updateThread;
     private AlertDialog.Builder popDialog;
     private LayoutInflater inflater;
-    //compressor.setLevel(Deflater.BEST_COMPRESSION);
+
 	int CAMERA_COLOR = Color.parseColor("#000000");
 	int MAP_COLOR = Color.parseColor("#3366FF");
 	/**
@@ -88,10 +83,8 @@ public class AuthorQuestionActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		
-		final Context ctx = this;
-		
 		popDialog = new AlertDialog.Builder(this);
-		inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);;
+		inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
 		setContentView(R.layout.activity_author_question);
 		setResources();
 	}
@@ -102,12 +95,11 @@ public class AuthorQuestionActivity extends CustomActivity {
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		submitButton = (Button) findViewById(R.id.submit_question_button);
 		geoButton = (ImageButton) findViewById(R.id.add_location_button);
-		//addPhotoButton = (Button) findViewById(R.id.add_question_image);
 		cancelButton = (Button) findViewById(R.id.cancel_button);
-		//addPhotoButton = (Button) findViewById(R.id.add_image_button);
+		photoButton = (ImageButton)  findViewById(R.id.add_answerImage_button);
+		
 		questionTitle = (EditText) findViewById(R.id.question_title_text);
 		questionBody = (EditText) findViewById(R.id.question_body_text);
-		photoButton = (ImageButton)  findViewById(R.id.add_answerImage_button);
 		
 		account = ApplicationState.getAccount();
 		username = account.getName();
@@ -140,19 +132,13 @@ public class AuthorQuestionActivity extends CustomActivity {
 		questionList = ApplicationState.getQuestionList(this);
 		userQuestionIdList = account.getQuestionList();
 		if (hasPhoto == true){
-			//question.getPhoto(array);
 			question.setPhoto(compressedData);
 		}
 		if (hasLocation) {
-			//question.setLocation(globalLocation);
+			question.setLocation(globalLocation);
 		}
 		
-		Geolocation geoLocation = new Geolocation(getApplicationContext());
-		geoLocation.findLocation();
-		question.setLocation(geoLocation.getLocation());
-		Toast.makeText(getApplicationContext(), geoLocation.getLocation(), Toast.LENGTH_SHORT).show();
 		questionList.add(0,question);
-		//userQuestionIdList.add(0,question.getId());
 
 		// Elastic search code
 		generateId(question);		
@@ -197,15 +183,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 		final View view = inflater.inflate(R.layout.geolocation_popup,(ViewGroup) findViewById(R.id.geolocation_dialog)); 
 		final EditText locationEdit = (EditText) view.findViewById(R.id.editText_Location); 
 		final CheckBox addCheck = (CheckBox) view.findViewById(R.id.add_location_box);
-		//final Geolocation geoLocation;
-		//final Button attachButton = (Button) view.findViewById(R.id.attachLocationButton);
-		
-		//question = new Question(questionTitle.getText().toString(),questionBody.getText().toString(),username.toString());
-		
+				
 		popDialog.setTitle("Set Location");
 		popDialog.setView(view);		
-		
-		
 		
 		addCheck.setOnClickListener(new View.OnClickListener() {		
 			@Override
@@ -213,8 +193,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 				if (addCheck.isChecked()) {
 
 					Geolocation geoLocation = new Geolocation(getApplicationContext());
-
-					//final Geolocation geoLocation = new Geolocation(getApplicationContext());
 
 					geoLocation.findLocation();
 					hasLocation = true;
@@ -232,12 +210,12 @@ public class AuthorQuestionActivity extends CustomActivity {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which)
-			{
-				dialog.dismiss();
+			{		
 				String location = locationEdit.getText().toString();
 				globalLocation = location;
 				hasLocation = true;
-				geoButton.setColorFilter(MAP_COLOR);			
+				geoButton.setColorFilter(MAP_COLOR);	
+				dialog.dismiss();
 			}
 		});
 		
@@ -308,6 +286,4 @@ public class AuthorQuestionActivity extends CustomActivity {
 	 public void cancel_question(View v){
 		 finish();
 	 }
-		
-
 }

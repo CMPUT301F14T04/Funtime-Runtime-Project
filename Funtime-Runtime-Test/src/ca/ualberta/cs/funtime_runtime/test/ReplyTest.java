@@ -11,12 +11,15 @@ public class ReplyTest extends ActivityInstrumentationTestCase2<QuestionPageActi
 	}
 
 	public void testMakeReply() {
-		Reply reply = new Reply("Test reply body", "TestAuthorUsername");
-		assertNotNull(reply);
+		Reply questionReply = new Reply(-1, 200, "Test reply body question", "TestAuthorUsername");
+		assertNotNull(questionReply);
+		
+		Reply answerReply = new Reply (200, 200, "Test reply body answer", "TestAuthorUsername1");
+		assertNotNull(answerReply);
 	}
 	
 	public void testReplyContent() {
-		Reply reply = new Reply("Test reply body", "TestAuthorUsername");
+		Reply reply = new Reply(-1, 300, "Test reply body", "TestAuthorUsername");
 		String replyBody = reply.getBody();
 		String authorName = reply.getUser();
 		assertEquals(replyBody, "Test reply body");
