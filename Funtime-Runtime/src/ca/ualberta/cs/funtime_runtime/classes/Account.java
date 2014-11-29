@@ -224,9 +224,21 @@ public class Account implements Serializable {
 	 * @param question		a question the user has upvoted
 	 */
 	public void upvoteQuestion(Question question, Context context) {
-//		question = ApplicationState.refreshQuestion(question, context);
-		question.upVote(context);
-		upvotedQuestions.add(question.getId());
+		Question q;
+		if ( (ApplicationState.isOnline(context)) ) {
+			q = ApplicationState.refreshQuestion(question, context);
+		} else {
+			q = question;
+		}
+		q.upVote();
+		upvotedQuestions.add( (Integer) q.getId() );
+		//q.upVote();
+		if ( (ApplicationState.isOnline(context)) ) {
+			ApplicationState.updateServerQuestion(q);
+		} else {
+			ApplicationState.addOfflineQuestionUpvote(q.getId(), context);
+			ApplicationState.syncCachedQuestions(context);
+		}
 		ApplicationState.updateAccount(context);
 	}
 	
@@ -235,9 +247,20 @@ public class Account implements Serializable {
 	 * @param question		a question the user has un-upvoted
 	 */
 	public void downvoteQuestion(Question question, Context context) {
-		question = ApplicationState.refreshQuestion(question, context);
-		question.downVote(context);
-		upvotedQuestions.remove( (Integer) question.getId());
+		Question q;
+		if ( (ApplicationState.isOnline(context)) ) {
+			q = ApplicationState.refreshQuestion(question, context);
+		} else {
+			q = question;
+		}
+		q.downVote();
+		upvotedQuestions.remove( (Integer) q.getId() );
+		if ( (ApplicationState.isOnline(context)) ) {
+			ApplicationState.updateServerQuestion(q);
+		} else {
+			ApplicationState.addOfflineQuestionDownvote(q.getId(), context);
+			ApplicationState.cacheQuestion(q, context);
+		}
 		ApplicationState.updateAccount(context);
 	}
 	

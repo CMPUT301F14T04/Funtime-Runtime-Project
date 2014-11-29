@@ -103,25 +103,15 @@ public class Question implements Serializable {
 	/**
 	 * This function adds to the total number of ratings on a question 
 	 */
-	public void upVote(Context context) {
+	public void upVote() {
 		rating++;
-		if ( (ApplicationState.isOnline(context)) ) {
-			ApplicationState.updateServerQuestion(this);
-		} else {
-			ApplicationState.addOfflineQuestionUpvote(getId(), context);
-		}
 	}
 
 	/**
 	 * This function subtracts from the total number of ratings on an question 
 	 */
-	public void downVote(Context context) {
+	public void downVote() {
 		rating--;
-		if ( (ApplicationState.isOnline(context)) ) {
-			ApplicationState.updateServerQuestion(this);
-		} else {
-			ApplicationState.addOfflineQuestionDownvote(getId(), context);
-		}
 	}
 
 	
@@ -265,7 +255,7 @@ public class Question implements Serializable {
              return false;
     	}
     	Question other = (Question) obj;
-    	return (other.getId() == (this.getId()));
+    	return ( ((Integer) (other.getId()) ).equals( (Integer) (this.getId()) ));
     }
 	
 }

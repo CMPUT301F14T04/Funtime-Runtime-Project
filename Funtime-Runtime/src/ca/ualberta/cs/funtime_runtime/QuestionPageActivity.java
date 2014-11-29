@@ -112,7 +112,6 @@ public class QuestionPageActivity extends CustomActivity {
 		questionTitle = (TextView) findViewById(R.id.question_title);
 		questionBody = (TextView) findViewById(R.id.question_body);
 		authorLocation = (TextView) findViewById(R.id.question_page_location);
-		question = ApplicationState.getPassableQuestion();
 		
 		addAnswerBtn = (Button) findViewById(R.id.button_add_answer);
 		bookmark_button = (ImageButton) findViewById(R.id.question_bookmark_button);
@@ -124,6 +123,9 @@ public class QuestionPageActivity extends CustomActivity {
 
 		account = ApplicationState.getAccount();
 		
+		
+		question = ApplicationState.getPassableQuestion();
+		ApplicationState.refreshQuestion(question, this);
 		ApplicationState.cacheQuestion(question, this);
 		
 		
@@ -149,6 +151,9 @@ public class QuestionPageActivity extends CustomActivity {
 			}
 			rating = question.getRating();
 			questionUpvote.setText(Integer.toString(rating));
+			
+			//Toast.makeText(this, rating, Toast.LENGTH_LONG).show();
+
 			
 	
 			bookmarked_id_list = account.getReadingList();
@@ -280,15 +285,20 @@ public class QuestionPageActivity extends CustomActivity {
 	@Override
 	public void refresh() {
 		ApplicationState.refresh(this);
-		ArrayList<Question> qList = ApplicationState.getQuestionList(this);
-		for (Question q: qList) {
-			Log.i("QuestionPage", "Question: " + q.getTitle());
-			Log.i("QuestionPage", "QId: " + q.getId());
-			if (q.getId().equals(question.getId())) {
-				question = q;
-				ApplicationState.setPassableQuestion(question);
+		if ( (ApplicationState.isOnline(this)) ) {
+			ArrayList<Question> qList = ApplicationState.getQuestionList(this);
+			for (Question q: qList) {
+				Log.i("QuestionPage", "Question: " + q.getTitle());
+				Log.i("QuestionPage", "QId: " + q.getId());
+				if (q.getId().equals(question.getId())) {
+					question = q;
+					ApplicationState.setPassableQuestion(question);
+				}
 			}
 		}
+		
+		question = ApplicationState.getPassableQuestion();
+		question = ApplicationState.refreshQuestion(question, this);
 		
 		answerList = question.getAnswerList();
 		sorter = new AnswerSorter(answerList);
@@ -297,6 +307,7 @@ public class QuestionPageActivity extends CustomActivity {
 		answerListView.setAdapter(adapter);
 
 		rating = question.getRating();
+		//Toast.makeText(this, rating, Toast.LENGTH_LONG).show();
 		questionUpvote.setText(Integer.toString(rating));
 
 		answersTitle.setText("Answers (" + answerList.size() + ")");
@@ -375,36 +386,37 @@ public class QuestionPageActivity extends CustomActivity {
 		// Note: using the home icon will not save the question status (can upvote many times)
 		//Thread updateThread = new UpdateQuestionThread(question);
 		if (ApplicationState.isLoggedIn()) {
-			question = ApplicationState.refreshQuestion(question, this);
+			//question = ApplicationState.refreshQuestion(question, this);
 			if (upvoted) {
 				//question.downVote();
 				account.downvoteQuestion(question, this);
-				rating = question.getRating();
-				questionUpvote.setText(Integer.toString(rating));
+//				question = ApplicationState.refreshQuestion(question, this);
+//				rating = question.getRating();
+//				questionUpvote.setText(Integer.toString(rating));
+				rating--;
 				questionUpvote.setTextColor(Color.parseColor("#000000"));
 				upvoted = false;
 				
 			} else {
 				//question.upVote();
 				account.upvoteQuestion(question, this);
-				rating = question.getRating();
-				questionUpvote.setText(Integer.toString(rating));
+				//question.upVote();
+				rating++;
+				//question = ApplicationState.refreshQuestion(question, this);
+//				rating = question.getRating();
+//				questionUpvote.setText(Integer.toString(rating));
 				questionUpvote.setTextColor(upvote_color);
 				upvoted = true;
 			}
+			ApplicationState.syncCachedQuestions(this);
+			//question = ApplicationState.refreshQuestion(question, this);
+			questionUpvote.setText(Integer.toString(rating));
 			ApplicationState.updateAccount(this);
-			refresh();
 		} else {
 			String msg = ApplicationState.notFunctional();
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
-//		ApplicationState.updateServerQuestion(question);
-//		updateThread.start();
-//		try {
-//			updateThread.join();
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		
 	}
 	
 	/**

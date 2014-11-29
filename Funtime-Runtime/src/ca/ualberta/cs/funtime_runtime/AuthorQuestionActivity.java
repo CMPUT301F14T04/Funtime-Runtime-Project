@@ -7,6 +7,7 @@ import java.util.zip.Deflater;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,6 +26,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
 import ca.ualberta.cs.funtime_runtime.classes.Geolocation;
@@ -54,7 +56,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 	String username;
 	ArrayList<Question> questionList;
 	Question question;
-	Geolocation geoLocation;
+	//Geolocation geoLocation;
 	
 	//ArrayList<Question> userQuestionList;
 	ArrayList<Integer> userQuestionIdList;
@@ -85,6 +87,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		
+		final Context ctx = this;
+		
 		popDialog = new AlertDialog.Builder(this);
 		inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);;
 		setContentView(R.layout.activity_author_question);
@@ -139,8 +144,13 @@ public class AuthorQuestionActivity extends CustomActivity {
 			question.setPhoto(compressedData);
 		}
 		if (hasLocation) {
-			question.setLocation(globalLocation);
+			//question.setLocation(globalLocation);
 		}
+		
+		Geolocation geoLocation = new Geolocation(getApplicationContext());
+		geoLocation.findLocation();
+		question.setLocation(geoLocation.getLocation());
+		Toast.makeText(getApplicationContext(), geoLocation.getLocation(), Toast.LENGTH_SHORT).show();
 		questionList.add(0,question);
 		//userQuestionIdList.add(0,question.getId());
 
@@ -202,10 +212,11 @@ public class AuthorQuestionActivity extends CustomActivity {
 			public void onClick(View v)
 			{
 				if (addCheck.isChecked()) {
-					geoLocation = new Geolocation(getApplicationContext());
+					Geolocation geoLocation = new Geolocation(getApplicationContext());
 					geoLocation.findLocation();
 					hasLocation = true;
 					String location = geoLocation.getLocation();
+					Toast.makeText(getApplicationContext(), location, Toast.LENGTH_SHORT).show();
 					globalLocation = location;
 					locationEdit.setText(location);	
 				} else {

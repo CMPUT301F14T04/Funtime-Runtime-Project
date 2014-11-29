@@ -77,24 +77,21 @@ public class ApplicationState extends Application {
 	private static SaveManager saveManager = new SaveManager();
 	
 	public static void startup(Context context) {
-		
-		saveManager = new SaveManager();
+
+//		saveManager = new SaveManager();
+//		questionList = new ArrayList<Question>();
+//		questionManager = new ESQuestionManager();
+//		accountManager = new ESAccountManager();
 		
 		loadCachedQuestions(context);
-		questionList = new ArrayList<Question>();
-		
 		loadOfflineData(context);
 		
 		if ( (ApplicationState.isOnline(context)) ) {
-			questionManager = new ESQuestionManager();
-			accountManager = new ESAccountManager();
+			pushOfflineQuestions(context);
 			loadServerQuestions(context);
-			pushOfflineData(context);
 			syncCachedQuestions(context);
+			pushOfflineData(context);
 		} else {
-			String offlineNotice;
-			offlineNotice = "No Connection Available";
-			Toast.makeText(context, offlineNotice, Toast.LENGTH_SHORT).show();
 			setCachedQuestions(context);
 		}
 
@@ -105,24 +102,37 @@ public class ApplicationState extends Application {
 	
 	}
 	
+	public static void refresh(Context context) {
+		
+		updateAccount(context);
+		loadCachedQuestions(context);
+		
+		loadOfflineData(context);
+		
+		if ( (ApplicationState.isOnline(context)) ) {
+			pushOfflineQuestions(context);
+			loadServerQuestions(context);
+			syncCachedQuestions(context);
+			pushOfflineData(context);
+		} else {
+			setCachedQuestions(context);
+		}
+		
+	}
+	
 	public static boolean isFirstLaunch() {
 		return firstLaunch;
 	}
 	
 	public static void loadServerQuestions(Context context) {
-		if ( (ApplicationState.isOnline(context)) ) {
-			Log.i("ApplicationState", "online passed");
-			Thread loadThread = new SearchQuestionThread("*");
-			//Thread loadThread = new LoadHomeThread("*", homeQuestionList, adapter);
-			loadThread.start();	
-			
-			try {
-				loadThread.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		} else {
-			Log.i("ApplicationState", "loadServer online failed ");
+		Thread loadThread = new SearchQuestionThread("*");
+		//Thread loadThread = new LoadHomeThread("*", homeQuestionList, adapter);
+		loadThread.start();	
+		
+		try {
+			loadThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -145,9 +155,15 @@ public class ApplicationState extends Application {
 	}
 	
 	public static void syncCachedQuestions(Context context) {
-		for (Question q: cachedQuestions) {
-			q = ApplicationState.getQuestionById(q.getId());
+		ArrayList<Question> newCache = new ArrayList<Question>();
+		for (Question cacheQuestion: cachedQuestions) {
+			Question q = ApplicationState.getQuestionById(cacheQuestion.getId());
+			if ( !(q.getTitle().equals("INVALID QUID")) ) {
+				newCache.add(q);
+			}
 		}
+		cachedQuestions.clear();
+		cachedQuestions.addAll(newCache);
 		saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
 	}
 	
@@ -222,21 +238,6 @@ public class ApplicationState extends Application {
 		}
 	}
 	
-	public static void refresh(Context context) {
-		
-		loadCachedQuestions(context);
-		updateAccount(context);
-		
-		loadOfflineData(context);
-		
-		if ( (ApplicationState.isOnline(context)) ) {
-			pushOfflineData(context);
-			loadServerQuestions(context);
-		} else {
-			questionList = cachedQuestions;
-		}
-	}
-	
 	public static void loadOfflineData(Context context) {
 		loadOfflineQuestions(context);
 		loadOfflineQuestionUpvotes(context);
@@ -247,7 +248,7 @@ public class ApplicationState extends Application {
 	
 	public static void pushOfflineData(Context context) {
 
-		pushOfflineQuestions(context);
+		//pushOfflineQuestions(context);
 		pushOfflineQuestionUpvotes(context);
 		pushOfflineQuestionDownvotes(context);
 		pushOfflineAnswerUpvotes(context);
@@ -264,52 +265,50 @@ public class ApplicationState extends Application {
 			addServerQuestions(offlineQuestions.get(0), context);
 		}
 		offlineQuestions.clear();
-		Log.i("Offline Push", "offline push done: " + offlineQuestions.size());
+		saveManager.save(OFFLINEQUESTIONS, offlineQuestions, context);
+		Log.i("Offline Push", "offline push done");
 
 	}
 	
 	public static void pushOfflineQuestionUpvotes(Context context) {
-		//while ( !(offlineQuestionUpvotes.isEmpty()) ) {
 		for (int i = 0; i < offlineQuestionUpvotes.size(); i++) {	
+			Toast.makeText(context, "questions to upvote: " + offlineQuestionUpvotes.size(), Toast.LENGTH_LONG).show();
 			Question q = getQuestionById(offlineQuestionUpvotes.get(0));
-			q.upVote(context);
+			q.upVote();
+			ApplicationState.updateServerQuestion(q);
 		}
 		offlineQuestionUpvotes.clear();
-		
-
-//		Log.i("Offline Push", "offline push, elements: " + offlineQuestions.size());
-//		for (int i = 0; i < offlineQuestions.size(); i++) {
-//			addServerQuestions(offlineQuestions.get(0), context);
-//		}
-//		Log.i("Offline Push", "offline push done: " + offlineQuestions.size());
+		saveManager.save(OFFLINEQUESTIONUPVOTES, offlineQuestionUpvotes, context);
 
 	}
 	
 	public static void pushOfflineQuestionDownvotes(Context context) {
-		//while ( !(offlineQuestionDownvotes.isEmpty()) ) {
 		for (int i = 0; i < offlineQuestionDownvotes.size(); i++) {
 			Question q = getQuestionById(offlineQuestionDownvotes.get(0));
-			q.upVote(context);
+			q.upVote();
+			ApplicationState.updateServerQuestion(q);
 		}
 		offlineQuestionDownvotes.clear();
+		saveManager.save(OFFLINEQUESTIONDOWNVOTES, offlineQuestionDownvotes, context);
 	}
 	
 	public static void pushOfflineAnswerUpvotes(Context context) {
-		//while ( !(offlineQuestions.isEmpty()) ) {
 		for (int i = 0; i < offlineAnswerUpvotes.size(); i++) {
-			Question q = getQuestionById(offlineAnswerUpvotes.get(0));
-			q.upVote(context);
+			//Answer a = getQuestionById(offlineAnswerUpvotes.get(0));
+			//a.upVote(context);
 		}
 		offlineAnswerUpvotes.clear();
+		saveManager.save(OFFLINEANSWERUPVOTES, offlineAnswerUpvotes, context);
 	}
 	
 	public static void pushOfflineAnswerDownvotes(Context context) {
 		//while ( !(offlineQuestions.isEmpty()) ) {
 		for (int i = 0; i < offlineAnswerDownvotes.size(); i++) {	
-			Question q = getQuestionById(offlineAnswerDownvotes.get(0));
-			q.upVote(context);
+			//Question q = getQuestionById(offlineAnswerDownvotes.get(0));
+			//q.upVote(context);
 		}
 		offlineAnswerDownvotes.clear();
+		saveManager.save(OFFLINEANSWERDOWNVOTES, offlineAnswerDownvotes, context);
 	}
 	
 	
@@ -414,15 +413,6 @@ public class ApplicationState extends Application {
 	public static ArrayList<Question> getQuestionList(Context context) {
 		//TODO grab the master question list from the sever before returning
 		refresh(context);
-		/*
-		if ( !(isOnline(context)) ) {
-			String offlineCacheNotice = "Cached questions loaded.";
-			Toast.makeText(context, offlineCacheNotice, Toast.LENGTH_LONG).show();
-			loadCachedQuestions(context);
-		} else {
-			ApplicationState.loadServerQuestions();
-		}
-		*/
 		return questionList;
 	}
 	
@@ -571,6 +561,10 @@ public class ApplicationState extends Application {
 			cachedQuestions.add(question);
 			saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
 			Toast.makeText(context, "Cached " + question.getTitle(), Toast.LENGTH_LONG).show();
+		} else {
+			Question q = question;
+			cachedQuestions.remove(question);
+			cachedQuestions.add(q);
 		}
 		saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
 	}
@@ -587,6 +581,7 @@ public class ApplicationState extends Application {
 	
 	public static Question getQuestionById(Integer qId) {
 		for (Question q: questionList) {
+			Log.i("GetQById", "Comparing " + qId + " to " + q.getId());
 			if (qId.equals(q.getId())) {
 				return q;
 			}
@@ -611,15 +606,26 @@ public class ApplicationState extends Application {
 
 	public static void addOfflineQuestionUpvote(Integer id, Context context) {
 		if ( !(offlineQuestionUpvotes.contains(id)) ) {
+			Toast.makeText(context, "added to offline upvotes", Toast.LENGTH_LONG).show();
 			offlineQuestionUpvotes.add(id);
 		}
 		saveManager.save(OFFLINEQUESTIONUPVOTES, offlineQuestionUpvotes, context);
+		
+		if ( (offlineQuestionDownvotes.contains(id)) ) {
+			offlineQuestionDownvotes.remove( (Integer) id );
+			saveManager.save(OFFLINEQUESTIONDOWNVOTES, offlineQuestionDownvotes, context);
+		}
 	}	
 	public static void addOfflineQuestionDownvote(Integer id, Context context) {
 		if ( !(offlineQuestionDownvotes.contains(id)) ) {
 			offlineQuestionDownvotes.add(id);
 		}
 		saveManager.save(OFFLINEQUESTIONDOWNVOTES, offlineQuestionDownvotes, context);
+		
+		if ( (offlineQuestionUpvotes.contains(id)) ) {
+			offlineQuestionUpvotes.remove( (Integer) id );
+			saveManager.save(OFFLINEQUESTIONUPVOTES, offlineQuestionUpvotes, context);
+		}
 	}
 	public static void addOfflineAnswerUpvote(Integer id, Context context) {
 		if ( !(offlineAnswerUpvotes.contains(id)) ) {
@@ -631,7 +637,7 @@ public class ApplicationState extends Application {
 		if ( !(offlineAnswerDownvotes.contains(id)) ) {
 			offlineAnswerDownvotes.add(id);
 		}
-		saveManager.save(OFFLINEANSWERUPVOTES, offlineAnswerUpvotes, context);
+		saveManager.save(OFFLINEANSWERDOWNVOTES, offlineAnswerUpvotes, context);
 	}
 	
 }

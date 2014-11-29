@@ -18,6 +18,7 @@ import android.widget.Toast;
 import ca.ualberta.cs.funtime_runtime.adapter.QuestionListAdapter;
 import ca.ualberta.cs.funtime_runtime.classes.Account;
 import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
+import ca.ualberta.cs.funtime_runtime.classes.Geolocation;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
@@ -80,6 +81,10 @@ public class HomeActivity extends CustomActivity {
 		sorter = new QuestionSorter(homeQuestionList);
 
 		Log.i("HomeActivity", "Sorted");
+		
+		Geolocation go = new Geolocation(this);
+		go.findLocation();
+		Toast.makeText(this, go.getLocation(), Toast.LENGTH_LONG).show();
 		
 		account = ApplicationState.getAccount();
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter,
