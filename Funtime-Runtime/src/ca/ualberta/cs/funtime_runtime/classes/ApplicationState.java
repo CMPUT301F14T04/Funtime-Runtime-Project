@@ -66,6 +66,9 @@ public class ApplicationState extends Application {
 	private static final String CACHEDACCOUNT = "CachedAccount.sav";
 	private static final String CACHEDQUESTIONS = "CachedQuestions.sav";
 	private static final String OFFLINEQUESTIONS = "OfflineQuestions.sav";
+	private static final String OFFLINEANSWERS = "OfflineAnswers.sav";
+	private static final String OFFLINEQUESTIONREPLIES = "OfflineQuestionReplies.sav";
+	private static final String OFFLINEANSWERREPLIES = "OfflineAnswerReplies.sav";
 	private static final String OFFLINEQUESTIONUPVOTES = "OfflineQuestionUpvotes.sav";
 	private static final String OFFLINEQUESTIONDOWNVOTES = "OfflineQuestionDownvotes.sav";
 	private static final String OFFLINEANSWERUPVOTES = "OfflineAnswerUpvotes.sav";
@@ -240,6 +243,9 @@ public class ApplicationState extends Application {
 	
 	public static void loadOfflineData(Context context) {
 		loadOfflineQuestions(context);
+		loadOfflineAnswers(context);
+		//loadOfflineQuestionReplies(context);
+		//loadOfflineAnswerReplies(context);
 		loadOfflineQuestionUpvotes(context);
 		loadOfflineQuestionDownvotes(context);
 		loadOfflineAnswerUpvotes(context);
@@ -249,6 +255,9 @@ public class ApplicationState extends Application {
 	public static void pushOfflineData(Context context) {
 
 		//pushOfflineQuestions(context);
+		pushOfflineAnswers(context);
+		//pushOfflineQuestionReplies(context);
+		//pushOfflineAnswerReplies(context);
 		pushOfflineQuestionUpvotes(context);
 		pushOfflineQuestionDownvotes(context);
 		pushOfflineAnswerUpvotes(context);
@@ -267,6 +276,19 @@ public class ApplicationState extends Application {
 		offlineQuestions.clear();
 		saveManager.save(OFFLINEQUESTIONS, offlineQuestions, context);
 		Log.i("Offline Push", "offline push done");
+
+	}
+
+	public static void pushOfflineAnswers(Context context) {
+		for (int i = 0; i < offlineAnswers.size(); i++) {
+			Answer a = offlineAnswers.get(i);
+			Integer parentQId = a.getParentQuestionId();
+			Question parentQ = ApplicationState.getQuestionById(parentQId);
+			parentQ.addAnswer(a);
+			updateServerQuestion(parentQ);
+		}
+		offlineAnswers.clear();
+		saveManager.save(OFFLINEANSWERS, offlineAnswers, context);
 
 	}
 	
@@ -459,6 +481,42 @@ public class ApplicationState extends Application {
 		}
 	}
 	
+	public static void loadOfflineAnswers(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEANSWERS, context);
+			if (obj != null) {
+				offlineAnswers = (ArrayList<Answer>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void loadOfflineQuestionReplies(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEQUESTIONREPLIES, context);
+			if (obj != null) {
+				offlineQuestionReplies = (ArrayList<Reply>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void loadOfflineAnswerReplies(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEANSWERREPLIES, context);
+			if (obj != null) {
+				offlineAnswerReplies = (ArrayList<Reply>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void loadOfflineQuestionUpvotes(Context context) {
 		Object obj;
 		try {
@@ -606,6 +664,21 @@ public class ApplicationState extends Application {
 		return answer;
 	}
 
+	public static void addOfflineAnswer(Answer offA, Context context) {
+		offlineAnswers.add(offA);
+		saveManager.save(OFFLINEANSWERS, offlineAnswers, context);
+	}
+	
+	public static void addOfflineQuestionReply(Reply offR, Context context) {
+		offlineQuestionReplies.add(offR);
+		saveManager.save(OFFLINEQUESTIONREPLIES, offlineQuestionReplies, context);
+	}
+	
+	public static void addOfflineAnswerReply(Reply offR, Context context) {
+		offlineAnswerReplies.add(offR);
+		saveManager.save(OFFLINEANSWERREPLIES, offlineAnswerReplies, context);
+	}
+	
 	public static void addOfflineQuestionUpvote(Integer id, Context context) {
 		if ( !(offlineQuestionUpvotes.contains(id)) ) {
 			Toast.makeText(context, "added to offline upvotes", Toast.LENGTH_LONG).show();

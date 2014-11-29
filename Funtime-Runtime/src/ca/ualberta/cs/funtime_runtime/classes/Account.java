@@ -119,12 +119,19 @@ public class Account implements Serializable {
 	 * 						been added to the answer list of its 
 	 * 						parent question
 	 */
-	public void answerQuestion(Question question, Context context) {
+	public void answerQuestion(Question question, Answer answer, Context context) {
 		if (!answeredList.contains(question.getId())){
 			answeredList.add(question.getId());
 		}
-		ApplicationState.updateServerQuestion(question);
+		if ( (ApplicationState.isOnline(context)) ) {
+			ApplicationState.updateServerQuestion(question);
+			
+		} else {
+			ApplicationState.addOfflineAnswer(answer, context);
+		}
+		
 		ApplicationState.updateAccount(context);
+		
 	}
 
 	/**
