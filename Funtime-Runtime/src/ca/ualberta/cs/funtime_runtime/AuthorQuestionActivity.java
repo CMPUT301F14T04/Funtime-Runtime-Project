@@ -139,11 +139,7 @@ public class AuthorQuestionActivity extends CustomActivity {
 			question.setLocation(globalLocation);
 		}
 		
-		//questionList.add(0,question);
-
-		// Elastic search code
-		generateId(question);		
-		//ApplicationState.addServerQuestions(question, this);
+		generateId(question);
 		
 		Log.i("AuthorQuestion", "AuthorQuestion starting");
 		
