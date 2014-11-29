@@ -21,10 +21,12 @@ public class Geolocation implements Serializable {
 	public String addressString;
 	
 	Context mContext;
+	String context = Context.LOCATION_SERVICE;
+	
 	public Geolocation(Context mContext){
 		this.mContext = mContext;
 	}
-	String context = Context.LOCATION_SERVICE;
+
 			
 	private final LocationListener ll = new LocationListener() {
 		
