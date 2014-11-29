@@ -188,6 +188,9 @@ public class AuthorQuestionActivity extends CustomActivity {
 		popDialog.setView(Viewlayout);
 		popDialog.create();
 		popDialog.show();
+		
+		
+		
 		//http://www.thaicreate.com/mobile/android-popup-custom-layout-and-returning-values-from-dialog.html
 		//November 28 2014
 	}
