@@ -103,7 +103,7 @@ public class ApplicationState extends Application {
 	
 	public static void refresh(Context context) {
 		
-		updateAccount(context);
+//		updateAccount(context);
 		loadCachedQuestions(context);
 		
 		loadOfflineData(context);
@@ -116,6 +116,8 @@ public class ApplicationState extends Application {
 		} else {
 			setCachedQuestions(context);
 		}
+		
+		updateAccount(context);
 		
 	}
 	
@@ -651,15 +653,17 @@ public class ApplicationState extends Application {
 	}
 
 	public static void cacheQuestion(Question question, Context context) {
+		loadCachedQuestions(context);
 		if ( !(cachedQuestions.contains(question) ) ) {
 			cachedQuestions.add(question);
-			saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
+			//saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
 			Toast.makeText(context, "Cached " + question.getTitle(), Toast.LENGTH_LONG).show();
-		} else {
-			Question q = question;
-			cachedQuestions.remove(question);
-			cachedQuestions.add(q);
-		}
+		} 
+//		else {
+//			Question q = question;
+//			cachedQuestions.remove(question);
+//			cachedQuestions.add(q);
+//		}
 		saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
 	}
 
