@@ -69,7 +69,6 @@ public class AuthorAnswerActivity extends CustomActivity {
 	private AlertDialog.Builder popDialog;
 	private LayoutInflater inflater;
 	
-	//Geolocation geoLocation;
 	int CAMERA_COLOR = Color.parseColor("#001110");
 	int MAP_COLOR = Color.parseColor("#3366FF");
 

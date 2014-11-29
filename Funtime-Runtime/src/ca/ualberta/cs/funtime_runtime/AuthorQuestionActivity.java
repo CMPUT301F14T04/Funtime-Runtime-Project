@@ -69,7 +69,7 @@ public class AuthorQuestionActivity extends CustomActivity {
     UpdateAccountThread updateThread;
     private AlertDialog.Builder popDialog;
     private LayoutInflater inflater;
-    //compressor.setLevel(Deflater.BEST_COMPRESSION);
+
 	int CAMERA_COLOR = Color.parseColor("#000000");
 	int MAP_COLOR = Color.parseColor("#3366FF");
 	/**
