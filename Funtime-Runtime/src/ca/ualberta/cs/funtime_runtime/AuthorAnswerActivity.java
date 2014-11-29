@@ -52,6 +52,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 	String username;
 	ArrayList<Integer> userAnsweredList;
 	Geolocation locator;
+	
 	byte[] compressedData = new byte[64000];
 	boolean hasPhoto = false;
 	Bitmap photoBitmap;
@@ -143,7 +144,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 			
 
 			question.addAnswer(answer);
-			account.answerQuestion(question, this);
+			account.answerQuestion(question, answer, this);
 			
 			
 			ApplicationState.cacheQuestion(question, this);
