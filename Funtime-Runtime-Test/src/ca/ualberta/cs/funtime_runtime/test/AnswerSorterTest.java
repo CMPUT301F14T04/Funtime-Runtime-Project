@@ -4,16 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import android.test.ActivityInstrumentationTestCase2;
-import ca.ualberta.cs.funtime_runtime.QuestionPageActivity;
+import ca.ualberta.cs.funtime_runtime.SearchActivity;
 import ca.ualberta.cs.funtime_runtime.classes.Answer;
 import ca.ualberta.cs.funtime_runtime.classes.AnswerSorter;
-import ca.ualberta.cs.funtime_runtime.classes.Question;
-import ca.ualberta.cs.funtime_runtime.classes.QuestionSorter;
 
-public class AnswerSorterTest extends ActivityInstrumentationTestCase2<QuestionPageActivity> {
+public class AnswerSorterTest extends ActivityInstrumentationTestCase2<SearchActivity> {
 	
 	public AnswerSorterTest() {
-		super(QuestionPageActivity.class);
+		super(SearchActivity.class);
 	}
 	
 	public void testSortByDate() {
@@ -75,33 +73,33 @@ public class AnswerSorterTest extends ActivityInstrumentationTestCase2<QuestionP
 		assertEquals(answerList, reversedList);	
 	}
 	
-//	public void testSortByLocation() {
-//		ArrayList<Answer> answerList = new ArrayList<Answer>();
-//		AnswerSorter sorter = new AnswerSorter(answerList);
-//		String loc1 = "Edmonton";
-//		String loc2 = "N/A";
-//		
-//		for (int i = 0; i < 10; i++) {
-//			Answer answer = new Answer(i, "Body" + i, "User" + i);
-//			answer.setId(i);
-//			if (i % 2 == 0) {
-//				answer.setLocation(loc1);
-//			} else {
-//				answer.setLocation(loc2);
-//			}
-//			
-//			answerList.add(answer);
-//		}
-//		
-//		sorter.sortByLocation(getActivity());
-//		
-//		for (int i = 0; i < 5; i++) {
-//			assertEquals(answerList.get(i).getLocation(), loc1);
-//		}
-//		
-//		for (int i = 5; i < 10; i ++) {
-//			assertEquals(answerList.get(i).getLocation(), loc2);
-//		}
-//	}
+	public void testSortByLocation() {
+		ArrayList<Answer> answerList = new ArrayList<Answer>();
+		AnswerSorter sorter = new AnswerSorter(answerList);
+		String loc1 = "Edmonton";
+		String loc2 = "N/A";
+		
+		for (int i = 0; i < 10; i++) {
+			Answer answer = new Answer(i, "Body" + i, "User" + i);
+			answer.setId(i);
+			if (i % 2 == 0) {
+				answer.setLocation(loc1);
+			} else {
+				answer.setLocation(loc2);
+			}
+			
+			answerList.add(answer);
+		}
+		
+		sorter.sortByLocation(getActivity());
+		
+		for (int i = 0; i < 5; i++) {
+			assertEquals(answerList.get(i).getLocation(), loc2);
+		}
+		
+		for (int i = 5; i < 10; i ++) {
+			assertEquals(answerList.get(i).getLocation(), loc1);
+		}
+	}
 
 }
