@@ -9,6 +9,7 @@
     <string name="sort_date">Date</string>
     <string name="sort_votes">Votes</string>
     <string name="sort_photo">Photos</string>
+    <string name="sort_location">Location</string>
 
     <!-- Home/Browse Questions Strings -->
     <string name="title_activity_home">Funtime-Runtime</string>

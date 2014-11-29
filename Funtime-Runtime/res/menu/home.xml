@@ -75,6 +75,11 @@
 		        android:orderInCategory="100"
 		        android:showAsAction="never"
 			    android:title="@string/sort_photo"/>
+   	        <item 
+   	            android:id="@+id/sort_location_menu"
+   	         	android:orderInCategory="100"
+		        android:showAsAction="never"
+			    android:title="@string/sort_location"/>
 	    </menu>
 	</item>
 	    

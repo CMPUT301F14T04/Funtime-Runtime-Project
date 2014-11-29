@@ -128,6 +128,10 @@ public class CustomActivity extends Activity {
 	}
 	
 	public void refresh() {}
+	public void sortDate() {}
+	public void sortVotes() {}
+	public void sortPhoto() {}
+	public void sortLocation() {}
 	
 
 	/**
@@ -179,6 +183,22 @@ public class CustomActivity extends Activity {
 			
 			case R.id.refresh:
 				refresh();
+				
+			case R.id.sort_date_menu:
+				sortDate();
+				return true;
+				
+			case R.id.sort_votes_menu:
+				sortVotes();
+				return true;
+				
+			case R.id.sort_photo_menu:
+				sortPhoto();
+				return true;
+				
+			case R.id.sort_location_menu:
+				sortLocation();
+				return true;
 				
 			default :
 				return true;

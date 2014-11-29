@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+import android.content.Context;
+import android.widget.Toast;
+
 
 /**
  * Class not implemented for this release
@@ -75,6 +78,62 @@ public class QuestionSorter {
 		});
 		Collections.reverse(sortList);
 		return sortList;
+	}
+	
+	public ArrayList<Question> sortByLocation(Context context) {
+		sortType = "Location";
+		
+		ArrayList<Question> nearMeList = new ArrayList<Question>();
+		ArrayList<Question> farList = new ArrayList<Question>();
+		QuestionSorter sorterNear; 
+		QuestionSorter sorterFar;
+		
+		Geolocation geolocation = new Geolocation(context);
+		geolocation.findLocation();
+		String loc = geolocation.getLocation();
+		
+		Collections.sort(sortList, new Comparator<Question>() {
+			  public int compare(Question q1, Question q2) {
+				  String s1 = q1.getLocation();
+				  String s2 = q2.getLocation();
+				  
+				  int pStatus = s1.compareTo(s2);
+				  if (pStatus != 0) {
+					  return pStatus;
+				  } else {
+					  Date d1 = q1.getDate();
+					  Date d2 = q2.getDate();
+					  return d1.compareTo(d2);
+				  }
+			  }
+		});
+		Collections.reverse(sortList);
+		
+		for (Question q: sortList) {
+			if (q.getLocation().equals(loc)) {
+				nearMeList.add(q);
+			} else {
+				farList.add(q);
+			}
+		}
+
+		sorterNear = new QuestionSorter(nearMeList);
+		sorterFar = new QuestionSorter(farList);
+		
+		sorterNear.sortByDate();
+		sorterFar.sortByDate();
+		
+		ArrayList<Question> newList = new ArrayList<Question>();
+		for (Question q: farList) {
+			newList.add(0, q);
+		}
+		for (Question q: nearMeList) {
+			newList.add(0, q);
+		}
+		
+
+		return newList;
+		
 	}
 
 	public String getSortType() {
