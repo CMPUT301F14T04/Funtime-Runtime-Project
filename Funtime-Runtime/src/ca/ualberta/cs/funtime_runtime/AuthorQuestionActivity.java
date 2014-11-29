@@ -6,6 +6,7 @@ import java.util.Random;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -70,7 +71,7 @@ public class AuthorQuestionActivity extends CustomActivity {
     private AlertDialog.Builder popDialog;
     private LayoutInflater inflater;
 
-	int CAMERA_COLOR = Color.parseColor("#000000");
+	int CAMERA_COLOR = Color.parseColor("#001110");
 	int MAP_COLOR = Color.parseColor("#3366FF");
 	/**
 	 * This is a standard onCreate method
@@ -239,8 +240,13 @@ public class AuthorQuestionActivity extends CustomActivity {
 	                int byteCount = photoBitmap.getByteCount();
 	                
 	                if (byteCount > 0){
+	                	Context context = getApplicationContext();
+	                	CharSequence text = "Photo Added!";
+	                	int duration = Toast.LENGTH_LONG;
+	                	Toast toast = Toast.makeText(context, text, duration);
+	                	toast.show();
 	                	hasPhoto = true;
-	                	photoButton.setColorFilter(CAMERA_COLOR);
+	                	//photoButton.setColorFilter(CAMERA_COLOR);
 	                	Log.i("Image Upload", ""+byteCount);
 	                }
 	                ByteArrayOutputStream blob = new ByteArrayOutputStream();
