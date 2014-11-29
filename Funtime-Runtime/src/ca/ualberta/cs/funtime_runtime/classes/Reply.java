@@ -22,16 +22,20 @@ public class Reply implements Serializable {
 	private String location = "N/A";
 	
 	public int id; //used to elastic search (see getId and setId methods) 
+	private int parentAnswerId;
+	private int parentQuestionId;
 	
 	/**
 	 * This function initializes a reply. 
 	 * @param body a string that is the content of the reply
 	 * @param username a string that serves as the author of the question.
 	 */
-	public Reply(String body, String username) {
+	public Reply(int answerId, int questionId, String body, String username) {
 		this.body = body;
 		this.username = username;
 		this.date= new Date();
+		parentAnswerId = answerId;
+		parentQuestionId = questionId;
 	}
 	
 	/**
@@ -76,6 +80,14 @@ public class Reply implements Serializable {
 	 */
 	public int getId(){
 		return id;
+	}
+	
+	public int getParentQuestionId() {
+		return parentQuestionId;
+	}
+	
+	public int getParentAnswerId() {
+		return parentAnswerId;
 	}
 	
 	/**

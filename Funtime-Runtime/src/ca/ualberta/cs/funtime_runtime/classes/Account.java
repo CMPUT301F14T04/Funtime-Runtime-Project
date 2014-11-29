@@ -125,7 +125,6 @@ public class Account implements Serializable {
 		}
 		if ( (ApplicationState.isOnline(context)) ) {
 			ApplicationState.updateServerQuestion(question);
-			
 		} else {
 			ApplicationState.addOfflineAnswer(answer, context);
 		}

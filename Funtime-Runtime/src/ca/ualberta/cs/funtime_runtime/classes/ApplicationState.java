@@ -244,8 +244,8 @@ public class ApplicationState extends Application {
 	public static void loadOfflineData(Context context) {
 		loadOfflineQuestions(context);
 		loadOfflineAnswers(context);
-		//loadOfflineQuestionReplies(context);
-		//loadOfflineAnswerReplies(context);
+		loadOfflineQuestionReplies(context);
+		loadOfflineAnswerReplies(context);
 		loadOfflineQuestionUpvotes(context);
 		loadOfflineQuestionDownvotes(context);
 		loadOfflineAnswerUpvotes(context);
@@ -256,8 +256,8 @@ public class ApplicationState extends Application {
 
 		//pushOfflineQuestions(context);
 		pushOfflineAnswers(context);
-		//pushOfflineQuestionReplies(context);
-		//pushOfflineAnswerReplies(context);
+		pushOfflineQuestionReplies(context);
+		pushOfflineAnswerReplies(context);
 		pushOfflineQuestionUpvotes(context);
 		pushOfflineQuestionDownvotes(context);
 		pushOfflineAnswerUpvotes(context);
@@ -285,6 +285,38 @@ public class ApplicationState extends Application {
 			Integer parentQId = a.getParentQuestionId();
 			Question parentQ = ApplicationState.getQuestionById(parentQId);
 			parentQ.addAnswer(a);
+			updateServerQuestion(parentQ);
+		}
+		offlineAnswers.clear();
+		saveManager.save(OFFLINEANSWERS, offlineAnswers, context);
+
+	}
+	
+	public static void pushOfflineQuestionReplies(Context context) {
+		for (int i = 0; i < offlineQuestionReplies.size(); i++) {
+			Reply r = offlineQuestionReplies.get(i);
+			Integer parentQId = r.getParentQuestionId();
+			Question parentQ = ApplicationState.getQuestionById(parentQId);
+			Log.i("PushOfflineQuestions", "got guestion " + parentQ.getTitle());
+			Log.i("PushOfflineQuestions", "ID: " + parentQ.getId());
+			parentQ.addReply(r);
+			Log.i("PushOfflineQuestions", "ID: " + parentQ.getId());
+			updateServerQuestion(parentQ);
+			Log.i("PushOfflineQuestions", "updated server question " + parentQ.getTitle());
+		}
+		offlineAnswers.clear();
+		saveManager.save(OFFLINEANSWERS, offlineQuestionReplies, context);
+
+	}
+	
+	public static void pushOfflineAnswerReplies(Context context) {
+		for (int i = 0; i < offlineAnswerReplies.size(); i++) {
+			Reply r = offlineAnswerReplies.get(i);
+			Integer parentQId = r.getParentQuestionId();
+			Question parentQ = ApplicationState.getQuestionById(parentQId);
+			Integer parentAId = r.getParentAnswerId();
+			Answer parentA = parentQ.getAnswerById(parentAId);
+			parentA.addReply(r);
 			updateServerQuestion(parentQ);
 		}
 		offlineAnswers.clear();
