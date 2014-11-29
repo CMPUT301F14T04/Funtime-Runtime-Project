@@ -20,5 +20,18 @@ public class GeolocationTest extends ActivityInstrumentationTestCase2<SearchActi
 		
 		assertEquals(foundLocation, actualLocation);	
 	}
+	
+	public void testInputLocation(){
+		Geolocation location = new Geolocation(getActivity());
+		String actualLocation = "N/A";
+		String userLocation;
+				
+		location.findLocation();
+		
+		userLocation= location.getLocation();
+		
+		assertEquals(userLocation, actualLocation);
+		
+	}
 
 }
