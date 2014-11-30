@@ -90,7 +90,9 @@ public class AuthorAnswerActivity extends CustomActivity {
 		setContentView(R.layout.activity_author_answer);
 		setResources();
 	}
-	
+	/**
+	 * THis fuintion sets up all of the onCreate information. 
+	 */
 	private void setResources(){
 		ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
@@ -182,12 +184,22 @@ public class AuthorAnswerActivity extends CustomActivity {
 		 }
 				
 	}
+	 /**
+	  * add_photo sends you to the gallery where you choose a picture to upload
+	  * @param v is the camera button that you click when you want to view a photo
+	  */
 	 
 	 public void add_photo(View v){
 		Intent  photoPickerIntent = new Intent(Intent.ACTION_PICK);
 		photoPickerIntent.setType("image/*");
 		startActivityForResult(photoPickerIntent, 1);
 	 }
+	 /**
+	  * This part of the program simply  adds the location by  an alert dialog 
+	  * and then getting the current geolocation so that it can be displayed to the user
+	  * upon submission of the answer
+	  * @param v is a view that the application is currently located wihtin
+	  */
 	 
 	 public void addLocation(View v){
 		 final View view = inflater.inflate(R.layout.geolocation_popup,(ViewGroup) findViewById(R.id.geolocation_dialog)); 
@@ -236,6 +248,11 @@ public class AuthorAnswerActivity extends CustomActivity {
 		 //November 28 2014
 	 }
 	
+	 /**
+	  * When the user returns from the gallary app they are directed towards this method where the 
+	  * photo bitmap is converted to a JPEG, compressed and stored in a byte array where it is 
+	  * uploaded with the question. 
+	  */
 	 protected void onActivityResult(int requestCode, int resultCode,
 		        Intent intent) {
 		    super.onActivityResult(requestCode, resultCode, intent);
