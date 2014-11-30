@@ -23,12 +23,14 @@ public class Geolocation implements Serializable {
 	 */
 	private static final long serialVersionUID = -8995370689907474524L;
 	public String addressString;	
-	protected Context mContext;
+	
+	Context mContext;
+	String context = Context.LOCATION_SERVICE;
 	
 	public Geolocation(Context mContext){
 		this.mContext = mContext;
 	}
-	String context = Context.LOCATION_SERVICE;
+
 			
 	/**
 	 * Locations listener is used to find the last known location of the user 
