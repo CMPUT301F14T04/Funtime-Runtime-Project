@@ -173,7 +173,7 @@ public class ESQuestionManager implements IQuestionManager {
 	 */
 	private HttpPost createSearchRequest(String searchString, String field)	throws UnsupportedEncodingException {
 		
-		// TODO HTTP POST NEED TO HAVE A SEARCH URL TO IT NOT JUST URL. 
+ 
 		HttpPost searchRequest = new HttpPost(SEARCH_URL);
 
 		String[] fields = null;
@@ -185,7 +185,7 @@ public class ESQuestionManager implements IQuestionManager {
 		SimpleSearchCommand command = new SimpleSearchCommand(searchString,	fields);
 		
 		String query = command.getJsonCommand();
-		//String query = command.getAll();
+
 		Log.i(TAG, "Json command: " + query);
 
 		StringEntity stringEntity;
