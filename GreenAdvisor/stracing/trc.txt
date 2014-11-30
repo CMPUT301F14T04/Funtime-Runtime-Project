@@ -1,36 +1,35 @@
 % time     seconds  usecs/call     calls    errors syscall
 ------ ----------- ----------- --------- --------- ----------------
-   NaN    0.000000           0        12           read
-   NaN    0.000000           0         4           write
-   NaN    0.000000           0        17         7 open
-   NaN    0.000000           0        23           close
-   NaN    0.000000           0        24           lseek
-   NaN    0.000000           0         5           getpid
-   NaN    0.000000           0         1           access
-   NaN    0.000000           0         1           pipe
-   NaN    0.000000           0        10           ioctl
-   NaN    0.000000           0         3           gettimeofday
-   NaN    0.000000           0        48           munmap
-   NaN    0.000000           0         1           getpriority
-   NaN    0.000000           0         1           setpriority
-   NaN    0.000000           0         1           clone
-   NaN    0.000000           0        10           mprotect
-   NaN    0.000000           0         2           select
-   NaN    0.000000           0         6           flock
-   NaN    0.000000           0         7           writev
-   NaN    0.000000           0         2           nanosleep
-   NaN    0.000000           0         1           prctl
-   NaN    0.000000           0        11           mmap2
-   NaN    0.000000           0         3           stat64
-   NaN    0.000000           0         3           fstat64
-   NaN    0.000000           0         2           getuid32
-   NaN    0.000000           0        17         8 madvise
-   NaN    0.000000           0         8           fcntl64
-   NaN    0.000000           0         6           gettid
-   NaN    0.000000           0        76         1 futex
-   NaN    0.000000           0         1           set_thread_area
-   NaN    0.000000           0         1           epoll_create
-   NaN    0.000000           0         1           epoll_ctl
-   NaN    0.000000           0        60           clock_gettime
+ 95.93    0.250937         235      1070         3 futex
+  2.10    0.005492           9       638           clock_gettime
+  0.54    0.001412           8       171           mprotect
+  0.49    0.001289         117        11           nanosleep
+  0.39    0.001029           4       279       108 madvise
+  0.37    0.000979           4       267       107 open
+  0.17    0.000440           3       168           munmap
+  0.00    0.000000           0       424           lseek
+  0.00    0.000000           0        52           getpid
+  0.00    0.000000           0        26           access
+  0.00    0.000000           0         1           pipe
+  0.00    0.000000           0       179           ioctl
+  0.00    0.000000           0        31           gettimeofday
+  0.00    0.000000           0         1           getpriority
+  0.00    0.000000           0         1           setpriority
+  0.00    0.000000           0         1           clone
+  0.00    0.000000           0       106           flock
+  0.00    0.000000           0       159           writev
+  0.00    0.000000           0         1           prctl
+  0.00    0.000000           0       161           mmap2
+  0.00    0.000000           0        53           stat64
+  0.00    0.000000           0        53           fstat64
+  0.00    0.000000           0         3           getuid32
+  0.00    0.000000           0       108           fcntl64
+  0.00    0.000000           0        53           gettid
+  0.00    0.000000           0         1           set_thread_area
+  0.00    0.000000           0         1           epoll_create
+  0.00    0.000000           0         1           epoll_ctl
+  0.00    0.000000           0         1           epoll_wait
+  0.00    0.000000           0       160           read
+  0.00    0.000000           0       163           close
 ------ ----------- ----------- --------- --------- ----------------
-100.00    0.000000                   368        16 total
+100.00    0.261578                  4344       218 total
