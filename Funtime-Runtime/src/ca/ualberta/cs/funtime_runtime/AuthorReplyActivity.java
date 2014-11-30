@@ -207,7 +207,12 @@ public class AuthorReplyActivity extends CustomActivity {
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
 	}
-	 
+		/**
+		 *  This part of the program simply  adds the location by  an alert dialog 
+		 * and then getting the current geolocation so that it can be displayed to the user
+		 * upon submission of the answer
+		 * @param v is the map button with an onClick listener
+		 */
 	 public void addLocation(View v){ 
 		 final View view = inflater.inflate(R.layout.geolocation_popup,(ViewGroup) findViewById(R.id.geolocation_dialog)); 
 		 final EditText locationEdit = (EditText) view.findViewById(R.id.editText_Location); 
@@ -226,7 +231,7 @@ public class AuthorReplyActivity extends CustomActivity {
 					 geoLocation.findLocation();
 					 hasLocation = true;
 					 String location = geoLocation.getLocation();
-					 Toast.makeText(getApplicationContext(), location, Toast.LENGTH_SHORT).show();
+					 //Toast.makeText(getApplicationContext(), location, Toast.LENGTH_SHORT).show();
 					 globalLocation = location;
 					 locationEdit.setText(location);	
 				} else {

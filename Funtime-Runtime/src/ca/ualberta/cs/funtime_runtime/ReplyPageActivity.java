@@ -203,7 +203,9 @@ public class ReplyPageActivity extends CustomActivity {
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
 	}
-	
+	/**
+	 * refreshes the listview so the most recent replies are visible.
+	 */
 	@Override
 	public void refresh() {
 		ApplicationState.refresh(this);
@@ -249,13 +251,17 @@ public class ReplyPageActivity extends CustomActivity {
 		}
 
 	}
-	
+	/**
+	 * sorts questions by date
+	 */
 	@Override
 	public void sortDate() {
 		replySorter.sortByDate();	
 		adapter.notifyDataSetChanged();
 	}
-	
+	/**
+	 * sorts questions by location
+	 */
 	@Override
 	public void sortLocation() {
 		replySorter.sortByLocation(this);

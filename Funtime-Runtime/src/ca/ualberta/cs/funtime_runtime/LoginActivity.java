@@ -22,7 +22,9 @@ import ca.ualberta.cs.funtime_runtime.classes.ApplicationState;
  *
  */
 public class LoginActivity extends CustomActivity {
-
+	/**
+	 * sets up the activity.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

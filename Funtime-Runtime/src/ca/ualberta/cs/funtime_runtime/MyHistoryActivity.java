@@ -105,7 +105,7 @@ public class MyHistoryActivity extends CustomActivity {
 	}
 
 	/**
-	 * Refreshes the adapter when the activity restarts
+	 * Refreshes the listview when the activity restarts
 	 * in case anything changed. 
 	 */
 	@Override
@@ -176,25 +176,34 @@ public class MyHistoryActivity extends CustomActivity {
 		getMenuInflater().inflate(R.menu.history, menu);
 		return true;
 	}
-	
+	/**
+	 * sorts questions by date
+	 */
 	@Override
 	public void sortDate() {
 		sorter.sortByDate();	
 		adapter.notifyDataSetChanged();
 	}
-	
+	/**
+	 * sorts questions by votes
+	 */
 	@Override
 	public void sortVotes() {
 		sorter.sortByVotes();
 		adapter.notifyDataSetChanged();
 	}
-	
+	/**
+	 * sorts questions by whether they have a photo or not 
+	 * 
+	 */
 	@Override
 	public void sortPhoto() {
 		sorter.sortByPhoto();
 		adapter.notifyDataSetChanged();
 	}
-	
+	/**
+	 * sorts questions by location
+	 */
 	@Override
 	public void sortLocation() {
 		sorter.sortByLocation(this);
