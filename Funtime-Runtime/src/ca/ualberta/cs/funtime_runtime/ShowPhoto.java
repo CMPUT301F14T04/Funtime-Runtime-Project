@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
 //http://nebula.wsimg.com/fd3fb0dbd502dd558787bbb2af6f3861?AccessKeyId=F951FDF451EBE1B34A66&disposition=0&alloworigin=1
+/**
+ * Class that is used to display the Photos of Questions or Answers
+ * @author bsmolley
+ *
+ */
 public class ShowPhoto extends Activity {
 	ImageView questionPhoto;
 	boolean hasPhoto = false;
@@ -14,29 +19,22 @@ public class ShowPhoto extends Activity {
 	byte[] photoByteArray;
 	Bitmap photoBitmap;
 
+	/**Display the photo, depending on what object is opened 
+	 * (Question/Answer)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_show_photo);
 		questionPhoto = (ImageView) findViewById(R.id.photoView);
-		//Intent intent = getIntent();
 		hasPhoto = getIntent().getExtras().getBoolean("hasPhoto?");
 		hasAnswerPhoto = getIntent().getExtras().getBoolean("hasAnswerPhoto?");
-		
-		//
-//		Answer answer = ApplicationState.getPassableAnswer();
-//		photoByteArray = answer.getPhoto();
-//		photoBitmap = BitmapFactory.decodeByteArray(photoByteArray, 0, photoByteArray.length);
-//		questionPhoto.setImageBitmap(photoBitmap);
-		
+	
 		if (hasPhoto == true){
 			photoByteArray = getIntent().getExtras().getByteArray("Photo");
 			photoBitmap = BitmapFactory.decodeByteArray(photoByteArray, 0, photoByteArray.length);
 			questionPhoto.setImageBitmap(photoBitmap);
 		} else if (hasAnswerPhoto == true){
-			//String answerId = getIntent().getExtras().getString("answerId");
-			//Answer answer = ApplicationState.getPassableAnswer();
-			//photoByteArray = answer.getPhoto();
 			photoByteArray = getIntent().getExtras().getByteArray("Photo");
 			photoBitmap = BitmapFactory.decodeByteArray(photoByteArray, 0, photoByteArray.length);
 			questionPhoto.setImageBitmap(photoBitmap);
