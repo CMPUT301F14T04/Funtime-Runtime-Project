@@ -82,9 +82,9 @@ public class HomeActivity extends CustomActivity {
 
 		Log.i("HomeActivity", "Sorted");
 		
-		Geolocation go = new Geolocation(this);
-		go.findLocation();
-		Toast.makeText(this, go.getLocation(), Toast.LENGTH_LONG).show();
+//		Geolocation go = new Geolocation(this);
+//		go.findLocation();
+//		Toast.makeText(this, go.getLocation(), Toast.LENGTH_LONG).show();
 		
 		account = ApplicationState.getAccount();
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter,
@@ -160,8 +160,10 @@ public class HomeActivity extends CustomActivity {
 			}
 		}
 	}
-
-
+	
+	/**
+	 * Refreshes the listview so that the most recent info is displayed.
+	 */
 	@Override
 	public void refresh() {
 		
@@ -206,25 +208,34 @@ public class HomeActivity extends CustomActivity {
 		return true;
 
 	}
-	
+	/**
+	 * sorts questions by date
+	 */
 	@Override
 	public void sortDate() {
 		sorter.sortByDate();	
 		adapter.notifyDataSetChanged();
 	}
-	
+	/**
+	 * sorts questions by votes
+	 */
 	@Override
 	public void sortVotes() {
 		sorter.sortByVotes();
 		adapter.notifyDataSetChanged();
 	}
+	/**
+	 * sorts questions by if they have a photot or not
+	 */
 	
 	@Override
 	public void sortPhoto() {
 		sorter.sortByPhoto();
 		adapter.notifyDataSetChanged();
 	}
-	
+	/**
+	 * sorts questions by location
+	 */
 	@Override
 	public void sortLocation() {
 		sorter.sortByLocation(this);

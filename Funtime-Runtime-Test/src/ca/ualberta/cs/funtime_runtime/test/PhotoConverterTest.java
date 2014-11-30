@@ -16,20 +16,21 @@ public class PhotoConverterTest extends ActivityInstrumentationTestCase2<AuthorQ
 		
 	}
 	
-	public void testhasPhoto() {
+	public void testQuestionhasPhoto() {
 		byte[] photo = new byte[10];
 		Question question = new Question("Test Question Title", "Test question body", "TestAuthorUsername");
 		question.setId(1111111111);
 		question.setPhoto(photo);
 		assertTrue(question.getPhotoStatus());
-		}
+	}
 	
-//	public void testAnswerhasPhoto() {
-//		byte[] photo = new byte[10];
-//		Answer answer = new Answer(null, "Test question body", "TestAuthorUsername");
-//
-//		assertTrue(answer.getPhotoStatus());
-//		}
-//	
+	public void testAnswerhasPhoto() {
+		byte[] photo = new byte[10];
+		int ansParentId = 111111111; 
+		Answer answer = new Answer(ansParentId, "Test question body", "TestAuthorUsername");
+		answer.setPhoto(photo);	
+		assertTrue(answer.getPhotoStatus());
+	}
+	
 	
 }

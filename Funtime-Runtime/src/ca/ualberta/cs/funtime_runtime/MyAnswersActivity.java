@@ -161,25 +161,34 @@ public class MyAnswersActivity extends CustomActivity {
 		getMenuInflater().inflate(R.menu.my_answers, menu);
 		return true;
 	}
-	
+	/**
+	 * sorts questions by date
+	 */
 	@Override
 	public void sortDate() {
 		sorter.sortByDate();	
 		adapter.notifyDataSetChanged();
 	}
-	
+	/**
+	 * sorts questions by votes
+	 */
 	@Override
 	public void sortVotes() {
 		sorter.sortByVotes();
 		adapter.notifyDataSetChanged();
 	}
-	
+	/**
+	 * sorts questions by photo
+	 */
 	@Override
 	public void sortPhoto() {
 		sorter.sortByPhoto();
 		adapter.notifyDataSetChanged();
 		
 	}
+	/**
+	 * sorts questions by location
+	 */
 	
 	@Override
 	public void sortLocation() {

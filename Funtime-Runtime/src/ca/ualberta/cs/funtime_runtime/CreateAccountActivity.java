@@ -27,7 +27,11 @@ public class CreateAccountActivity extends CustomActivity {
 	Random generator;
 	private static final int RANDOM_NUMBER_CAP = 100000000;
 	public int id;
-	
+	/**
+	 * Creates the view and prints out the onClick listeners
+	 * allows the user to enter their names and upload them to
+	 * the elasticsearch server. 
+	 */
 	protected void onCreate(Bundle savedInstanceState) 	{
 
 		super.onCreate(savedInstanceState);

@@ -35,7 +35,9 @@ public class SearchActivity extends CustomActivity {
 	Button searchButton;
 	ESQuestionManager questionManager;
 	QuestionSorter sorter;
-	
+	/**
+	 * sets up the activity
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

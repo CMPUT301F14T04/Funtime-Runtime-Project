@@ -38,7 +38,9 @@ public class MyFavouritesActivity extends CustomActivity {
 	QuestionListAdapter adapter;
 	Account account;
 	
-	
+	/**
+	 * sets up activity
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -164,25 +166,34 @@ public class MyFavouritesActivity extends CustomActivity {
 		getMenuInflater().inflate(R.menu.my_favourites, menu);
 		return true;
 	}
-	
+	/**
+	 * sorts questions by date
+	 */
 	@Override
 	public void sortDate() {
 		sorter.sortByDate();	
 		adapter.notifyDataSetChanged();
 	}
-	
+	/**
+	 * sorts questions by votes
+	 */
 	@Override
 	public void sortVotes() {
 		sorter.sortByVotes();
 		adapter.notifyDataSetChanged();
 	}
-	
+	/**
+	 * sorts questions by whether they have a photo or not 
+	 * 
+	 */
 	@Override
 	public void sortPhoto() {
 		sorter.sortByPhoto();
 		adapter.notifyDataSetChanged();
 	}
-	
+	/**
+	 * sorts questions by location
+	 */
 	@Override
 	public void sortLocation() {
 		sorter.sortByLocation(this);
