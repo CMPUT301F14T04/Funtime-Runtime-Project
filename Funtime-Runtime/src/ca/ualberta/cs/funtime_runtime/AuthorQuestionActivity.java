@@ -89,7 +89,10 @@ public class AuthorQuestionActivity extends CustomActivity {
 		setContentView(R.layout.activity_author_question);
 		setResources();
 	}
-	
+	/**
+	 * This method establishes all of the 
+	 * variables and assignments for the onCreate method
+	 */
 	private void setResources() {
 		ActionBar actionbar = getActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
@@ -159,6 +162,11 @@ public class AuthorQuestionActivity extends CustomActivity {
 		finish();
 		
 	}
+	/**
+	 * generates a unique id for the question so it can be stored on
+	 * elasticsearch server 
+	 * @param question
+	 */
 
 
 	private void generateId(Question question) {
@@ -168,14 +176,22 @@ public class AuthorQuestionActivity extends CustomActivity {
 		int id = generator.nextInt(RANDOM_NUMBER_CAP);
 		question.setId(id);
 	}
-	
+	/**
+	 * sends an intent to the gallary app to get a picture in return
+	 * @param v the ImageButton that looks like a camera
+	 */
 	public void choosePhoto(View v){
 		Intent  photoPickerIntent = new Intent(Intent.ACTION_PICK);
 		photoPickerIntent.setType("image/*");
 		startActivityForResult(photoPickerIntent, 1);
 	
 	}
-	
+	/**
+	 *  This part of the program simply  adds the location by  an alert dialog 
+	 * and then getting the current geolocation so that it can be displayed to the user
+	 * upon submission of the answer
+	 * @param v is the map button with an onClick listener
+	 */
 	public void addLocation(View v) {
 		final View view = inflater.inflate(R.layout.geolocation_popup,(ViewGroup) findViewById(R.id.geolocation_dialog)); 
 		final EditText locationEdit = (EditText) view.findViewById(R.id.editText_Location); 
@@ -222,7 +238,11 @@ public class AuthorQuestionActivity extends CustomActivity {
 		//http://www.thaicreate.com/mobile/android-popup-custom-layout-and-returning-values-from-dialog.html
 		//November 28 2014
 	}
-	
+	 /**
+	  * When the user returns from the gallary app they are directed towards this method where the 
+	  * photo bitmap is converted to a JPEG, compressed and stored in a byte array where it is 
+	  * uploaded with the question. 
+	  */
 	protected void onActivityResult(int requestCode, int resultCode,
 	        Intent intent) {
 	    super.onActivityResult(requestCode, resultCode, intent);
