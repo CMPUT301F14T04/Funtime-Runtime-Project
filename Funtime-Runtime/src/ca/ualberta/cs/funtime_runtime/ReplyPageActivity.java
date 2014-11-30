@@ -151,19 +151,6 @@ public class ReplyPageActivity extends CustomActivity {
 		
 	}
 	
-
-//	public void onResume() {
-//		super.onResume();
-//		
-//		if (replyType.equals("question")) {
-//			parentReply = question.getReplyCount();
-//		} else if (replyType.equals("answer")) {
-//			parentReply = answer.getReplyCount();
-//		}
-//		parentReplyText.setText("Replies " + "(" + parentReply + ")");
-//		adapter.notifyDataSetChanged();
-//	}
-	
 	public void onResume() {
 		super.onResume();
 
