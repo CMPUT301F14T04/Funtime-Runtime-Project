@@ -217,22 +217,37 @@ public class Question implements Serializable {
 		this.id=id;
 	}
 	
+	/**
+	 * Sets the questions photo data for the given photo
+	 * @param questionPhoto
+	 */
 	public void setPhoto(byte[] questionPhoto){
 		photo = questionPhoto;
 		hasPhoto = true;
 	}
 	
+	/**
+	 * Returns the photo data associated with the particular question
+	 * @return
+	 */
 	public byte[] getPhoto(){
 		return photo;
 	}
 	
+	/**
+	 * 
+	 * @param bool
+	 */
 	public void setHasPhoto(Boolean bool) {
 		hasPhoto = bool;
 	}
 	
+	/**
+	 * Returns a boolean that is set based on if the question has photo data
+	 * @return
+	 */
 	public Boolean getPhotoStatus(){
-		return hasPhoto;
-		
+		return hasPhoto;	
 	}
 	
 	/**
@@ -251,6 +266,11 @@ public class Question implements Serializable {
 		return location;
 	}
 	
+	/**
+	 * Checks if two question objects are equal based on the ID of the object,
+	 * useful for Elastic search comparisons due to how two objects that were 
+	 * the same can be treated as different objects
+	 */
     public boolean equals(Object obj) {
     	if (!(obj instanceof Question)) {
              return false;
@@ -259,6 +279,12 @@ public class Question implements Serializable {
     	return ( ((Integer) (other.getId()) ).equals( (Integer) (this.getId()) ));
     }
 
+    /**
+     * Checks to see if a provided ID is the same as an ID in a list
+     * of answers, returns the answer if found
+     * @param answerId
+     * @return
+     */
 	public Answer getAnswerById(int answerId)	{
 		for (Answer a: answerList) {
 			if (answerId == a.getId()) {
@@ -270,6 +296,10 @@ public class Question implements Serializable {
 		return bad;
 	}
 
+	/**
+	 * 
+	 * @param parentA
+	 */
 	public void updateAnswer(Answer parentA) {
 		Answer current = getAnswerById(parentA.getId());
 		answerList.remove(current);

@@ -9,9 +9,9 @@ import android.content.Context;
 
 
 /**
- * Class not implemented for this release
- * Will be implemented for part-4
- * @author Pranjali Pokharel
+ * This class is used to sort an Question List by various fields,
+ * it is primarily used for the Sort function on the app pages that
+ * allow for sorting.
  * @author Brandon Smolley
  *
  */
@@ -20,11 +20,19 @@ public class QuestionSorter {
 	private ArrayList<Question> sortList;
 	protected String sortType;
 	
+	/**
+	 * Upon creation of the sorter a list is initialized
+	 * @param sortList  list of questions to sort
+	 */
 	public QuestionSorter (ArrayList<Question> sortList) {
 		this.sortList = sortList;
 		sortType = "Date";
 	}
 
+	/**
+	 * Sorts the question list provided by the date of the object
+	 * @return sortList  sorted by Date
+	 */
 	public ArrayList<Question> sortByDate() {	
 		sortType = "Date";
 		Collections.sort(sortList, new Comparator<Question>() {
@@ -36,6 +44,10 @@ public class QuestionSorter {
 		return sortList;
 	}
 	
+	/**
+	 * Sorts the question list provided by the number of votes of the object
+	 * @return sortList  sorted by most votes
+	 */
 	public ArrayList<Question> sortByVotes() {
 		sortType = "Votes";
 		Collections.sort(sortList, new Comparator<Question>() {
@@ -58,6 +70,10 @@ public class QuestionSorter {
 	}
 	
 	// http://stackoverflow.com/questions/4805606/java-sort-problem-by-two-fields - Nov 25, 2014 - Richard H
+	/**
+	 * Sorts the list by whether or not they have photos
+	 * @return  sortList   sorted by if they have an attached photo
+	 */
 	public ArrayList<Question> sortByPhoto() {
 		sortType = "Photo";
 		Collections.sort(sortList, new Comparator<Question>() {
@@ -79,6 +95,12 @@ public class QuestionSorter {
 		return sortList;
 	}
 	
+	/**
+	 * Sorts the question list by location, prioritizing those close to
+	 * the users current location
+	 * @param context
+	 * @return sortList  sorted by location closest to current location
+	 */
 	public ArrayList<Question> sortByLocation(Context context) {
 		sortType = "Location";
 		
@@ -135,6 +157,10 @@ public class QuestionSorter {
 		
 	}
 
+	/**
+	 * Returns the type of the sort currently being used
+	 * @return
+	 */
 	public String getSortType() {
 		return sortType;
 	}

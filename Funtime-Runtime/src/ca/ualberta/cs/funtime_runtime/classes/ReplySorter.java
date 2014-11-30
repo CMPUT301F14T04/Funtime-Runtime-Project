@@ -7,15 +7,30 @@ import java.util.Date;
 
 import android.content.Context;
 
+/**
+ * This class is used to sort an Reply List by various fields,
+ * it is primarily used for the Sort function on the app pages that
+ * allow for sorting.
+ * @author Brandon Smolley
+ *
+ */
 public class ReplySorter {
 	private ArrayList<Reply> sortList;
 	protected String sortType;
 	
+	/**
+	 * Upon creation of the sorter a list is initialized
+	 * @param sortList  list of replies to sort
+	 */
 	public ReplySorter (ArrayList<Reply> sortList) {
 		this.sortList = sortList;
 		sortType = "Date";
 	}
 
+	/**
+	 * Sorts the reply list provided by the date of the object
+	 * @return sortList  sorted by Date
+	 */
 	public ArrayList<Reply> sortByDate() {	
 		sortType = "Date";
 		Collections.sort(sortList, new Comparator<Reply>() {
@@ -27,6 +42,12 @@ public class ReplySorter {
 		return sortList;
 	}
 	
+	/**
+	 * Sorts the reply list by location, prioritizing those close to
+	 * the users current location
+	 * @param context
+	 * @return sortList  sorted by location closest to current location
+	 */
 	public ArrayList<Reply> sortByLocation(Context context) {
 		
 		ArrayList<Reply> nearMeList = new ArrayList<Reply>();
