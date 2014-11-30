@@ -12,7 +12,7 @@
     <string name="sort_location">Location</string>
 
     <!-- Home/Browse Questions Strings -->
-    <string name="title_activity_home">Funtime-Runtime</string>
+    <string name="title_activity_home">Funtime Forum</string>
     <string name="ask_question_button_text">Ask Question</string>
     <string name="home_rating_text">Rating: </string>
     <string name="home_answer_text">Answers: </string>
