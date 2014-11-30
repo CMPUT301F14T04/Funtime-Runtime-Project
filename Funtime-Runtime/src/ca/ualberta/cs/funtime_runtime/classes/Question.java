@@ -29,7 +29,6 @@ public class Question implements Serializable {
 	public ArrayList<Answer> answerList;
 	public ArrayList<Reply> replyList;
 	private int rating;
-	//private  Bitmap photoBitmap;
 	private byte[] photo = null;
 	private Boolean hasPhoto = false;
 	private String location = "N/A";
@@ -48,7 +47,6 @@ public class Question implements Serializable {
 		this.title = title;
 		this.body = body;
 		this.username = username;
-		//photoBitmap = null;
 		date = new Date();
 		rating = 0;
 		answerList = new ArrayList<Answer>();
@@ -168,9 +166,7 @@ public class Question implements Serializable {
 	 * @param reply
 	 */
 	public void addReply(Reply reply) {
-		//Question question = ApplicationState.getPassableQuestion();
 		replyList.add(reply);
-		//ApplicationState.updateServerQuestion(question);
 	}
 	
 	

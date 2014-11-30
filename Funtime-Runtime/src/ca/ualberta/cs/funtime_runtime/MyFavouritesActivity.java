@@ -69,8 +69,6 @@ public class MyFavouritesActivity extends CustomActivity {
 		// Write code to convert ids to question, populate favorites list
 		
 		// Set up adapter for list
-		//ArrayList<Question> favouritesList = new ArrayList<Question>();
-		//favouritesList = myFavouritesList;
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter, myFavouritesList);
 		favouritesListView.setAdapter(adapter);	
 		sorter = new QuestionSorter(myFavouritesList);

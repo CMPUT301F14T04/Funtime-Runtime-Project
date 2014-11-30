@@ -100,7 +100,6 @@ public class ESAccountManager {
 			
 			SearchResponse<Account> esResponse = parseSearchResponse(response);
 			Hits<Account> hits = esResponse.getHits();
-			//Log.i("Acutal hits", ""+hits.getTotal());
 			
 			if (hits != null) {
 				if (hits.getHits() != null) {
@@ -146,9 +145,7 @@ public class ESAccountManager {
 	 */
 	
 	public void deleteAccount(Account account) 	{
-		// TODO Auto-generated method stub
-		//SAME AS ABOVE NEED --decrement Id
-		//ALSO CHECK RESOURSE URL AND SEARCH URL
+
 		
 		HttpClient httpClient = new DefaultHttpClient();
 
@@ -173,7 +170,7 @@ public class ESAccountManager {
 	 */
 	private HttpPost createSearchRequest(String searchString, String field)	throws UnsupportedEncodingException {
 		
-		// TODO HTTP POST NEED TO HAVE A SEARCH URL TO IT NOT JUST URL. 
+		
 		HttpPost searchRequest = new HttpPost(SEARCH_URL);
 
 		String[] fields = null;
@@ -185,7 +182,7 @@ public class ESAccountManager {
 		SimpleSearchCommand command = new SimpleSearchCommand(searchString,	fields);
 		
 		String query = command.getJsonCommand();
-		//String query = command.getAll();
+		
 		Log.i(TAG, "Json command: " + query);
 
 		StringEntity stringEntity;

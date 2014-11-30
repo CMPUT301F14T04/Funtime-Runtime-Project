@@ -131,7 +131,6 @@ public class AuthorReplyActivity extends CustomActivity {
 	 */
 	 public void addReply(View v) { 
 		if (ApplicationState.isLoggedIn()) {
-//			Reply reply = new Reply(typeReply.getText().toString(), username.toString());
 	
 			Reply reply;
 			
@@ -165,7 +164,6 @@ public class AuthorReplyActivity extends CustomActivity {
 					ApplicationState.addOfflineQuestionReply(reply, getApplicationContext());
 				}
 				
-			//} else if (replyType.equals("answer")){
 			} else {
 				answer = ApplicationState.getPassableAnswer();
 				
@@ -188,18 +186,12 @@ public class AuthorReplyActivity extends CustomActivity {
 				} else {
 					ApplicationState.addOfflineAnswerReply(reply, getApplicationContext());
 				}
-				//question = ApplicationState.getPassableQuestion();
 				ApplicationState.setPassableAnswer(answer);
 			}
 			
 
 			
 			ApplicationState.cacheQuestion(question, this);
-			//ApplicationState.setPassableQuestion(question);
-			
-//			ApplicationState.updateServerQuestion(question);
-//			Thread updateThread = new UpdateQuestionThread(question);
-//			updateThread.start();
 			
 			finish();		
 		} else {
@@ -231,7 +223,6 @@ public class AuthorReplyActivity extends CustomActivity {
 					 geoLocation.findLocation();
 					 hasLocation = true;
 					 String location = geoLocation.getLocation();
-					 //Toast.makeText(getApplicationContext(), location, Toast.LENGTH_SHORT).show();
 					 globalLocation = location;
 					 locationEdit.setText(location);	
 				} else {
@@ -239,7 +230,7 @@ public class AuthorReplyActivity extends CustomActivity {
 				 }
 			 }
 		 });
-//		 
+		 
 		 popDialog.setNegativeButton("Attach Location" , new DialogInterface.OnClickListener() {
 			 
 			 @Override
@@ -252,11 +243,10 @@ public class AuthorReplyActivity extends CustomActivity {
 				 dialog.dismiss();
 			 }
 		});
-//		 
+		 
 		 popDialog.create();
 		 popDialog.show();
 		 
-		 //Toast.makeText(this, globalLocation, Toast.LENGTH_LONG).show();
 		
 //		 //http://www.thaicreate.com/mobile/android-popup-custom-layout-and-returning-values-from-dialog.html
 //		 //November 28 2014
