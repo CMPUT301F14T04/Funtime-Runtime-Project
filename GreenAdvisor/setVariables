@@ -1,4 +1,4 @@
 adbPath = /usr/local/share/android-sdk-linux/platform-tools/adb
-gitDir = /cshome/deborsi/lonelyTwitter/
-appCodeDir = /cshome/deborsi/lonelyTwitter/lonelyTwitter/
-testCodeDir = /cshome/deborsi/lonelyTwitter/lonelyTwitterTests/
+gitDir = /cshome/cherfan/Funtime-Runtime-Project/
+appCodeDir = /cshome/cherfan/Funtime-Runtime-Project/Funtime-Runtime
+testCodeDir = /cshome/cherfan/Funtime-Runtime-Project/Funtime-Runtime-Test
