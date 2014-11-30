@@ -49,8 +49,7 @@ public class ApplicationState extends Application {
 	*/
 	private static Question passableQuestion;
 	private static Answer passableAnswer;
-	
-	// TODO pull accountList from server
+
 	private static ArrayList<Account> accountList = new ArrayList<Account>();
 	private static boolean loggedIn = false;
 	
@@ -75,127 +74,201 @@ public class ApplicationState extends Application {
 	private static ESAccountManager accountManager = new ESAccountManager();
 	private static SaveManager saveManager = new SaveManager();
 	
+	/**
+	 * Run on startup of the application. 
+	 * Loads user's locally saved data and pushes any data authored offline to the server.
+	 * 
+	 * @param context	The context of the current activity.
+	 */
 	public static void startup(Context context) {
-
-//		saveManager = new SaveManager();
-//		questionList = new ArrayList<Question>();
-//		questionManager = new ESQuestionManager();
-//		accountManager = new ESAccountManager();
-		
-		loadCachedQuestions(context);
-		loadOfflineData(context);
-		
-		if ( (ApplicationState.isOnline(context)) ) {
-			pushOfflineQuestions(context);
-			loadServerQuestions(context);
-			syncCachedQuestions(context);
-			pushOfflineData(context);
-		} else {
-			setCachedQuestions(context);
-		}
-
-		checkLogin(context);
-		
+		//Refresh application state
+		refresh(context);
 		firstLaunch = false;
-		
-	
+		if ( isLoggedIn() ) {
+			Toast.makeText(context, "Logged in as " + account.getName(), Toast.LENGTH_LONG).show();
+		}
 	}
 	
+	/**
+	 * Refreshes the application data. Depending on connectivity,
+	 * this function will set the question data for the application
+	 * to the most recent data from the server, or from the user's
+	 * locally cached data.
+	 * 
+	 * Pushes any data authored offline once the user reconnects.
+	 * 
+	 * @param context	The context of the current activity.
+	 */
 	public static void refresh(Context context) {
-		
-//		updateAccount(context);
+		//Load the user's cached data
 		loadCachedQuestions(context);
-		
 		loadOfflineData(context);
-		
 		if ( (ApplicationState.isOnline(context)) ) {
+			// If the user is online, push any questions authored while offline
 			pushOfflineQuestions(context);
+			// Load the latest question data from the server
 			loadServerQuestions(context);
-			syncCachedQuestions(context);
+			// Push any data authored while offline
 			pushOfflineData(context);
+			// Sync the cache to the latest server data
+			syncCachedQuestions(context);
 		} else {
+			// If the user is offline, set the question data to the user's cached data
 			setCachedQuestions(context);
 		}
-		
+		// Update the user account information
+		checkLogin(context);
 		updateAccount(context);
-		
 	}
 	
+	/**
+	 * @return firstLaunch 	Whether this is the first launch of the application.
+	 */
 	public static boolean isFirstLaunch() {
 		return firstLaunch;
 	}
 	
-	public static void loadServerQuestions(Context context) {
-		Thread loadThread = new SearchQuestionThread("*");
-		//Thread loadThread = new LoadHomeThread("*", homeQuestionList, adapter);
-		loadThread.start();	
-		
-		try {
-			loadThread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+	/**
+	 * @return		a boolean value indicating whether an account is logged in or not
+	 */
+	public static boolean isLoggedIn() {
+		return loggedIn;
+	}
+
+	/**
+	 * @param context		The context of the current activity.
+	 * @return				A boolean indicating whether the device is connected to a network.
+	 */
+	public static boolean isOnline(Context context) {
+		// Adapted from http://stackoverflow.com/questions/2789612/how-can-i-check-whether-an-android-device-is-connected-to-the-web - 2014-11-21
+		ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+		if (netInfo == null) {
+		    // There are no active networks.
+			lastKnownNetworkStatus = false;
+			return false;
 		}
+		lastKnownNetworkStatus = true;
+		return netInfo.isConnected();
 	}
-	
-	public static void loadCachedQuestions(Context context) {
-		Object obj;
-		try {
-			obj = saveManager.load(CACHEDQUESTIONS, context);
-			if (obj != null) {
-				cachedQuestions = (ArrayList<Question>) obj;
-			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+	/**
+	 * @return		A message indicating the user must be logged in to user the selected feature.
+	 */
+	public static String notLoggedIn() {
+		String msg = "Please Login or Create an Account"; 
+		return msg;	
 	}
-	
-	public static void setCachedQuestions(Context context) {
-		Toast.makeText(context, "Loaded Chached Questions", Toast.LENGTH_LONG).show();
-		questionList = cachedQuestions;
+
+	/**
+	 * @return		The last known connectivity status
+	 */
+	public static boolean lastKnownOnlineStatus() {
+		return lastKnownNetworkStatus;
 	}
-	
-	public static void syncCachedQuestions(Context context) {
-		ArrayList<Question> newCache = new ArrayList<Question>();
-		for (Question cacheQuestion: cachedQuestions) {
-			Question q = ApplicationState.getQuestionById(cacheQuestion.getId());
-			if ( !(q.getTitle().equals("INVALID QUID")) ) {
-				newCache.add(q);
-			}
-		}
-		cachedQuestions.clear();
-		cachedQuestions.addAll(newCache);
-		saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
+
+	/**
+	 * Set a question to be passed between activities
+	 * @param question		a question to be passed between activities
+	 */
+	public static void setPassableQuestion(Question question) {
+		passableQuestion = question;
 	}
-	
-	public static void loadServerAccounts() {
-		if (lastKnownOnlineStatus()) {
-			Thread accountThread = new SearchAccountThread("*");
-			accountThread.start();
-			try {
-				accountThread.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		
+
+	/**
+	 * @return		the question that has been set before starting a new activity
+	 */
+	public static Question getPassableQuestion() {
+		return passableQuestion;
 	}
-	
+
+	/**
+	 * Set an answer to be passed between activities
+	 * @param answer		an answer to be passed between activities
+	 */
+	public static void setPassableAnswer(Answer answer) {
+		passableAnswer = answer;
+	}
+
+	/**
+	 * @return		the answer that has been set before starting a new activity
+	 */
+	public static Answer getPassableAnswer() {
+		return passableAnswer;
+	}
+
+	/**
+	 * @return		return the master list of questions
+	 */
+	public static ArrayList<Question> getQuestionList(Context context) {
+		refresh(context);
+		return questionList;
+	}
+
+	/**
+	 * @return		the currently logged in account
+	 */
+	public static Account getAccount() {
+		return account;
+	}
+
+	/**
+	 * @return		the list of all registered accounts
+	 */
+	public static ArrayList<Account> getAccountList() {
+		loadServerAccounts();
+		return accountList;
+	}
+
+	/**
+	 * Adds an account to the list of registered accounts
+	 * 
+	 * @param newAccount	an account to be added to registered accounts
+	 */
+	public static void addAccount(Account newAccount) {
+		accountList.add(newAccount);
+	}
+
+	/**
+	 * Sets the currently logged in account
+	 * 
+	 * @param newAccount	an account to be logged in
+	 */
+	public static void setAccount(Account newAccount, Context ctx) {
+		saveManager.save(USERACCOUNT, newAccount.getName(), ctx);
+		saveManager.save(CACHEDACCOUNT, newAccount, ctx);
+		account = newAccount;
+		loggedIn = true;
+	}
+
+	/**
+	 * Check whether the user is logged in. The user's account data
+	 * will be saved locally after logging in, but they are required
+	 * to be online to initially log in or create an account.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
 	private static void checkLogin(Context context) {
+		//Check if the user is online.
 		Object nameObj;
 		Object accObj;
 		if ( (ApplicationState.isOnline(context)) ) {
+			// If the user is online, load account from server
 			try {
+				// Load the locally saved account information
 				nameObj = saveManager.load(USERACCOUNT, context);
 				accObj = saveManager.load(CACHEDACCOUNT, context);
-				
+				// If the user has previously logged in
 				if (nameObj != null) {
+					// Load accounts from the server
 					loadServerAccounts();
 					String name = (String) nameObj;
 					for (Account a: accountList) {
+						// Check each account against the saved information
 						String aName = a.getName();
 						if (name.equals(aName)) {
 							if (accObj != null) {
+								// Account found
 								Account account = (Account) accObj;
 								a = account;
 								setAccount(account, context);
@@ -208,10 +281,11 @@ public class ApplicationState extends Application {
 					}
 				}
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+				// Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
+			// The user is offline, load account data from device.
 			try {
 				accObj = saveManager.load(CACHEDACCOUNT, context);
 				if (accObj != null) {
@@ -219,283 +293,80 @@ public class ApplicationState extends Application {
 					setAccount(account, context);
 				}
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+				// Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
-	
-	public static void loadBySearch(String search) {
-//		if (lastKnownOnlineStatus()) {
-			ApplicationState.questionList.clear();
-			ApplicationState.questionList.addAll(questionManager.searchQuestions(search, null));	
-//		}
-	}
-	
-	public static void loadAccounts(String search) {
-//		if (lastKnownOnlineStatus()) {
-			ApplicationState.accountList.clear();
-			ApplicationState.accountList.addAll(accountManager.searchAccounts(search, null));	
-//		}
-	}
-	
-	public static void loadOfflineData(Context context) {
-		loadOfflineQuestions(context);
-		loadOfflineAnswers(context);
-		loadOfflineQuestionReplies(context);
-		loadOfflineAnswerReplies(context);
-		loadOfflineQuestionUpvotes(context);
-		loadOfflineQuestionDownvotes(context);
-		loadOfflineAnswerUpvotes(context);
-		loadOfflineAnswerDownvotes(context);
-	}
-	
-	public static void pushOfflineData(Context context) {
 
-		//pushOfflineQuestions(context);
-		pushOfflineAnswers(context);
-		pushOfflineQuestionReplies(context);
-		pushOfflineAnswerReplies(context);
-		pushOfflineQuestionUpvotes(context);
-		pushOfflineQuestionDownvotes(context);
-		pushOfflineAnswerUpvotes(context);
-		pushOfflineAnswerDownvotes(context);
+	/**
+	 * Loads the account data from the server.
+	 */
+	public static void loadServerAccounts() {
+		if (lastKnownOnlineStatus()) {
+			Thread accountThread = new SearchAccountThread("*");
+			accountThread.start();
+			try {
+				accountThread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
-	
-	public static void pushOfflineQuestions(Context context) {
-//		while ( !(offlineQuestions.isEmpty()) ) {
-//			addServerQuestions(offlineQuestions.remove(0), context);
-//		}
-		Log.i("Offline Push", "offline push, elements: " + offlineQuestions.size());
-		for (int i = 0; i < offlineQuestions.size(); i++) {
-			addServerQuestions(offlineQuestions.get(i), context);
-		}
-		offlineQuestions.clear();
-		saveManager.save(OFFLINEQUESTIONS, offlineQuestions, context);
-		Log.i("Offline Push", "offline push done");
 
-	}
-
-	public static void pushOfflineAnswers(Context context) {
-		for (int i = 0; i < offlineAnswers.size(); i++) {
-			Answer a = offlineAnswers.get(i);
-			Integer parentQId = a.getParentQuestionId();
-			Question parentQ = ApplicationState.getQuestionById(parentQId);
-			Log.i("PushOfflineQuestionReply", "got guestion " + parentQ.getTitle());
-			Log.i("PushOfflineQuestionReply", "ID: " + parentQ.getId());
-			//if parentQ.getTitle()
-			parentQ.addAnswer(a);
-			updateServerQuestion(parentQ);
+	/**
+	 * Loads the latest questions from the server
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void loadServerQuestions(Context context) {
+		Thread loadThread = new SearchQuestionThread("*");
+		//Thread loadThread = new LoadHomeThread("*", homeQuestionList, adapter);
+		loadThread.start();	
+		
+		try {
+			loadThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-		offlineAnswers.clear();
-		saveManager.save(OFFLINEANSWERS, offlineAnswers, context);
-
 	}
 	
-	public static void pushOfflineQuestionReplies(Context context) {
-		for (int i = 0; i < offlineQuestionReplies.size(); i++) {
-			Reply r = offlineQuestionReplies.get(i);
-			Integer parentQId = r.getParentQuestionId();
-			Question parentQ = ApplicationState.getQuestionById(parentQId);
-			Log.i("PushOfflineQuestionReply", "got guestion " + parentQ.getTitle());
-			Log.i("PushOfflineQuestionReply", "ID: " + parentQ.getId());
-			parentQ.addReply(r);
-			updateServerQuestion(parentQ);
-			Log.i("PushOfflineQuestionReply", "updated server question " + parentQ.getTitle());
+	/**
+	 * Loads the questions saved on the user's device.
+	 * 
+	 * @param context 		The context of the current activity.
+	 */
+	public static void loadCachedQuestions(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(CACHEDQUESTIONS, context);
+			if (obj != null) {
+				cachedQuestions = (ArrayList<Question>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			// Auto-generated catch block
+			e.printStackTrace();
 		}
-		offlineQuestionReplies.clear();
-		saveManager.save(OFFLINEQUESTIONREPLIES, offlineQuestionReplies, context);
-
-	}
-	
-	public static void pushOfflineAnswerReplies(Context context) {
-		Log.i("PushOfflineAnswerReplies", "Replies to push: " + offlineAnswerReplies.size());
-		for (int i = 0; i < offlineAnswerReplies.size(); i++) {
-			Reply r = offlineAnswerReplies.get(i);
-			Integer parentQId = r.getParentQuestionId();
-			Question parentQ = ApplicationState.getQuestionById(parentQId);
-			Log.i("PushOfflineAnswerReplies", "got guestion " + parentQ.getTitle());
-			Log.i("PushOfflineAnswerReplies", "ID: " + parentQ.getId());
-			Integer parentAId = r.getParentAnswerId();
-			Answer parentA = parentQ.getAnswerById(parentAId);
-			Log.i("PushOfflineAnswerReplies", "got answer " + parentA.getBody());
-			Log.i("PushOfflineAnswerRepliesS", "ID: " + parentA.getId());
-			parentA.addReply(r);
-			//parentQ.updateAnswer(parentA);
-			updateServerQuestion(parentQ);
-		}
-		offlineAnswerReplies.clear();
-		saveManager.save(OFFLINEANSWERREPLIES, offlineAnswerReplies, context);
-
-	}
-	
-	public static void pushOfflineQuestionUpvotes(Context context) {
-		for (int i = 0; i < offlineQuestionUpvotes.size(); i++) {	
-			Question q = getQuestionById(offlineQuestionUpvotes.get(i));
-			Log.i("PushOfflineQuestionUpvotes", "got guestion " + q.getTitle());
-			Log.i("PushOfflineQuestionUpvotes", "ID: " + q.getId());
-			q.upVote();
-			ApplicationState.updateServerQuestion(q);
-		}
-		offlineQuestionUpvotes.clear();
-		saveManager.save(OFFLINEQUESTIONUPVOTES, offlineQuestionUpvotes, context);
-
-	}
-	
-	public static void pushOfflineQuestionDownvotes(Context context) {
-		for (int i = 0; i < offlineQuestionDownvotes.size(); i++) {
-			Question q = getQuestionById(offlineQuestionDownvotes.get(i));
-			Log.i("PushOfflineQuestionDownvotes", "got guestion " + q.getTitle());
-			Log.i("PushOfflineQuestionDownvotes", "ID: " + q.getId());
-			q.downVote();
-			ApplicationState.updateServerQuestion(q);
-		}
-		offlineQuestionDownvotes.clear();
-		saveManager.save(OFFLINEQUESTIONDOWNVOTES, offlineQuestionDownvotes, context);
-	}
-	
-	public static void pushOfflineAnswerUpvotes(Context context) {
-		for (int i = 0; i < offlineAnswerUpvotes.size(); i++) {
-			Question parentQ = getQuestionById(offlineAnswerUpvotes.get(i).getParentQuestionId());
-			Log.i("PushOfflineAnswerUpvotes", "got guestion " + parentQ.getTitle());
-			Log.i("PushOfflineAnswerUpvotes", "ID: " + parentQ.getId());
-			Answer a = parentQ.getAnswerById(offlineAnswerUpvotes.get(i).getAnswerId());
-			a.upVote();
-			ApplicationState.updateServerQuestion(parentQ);
-		}
-		offlineAnswerUpvotes.clear();
-		saveManager.save(OFFLINEANSWERUPVOTES, offlineAnswerUpvotes, context);
-	}
-	
-	public static void pushOfflineAnswerDownvotes(Context context) {
-		for (int i = 0; i < offlineAnswerDownvotes.size(); i++) {
-			Question parentQ = getQuestionById(offlineAnswerDownvotes.get(i).getParentQuestionId());
-			Answer a = parentQ.getAnswerById(offlineAnswerDownvotes.get(i).getAnswerId());
-			Log.i("PushOfflineQuestionDownvotes", "got guestion " + parentQ.getTitle());
-			Log.i("PushOfflineQuestionDownvotes", "ID: " + parentQ.getId());
-			a.downVote();
-			ApplicationState.updateServerQuestion(parentQ);
-		}
-		offlineAnswerDownvotes.clear();
-		saveManager.save(OFFLINEANSWERDOWNVOTES, offlineAnswerDownvotes, context);
-	}
-	
-	
-	/**
-	 * Sets the currently logged in account
-	 * @param newAccount	an account to be logged in
-	 */
-	public static void setAccount(Account newAccount, Context ctx) {
-		saveManager.save(USERACCOUNT, newAccount.getName(), ctx);
-		saveManager.save(CACHEDACCOUNT, newAccount, ctx);
-		Toast.makeText(ctx, "Logged in as " + newAccount.getName(), Toast.LENGTH_LONG).show();
-		account = newAccount;
-		loggedIn = true;
 	}
 	
 	/**
-	 * @return		a boolean value indicating whether an account is logged in or not
+	 * Sets the question data to the user's cached questions for
+	 * offline browsing.
+	 * 
+	 * @param context		The context of the current activity.
 	 */
-	public static boolean isLoggedIn() {
-		return loggedIn;
-	}
-	
-	public static boolean isOnline(Context ctx) {
-		// Adapted from http://stackoverflow.com/questions/2789612/how-can-i-check-whether-an-android-device-is-connected-to-the-web - 2014-11-21
-		ConnectivityManager connManager = (ConnectivityManager) ctx.getSystemService(ctx.CONNECTIVITY_SERVICE);
-		NetworkInfo netInfo = connManager.getActiveNetworkInfo();
-		if (netInfo == null) {
-		    // There are no active networks.
-			lastKnownNetworkStatus = false;
-			return false;
-		}
-		lastKnownNetworkStatus = true;
-		return netInfo.isConnected();
-	}
-	
-	public static boolean lastKnownOnlineStatus() {
-		// Adapted from http://stackoverflow.com/questions/2789612/how-can-i-check-whether-an-android-device-is-connected-to-the-web - 2014-11-21
-		return lastKnownNetworkStatus;
-	}
-	
-	
-	
-	/**
-	 * @return		the currently logged in account
-	 */
-	public static Account getAccount() {
-		return account;
+	public static void setCachedQuestions(Context context) {
+		questionList = cachedQuestions;
 	}
 	
 	/**
-	 * @return		the list of all registered accounts
+	 * Adds a question to the server if their is internet connectivity,
+	 * or 
+	 * 
+	 * @param question		A question to be added to the server
+	 * @param context		The context of the current activity.
 	 */
-	public static ArrayList<Account> getAccountList() {
-		// TODO pull updated list from server before returning
-		loadServerAccounts();
-		return accountList;
-	}
-	
-	/**
-	 * Adds an account to the list of registered accounts
-	 * @param newAccount	an account to be added to registered accounts
-	 */
-	public static void addAccount(Account newAccount) {
-		//TODO pull updated list from server before adding
-		accountList.add(newAccount);
-		//TODO save new account to server
-	}
-	
-	/**
-	 * Set a question to be passed between activities
-	 * @param question		a question to be passed between activities
-	 */
-	public static void setPassableQuestion(Question question) {
-		passableQuestion = question;
-	}
-	
-	/**
-	 * @return		the question that has been set before starting a new activity
-	 */
-	public static Question getPassableQuestion() {
-		return passableQuestion;
-	}
-	
-	/**
-	 * Set an answer to be passed between activities
-	 * @param answer		an answer to be passed between activities
-	 */
-	public static void setPassableAnswer(Answer answer) {
-		passableAnswer = answer;
-	}
-	
-	/**
-	 * @return		the answer that has been set before starting a new activity
-	 */
-	public static Answer getPassableAnswer() {
-		return passableAnswer;
-	}
-	
-	/**
-	 * @return		return the master list of questions
-	 */
-	public static ArrayList<Question> getQuestionList(Context context) {
-		//TODO grab the master question list from the sever before returning
-		refresh(context);
-		return questionList;
-	}
-	
-	public static String notLoggedIn() {
-		String msg = "Please Login or Create an Account"; 
-		return msg;	
-	}
-	
-	public static String notFunctional() {
-		String msg = "Please Login to use";
-		return msg;
-	}
-	
 	public static void addServerQuestions(Question question, Context context) {
 		if ( (ApplicationState.isOnline(context)) ) {
 			Thread addThread = new AddQuestionThread(question, context);
@@ -514,103 +385,10 @@ public class ApplicationState extends Application {
 		}
 		
 	}
-	
-	public static void loadOfflineQuestions(Context context) {
-		Object obj;
-		try {
-			obj = saveManager.load(OFFLINEQUESTIONS, context);
-			if (obj != null) {
-				offlineQuestions = (ArrayList<Question>) obj;
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void loadOfflineAnswers(Context context) {
-		Object obj;
-		try {
-			obj = saveManager.load(OFFLINEANSWERS, context);
-			if (obj != null) {
-				offlineAnswers = (ArrayList<Answer>) obj;
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void loadOfflineQuestionReplies(Context context) {
-		Object obj;
-		try {
-			obj = saveManager.load(OFFLINEQUESTIONREPLIES, context);
-			if (obj != null) {
-				offlineQuestionReplies = (ArrayList<Reply>) obj;
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void loadOfflineAnswerReplies(Context context) {
-		Object obj;
-		try {
-			obj = saveManager.load(OFFLINEANSWERREPLIES, context);
-			if (obj != null) {
-				offlineAnswerReplies = (ArrayList<Reply>) obj;
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void loadOfflineQuestionUpvotes(Context context) {
-		Object obj;
-		try {
-			obj = saveManager.load(OFFLINEQUESTIONUPVOTES, context);
-			if (obj != null) {
-				offlineQuestionUpvotes = (ArrayList<Integer>) obj;
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void loadOfflineQuestionDownvotes(Context context) {
-		Object obj;
-		try {
-			obj = saveManager.load(OFFLINEQUESTIONDOWNVOTES, context);
-			if (obj != null) {
-				offlineQuestionDownvotes = (ArrayList<Integer>) obj;
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void loadOfflineAnswerUpvotes(Context context) {
-		Object obj;
-		try {
-			obj = saveManager.load(OFFLINEANSWERUPVOTES, context);
-			if (obj != null) {
-				offlineAnswerUpvotes = (ArrayList<OfflineAnswer>) obj;
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void loadOfflineAnswerDownvotes(Context context) {
-		Object obj;
-		try {
-			obj = saveManager.load(OFFLINEANSWERDOWNVOTES, context);
-			if (obj != null) {
-				offlineAnswerDownvotes = (ArrayList<OfflineAnswer>) obj;
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
+
+	/**
+	 * @param question		A question to update on the server.
+	 */
 	public static void updateServerQuestion(Question question) {
 		Thread updateThread = new UpdateQuestionThread(question);
 		updateThread.start();
@@ -620,7 +398,10 @@ public class ApplicationState extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * @param account		An account to add to the server.
+	 */
 	public static void addServerAccount(Account account) {
 		Thread accountThread = new AddAccountThread(account);
 		accountThread.start();
@@ -631,12 +412,14 @@ public class ApplicationState extends Application {
 		}
 		
 	}
-	
+
+	/**
+	 * Update the user's account locally and on the server.
+	 * 
+	 * @param context			The context of the current activity.
+	 */
 	public static void updateAccount(Context context) {
-		// TODO Add checks for online vs offline
 		saveManager.save(CACHEDACCOUNT, account, context);
-		
-		
 		if ( (ApplicationState.isOnline(context)) ) {
 			Log.i("OnlinePass", "Online check passed");
 			UpdateAccountThread accountThread = new UpdateAccountThread(account);
@@ -647,27 +430,35 @@ public class ApplicationState extends Application {
 				e.printStackTrace();
 			}
 		}
-		
-	}
-	
-	public static void searchQuery(String query, ArrayList<Question> list, QuestionListAdapter adapter, Activity act) {
-		if (lastKnownOnlineStatus()) {
-			Thread thread = new SearchActivityThread(query, list, adapter, act);
-			thread.start();
-			try {
-				thread.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
+	/**
+	 * Syncs the user's cached questions to the most recent data on
+	 * the server.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void syncCachedQuestions(Context context) {
+		ArrayList<Question> newCache = new ArrayList<Question>();
+		for (Question cacheQuestion: cachedQuestions) {
+			Question q = ApplicationState.getQuestionById(cacheQuestion.getId());
+			if ( !(q.getTitle().equals("INVALID QUID")) ) {
+				newCache.add(q);
+			}
+		}
+		cachedQuestions.clear();
+		cachedQuestions.addAll(newCache);
+		saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
+	}
+	
+	/**
+	 * @param question		A question to add to the cache.
+	 * @param context		The context of the current activity.
+	 */
 	public static void cacheQuestion(Question question, Context context) {
 		loadCachedQuestions(context);
 		if ( !(cachedQuestions.contains(question) ) ) {
 			cachedQuestions.add(question);
-			//saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
-			Toast.makeText(context, "Cached " + question.getTitle(), Toast.LENGTH_LONG).show();
 		} 
 		else {
 			try {
@@ -684,6 +475,11 @@ public class ApplicationState extends Application {
 		saveManager.save(CACHEDQUESTIONS, cachedQuestions, context);
 	}
 
+	/**
+	 * @param question		A question to refresh locally from newest server data.
+	 * @param context		The context of the current activity.
+	 * @return				The updated question.
+	 */
 	public static Question refreshQuestion(Question question, Context context) {
 		ArrayList<Question> newestQuestions = getQuestionList(context);
 		for (Question q: newestQuestions) {
@@ -693,22 +489,12 @@ public class ApplicationState extends Application {
 		}
 		return question;
 	}
-	
-	public static Question getQuestionById(Integer qId) {
-		for (Question q: questionList) {
-			Log.i("GetQById", "Comparing " + qId + " to " + q.getId());
-			if (qId.equals(q.getId())) {
-				return q;
-			}
-		}
-		/*
-		Question bad = new Question("INVALID QID", "", "");
-		bad.setId(qId);
-		return bad;
-		*/
-		return questionList.get(0);
-	}
-	
+
+	/**
+	 * @param question		An answer to refresh locally from newest server data.
+	 * @param context		The context of the current activity.
+	 * @return				The updated answer.
+	 */
 	public static Answer refreshAnswer(Answer answer, Context context) {
 		Integer parentID = answer.getParentQuestionId();
 		Question parentQuestion = ApplicationState.getQuestionById(parentID);
@@ -722,30 +508,99 @@ public class ApplicationState extends Application {
 		return answer;
 	}
 
+	/**
+	 * Searches for a question by ID.
+	 * 
+	 * @param qId		The Id of the question to search for.
+	 * @return			The question with the matching Id.
+	 */
+	public static Question getQuestionById(Integer qId) {
+		for (Question q: questionList) {
+			Log.i("GetQById", "Comparing " + qId + " to " + q.getId());
+			if (qId.equals(q.getId())) {
+				return q;
+			}
+		}
+		return questionList.get(0);
+	}
+
+	/**
+	 * Load server questions by a search string.
+	 * 
+	 * @param search		A value to search for.
+	 */
+	public static void loadBySearch(String search) {
+		ApplicationState.questionList.clear();
+		ApplicationState.questionList.addAll(questionManager.searchQuestions(search, null));	
+	}
+	
+	/**
+	 * Load accounts from the server by a search value.
+	 * 
+	 * @param search		A value to search for.
+	 */
+	public static void loadAccounts(String search) {
+		ApplicationState.accountList.clear();
+		ApplicationState.accountList.addAll(accountManager.searchAccounts(search, null));	
+	}
+	
+	/**
+	 * Called by search activity when the search button is clicked, begins a search of the 
+	 * elastic search server for questions and answer that match or contain
+	 * the given query.	
+	 */
+	public static void searchQuery(String query, ArrayList<Question> list, QuestionListAdapter adapter, Activity act) {
+		if (lastKnownOnlineStatus()) {
+			Thread thread = new SearchActivityThread(query, list, adapter, act);
+			thread.start();
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * @param offA			An answer to be pushed to the server upon reconnection.
+	 * @param context		The context of the current activity.
+	 * @param question		A question to refresh locally from newest server data.
+	 */
 	public static void addOfflineAnswer(Answer offA, Context context) {
 		if ( !(offlineAnswers.contains(offA)) ) {
 			offlineAnswers.add(offA);
 		}
 		saveManager.save(OFFLINEANSWERS, offlineAnswers, context);
 	}
-	
+
+	/**
+	 * @param offR			A question reply to be pushed to the server upon reconnection.
+	 * @param context		The context of the current activity.
+	 */
 	public static void addOfflineQuestionReply(Reply offR, Context context) {
 		if ( !(offlineQuestionReplies.contains(offR)) ) {
 			offlineQuestionReplies.add(offR);
 		}
 		saveManager.save(OFFLINEQUESTIONREPLIES, offlineQuestionReplies, context);
 	}
-	
+
+	/**
+	 * @param offR			An answer reply to be pushed to the server upon reconnection.
+	 * @param context		The context of the current activity.
+	 */
 	public static void addOfflineAnswerReply(Reply offR, Context context) {
 		if ( !(offlineAnswerReplies.contains(offR)) ) {
 			offlineAnswerReplies.add(offR);
 		}
 		saveManager.save(OFFLINEANSWERREPLIES, offlineAnswerReplies, context);
 	}
-	
+
+	/**
+	 * @param id			The id of a question to be upvoted upon reconnection to the server.
+	 * @param context		The context of the current activity.
+	 */
 	public static void addOfflineQuestionUpvote(Integer id, Context context) {
 		if ( !(offlineQuestionUpvotes.contains(id)) ) {
-			Toast.makeText(context, "added to offline upvotes", Toast.LENGTH_LONG).show();
 			offlineQuestionUpvotes.add(id);
 		}
 		saveManager.save(OFFLINEQUESTIONUPVOTES, offlineQuestionUpvotes, context);
@@ -754,7 +609,12 @@ public class ApplicationState extends Application {
 			offlineQuestionDownvotes.remove( (Integer) id );
 			saveManager.save(OFFLINEQUESTIONDOWNVOTES, offlineQuestionDownvotes, context);
 		}
-	}	
+	}
+
+	/**
+	 * @param id			The id of a question to be downvoted upon reconnection to the server.
+	 * @param context		The context of the current activity.
+	 */
 	public static void addOfflineQuestionDownvote(Integer id, Context context) {
 		if ( !(offlineQuestionDownvotes.contains(id)) ) {
 			offlineQuestionDownvotes.add(id);
@@ -766,6 +626,11 @@ public class ApplicationState extends Application {
 			saveManager.save(OFFLINEQUESTIONUPVOTES, offlineQuestionUpvotes, context);
 		}
 	}
+
+	/**
+	 * @param offA			A custom class for an answer to be upvoted upon reconnection to the server.
+	 * @param context		The context of the current activity.
+	 */
 	public static void addOfflineAnswerUpvote(OfflineAnswer offA, Context context) {
 		if ( !(offlineAnswerUpvotes.contains(offA)) ) {
 			offlineAnswerUpvotes.add(offA);
@@ -777,6 +642,11 @@ public class ApplicationState extends Application {
 			saveManager.save(OFFLINEANSWERDOWNVOTES, offlineAnswerDownvotes, context);
 		}
 	}
+
+	/**
+	 * @param offA			A custom class for an answer to be downvoted upon reconnection to the server.
+	 * @param context		The context of the current activity.
+	 */
 	public static void addOfflineAnswerDownvote(OfflineAnswer offA, Context context) {
 		if ( !(offlineAnswerDownvotes.contains(offA)) ) {
 			offlineAnswerDownvotes.add(offA);
@@ -787,6 +657,306 @@ public class ApplicationState extends Application {
 			offlineAnswerUpvotes.remove(offA);
 			saveManager.save(OFFLINEANSWERUPVOTES, offlineAnswerUpvotes, context);
 		}
+	}
+
+	/**
+	 * Load the questions that were authored while the user did not have network connection.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void loadOfflineData(Context context) {
+		loadOfflineQuestions(context);
+		loadOfflineAnswers(context);
+		loadOfflineQuestionReplies(context);
+		loadOfflineAnswerReplies(context);
+		loadOfflineQuestionUpvotes(context);
+		loadOfflineQuestionDownvotes(context);
+		loadOfflineAnswerUpvotes(context);
+		loadOfflineAnswerDownvotes(context);
+	}
+	
+	/**
+	 * Load the questions that were authored while the user did not have network connection.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void loadOfflineQuestions(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEQUESTIONS, context);
+			if (obj != null) {
+				offlineQuestions = (ArrayList<Question>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Load the answers that were authored while the user did not have network connection.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void loadOfflineAnswers(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEANSWERS, context);
+			if (obj != null) {
+				offlineAnswers = (ArrayList<Answer>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Load the question replies that were authored while the user did not have network connection.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void loadOfflineQuestionReplies(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEQUESTIONREPLIES, context);
+			if (obj != null) {
+				offlineQuestionReplies = (ArrayList<Reply>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Load the answer replies that were authored while the user did not have network connection.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void loadOfflineAnswerReplies(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEANSWERREPLIES, context);
+			if (obj != null) {
+				offlineAnswerReplies = (ArrayList<Reply>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Load the questions that were upvoted while the user did not have network connection.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void loadOfflineQuestionUpvotes(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEQUESTIONUPVOTES, context);
+			if (obj != null) {
+				offlineQuestionUpvotes = (ArrayList<Integer>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Load the questions that were downvoted while the user did not have network connection.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void loadOfflineQuestionDownvotes(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEQUESTIONDOWNVOTES, context);
+			if (obj != null) {
+				offlineQuestionDownvotes = (ArrayList<Integer>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Load the answers that were upvoted while the user did not have network connection.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void loadOfflineAnswerUpvotes(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEANSWERUPVOTES, context);
+			if (obj != null) {
+				offlineAnswerUpvotes = (ArrayList<OfflineAnswer>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Load the answers that were downvoted while the user did not have network connection.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void loadOfflineAnswerDownvotes(Context context) {
+		Object obj;
+		try {
+			obj = saveManager.load(OFFLINEANSWERDOWNVOTES, context);
+			if (obj != null) {
+				offlineAnswerDownvotes = (ArrayList<OfflineAnswer>) obj;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Update the server questions with data from the user's device.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void pushOfflineData(Context context) {
+		pushOfflineAnswers(context);
+		pushOfflineQuestionReplies(context);
+		pushOfflineAnswerReplies(context);
+		pushOfflineQuestionUpvotes(context);
+		pushOfflineQuestionDownvotes(context);
+		pushOfflineAnswerUpvotes(context);
+		pushOfflineAnswerDownvotes(context);
+	}
+	
+	/**
+	 * Push questions authored while offline to the server.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void pushOfflineQuestions(Context context) {
+		for (int i = 0; i < offlineQuestions.size(); i++) {
+			addServerQuestions(offlineQuestions.get(i), context);
+		}
+		offlineQuestions.clear();
+		saveManager.save(OFFLINEQUESTIONS, offlineQuestions, context);
+	}
+
+	/**
+	 * Push answers authored while offline to the server.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void pushOfflineAnswers(Context context) {
+		for (int i = 0; i < offlineAnswers.size(); i++) {
+			Answer a = offlineAnswers.get(i);
+			Integer parentQId = a.getParentQuestionId();
+			Question parentQ = ApplicationState.getQuestionById(parentQId);
+			parentQ.addAnswer(a);
+			updateServerQuestion(parentQ);
+		}
+		offlineAnswers.clear();
+		saveManager.save(OFFLINEANSWERS, offlineAnswers, context);
+
+	}
+	
+	/**
+	 * Push question replies authored while offline to the server.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void pushOfflineQuestionReplies(Context context) {
+		for (int i = 0; i < offlineQuestionReplies.size(); i++) {
+			Reply r = offlineQuestionReplies.get(i);
+			Integer parentQId = r.getParentQuestionId();
+			Question parentQ = ApplicationState.getQuestionById(parentQId);
+			parentQ.addReply(r);
+			updateServerQuestion(parentQ);
+		}
+		offlineQuestionReplies.clear();
+		saveManager.save(OFFLINEQUESTIONREPLIES, offlineQuestionReplies, context);
+
+	}
+	
+	/**
+	 * Push answer replies authored while offline to the server.
+	 * 
+	 * @param context
+	 */
+	public static void pushOfflineAnswerReplies(Context context) {
+		Log.i("PushOfflineAnswerReplies", "Replies to push: " + offlineAnswerReplies.size());
+		for (int i = 0; i < offlineAnswerReplies.size(); i++) {
+			Reply r = offlineAnswerReplies.get(i);
+			Integer parentQId = r.getParentQuestionId();
+			Question parentQ = ApplicationState.getQuestionById(parentQId);
+			Integer parentAId = r.getParentAnswerId();
+			Answer parentA = parentQ.getAnswerById(parentAId);
+			parentA.addReply(r);
+			updateServerQuestion(parentQ);
+		}
+		offlineAnswerReplies.clear();
+		saveManager.save(OFFLINEANSWERREPLIES, offlineAnswerReplies, context);
+
+	}
+	
+	/**
+	 * Upvote questions the user upvoted while offline.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void pushOfflineQuestionUpvotes(Context context) {
+		for (int i = 0; i < offlineQuestionUpvotes.size(); i++) {	
+			Question q = getQuestionById(offlineQuestionUpvotes.get(i));
+			q.upVote();
+			ApplicationState.updateServerQuestion(q);
+		}
+		offlineQuestionUpvotes.clear();
+		saveManager.save(OFFLINEQUESTIONUPVOTES, offlineQuestionUpvotes, context);
+
+	}
+	
+	/**
+	 * Downvote questions the user downvoted while offline.
+	 * 
+	 * @param context	The context of the current activity.
+	 */
+	public static void pushOfflineQuestionDownvotes(Context context) {
+		for (int i = 0; i < offlineQuestionDownvotes.size(); i++) {
+			Question q = getQuestionById(offlineQuestionDownvotes.get(i));
+			q.downVote();
+			ApplicationState.updateServerQuestion(q);
+		}
+		offlineQuestionDownvotes.clear();
+		saveManager.save(OFFLINEQUESTIONDOWNVOTES, offlineQuestionDownvotes, context);
+	}
+	
+	/**
+	 * Upvote answers the user upvoted while offline.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void pushOfflineAnswerUpvotes(Context context) {
+		for (int i = 0; i < offlineAnswerUpvotes.size(); i++) {
+			Question parentQ = getQuestionById(offlineAnswerUpvotes.get(i).getParentQuestionId());
+			Answer a = parentQ.getAnswerById(offlineAnswerUpvotes.get(i).getAnswerId());
+			a.upVote();
+			ApplicationState.updateServerQuestion(parentQ);
+		}
+		offlineAnswerUpvotes.clear();
+		saveManager.save(OFFLINEANSWERUPVOTES, offlineAnswerUpvotes, context);
+	}
+	
+	/**
+	 * Downvote answers the user downvoted while offline.
+	 * 
+	 * @param context		The context of the current activity.
+	 */
+	public static void pushOfflineAnswerDownvotes(Context context) {
+		for (int i = 0; i < offlineAnswerDownvotes.size(); i++) {
+			Question parentQ = getQuestionById(offlineAnswerDownvotes.get(i).getParentQuestionId());
+			Answer a = parentQ.getAnswerById(offlineAnswerDownvotes.get(i).getAnswerId());
+			a.downVote();
+			ApplicationState.updateServerQuestion(parentQ);
+		}
+		offlineAnswerDownvotes.clear();
+		saveManager.save(OFFLINEANSWERDOWNVOTES, offlineAnswerDownvotes, context);
 	}
 	
 }

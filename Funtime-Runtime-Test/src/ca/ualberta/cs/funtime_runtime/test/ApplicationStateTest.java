@@ -12,7 +12,7 @@ public class ApplicationStateTest extends ActivityInstrumentationTestCase2<HomeA
 	
 	public ApplicationStateTest() {
 		super(HomeActivity.class);
-	}
+	}		
 	
 	public void testLogin() {
 		assertFalse(ApplicationState.isLoggedIn());

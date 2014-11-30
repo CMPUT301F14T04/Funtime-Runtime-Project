@@ -10,15 +10,20 @@ import android.content.Context;
 
 
 /**
+ * Handles local saving and loading.
  * 
- * 
- * 
- * 
- * @author pranjali
+ * @author Benjamin Holmwood
  *
  */
 public class SaveManager {
 
+	/**
+	 * Saves an object to the device.
+	 * 
+	 * @param FILENAME		The name of the file to save to.
+	 * @param object		The object to save.
+	 * @param ctx			The context of the current activity.
+	 */
 	public void save(String FILENAME, Object object, Context ctx) {
 		FileOutputStream fos;
 		ObjectOutputStream os;
@@ -33,16 +38,21 @@ public class SaveManager {
 		}
 	}
 		
+	/**
+	 * Loads an object from the device.
+	 * 
+	 * @param FILENAME		The name of the file to save to.
+	 * @param object		The object to save.
+	 * @param ctx			The context of the current activity.
+	 */
 	public Object load(String FILENAME, Context ctx) throws ClassNotFoundException {
 		
 		ObjectInputStream ois = null;
 		Object loadedObject = null;
-		
 		try {
 			FileInputStream fis = ctx.openFileInput(FILENAME);
 			ois = new ObjectInputStream(fis);
 			loadedObject = ois.readObject();
-		    
 		    try {
 		        if(ois != null) {
 		        	//Toast.makeText(ctx, "loaded", Toast.LENGTH_LONG).show();
@@ -52,15 +62,10 @@ public class SaveManager {
 		    	e.printStackTrace();
 		    }
 		} 
-		
 		catch (IOException e) {
 			// Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
 		return loadedObject;
 	}
-	
 }

@@ -189,7 +189,7 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 						answerRating.setTextColor(Color.parseColor("#e77619"));
 					}
 				} else {
-					String msg = ApplicationState.notFunctional();
+					String msg = "Please Login to use";
 					Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
 				}
 
