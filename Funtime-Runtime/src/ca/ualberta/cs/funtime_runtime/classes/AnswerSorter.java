@@ -7,14 +7,30 @@ import java.util.Date;
 
 import android.content.Context;
 
+/**
+ * This class is used to sort an Answer List by various fields,
+ * it is primarily used for the Sort function on the app pages that
+ * allow for sorting.
+ * @author bsmolley
+ *
+ */
+
 public class AnswerSorter {
 
 	ArrayList<Answer> answerList;
 	
+	/**
+	 * Upon creation of the sorter a list is initialized
+	 * @param answerList
+	 */
 	public AnswerSorter(ArrayList<Answer> answerList) {
 		this.answerList = answerList;
 	}
 	
+	/**
+	 * Sorts the answer list provided by the date of the object
+	 * @return answerList  sorted by Date
+	 */
 	public ArrayList<Answer> sortByDate() {	
 		Collections.sort(answerList, new Comparator<Answer>() {
 			  public int compare(Answer a1, Answer a2) {
@@ -25,6 +41,10 @@ public class AnswerSorter {
 		return answerList;
 	}
 	
+	/**
+	 * Sorts the answer list provided by the number of votes of the object
+	 * @return answerList  sorted by most votes
+	 */
 	public ArrayList<Answer> sortByVotes() {
 		Collections.sort(answerList, new Comparator<Answer>() {
 			  public int compare(Answer a1, Answer a2) {
@@ -45,6 +65,10 @@ public class AnswerSorter {
 		return answerList;
 	}
 	
+	/**
+	 * Sorts the list by whether or not they have photos
+	 * @return  answerList   sorted by if they have an attached photo
+	 */
 	public ArrayList<Answer> sortByPhoto() {
 		Collections.sort(answerList, new Comparator<Answer>() {
 			  public int compare(Answer a1, Answer a2) {
@@ -65,6 +89,13 @@ public class AnswerSorter {
 		return answerList;
 	}
 	
+	
+	/**
+	 * Sorts the answer list by location, prioritizing those close to
+	 * the users current location
+	 * @param context
+	 * @return answerList  sorted by location closest to current location
+	 */
 	public ArrayList<Answer> sortByLocation(Context context) {
 		
 		ArrayList<Answer> nearMeList = new ArrayList<Answer>();

@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import ca.ualberta.cs.funtime_runtime.classes.Question;
 import ca.ualberta.cs.funtime_runtime.elastic.ESQuestionManager;
-
+/**
+ * Thread used to add a question created locally to the server
+ * @author bsmolley
+ *
+ */
 public class AddQuestionThread extends Thread {
 	
 	private Activity activity;
@@ -16,6 +20,10 @@ public class AddQuestionThread extends Thread {
 		this.activity = (Activity) context;
 	}
 
+	/**
+	 * Run the thread to add a server question, used the ESQuestionManager 
+	 * to add the question
+	 */
 	@Override
 	public void run() {
 		manager.addQuestion(question);

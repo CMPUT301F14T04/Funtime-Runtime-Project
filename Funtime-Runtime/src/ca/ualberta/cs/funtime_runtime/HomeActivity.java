@@ -82,9 +82,9 @@ public class HomeActivity extends CustomActivity {
 
 		Log.i("HomeActivity", "Sorted");
 		
-		Geolocation go = new Geolocation(this);
-		go.findLocation();
-		Toast.makeText(this, go.getLocation(), Toast.LENGTH_LONG).show();
+//		Geolocation go = new Geolocation(this);
+//		go.findLocation();
+//		Toast.makeText(this, go.getLocation(), Toast.LENGTH_LONG).show();
 		
 		account = ApplicationState.getAccount();
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter,

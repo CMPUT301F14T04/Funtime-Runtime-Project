@@ -23,14 +23,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * not implemented yet-- Saved for Part-4
- * NEED TO HAVE SEARCH AND RESOURSE URLS need two not ONE
- * 
- * 
- * TODO Implement same methods for answers or create a new class for answer search
- * TODO check the search URL and resource URL-- probably will need two urls for this to work
- * TODO test this class to make sure elastic search works for account
- * TODO write method that returns a list of all accounts, to populate home page
+ * Class used to manage the elastic search accounts and the local account
  * 
  * @see createSearchRequest
  * @author Pranjali Pokharel
@@ -47,12 +40,22 @@ public class ESAccountManager {
 		gson = new Gson();
 	}
 	
-	
+	/**
+	 * Called to update the contents of the account on the server to match
+	 * the local data
+	 * @param account
+	 */
 	public void updateAccount(Account account) {
 		deleteAccount(account);
 		addAccount(account);
 	}
 
+	/**
+	 * Call this method to retrieve and account from the server with
+	 * a particular ID
+	 * @param id
+	 * @return
+	 */
 	public Account getAccount(int id) {
 		
 		HttpClient httpClient = new DefaultHttpClient();
@@ -115,7 +118,7 @@ public class ESAccountManager {
 	
 	
 	/**
-	 * Adds a new account
+	 * Adds a new account to the server
 	 */
 	public void addAccount(Account account) {	
 		
