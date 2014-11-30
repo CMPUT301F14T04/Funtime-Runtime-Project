@@ -25,16 +25,6 @@ public class Account implements Serializable {
 	
 	private String username;
 	
-	/*
-	private ArrayList<Question> favourites;
-	private ArrayList<Question> answeredList;
-	private ArrayList<Question> questionList;
-	private ArrayList<Question> readingList;
-	private ArrayList<Question> history;
-	private ArrayList<Question> upvotedQuestions;
-	private ArrayList<Answer> upvotedAnswers;
-	*/
-	
 	private ArrayList<Integer> favourites;
 	private ArrayList<Integer> answeredList;
 	private ArrayList<Integer> questionList;
@@ -243,10 +233,7 @@ public class Account implements Serializable {
 			ApplicationState.updateServerQuestion(q);
 		} else {
 			ApplicationState.addOfflineQuestionUpvote(q.getId(), context);
-			//ApplicationState.cacheQuestion(question, context);
-			//ApplicationState.syncCachedQuestions(context);
 		}
-		//ApplicationState.cacheQuestion(question, context);
 		ApplicationState.updateAccount(context);
 	}
 	
@@ -267,9 +254,7 @@ public class Account implements Serializable {
 			ApplicationState.updateServerQuestion(q);
 		} else {
 			ApplicationState.addOfflineQuestionDownvote(q.getId(), context);
-			//ApplicationState.cacheQuestion(q, context);
 		}
-		//ApplicationState.cacheQuestion(question, context);
 		ApplicationState.updateAccount(context);
 	}
 	
@@ -285,9 +270,7 @@ public class Account implements Serializable {
 	 * @param answer	an answer the user has upvoted
 	 */
 	public void upvoteAnswer(Answer answer, Context context) {
-//		answer = ApplicationState.refreshAnswer(answer, context);
-		
-		
+	
 		Answer a;
 		if ( (ApplicationState.isOnline(context)) ) {
 			a = ApplicationState.refreshAnswer(answer, context);
@@ -296,15 +279,11 @@ public class Account implements Serializable {
 		}
 		a.upVote();
 		upvotedAnswers.add( (Integer) a.getId() );
-		//q.upVote();
 		if ( (ApplicationState.isOnline(context)) ) {
 			ApplicationState.updateServerQuestion(ApplicationState.getQuestionById(a.getParentQuestionId()));
 		} else {
 			ApplicationState.addOfflineAnswerUpvote(new OfflineAnswer(a.getId(), a.getParentQuestionId()), context);
-			//ApplicationState.cacheQuestion(question, this);
-			//ApplicationState.syncCachedQuestions(context);
 		}
-		//ApplicationState.cacheQuestion(ApplicationState.getQuestionById(answer.getParentQuestionId()), context);
 		ApplicationState.updateAccount(context);
 		
 	}
@@ -322,14 +301,12 @@ public class Account implements Serializable {
 		}
 		a.downVote();
 		upvotedAnswers.remove( (Integer) a.getId() );
-		//q.upVote();
 		if ( (ApplicationState.isOnline(context)) ) {
 			ApplicationState.updateServerQuestion(ApplicationState.getQuestionById(a.getParentQuestionId()));
 		} else {
 			ApplicationState.addOfflineQuestionUpvote(a.getId(), context);
 			ApplicationState.syncCachedQuestions(context);
 		}
-		//ApplicationState.cacheQuestion(ApplicationState.getQuestionById(answer.getParentQuestionId()), context);
 		ApplicationState.updateAccount(context);
 	}
 	

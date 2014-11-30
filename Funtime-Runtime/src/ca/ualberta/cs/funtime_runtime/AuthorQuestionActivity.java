@@ -210,7 +210,6 @@ public class AuthorQuestionActivity extends CustomActivity {
 					geoLocation.findLocation();
 					hasLocation = true;
 					String location = geoLocation.getLocation();
-					//Toast.makeText(getApplicationContext(), location, Toast.LENGTH_SHORT).show();
 					globalLocation = location;
 					locationEdit.setText(location);	
 				} else {

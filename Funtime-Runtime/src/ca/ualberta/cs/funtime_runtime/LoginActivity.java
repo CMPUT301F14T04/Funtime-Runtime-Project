@@ -68,7 +68,6 @@ public class LoginActivity extends CustomActivity {
 	                	if (accountExists) {
 	                		// Login the user and return to previous screen
 	                		ApplicationState.setAccount(account, ctx);
-	                		//Toast.makeText(ctx, "Logged in as " + account.getName(), Toast.LENGTH_LONG).show();
 	                		finish();
 	                	} else {
 	                		// Notify the user that there is no existing account with that username.
