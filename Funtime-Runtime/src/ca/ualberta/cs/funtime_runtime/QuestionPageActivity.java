@@ -339,7 +339,7 @@ public class QuestionPageActivity extends CustomActivity {
 			}
 			ApplicationState.updateAccount(this);
 		} else {
-			String msg = ApplicationState.notFunctional();
+			String msg = "Please Login to use";
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
 	}
@@ -414,7 +414,7 @@ public class QuestionPageActivity extends CustomActivity {
 			questionUpvote.setText(Integer.toString(rating));
 			ApplicationState.updateAccount(this);
 		} else {
-			String msg = ApplicationState.notFunctional();
+			String msg = "Please Login to use";
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
 		
@@ -439,7 +439,7 @@ public class QuestionPageActivity extends CustomActivity {
 			}
 			ApplicationState.updateAccount(this);
 		} else {
-			String msg = ApplicationState.notFunctional();
+			String msg = "Please Login to use";
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
 	}

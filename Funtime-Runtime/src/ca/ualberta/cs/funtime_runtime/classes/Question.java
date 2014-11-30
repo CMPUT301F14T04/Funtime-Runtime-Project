@@ -297,13 +297,14 @@ public class Question implements Serializable {
 	}
 
 	/**
+	 * Refreshes the answer.
 	 * 
-	 * @param parentA
+	 * @param answer		The answer to be refreshed.
 	 */
-	public void updateAnswer(Answer parentA) {
-		Answer current = getAnswerById(parentA.getId());
+	public void updateAnswer(Answer answer) {
+		Answer current = getAnswerById(answer.getId());
 		answerList.remove(current);
-		answerList.add(parentA);
+		answerList.add(answer);
 	}
 	
 }
