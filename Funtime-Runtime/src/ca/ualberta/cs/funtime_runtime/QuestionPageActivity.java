@@ -281,7 +281,10 @@ public class QuestionPageActivity extends CustomActivity {
 		ApplicationState.updateAccount(this);
 
 	}
-	
+	/**
+	 * Refreshes the listview when the activity restarts
+	 * in case anything changed. 
+	 */
 	@Override
 	public void refresh() {
 		ApplicationState.refresh(this);
@@ -442,19 +445,26 @@ public class QuestionPageActivity extends CustomActivity {
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 		}
 	}
-	
+	/**
+	 * sorts questions by date
+	 */
 	@Override
 	public void sortDate() {
 		sorter.sortByDate();	
 		adapter.notifyDataSetChanged();
 	}
-	
+	/**
+	 * sorts questions by votes
+	 */
 	@Override
 	public void sortVotes() {
 		sorter.sortByVotes();
 		adapter.notifyDataSetChanged();
 	}
-	
+	/**
+	 * sorts questions by whether they have a photo or not 
+	 * 
+	 */
 	@Override
 	public void sortPhoto() {
 		sorter.sortByPhoto();

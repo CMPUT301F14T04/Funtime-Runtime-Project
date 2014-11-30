@@ -105,7 +105,7 @@ public class MyHistoryActivity extends CustomActivity {
 	}
 
 	/**
-	 * Refreshes the adapter when the activity restarts
+	 * Refreshes the listview when the activity restarts
 	 * in case anything changed. 
 	 */
 	@Override
