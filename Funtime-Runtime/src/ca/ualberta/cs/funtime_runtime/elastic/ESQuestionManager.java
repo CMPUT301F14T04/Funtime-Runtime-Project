@@ -23,14 +23,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * not implemented yet-- Saved for Part-4
- * NEED TO HAVE SEARCH AND RESOURSE URLS need two not ONE
- * 
- * 
- * TODO Implement same methods for answers or create a new class for answer search
- * TODO check the search URL and resource URL-- probably will need two urls for this to work
- * TODO test this class to make sure elastic search works for question
- * TODO write method that returns a list of all questions, to populate home page
+ * Class used to manage the server questions and the local questions 
  * 
  * @see createSearchRequest
  * @author Pranjali Pokharel
@@ -47,13 +40,18 @@ public class ESQuestionManager implements IQuestionManager {
 		gson = new Gson();
 	}
 	
-	
+	/**
+	 * Used to update the server question upon changing of the question
+	 * @param question
+	 */
 	public void updateQuestion(Question question) {
 		deleteQuestion(question.getId());
 		addQuestion(question);
 	}
 	
-	
+	/**
+	 * Given an ID, search for the question
+	 */
 	@Override
 	public Question getQuestion(int id) {
 		
@@ -199,6 +197,11 @@ public class ESQuestionManager implements IQuestionManager {
 		return searchRequest;
 	}
 	
+	/**
+	 * Used to map the Gson object into a Question object 
+	 * @param response
+	 * @return
+	 */
 	private SearchHit<Question> parseQuestionHit(HttpResponse response) {
 		
 		try {

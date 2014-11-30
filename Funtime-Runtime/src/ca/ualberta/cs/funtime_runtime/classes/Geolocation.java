@@ -12,20 +12,28 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-
+/**
+ * Geolocation is used for locating the current postion of the user
+ * @author bsmolley
+ *
+ */
 public class Geolocation implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8995370689907474524L;
-	public String addressString;
+	public String addressString;	
+	protected Context mContext;
 	
-	Context mContext;
 	public Geolocation(Context mContext){
 		this.mContext = mContext;
 	}
 	String context = Context.LOCATION_SERVICE;
 			
+	/**
+	 * Locations listener is used to find the last known location of the user 
+	 * via the phones built in GPS.
+	 */
 	private final LocationListener ll = new LocationListener() {
 		
 		@Override
@@ -47,6 +55,11 @@ public class Geolocation implements Serializable {
 		}
 	};
 	
+	/**
+	 * Using the last known location listener this method converts the GPS coordinates into
+	 * strings for City, Postal Code, Country, etc. Used for grabbing useful location
+	 * information to display.
+	 */
 	public void findLocation(){
 		
 		LocationManager lm = (LocationManager)mContext.getSystemService(context);
@@ -77,6 +90,10 @@ public class Geolocation implements Serializable {
 		}
 	}
 	
+	/**
+	 * Return the string made after calling findLocation()
+	 * @return addressString  
+	 */
 	public String getLocation() {
 		return addressString;
 		

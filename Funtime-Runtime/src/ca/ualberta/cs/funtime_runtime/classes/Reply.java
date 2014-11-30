@@ -82,10 +82,18 @@ public class Reply implements Serializable {
 		return id;
 	}
 	
+	/**
+	 * Returns the ID of the parent question to this reply
+	 * @return
+	 */
 	public int getParentQuestionId() {
 		return parentQuestionId;
 	}
 	
+	/**
+	 * Returns the ID of the parent answer to this reply
+	 * @return
+	 */
 	public int getParentAnswerId() {
 		return parentAnswerId;
 	}

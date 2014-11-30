@@ -10,9 +10,9 @@ import android.content.Context;
 
 
 /**
- * Class not implemented.
  * 
- * Used ApplicationState Class instead--For now
+ * 
+ * 
  * 
  * @author pranjali
  *
