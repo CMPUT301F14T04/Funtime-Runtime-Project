@@ -155,24 +155,34 @@ public class MyQuestionsActivity extends CustomActivity {
 		getMenuInflater().inflate(R.menu.my_questions, menu);
 		return true;
 	}
-	
+	/**
+	 * sorts questions by date
+	 */
 	@Override
 	public void sortDate() {
 		sorter.sortByDate();	
 		adapter.notifyDataSetChanged();
 	}
-	
+	/**
+	 * sorts questions by votes
+	 */
 	@Override
 	public void sortVotes() {
 		sorter.sortByVotes();
 		adapter.notifyDataSetChanged();
 	}
-	
+	/**
+	 * sorts questions by whether they have a photo or not 
+	 * 
+	 */
 	@Override
 	public void sortPhoto() {
 		sorter.sortByPhoto();
 		adapter.notifyDataSetChanged();	
 	}
+	/**
+	 * sorts questions by location
+	 */
 	
 	@Override
 	public void sortLocation() {
