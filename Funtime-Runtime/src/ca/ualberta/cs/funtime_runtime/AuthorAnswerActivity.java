@@ -163,19 +163,6 @@ public class AuthorAnswerActivity extends CustomActivity {
 			
 			ApplicationState.cacheQuestion(question, this);
 			ApplicationState.setPassableQuestion(question);
-
-//			ApplicationState.updateServerQuestion(question);
-//			ApplicationState.updateAccount();
-//			Thread updateThread = new UpdateQuestionThread(question);
-//			updateThread.start();
-//			try {
-//				updateThread.join();
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-	
-			//userAnsweredIdList.add(0,question.getId());
-			//TODO save account
 		
 			finish();
 		 } else {
@@ -219,7 +206,6 @@ public class AuthorAnswerActivity extends CustomActivity {
 					 geoLocation.findLocation();
 					 hasLocation = true;
 					 String location = geoLocation.getLocation();
-					 //Toast.makeText(getApplicationContext(), location, Toast.LENGTH_SHORT).show();
 					 globalLocation = location;
 					 locationEdit.setText(location);	
 					 } else {
@@ -265,7 +251,6 @@ public class AuthorAnswerActivity extends CustomActivity {
 		                photoBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
 		                int byteCount = photoBitmap.getByteCount();
 		                if (byteCount > 0){
-		                	//photoButton.setColorFilter(CAMERA_COLOR);
 		                	Context context = getApplicationContext();
 		                	CharSequence text = "Photo Added!";
 		                	int duration = Toast.LENGTH_LONG;
@@ -280,10 +265,7 @@ public class AuthorAnswerActivity extends CustomActivity {
 		                compressedData = blob.toByteArray();
 		                
 		                Log.i("size of byte array", ""+ (int)compressedData.length);
-//		                answer = ApplicationState.getPassableAnswer();
-//		                answer.setPhoto(compressedData);
-		                //your_imgv.setImageBitmap(bitmap);
-		                //profilePicPath = photoUri.toString();
+		                
 		            } catch (Exception e) {
 		                e.printStackTrace();
 		            }

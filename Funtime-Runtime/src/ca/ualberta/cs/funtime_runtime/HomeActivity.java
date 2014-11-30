@@ -71,20 +71,13 @@ public class HomeActivity extends CustomActivity {
 		
 		homeListView = (ListView) findViewById(R.id.questionListView);
 
-		//homeQuestionList = new ArrayList<Question>();
-		//loadServerQuestions();
 		homeQuestionList = ApplicationState.getQuestionList(this);
-		//loadServerQuestions();
 
 		Log.i("HomeActivity", "Retrieved question list");
 		
 		sorter = new QuestionSorter(homeQuestionList);
 
 		Log.i("HomeActivity", "Sorted");
-		
-//		Geolocation go = new Geolocation(this);
-//		go.findLocation();
-//		Toast.makeText(this, go.getLocation(), Toast.LENGTH_LONG).show();
 		
 		account = ApplicationState.getAccount();
 		adapter = new QuestionListAdapter(this, R.layout.question_list_adapter,
@@ -111,17 +104,6 @@ public class HomeActivity extends CustomActivity {
 		
 	}
 
-//	private void loadServerQuestions() {
-//		Thread loadThread = new SearchThread("*");
-//		//Thread loadThread = new LoadHomeThread("*", homeQuestionList, adapter);
-//		loadThread.start();	
-//		
-//		try {
-//			loadThread.join();
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//	}
 
 	
 
@@ -305,27 +287,6 @@ public class HomeActivity extends CustomActivity {
 	}
 
 	// Comparator code http://stackoverflow.com/questions/5927109/sort-objects-in-arraylist-by-date  - Nov 20/2014, by Domchi
-//	class SearchThread extends Thread {
-//		private String search;
-//		
-//		public SearchThread(String s){		
-//			search = s;
-//		}
-//		
-//		@Override
-//		public void run() {
-//			ArrayList<Question> appStateList = ApplicationState.getQuestionList();
-////			homeQuestionList.clear();		
-////			homeQuestionList.addAll(questionManager.searchQuestions(search, null));			
-//			runOnUiThread(updateHomeUI);	
-//		}
-//		
-//		private Runnable updateHomeUI = new Runnable() {
-//			public void run() {
-//				adapter.notifyDataSetChanged();
-//			}
-//		};
-//	}
 
 
 }

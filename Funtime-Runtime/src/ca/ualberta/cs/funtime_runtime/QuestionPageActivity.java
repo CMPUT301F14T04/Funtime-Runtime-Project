@@ -60,12 +60,6 @@ public class QuestionPageActivity extends CustomActivity {
 	ImageButton bookmark_button;
 	ImageButton photo_button;
 	Question question;
-	
-	/*
-	ArrayList<Question> favourited_list;
-	ArrayList<Question> upvoted_list;
-	ArrayList<Question> bookmarked_list;
-	*/
 
 	ArrayList<Integer> favourited_id_list;
 	ArrayList<Integer> upvoted_id_list;
@@ -151,10 +145,7 @@ public class QuestionPageActivity extends CustomActivity {
 			}
 			rating = question.getRating();
 			questionUpvote.setText(Integer.toString(rating));
-			
-			//Toast.makeText(this, rating, Toast.LENGTH_LONG).show();
-
-			
+						
 	
 			bookmarked_id_list = account.getReadingList();
 			if (bookmarked_id_list.contains(question.getId())) {
@@ -310,7 +301,6 @@ public class QuestionPageActivity extends CustomActivity {
 		answerListView.setAdapter(adapter);
 
 		rating = question.getRating();
-		//Toast.makeText(this, rating, Toast.LENGTH_LONG).show();
 		questionUpvote.setText(Integer.toString(rating));
 
 		answersTitle.setText("Answers (" + answerList.size() + ")");
@@ -389,30 +379,18 @@ public class QuestionPageActivity extends CustomActivity {
 		// Note: using the home icon will not save the question status (can upvote many times)
 		//Thread updateThread = new UpdateQuestionThread(question);
 		if (ApplicationState.isLoggedIn()) {
-			//question = ApplicationState.refreshQuestion(question, this);
 			if (upvoted) {
-				//question.downVote();
 				account.downvoteQuestion(question, this);
-//				question = ApplicationState.refreshQuestion(question, this);
-//				rating = question.getRating();
-//				questionUpvote.setText(Integer.toString(rating));
 				rating--;
 				questionUpvote.setTextColor(Color.parseColor("#000000"));
 				upvoted = false;
 				
 			} else {
-				//question.upVote();
 				account.upvoteQuestion(question, this);
-				//question.upVote();
 				rating++;
-				//question = ApplicationState.refreshQuestion(question, this);
-//				rating = question.getRating();
-//				questionUpvote.setText(Integer.toString(rating));
 				questionUpvote.setTextColor(upvote_color);
 				upvoted = true;
 			}
-			//ApplicationState.syncCachedQuestions(this);
-			//question = ApplicationState.refreshQuestion(question, this);
 			ApplicationState.cacheQuestion(question, this);
 			questionUpvote.setText(Integer.toString(rating));
 			ApplicationState.updateAccount(this);
@@ -472,11 +450,6 @@ public class QuestionPageActivity extends CustomActivity {
 		adapter.notifyDataSetChanged();
 	}
 	
-//	@Override
-//	public void sortLocation() {
-//		sorter.sortByLocation(this);
-//		adapter.notifyDataSetChanged();
-//	}
 	
 	
 	

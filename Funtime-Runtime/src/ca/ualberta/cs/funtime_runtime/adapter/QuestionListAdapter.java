@@ -30,8 +30,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 	int res;
 	LayoutInflater inflater;
 	Account account;
-	
-	//ArrayList<Question> favouritesList;
+
 	ArrayList<Integer> favouritesIdList;
 	ArrayList<Integer> upvotedIdList;	
 	
@@ -107,11 +106,8 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 		questionDateTextView.setText("Posted: " + questionDateString);
 		
 		TextView questionLocationTextView = (TextView) theView.findViewById(R.id.adapterLocation);
-		//Log.i("Location", question.getLocation());
 		
 		questionLocationTextView.setText("Location: " + question.getLocation());
-		//String questionLocationString = question.getStringLocation();
-		//questionLocationTextView.setText("Location: " + questionLocationString);
 		
 		
 		loggedIn = ApplicationState.isLoggedIn();
@@ -135,15 +131,7 @@ public class QuestionListAdapter extends ArrayAdapter<Question> {
 				ratingTextView.setTextColor(Color.parseColor("#000000"));
 			}
 		}
-
-
-
-
-		
-
-		
-
-		
+	
 		return theView;
 	}
 

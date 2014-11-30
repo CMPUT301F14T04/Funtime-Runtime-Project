@@ -54,11 +54,6 @@ public class CreateAccountActivity extends CustomActivity {
             	EditText createUsernameText = (EditText) findViewById(R.id.loginField);
                 String newUsername = createUsernameText.getText().toString();
                 if (newUsername.length() > 0) {
-                	// Get account list
-                	//ArrayList<Account> accountList = ApplicationState.getAccountList();
-                	//accountList = new ArrayList<Account>();
-                	//SearchThread searchThread = new SearchThread("*");
-                    //searchThread.start();
                 	accountList = ApplicationState.getAccountList();
                     
                 	// Check if account already exists
@@ -85,8 +80,6 @@ public class CreateAccountActivity extends CustomActivity {
                 		newAccount.setId(id);
                 		ApplicationState.addAccount(newAccount);
                 		ApplicationState.addServerAccount(newAccount);
-                		//AddThread addThread = new AddThread(newAccount);
-                		//addThread.start();
 
                     	// Login the new account
                     	ApplicationState.setAccount(newAccount, ctx); 
@@ -108,45 +101,14 @@ public class CreateAccountActivity extends CustomActivity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
+	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.create_account, menu);
 		return true;
 	}
 	
-//	class SearchThread extends Thread {
-//		private String search;
-//		
-//		public SearchThread(String s){		
-//			search = s;
-//		}
-//		
-//		@Override
-//		public void run() {
-//			accountList.clear();		
-//			accountList.addAll(manager.searchAccounts(search, null));				
-//		}
-//	}
-//	
-//	 class AddThread extends Thread {
-//		private Account account;
-//
-//		public AddThread(Account account) {
-//			this.account = account;
-//		}
-//
-//		@Override
-//		public void run() {
-//			manager.addAccount(account);
-//
-//			try {
-//				Thread.sleep(500);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//	 }
+
+
 
 	
 }

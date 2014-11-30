@@ -38,7 +38,6 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 	LayoutInflater inflater;
 	Account account;
 	ArrayList<Integer> upvotedList;
-	//ESQuestionManager manager = new ESQuestionManager();
 	UpdateQuestionThread updateThread;
 	int has_photo_color = Color.parseColor("#228b22");
 	boolean loggedIn;
@@ -169,8 +168,6 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 //				Question question = ApplicationState.getPassableQuestion();
 				Answer answer = getItem((Integer) v.getTag());
 				
-				//answer = ApplicationState.refreshAnswer(answer, ctx);
-				
 				int rating = answer.getRating();
 				
 				Account account = ApplicationState.getAccount();
@@ -221,11 +218,4 @@ public class AnswerListAdapter extends ArrayAdapter<Answer> {
 		return theView;
 	}
 	
-//	public void show_answerPhoto(View v) {
-//		Context context = getContext();
-//		Intent bootPhoto = new Intent(context, ShowAnswerPhoto.class);
-//		bootPhoto.putExtra("answerPhoto", answer.getPhoto());
-//		bootPhoto.putExtra("hasAnswerPhoto?", answer.getPhotoStatus());
-//		context.startActivity(bootPhoto);
-//	}
 }

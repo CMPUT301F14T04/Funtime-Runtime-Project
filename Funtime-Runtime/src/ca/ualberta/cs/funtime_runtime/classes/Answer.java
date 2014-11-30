@@ -31,7 +31,6 @@ public class Answer implements Serializable {
 	
 	private boolean hasPhoto = false;
 
-	//private  Bitmap answerPhotoBitmap;
 	private String location = "N/A";
 	
 
@@ -77,12 +76,6 @@ public class Answer implements Serializable {
 	 */
 	public void upVote() {
 		rating++;
-//		if ( (ApplicationState.isOnline(context)) ) {
-//			Question parentQuestion = ApplicationState.getQuestionById(parentQuestionId);
-//			ApplicationState.updateServerQuestion(parentQuestion);
-//		} else {
-//			ApplicationState.addOfflineAnswerUpvote(getId(), context);
-//		}
 		
 	}
 
@@ -91,12 +84,6 @@ public class Answer implements Serializable {
 	 */
 	public void downVote()	{
 		rating--;
-//		if ( (ApplicationState.isOnline(context)) ) {
-//			Question parentQuestion = ApplicationState.getQuestionById(parentQuestionId);
-//			ApplicationState.updateServerQuestion(parentQuestion);
-//		} else {
-//			ApplicationState.addOfflineAnswerDownvote(getId(), context);
-//		}
 		
 	}
 	
