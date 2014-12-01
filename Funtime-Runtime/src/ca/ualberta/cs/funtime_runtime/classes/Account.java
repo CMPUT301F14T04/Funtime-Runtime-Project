@@ -78,7 +78,7 @@ public class Account implements Serializable {
 		questionList.add(question.getId());
 		ApplicationState.updateAccount(context);
 		ApplicationState.addServerQuestions(question, context);
-		//ApplicationState.cacheQuestion(question, context);
+		ApplicationState.cacheQuestion(question, context);
 	}
 
 	/**
