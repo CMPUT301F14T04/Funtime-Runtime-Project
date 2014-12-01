@@ -304,7 +304,7 @@ public class QuestionPageActivity extends CustomActivity {
 		questionUpvote.setText(Integer.toString(rating));
 
 		answersTitle.setText("Answers (" + answerList.size() + ")");
-
+		repliesText.setText("Replies: " + question.getReplyCount());
 		adapter.notifyDataSetChanged();
 	}
 	
