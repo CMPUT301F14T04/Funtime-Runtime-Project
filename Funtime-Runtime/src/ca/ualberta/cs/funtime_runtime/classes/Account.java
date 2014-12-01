@@ -234,6 +234,7 @@ public class Account implements Serializable {
 		} else {
 			ApplicationState.addOfflineQuestionUpvote(q.getId(), context);
 		}
+		ApplicationState.cacheQuestion(question, context);
 		ApplicationState.updateAccount(context);
 	}
 	
@@ -255,6 +256,7 @@ public class Account implements Serializable {
 		} else {
 			ApplicationState.addOfflineQuestionDownvote(q.getId(), context);
 		}
+		ApplicationState.cacheQuestion(question, context);
 		ApplicationState.updateAccount(context);
 	}
 	
@@ -284,6 +286,7 @@ public class Account implements Serializable {
 		} else {
 			ApplicationState.addOfflineAnswerUpvote(new OfflineAnswer(a.getId(), a.getParentQuestionId()), context);
 		}
+		ApplicationState.cacheQuestion(ApplicationState.getQuestionById(a.getParentQuestionId()), context);
 		ApplicationState.updateAccount(context);
 		
 	}
@@ -305,8 +308,9 @@ public class Account implements Serializable {
 			ApplicationState.updateServerQuestion(ApplicationState.getQuestionById(a.getParentQuestionId()));
 		} else {
 			ApplicationState.addOfflineQuestionUpvote(a.getId(), context);
-			ApplicationState.syncCachedQuestions(context);
+//			ApplicationState.syncCachedQuestions(context);
 		}
+		ApplicationState.cacheQuestion(ApplicationState.getQuestionById(a.getParentQuestionId()), context);
 		ApplicationState.updateAccount(context);
 	}
 	

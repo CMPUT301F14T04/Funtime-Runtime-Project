@@ -82,8 +82,9 @@ public class ApplicationState extends Application {
 	 */
 	public static void startup(Context context) {
 		//Refresh application state
-		refresh(context);
 		checkLogin(context);
+		refresh(context);
+//		checkLogin(context);
 		firstLaunch = false;
 		if ( isLoggedIn() ) {
 			Toast.makeText(context, "Logged in as " + account.getName(), Toast.LENGTH_LONG).show();
