@@ -441,12 +441,18 @@ public class ApplicationState extends Application {
 	 * @param context		The context of the current activity.
 	 */
 	public static void syncCachedQuestions(Context context) {
+		//questionList = getQuestionList(context);
 		ArrayList<Question> newCache = new ArrayList<Question>();
 		for (Question cacheQuestion: cachedQuestions) {
-			Question q = ApplicationState.getQuestionById(cacheQuestion.getId());
-			if ( !(q.getTitle().equals("INVALID QUID")) ) {
+			try {
+				Question q = ApplicationState.getQuestionById(cacheQuestion.getId(), context);
 				newCache.add(q);
+			} catch (Exception e) {
+				
 			}
+			//if ( !(q.getTitle().equals("INVALID QUID")) ) {
+			//newCache.add(q);
+			//}
 		}
 		cachedQuestions.clear();
 		cachedQuestions.addAll(newCache);
@@ -496,17 +502,25 @@ public class ApplicationState extends Application {
 	 * @param question		An answer to refresh locally from newest server data.
 	 * @param context		The context of the current activity.
 	 * @return				The updated answer.
+	 * @throws Exception 
 	 */
 	public static Answer refreshAnswer(Answer answer, Context context) {
 		Integer parentID = answer.getParentQuestionId();
-		Question parentQuestion = ApplicationState.getQuestionById(parentID);
-		parentQuestion = ApplicationState.refreshQuestion(parentQuestion, context);
-		ArrayList<Answer> newestAnswers = parentQuestion.getAnswerList();
-		for (Answer a: newestAnswers) {
-			if (a.equals(answer)) {
-				return a;
+		Question parentQuestion;
+		try {
+			parentQuestion = ApplicationState.getQuestionById(parentID, context);		
+			parentQuestion = ApplicationState.refreshQuestion(parentQuestion, context);
+			ArrayList<Answer> newestAnswers = parentQuestion.getAnswerList();
+			for (Answer a: newestAnswers) {
+				if (a.equals(answer)) {
+					return a;
+				}
 			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
 		return answer;
 	}
 
@@ -515,15 +529,17 @@ public class ApplicationState extends Application {
 	 * 
 	 * @param qId		The Id of the question to search for.
 	 * @return			The question with the matching Id.
+	 * @throws Exception 
 	 */
-	public static Question getQuestionById(Integer qId) {
+	public static Question getQuestionById(Integer qId, Context context) throws Exception {
+		//questionList = getQuestionList(context);
 		for (Question q: questionList) {
 			Log.i("GetQById", "Comparing " + qId + " to " + q.getId());
 			if (qId.equals(q.getId())) {
 				return q;
 			}
 		}
-		return questionList.get(0);
+		throw new Exception();
 	}
 
 	/**
@@ -850,9 +866,16 @@ public class ApplicationState extends Application {
 		for (int i = 0; i < offlineAnswers.size(); i++) {
 			Answer a = offlineAnswers.get(i);
 			Integer parentQId = a.getParentQuestionId();
-			Question parentQ = ApplicationState.getQuestionById(parentQId);
-			parentQ.addAnswer(a);
-			updateServerQuestion(parentQ);
+			Question parentQ;
+			try {
+				parentQ = ApplicationState.getQuestionById(parentQId, context);
+				parentQ.addAnswer(a);
+				updateServerQuestion(parentQ);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 		offlineAnswers.clear();
 		saveManager.save(OFFLINEANSWERS, offlineAnswers, context);
@@ -868,9 +891,16 @@ public class ApplicationState extends Application {
 		for (int i = 0; i < offlineQuestionReplies.size(); i++) {
 			Reply r = offlineQuestionReplies.get(i);
 			Integer parentQId = r.getParentQuestionId();
-			Question parentQ = ApplicationState.getQuestionById(parentQId);
-			parentQ.addReply(r);
-			updateServerQuestion(parentQ);
+			Question parentQ;
+			try {
+				parentQ = ApplicationState.getQuestionById(parentQId, context);
+				parentQ.addReply(r);
+				updateServerQuestion(parentQ);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		offlineQuestionReplies.clear();
 		saveManager.save(OFFLINEQUESTIONREPLIES, offlineQuestionReplies, context);
@@ -887,11 +917,18 @@ public class ApplicationState extends Application {
 		for (int i = 0; i < offlineAnswerReplies.size(); i++) {
 			Reply r = offlineAnswerReplies.get(i);
 			Integer parentQId = r.getParentQuestionId();
-			Question parentQ = ApplicationState.getQuestionById(parentQId);
-			Integer parentAId = r.getParentAnswerId();
-			Answer parentA = parentQ.getAnswerById(parentAId);
-			parentA.addReply(r);
-			updateServerQuestion(parentQ);
+			Question parentQ;
+			try {
+				parentQ = ApplicationState.getQuestionById(parentQId, context);
+				Integer parentAId = r.getParentAnswerId();
+				Answer parentA = parentQ.getAnswerById(parentAId);
+				parentA.addReply(r);
+				updateServerQuestion(parentQ);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 		}
 		offlineAnswerReplies.clear();
 		saveManager.save(OFFLINEANSWERREPLIES, offlineAnswerReplies, context);
@@ -905,9 +942,16 @@ public class ApplicationState extends Application {
 	 */
 	public static void pushOfflineQuestionUpvotes(Context context) {
 		for (int i = 0; i < offlineQuestionUpvotes.size(); i++) {	
-			Question q = getQuestionById(offlineQuestionUpvotes.get(i));
-			q.upVote();
-			ApplicationState.updateServerQuestion(q);
+			Question q;
+			try {
+				q = getQuestionById(offlineQuestionUpvotes.get(i), context);
+				q.upVote();
+				ApplicationState.updateServerQuestion(q);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		offlineQuestionUpvotes.clear();
 		saveManager.save(OFFLINEQUESTIONUPVOTES, offlineQuestionUpvotes, context);
@@ -921,9 +965,16 @@ public class ApplicationState extends Application {
 	 */
 	public static void pushOfflineQuestionDownvotes(Context context) {
 		for (int i = 0; i < offlineQuestionDownvotes.size(); i++) {
-			Question q = getQuestionById(offlineQuestionDownvotes.get(i));
-			q.downVote();
-			ApplicationState.updateServerQuestion(q);
+			Question q;
+			try {
+				q = getQuestionById(offlineQuestionDownvotes.get(i), context);
+				q.downVote();
+				ApplicationState.updateServerQuestion(q);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		offlineQuestionDownvotes.clear();
 		saveManager.save(OFFLINEQUESTIONDOWNVOTES, offlineQuestionDownvotes, context);
@@ -936,10 +987,17 @@ public class ApplicationState extends Application {
 	 */
 	public static void pushOfflineAnswerUpvotes(Context context) {
 		for (int i = 0; i < offlineAnswerUpvotes.size(); i++) {
-			Question parentQ = getQuestionById(offlineAnswerUpvotes.get(i).getParentQuestionId());
-			Answer a = parentQ.getAnswerById(offlineAnswerUpvotes.get(i).getAnswerId());
-			a.upVote();
-			ApplicationState.updateServerQuestion(parentQ);
+			Question parentQ;
+			try {
+				parentQ = getQuestionById(offlineAnswerUpvotes.get(i).getParentQuestionId(), context);
+				Answer a = parentQ.getAnswerById(offlineAnswerUpvotes.get(i).getAnswerId());
+				a.upVote();
+				ApplicationState.updateServerQuestion(parentQ);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
 		}
 		offlineAnswerUpvotes.clear();
 		saveManager.save(OFFLINEANSWERUPVOTES, offlineAnswerUpvotes, context);
@@ -952,10 +1010,17 @@ public class ApplicationState extends Application {
 	 */
 	public static void pushOfflineAnswerDownvotes(Context context) {
 		for (int i = 0; i < offlineAnswerDownvotes.size(); i++) {
-			Question parentQ = getQuestionById(offlineAnswerDownvotes.get(i).getParentQuestionId());
-			Answer a = parentQ.getAnswerById(offlineAnswerDownvotes.get(i).getAnswerId());
-			a.downVote();
-			ApplicationState.updateServerQuestion(parentQ);
+			Question parentQ;
+			try {
+				parentQ = getQuestionById(offlineAnswerDownvotes.get(i).getParentQuestionId(), context);
+				Answer a = parentQ.getAnswerById(offlineAnswerDownvotes.get(i).getAnswerId());
+				a.downVote();
+				ApplicationState.updateServerQuestion(parentQ);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 		}
 		offlineAnswerDownvotes.clear();
 		saveManager.save(OFFLINEANSWERDOWNVOTES, offlineAnswerDownvotes, context);
